@@ -332,6 +332,27 @@ agência estatal, que a tela marca), `no_text_by_policy` (`true` para domínio c
 `reason`). O robô recusa fonte sem `robots_checked_on` nos últimos 180 dias: é o
 Arquivista do AtlasPen aplicado às fontes.
 
+Leitura adotada na carga de 09/11/2026 (fase 1, sessão 2):
+
+- **Uma entrada por canal**, não por organização: a Anistia tem `amnesty` (relatório
+  anual, função 1) e `amnesty-news` (RSS, função 2); o TEDH tem `echr` (RSS) e `hudoc`
+  (JSON). Assim `function` continua um número só.
+- `state` vale para todas: `active` quer dizer que a fonte pode ser citada e usada como o
+  `02-fontes.md` decidiu, inclusive só à mão (CICV, N-Lex, Corte IDH); `suspended` é o
+  que espera reconferência ou gesto humano (ReliefWeb sem `appname`, LoC, WorldLII);
+  `discarded`, o que ficou fora por termos, `robots.txt`, custo ou irrelevância.
+- `reason` existe em **toda** entrada e diz o veredito em uma frase, em inglês, como
+  dado. Não é texto localizado: a página de fontes, quando existir, decide se o traduz
+  (depende da D4).
+- `api` = `yes` quando há saída legível por máquina verificada ou documentada (XML,
+  JSON, SPARQL), sem contar RSS.
+- `robots_checked_on` = `2026-11-06` onde o `02-fontes.md` registra o resultado da
+  leitura do `robots.txt` do host (regras citadas, ou 404 simples, que pela RFC 9309 não
+  restringe); `null` onde ele diz "não lido", 403, 500, 202, *timeout*, ou lista o host
+  em "O que a sondagem não conseguiu".
+- `rate_limit_per_minute` vem do `Crawl-delay` (10 s → 6) ou do limite declarado pela
+  fonte (GDELT, 5 s → 12); sem nenhum dos dois, `null`.
+
 ## Léxico (`lexicon/<lang>.json`)
 
 Formato do `lexico.schema.json` do Argos, com as chaves traduzidas e sem outra
@@ -394,6 +415,15 @@ O contrato dos dados é em inglês e não se traduz. O que se traduz é o que se
 | **Nomes** de país e de situação | `name` por *locale* no registro | nome em inglês obrigatório; o de cada *locale* ativo, cobrado no relatório |
 | **Telas** | textos da interface em `site/i18n/<locale>.json` | uma versão por *locale* ativo; rotas iguais nas duas línguas (ver `04-arquitetura.md`) |
 | **Texto de terceiro** (título de notícia, nome do caso, título de código penal, `by` de status) | no registro, na língua original, com `language` | nunca traduzido no lugar; a tradução, se houver, vai para `title_translations` |
+
+**Chave dos rótulos** (adotada em 09/11/2026, lista em `scripts/vocabularies.py`): o
+campo é rotulado pelo caminho dentro do registro, com ponto para bloco aninhado e sem
+índice de lista (`penal_code.exists`, `statuses.code`, `case.parties.role`); os campos
+que significam o mesmo em qualquer bloco (`url`, `source`, `read_on`, `confidence`,
+`checked_by`, `note`, `reason`, `author`, `text`) são rotulados uma vez, pelo nome solto;
+o valor é `<chave do campo>.<valor>` (`death_penalty.status.retentionist`,
+`confidence.A`, `level.3`, `function.1`). Os booleanos e as categorias do léxico ainda
+não têm rótulo: as categorias nascem com o léxico, na sessão 3 da fase 1.
 
 *Locales* ativos no MVP: `en` e `pt-BR`. As chaves de *locale* seguem a BCP 47
 (`pt-BR`); a língua de documento de terceiro segue a ISO 639-1 (`pt`), que é o que as
