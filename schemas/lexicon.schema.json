@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/luccas-amorim/astraea/schemas/lexicon.schema.json",
+  "title": "Astraea lexicon",
+  "description": "Vocabulary declared in a file, one per language. The engine validates and applies it; the research maintains the terms. Derived from the Alétheia lexicon schema (MIT).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "terms"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1, "description": "Stable identifier of the lexicon." },
+    "version": { "type": "string", "minLength": 1, "description": "Date or version; goes to every output item and to the catalogue." },
+    "description": { "type": "string" },
+    "terms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "forms"],
+        "properties": {
+          "key": { "type": "string", "minLength": 1, "description": "Unique in the lexicon; it is what the output cites." },
+          "forms": {
+            "type": "array", "minItems": 1,
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Spellings that count as the term. Case and accents ignored; whole word. An ellipsis (…) stands for up to 60 arbitrary characters, without crossing a semicolon or a line break."
+          },
+          "exclusions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Expressions that, when they contain the occurrence, cancel it."
+          },
+          "weight": { "type": "number", "exclusiveMinimum": 0, "default": 1.0 },
+          "categories": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Cataloguing facets (court, qualification, situation...). They go to the output and to the catalogue along with the key."
+          },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requires_any"],
+      "properties": {
+        "requires_any": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Without at least one of these in the text, the item does not go beyond level 1."
+        },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

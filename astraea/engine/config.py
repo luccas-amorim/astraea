@@ -1,23 +1,24 @@
-"""A configuração do observatório: qual léxico, quais fontes, onde gravar.
+"""The run configuration: which lexicon, which sources, where to write.
 
     {
-      "lexico": "lexico.json",
-      "diretorio": ".",
-      "desde": "1996-01-01",
-      "margem_dias": 7,
-      "guardar_texto": false,
-      "catalogo": {"arquivo": "catalogo.csv", "nivel_minimo": 3},
-      "vistas": {"arquivo": "vistas.csv", "nivel_minimo": 2},
-      "arquivo": {"resolver": true, "limite_por_minuto": 15},
-      "fontes": [{"tipo": "wayback", "id": "wayback:ponte", "prefixos": ["ponte.org/"],
-                  "estrato": "imprensa"}]
+      "lexicon": "data/lexicon/en.json",
+      "directory": ".",
+      "since": "2026-11-01",
+      "margin_days": 7,
+      "store_text": false,
+      "catalog": {"file": "catalog.csv", "min_level": 3},
+      "observations": {"file": "observations.csv", "min_level": 2},
+      "archive": {"resolve": true, "rate_limit_per_minute": 15},
+      "sources": [{"type": "rss", "id": "rss:un-news-en",
+                   "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+                   "stratum": "press"}]
     }
 
-Caminhos relativos são resolvidos a partir do arquivo de configuração. Em `diretorio`
-moram `estado/`, `corpus/`, `saidas/`, o catálogo e as vistas.
+Relative paths are resolved from the configuration file. `state/`, `corpus/`, `runs/`, the
+catalogue and the observations live in `directory`.
 
-`estrato` é obrigatório para a estimativa fazer sentido: captura e recaptura só compara
-canais que olham para a mesma população. `validar()` recusa estrato fora da lista.
+`stratum` is required for the estimate to make sense: capture-recapture only compares
+channels that look at the same population. `validate()` refuses a stratum outside the list.
 """
 
 from __future__ import annotations
@@ -27,136 +28,136 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-ESTRATOS = ("imprensa", "imprensa-historica", "academico", "juridico", "memoria", "geral")
+STRATA = ("press", "historical-press", "academic", "legal", "memory", "general")
 
 
 @dataclass(frozen=True)
 class Config:
-    lexico: Path
-    diretorio: Path
-    fontes: tuple[dict, ...]
-    desde: date | None = None
-    # Quanto voltar antes da última rodada: fonte que publica com atraso ou com data
-    # retroativa não escapa. O estado impede a releitura do que já foi visto.
-    margem_dias: int = 2
-    # False: o texto integral é lido, triado e descartado; nada vai para `corpus/`.
-    guardar_texto: bool = True
-    # {"arquivo": "catalogo.csv", "nivel_minimo": 3}: o catálogo CSV cumulativo.
-    catalogo: dict | None = None
-    # {"arquivo": "vistas.csv", "nivel_minimo": 2}: a matriz documento × canal × rodada.
-    vistas: dict | None = None
-    # {"resolver": true, "limite_por_minuto": 15}: procurar no Wayback a cópia de
-    # referência dos itens que vieram de outros canais.
-    arquivo: dict | None = None
+    lexicon: Path
+    directory: Path
+    sources: tuple[dict, ...]
+    since: date | None = None
+    # How far to go back before the last run: a source that publishes late or with a
+    # backdated date does not escape. The state prevents re-reading what was already seen.
+    margin_days: int = 2
+    # False: the full text is read, triaged and discarded; nothing goes to `corpus/`.
+    store_text: bool = True
+    # {"file": "catalog.csv", "min_level": 3}: the cumulative CSV catalogue.
+    catalog: dict | None = None
+    # {"file": "observations.csv", "min_level": 2}: the document × channel × run matrix.
+    observations: dict | None = None
+    # {"resolve": true, "rate_limit_per_minute": 15}: look up in the Wayback the reference
+    # copy of items that came from other channels.
+    archive: dict | None = None
 
     @property
-    def catalogo_csv(self) -> Path | None:
-        if not self.catalogo:
+    def catalog_csv(self) -> Path | None:
+        if not self.catalog:
             return None
-        return self.diretorio / self.catalogo.get("arquivo", "catalogo.csv")
+        return self.directory / self.catalog.get("file", "catalog.csv")
 
     @property
-    def catalogo_nivel(self) -> int:
-        return int((self.catalogo or {}).get("nivel_minimo", 3))
+    def catalog_level(self) -> int:
+        return int((self.catalog or {}).get("min_level", 3))
 
     @property
-    def vistas_csv(self) -> Path | None:
-        if self.vistas is None:
+    def observations_csv(self) -> Path | None:
+        if self.observations is None:
             return None
-        return self.diretorio / self.vistas.get("arquivo", "vistas.csv")
+        return self.directory / self.observations.get("file", "observations.csv")
 
     @property
-    def vistas_nivel(self) -> int:
-        return int((self.vistas or {}).get("nivel_minimo", 2))
+    def observations_level(self) -> int:
+        return int((self.observations or {}).get("min_level", 2))
 
     @property
-    def resolver_arquivo(self) -> bool:
-        return bool((self.arquivo or {}).get("resolver", False))
+    def resolve_archive(self) -> bool:
+        return bool((self.archive or {}).get("resolve", False))
 
     @property
-    def estado(self) -> Path:
-        return self.diretorio / "estado"
+    def state(self) -> Path:
+        return self.directory / "state"
 
     @property
     def corpus(self) -> Path:
-        return self.diretorio / "corpus"
+        return self.directory / "corpus"
 
     @property
-    def saidas(self) -> Path:
-        return self.diretorio / "saidas"
+    def runs(self) -> Path:
+        return self.directory / "runs"
 
-    def estrato_de(self, fonte: str) -> str:
-        for f in self.fontes:
-            if f.get("id") == fonte:
-                return f.get("estrato", "geral")
-        return "geral"
+    def stratum_of(self, source: str) -> str:
+        for s in self.sources:
+            if s.get("id") == source:
+                return s.get("stratum", "general")
+        return "general"
 
 
-def validar(dados: dict) -> list[str]:
-    """Problemas de forma e de método; vazia quando a configuração está sã."""
-    problemas: list[str] = []
-    if not isinstance(dados, dict):
-        return ["a raiz precisa ser um objeto"]
-    if not dados.get("lexico"):
-        problemas.append("lexico: obrigatório")
-    fontes = dados.get("fontes") or []
-    if not fontes:
-        problemas.append("fontes: nenhuma fonte configurada")
-    ids = [f.get("id") for f in fontes]
+def validate(data: dict) -> list[str]:
+    """Problems of form and of method; empty when the configuration is sound."""
+    problems: list[str] = []
+    if not isinstance(data, dict):
+        return ["the root must be an object"]
+    if not data.get("lexicon"):
+        problems.append("lexicon: required")
+    sources = data.get("sources") or []
+    if not sources:
+        problems.append("sources: no source configured")
+    ids = [s.get("id") for s in sources]
     if len(set(ids)) != len(ids):
-        problemas.append("fontes: ids repetidos")
-    for f in fontes:
-        onde = f"fontes[{f.get('id') or '?'}]"
-        if not f.get("id"):
-            problemas.append(f"{onde}: sem id")
-        if not f.get("tipo"):
-            problemas.append(f"{onde}: sem tipo")
-        estrato = f.get("estrato")
-        if estrato is None:
-            problemas.append(f"{onde}: sem estrato (um de {', '.join(ESTRATOS)})")
-        elif estrato not in ESTRATOS:
-            problemas.append(f"{onde}: estrato desconhecido {estrato!r}")
-        if ":" in (f.get("id") or "") and f["id"].split(":", 1)[0] != f.get("tipo"):
-            problemas.append(
-                f"{onde}: o prefixo do id ({f['id'].split(':', 1)[0]}) precisa ser o tipo "
-                f"({f.get('tipo')}): é por ele que a estimativa agrupa os canais"
+        problems.append("sources: repeated ids")
+    for s in sources:
+        where = f"sources[{s.get('id') or '?'}]"
+        if not s.get("id"):
+            problems.append(f"{where}: no id")
+        if not s.get("type"):
+            problems.append(f"{where}: no type")
+        stratum = s.get("stratum")
+        if stratum is None:
+            problems.append(f"{where}: no stratum (one of {', '.join(STRATA)})")
+        elif stratum not in STRATA:
+            problems.append(f"{where}: unknown stratum {stratum!r}")
+        if ":" in (s.get("id") or "") and s["id"].split(":", 1)[0] != s.get("type"):
+            problems.append(
+                f"{where}: the id prefix ({s['id'].split(':', 1)[0]}) must be the type "
+                f"({s.get('type')}): it is what the estimate groups channels by"
             )
-    for chave in ("catalogo", "vistas"):
-        bloco = dados.get(chave)
-        if bloco is not None:
-            nivel = bloco.get("nivel_minimo", 3 if chave == "catalogo" else 2)
-            if not isinstance(nivel, int) or not 0 <= nivel <= 3:
-                problemas.append(f"{chave}.nivel_minimo: inteiro de 0 a 3")
-    cat = (dados.get("catalogo") or {}).get("nivel_minimo", 3)
-    vis = (dados.get("vistas") or {}).get("nivel_minimo", 2)
-    if isinstance(cat, int) and isinstance(vis, int) and vis > cat:
-        problemas.append("vistas.nivel_minimo não pode ser maior que catalogo.nivel_minimo")
-    if dados.get("desde"):
+    for key in ("catalog", "observations"):
+        block = data.get(key)
+        if block is not None:
+            level = block.get("min_level", 3 if key == "catalog" else 2)
+            if not isinstance(level, int) or not 0 <= level <= 3:
+                problems.append(f"{key}.min_level: integer from 0 to 3")
+    cat = (data.get("catalog") or {}).get("min_level", 3)
+    obs = (data.get("observations") or {}).get("min_level", 2)
+    if isinstance(cat, int) and isinstance(obs, int) and obs > cat:
+        problems.append("observations.min_level cannot be greater than catalog.min_level")
+    if data.get("since"):
         try:
-            date.fromisoformat(dados["desde"])
+            date.fromisoformat(data["since"])
         except ValueError:
-            problemas.append("desde: use AAAA-MM-DD")
-    return problemas
+            problems.append("since: use YYYY-MM-DD")
+    return problems
 
 
-def carregar(caminho: str | Path) -> Config:
-    caminho = Path(caminho)
-    dados = json.loads(caminho.read_text(encoding="utf-8"))
-    base = caminho.parent
-    fontes = dados.get("fontes") or []
-    if not fontes:
-        raise ValueError(f"{caminho}: nenhuma fonte configurada")
-    ids = [f.get("id") for f in fontes]
+def load(path: str | Path) -> Config:
+    path = Path(path)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    base = path.parent
+    sources = data.get("sources") or []
+    if not sources:
+        raise ValueError(f"{path}: no source configured")
+    ids = [s.get("id") for s in sources]
     if len(set(ids)) != len(ids):
-        raise ValueError(f"{caminho}: ids de fonte repetidos")
+        raise ValueError(f"{path}: repeated source ids")
     return Config(
-        lexico=(base / dados["lexico"]).resolve(),
-        diretorio=(base / dados.get("diretorio", "dados")).resolve(),
-        fontes=tuple(fontes),
-        desde=date.fromisoformat(dados["desde"]) if dados.get("desde") else None,
-        margem_dias=int(dados.get("margem_dias", 2)),
-        guardar_texto=bool(dados.get("guardar_texto", True)),
-        catalogo=dados.get("catalogo"),
-        vistas=dados.get("vistas"),
-        arquivo=dados.get("arquivo"),
+        lexicon=(base / data["lexicon"]).resolve(),
+        directory=(base / data.get("directory", "data")).resolve(),
+        sources=tuple(sources),
+        since=date.fromisoformat(data["since"]) if data.get("since") else None,
+        margin_days=int(data.get("margin_days", 2)),
+        store_text=bool(data.get("store_text", True)),
+        catalog=data.get("catalog"),
+        observations=data.get("observations"),
+        archive=data.get("archive"),
     )

@@ -1,0 +1,18 @@
+{
+  "id": "example",
+  "version": "2026-10-02",
+  "description": "Minimal lexicon to illustrate the format. Real terms live in the repository of whoever maintains them.",
+  "terms": [
+    {
+      "key": "cp-art-121",
+      "forms": ["homicídio", "art. 121 do Código Penal", "art. 121, CP", "121 do CP"],
+      "exclusions": ["homicídio culposo na direção"],
+      "weight": 1.0,
+      "note": "The exclusion points to art. 302 of the Brazilian Traffic Code, which is another record."
+    }
+  ],
+  "context": {
+    "requires_any": ["pena", "condenação", "absolvição", "denúncia", "recurso"],
+    "note": "Without one of these in the text, the item stays at level 1 and does not rise."
+  }
+}

@@ -6,53 +6,53 @@ from pathlib import Path
 
 import pytest
 
-from astraea.engine.http import Requisicao, Resposta
-from tests.apoio import BASE, FEED
+from astraea.engine.http import Request, Response
+from tests.support import BASE, FEED
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
-class Rede:
-    """Transporte falso: responde por URL exata (sem query) a partir de fixtures."""
+class Network:
+    """Fake transport: answers by exact URL (without query) from fixtures."""
 
     def __init__(self) -> None:
-        self.rotas: dict[str, list[Resposta]] = {}
-        self.pedidos: list[Requisicao] = []
+        self.routes: dict[str, list[Response]] = {}
+        self.requests: list[Request] = []
 
-    def responder(
+    def answer(
         self,
         url: str,
-        corpo: bytes | str | Path,
+        body: bytes | str | Path,
         status: int = 200,
-        cabecalhos: dict[str, str] | None = None,
+        headers: dict[str, str] | None = None,
     ) -> None:
-        if isinstance(corpo, Path):
-            corpo = corpo.read_bytes()
-        elif isinstance(corpo, str):
-            corpo = corpo.encode("utf-8")
-        self.rotas.setdefault(url, []).append(Resposta(status, url, corpo, cabecalhos or {}))
+        if isinstance(body, Path):
+            body = body.read_bytes()
+        elif isinstance(body, str):
+            body = body.encode("utf-8")
+        self.routes.setdefault(url, []).append(Response(status, url, body, headers or {}))
 
-    def __call__(self, req: Requisicao, tempo_limite: float) -> Resposta:
-        self.pedidos.append(req)
+    def __call__(self, req: Request, timeout: float) -> Response:
+        self.requests.append(req)
         url = req.url.split("?")[0]
-        if url not in self.rotas:
-            return Resposta(404, req.url, b"nao encontrado", {})
-        fila = self.rotas[url]
-        return fila.pop(0) if len(fila) > 1 else fila[0]
+        if url not in self.routes:
+            return Response(404, req.url, b"not found", {})
+        queue = self.routes[url]
+        return queue.pop(0) if len(queue) > 1 else queue[0]
 
     def urls(self) -> list[str]:
-        return [p.url for p in self.pedidos]
+        return [r.url for r in self.requests]
 
 
 @pytest.fixture(autouse=True)
-def sem_espera(monkeypatch):
-    """O limite por minuto é testado em test_http com relógio falso; aqui, nada dorme."""
-    monkeypatch.setattr("astraea.engine.http.time.sleep", lambda segundos: None)
+def no_waiting(monkeypatch):
+    """The per-minute limit is tested in test_http with a fake clock; here, nothing sleeps."""
+    monkeypatch.setattr("astraea.engine.http.time.sleep", lambda seconds: None)
 
 
 @pytest.fixture
-def rede() -> Rede:
-    return Rede()
+def network() -> Network:
+    return Network()
 
 
 @pytest.fixture
@@ -62,23 +62,23 @@ def fixtures() -> Path:
 
 @pytest.fixture
 def cfg(tmp_path, fixtures):
-    """Configuração mínima: um feed RSS e o léxico de amostra do Carandiru."""
-    shutil.copy(fixtures / "lexico-carandiru.json", tmp_path / "lexico.json")
-    dados = {
-        "lexico": "lexico.json",
-        "diretorio": "dados",
-        "desde": "2026-09-01",
-        "fontes": [{"tipo": "rss", "id": "rss:jornal", "url": FEED, "minimo_caracteres": 200}],
+    """Minimal configuration: one RSS feed and the sample lexicon."""
+    shutil.copy(fixtures / "lexicon-carandiru.json", tmp_path / "lexicon.json")
+    data = {
+        "lexicon": "lexicon.json",
+        "directory": "data",
+        "since": "2026-09-01",
+        "sources": [{"type": "rss", "id": "rss:paper", "url": FEED, "min_chars": 200}],
     }
-    caminho = tmp_path / "config.json"
-    caminho.write_text(json.dumps(dados), encoding="utf-8")
-    return caminho
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps(data), encoding="utf-8")
+    return path
 
 
 @pytest.fixture
-def rede_jornal(rede, fixtures):
-    rede.responder(FEED, fixtures / "rss" / "feed.xml")
-    rede.responder(f"{BASE}/carandiru-34-anos", fixtures / "rss" / "materia-carandiru.html")
-    rede.responder(f"{BASE}/drenagem", fixtures / "rss" / "materia-outra.html")
-    rede.responder(f"{BASE}/sumiu", fixtures / "rss" / "erro-200.html")
-    return rede
+def paper_network(network, fixtures):
+    network.answer(FEED, fixtures / "rss" / "feed.xml")
+    network.answer(f"{BASE}/carandiru-34-anos", fixtures / "rss" / "article-carandiru.html")
+    network.answer(f"{BASE}/drenagem", fixtures / "rss" / "article-other.html")
+    network.answer(f"{BASE}/sumiu", fixtures / "rss" / "error-200.html")
+    return network

@@ -1,10 +1,10 @@
 import pytest
 
-from astraea.engine.url import dominio, identidade, normalizar, original_do_wayback
+from astraea.engine.url import domain, identity, normalize, original_from_wayback
 
 
 @pytest.mark.parametrize(
-    ("url", "esperado"),
+    ("url", "expected"),
     [
         ("https://www.Jornal.br/a/b/", "jornal.br/a/b"),
         ("http://jornal.br/a/b?utm_source=x&id=3", "jornal.br/a/b?id=3"),
@@ -17,17 +17,15 @@ from astraea.engine.url import dominio, identidade, normalizar, original_do_wayb
         ("jornal.br", "jornal.br/"),
     ],
 )
-def test_normalizar(url, esperado):
-    assert normalizar(url) == esperado
+def test_normalize(url, expected):
+    assert normalize(url) == expected
 
 
-def test_mesma_materia_viva_e_arquivada_tem_o_mesmo_id():
-    viva = "https://www.jornal.br/2016/carandiru.shtml?fbclid=abc"
-    arquivada = (
-        "https://web.archive.org/web/20160927090000id_/http://jornal.br/2016/carandiru.shtml"
-    )
-    assert identidade(viva) == identidade(arquivada)
-    assert len(identidade(viva)) == 16
-    assert dominio(arquivada) == "jornal.br"
-    assert original_do_wayback(arquivada) == "http://jornal.br/2016/carandiru.shtml"
-    assert original_do_wayback(viva) == viva
+def test_same_article_live_and_archived_has_the_same_id():
+    live = "https://www.jornal.br/2016/carandiru.shtml?fbclid=abc"
+    archived = "https://web.archive.org/web/20160927090000id_/http://jornal.br/2016/carandiru.shtml"
+    assert identity(live) == identity(archived)
+    assert len(identity(live)) == 16
+    assert domain(archived) == "jornal.br"
+    assert original_from_wayback(archived) == "http://jornal.br/2016/carandiru.shtml"
+    assert original_from_wayback(live) == live

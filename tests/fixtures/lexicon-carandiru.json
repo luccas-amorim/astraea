@@ -1,0 +1,30 @@
+{
+  "id": "carandiru-sample",
+  "version": "2026-10-04",
+  "description": "Sample for the tests, inherited from Alétheia. Astraea's real lexicons live in data/lexicon/.",
+  "terms": [
+    {
+      "key": "massacre-do-carandiru",
+      "forms": ["massacre do Carandiru", "chacina do Carandiru", "Carandiru"],
+      "exclusions": ["Carandiru, o filme", "estação Carandiru"],
+      "weight": 1.0,
+      "categories": ["evento"],
+      "note": "The 2003 film and the metro station are other records."
+    },
+    {
+      "key": "casa-de-detencao",
+      "forms": ["Casa de Detenção", "Pavilhão 9"],
+      "categories": ["lugar"]
+    },
+    {
+      "key": "indulto",
+      "forms": ["indulto", "perdão"],
+      "weight": 0.5,
+      "categories": ["desdobramento-juridico"]
+    }
+  ],
+  "context": {
+    "requires_any": ["1992", "presos", "policiais", "Polícia Militar", "massacre"],
+    "note": "Separates the event from uses of the neighbourhood name."
+  }
+}

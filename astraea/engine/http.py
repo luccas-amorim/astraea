@@ -1,18 +1,18 @@
-"""Cliente HTTP educado: identifica o projeto, obedece o limite da fonte e o robots.txt.
+"""Polite HTTP client: identifies the project, obeys the source limit and robots.txt.
 
-O limite é o que o adaptador declara (`limite_por_minuto`), não um número que o motor
-negocia. O transporte é injetável: os testes trocam a rede por fixtures gravadas.
+The limit is what the adapter declares (`rate_limit_per_minute`), not a number the engine
+negotiates. The transport is injectable: tests swap the network for recorded fixtures.
 
-Duas regras de segurança que este módulo impõe sozinho:
+Two safety rules this module enforces on its own:
 
-- **Nenhuma mensagem de erro ou linha de log carrega segredo.** Toda URL passa por
-  `redigir()` antes de virar texto: `api_key=`, `token=` e afins saem como `<redigido>`.
-  O relatório da rodada é comitado num repositório público; uma falha do OpenAlex depois
-  das tentativas levaria a chave inteira para o histórico do git.
-- **Falha transitória é retentada, inclusive a resposta truncada.** `IncompleteRead`,
-  `RemoteDisconnected` e `BadStatusLine` herdam de `http.client.HTTPException`, não de
-  `OSError`; sem este `except`, uma conexão encerrada pelo servidor virava "falha de fonte"
-  sem nova tentativa (foi o que derrubou a primeira rodada do observatório).
+- **No error message or log line carries a secret.** Every URL goes through `redact()`
+  before becoming text: `api_key=`, `token=` and the like come out as `<redacted>`. The
+  run report is committed to a public repository; a failure after the retries would
+  otherwise take the whole key into the git history.
+- **Transient failures are retried, including a truncated response.** `IncompleteRead`,
+  `RemoteDisconnected` and `BadStatusLine` inherit from `http.client.HTTPException`, not
+  from `OSError`; without this `except`, a connection closed by the server would become a
+  "source failure" with no retry (it is what brought down Alétheia's first run).
 """
 
 from __future__ import annotations
@@ -29,202 +29,196 @@ import urllib.robotparser
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
-from astraea.engine import __version__
+from astraea import __version__
 
 log = logging.getLogger(__name__)
 
-USER_AGENT = (
-    f"Aletheia/{__version__} (pesquisa acadêmica; +https://github.com/luccas-amorim/aletheia)"
-)
-RETENTAVEIS = {408, 425, 429, 500, 502, 503, 504}
+USER_AGENT = f"Astraea/{__version__} (academic research; +https://github.com/luccas-amorim/astraea)"
+RETRYABLE = {408, 425, 429, 500, 502, 503, 504}
 
-_SEGREDOS = re.compile(
+_SECRETS = re.compile(
     r"((?:api[_-]?key|apikey|key|token|access[_-]?token|secret|password|senha|mailto)=)([^&#\s]+)",
     re.I,
 )
 
 
-def redigir(texto: str) -> str:
-    """Troca o valor de parâmetros sensíveis por `<redigido>`. Idempotente."""
-    return _SEGREDOS.sub(r"\1<redigido>", texto)
+def redact(text: str) -> str:
+    """Replaces the value of sensitive parameters with `<redacted>`. Idempotent."""
+    return _SECRETS.sub(r"\1<redacted>", text)
 
 
 @dataclass(frozen=True)
-class Requisicao:
-    metodo: str
+class Request:
+    method: str
     url: str
-    corpo: bytes | None = None
-    cabecalhos: dict[str, str] = field(default_factory=dict)
+    body: bytes | None = None
+    headers: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
-class Resposta:
+class Response:
     status: int
     url: str
-    corpo: bytes
-    cabecalhos: dict[str, str] = field(default_factory=dict)
+    body: bytes
+    headers: dict[str, str] = field(default_factory=dict)
 
     def json(self):
-        return json.loads(self.corpo.decode("utf-8"))
+        return json.loads(self.body.decode("utf-8"))
 
 
-Transporte = Callable[[Requisicao, float], Resposta]
+Transport = Callable[[Request, float], Response]
 
 
-class ErroColeta(RuntimeError):
-    """Falha de rede ou de HTTP depois de esgotadas as tentativas."""
+class FetchError(RuntimeError):
+    """Network or HTTP failure after the retries are exhausted."""
 
 
-class BloqueadoPorRobots(ErroColeta):
-    """O robots.txt da origem não autoriza o caminho. Não é falha: é política."""
+class BlockedByRobots(FetchError):
+    """The origin's robots.txt does not allow the path. Not a failure: it is policy."""
 
 
-class BloqueadoPorPais(ErroColeta):
-    """A origem recusa conexões de fora do Brasil (medido no DJEN, via CloudFront).
+class BlockedByCountry(FetchError):
+    """The origin refuses connections from the country the run comes from.
 
-    Não adianta tentar de novo nem trocar de cabeçalho: a rodada precisa sair de um IP
-    brasileiro (runner próprio no Brasil, máquina local, nuvem em região de São Paulo).
+    Retrying or changing headers does not help: the run has to come from an address the
+    origin accepts. Circumventing the block is not done (AGENTS.md, rule 7).
     """
 
 
-# Assinaturas de bloqueio geográfico no corpo de um 403.
-_MARCAS_DE_PAIS = (
+# Signatures of a geographic block in the body of a 403.
+_COUNTRY_MARKS = (
     b"block access from your country",
     b"not available in your country",
     b"geo-restricted",
 )
 
-# Exceções de transporte que merecem nova tentativa: rede, DNS, timeout e resposta
-# truncada ou encerrada pelo servidor (estas últimas não são OSError).
-TRANSITORIAS = (OSError, urllib.error.URLError, http.client.HTTPException)
+# Transport exceptions that deserve a retry: network, DNS, timeout and a response
+# truncated or closed by the server (the last ones are not OSError).
+TRANSIENT = (OSError, urllib.error.URLError, http.client.HTTPException)
 
 
-def transporte_urllib(req: Requisicao, tempo_limite: float) -> Resposta:
-    pedido = urllib.request.Request(
-        req.url, data=req.corpo, headers=req.cabecalhos, method=req.metodo
-    )
+def urllib_transport(req: Request, timeout: float) -> Response:
+    request = urllib.request.Request(req.url, data=req.body, headers=req.headers, method=req.method)
     try:
-        with urllib.request.urlopen(pedido, timeout=tempo_limite) as r:
-            return Resposta(
+        with urllib.request.urlopen(request, timeout=timeout) as r:
+            return Response(
                 r.status, r.geturl(), r.read(), {k.lower(): v for k, v in r.headers.items()}
             )
-    except urllib.error.HTTPError as erro:
-        cabecalhos = {k.lower(): v for k, v in (erro.headers or {}).items()}
-        return Resposta(erro.code, req.url, erro.read() or b"", cabecalhos)
+    except urllib.error.HTTPError as error:
+        headers = {k.lower(): v for k, v in (error.headers or {}).items()}
+        return Response(error.code, req.url, error.read() or b"", headers)
 
 
-class Cliente:
+class Client:
     def __init__(
         self,
-        limite_por_minuto: int,
+        rate_limit_per_minute: int,
         *,
-        respeita_robots: bool = True,
-        transporte: Transporte = transporte_urllib,
-        cabecalhos: dict[str, str] | None = None,
-        tentativas: int = 4,
-        tempo_limite: float = 60.0,
-        dormir: Callable[[float], None] | None = None,
-        relogio: Callable[[], float] | None = None,
+        respects_robots: bool = True,
+        transport: Transport = urllib_transport,
+        headers: dict[str, str] | None = None,
+        attempts: int = 4,
+        timeout: float = 60.0,
+        sleep: Callable[[float], None] | None = None,
+        clock: Callable[[], float] | None = None,
     ) -> None:
-        if limite_por_minuto <= 0:
-            raise ValueError("limite_por_minuto precisa ser positivo")
-        self.intervalo = 60.0 / limite_por_minuto
-        self.respeita_robots = respeita_robots
-        self.transporte = transporte
-        self.cabecalhos = {"User-Agent": USER_AGENT, **(cabecalhos or {})}
-        self.tentativas = tentativas
-        self.tempo_limite = tempo_limite
-        # Resolvidos na chamada, e não na definição, para que os testes troquem o relógio.
-        self._dormir = dormir or (lambda segundos: time.sleep(segundos))
-        self._relogio = relogio or (lambda: time.monotonic())
-        self._ultima: float | None = None
+        if rate_limit_per_minute <= 0:
+            raise ValueError("rate_limit_per_minute must be positive")
+        self.interval = 60.0 / rate_limit_per_minute
+        self.respects_robots = respects_robots
+        self.transport = transport
+        self.headers = {"User-Agent": USER_AGENT, **(headers or {})}
+        self.attempts = attempts
+        self.timeout = timeout
+        # Resolved at call time, not at definition, so tests can swap the clock.
+        self._sleep = sleep or (lambda seconds: time.sleep(seconds))
+        self._clock = clock or (lambda: time.monotonic())
+        self._last: float | None = None
         self._robots: dict[str, urllib.robotparser.RobotFileParser | None] = {}
 
-    def _aguardar(self) -> None:
-        if self._ultima is not None:
-            espera = self.intervalo - (self._relogio() - self._ultima)
-            if espera > 0:
-                self._dormir(espera)
-        self._ultima = self._relogio()
+    def _wait(self) -> None:
+        if self._last is not None:
+            delay = self.interval - (self._clock() - self._last)
+            if delay > 0:
+                self._sleep(delay)
+        self._last = self._clock()
 
-    def _permitido(self, url: str) -> bool:
-        partes = urllib.parse.urlsplit(url)
-        origem = f"{partes.scheme}://{partes.netloc}"
-        if origem not in self._robots:
-            # Falha de rede aqui sobe como ErroColeta e não fica em cache: a próxima
-            # requisição à mesma origem tenta ler o robots.txt de novo.
-            self._robots[origem] = self._ler_robots(origem)
-        regras = self._robots[origem]
-        return regras is None or regras.can_fetch(self.cabecalhos["User-Agent"], url)
+    def _allowed(self, url: str) -> bool:
+        parts = urllib.parse.urlsplit(url)
+        origin = f"{parts.scheme}://{parts.netloc}"
+        if origin not in self._robots:
+            # A network failure here rises as FetchError and is not cached: the next
+            # request to the same origin tries to read robots.txt again.
+            self._robots[origin] = self._read_robots(origin)
+        rules = self._robots[origin]
+        return rules is None or rules.can_fetch(self.headers["User-Agent"], url)
 
-    def _ler_robots(self, origem: str) -> urllib.robotparser.RobotFileParser | None:
-        """None quando não há robots.txt (404 e afins): a convenção é tudo permitido.
+    def _read_robots(self, origin: str) -> urllib.robotparser.RobotFileParser | None:
+        """None when there is no robots.txt (404 and the like): by convention, all allowed.
 
-        401 e 403 são lidos como "proíbe tudo". É mais conservador que a RFC 9309 (que
-        trata 4xx como ausência de restrição) e é escolha deliberada: origem que esconde
-        o robots.txt não ganha o benefício da dúvida.
+        401 and 403 are read as "disallow everything". This is more conservative than
+        RFC 9309 (which treats 4xx as no restriction) and it is deliberate: an origin that
+        hides its robots.txt does not get the benefit of the doubt.
         """
-        resposta = self._enviar(
-            Requisicao("GET", f"{origem}/robots.txt", cabecalhos=dict(self.cabecalhos))
-        )
-        regras = urllib.robotparser.RobotFileParser()
-        if resposta.status in (401, 403):
-            regras.disallow_all = True
-            return regras
-        if resposta.status >= 400:
+        response = self._send(Request("GET", f"{origin}/robots.txt", headers=dict(self.headers)))
+        rules = urllib.robotparser.RobotFileParser()
+        if response.status in (401, 403):
+            rules.disallow_all = True
+            return rules
+        if response.status >= 400:
             return None
-        regras.parse(resposta.corpo.decode("utf-8", errors="replace").splitlines())
-        return regras
+        rules.parse(response.body.decode("utf-8", errors="replace").splitlines())
+        return rules
 
-    def _enviar(self, req: Requisicao) -> Resposta:
-        ultimo: str = ""
-        for tentativa in range(self.tentativas):
-            self._aguardar()
+    def _send(self, req: Request) -> Response:
+        last: str = ""
+        for attempt in range(self.attempts):
+            self._wait()
             try:
-                resposta = self.transporte(req, self.tempo_limite)
-            except TRANSITORIAS as erro:
-                ultimo = f"{type(erro).__name__}: {redigir(str(erro))}"
+                response = self.transport(req, self.timeout)
+            except TRANSIENT as error:
+                last = f"{type(error).__name__}: {redact(str(error))}"
             else:
-                if resposta.status not in RETENTAVEIS:
-                    return resposta
-                ultimo = f"HTTP {resposta.status}"
-            if tentativa + 1 < self.tentativas:
-                pausa = min(60.0, 2.0 ** (tentativa + 1))
+                if response.status not in RETRYABLE:
+                    return response
+                last = f"HTTP {response.status}"
+            if attempt + 1 < self.attempts:
+                pause = min(60.0, 2.0 ** (attempt + 1))
                 log.warning(
-                    "%s %s falhou (%s); nova tentativa em %ss",
-                    req.metodo, redigir(req.url), ultimo, pausa,
+                    "%s %s failed (%s); retrying in %ss",
+                    req.method, redact(req.url), last, pause,
                 )  # fmt: skip
-                self._dormir(pausa)
-        raise ErroColeta(
-            f"{req.metodo} {redigir(req.url)} falhou após {self.tentativas} tentativas: {ultimo}"
+                self._sleep(pause)
+        raise FetchError(
+            f"{req.method} {redact(req.url)} failed after {self.attempts} attempts: {last}"
         )
 
-    def requisitar(
+    def request(
         self,
         url: str,
         *,
-        metodo: str = "GET",
+        method: str = "GET",
         params: dict | list[tuple[str, str]] | None = None,
-        json_corpo: dict | None = None,
-        cabecalhos: dict[str, str] | None = None,
-    ) -> Resposta:
-        """Faz a requisição e devolve a resposta 2xx. Qualquer outro status é ErroColeta."""
+        json_body: dict | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Response:
+        """Makes the request and returns the 2xx response. Any other status is FetchError."""
         if params:
             url = f"{url}{'&' if '?' in url else '?'}{urllib.parse.urlencode(params)}"
-        if self.respeita_robots and not self._permitido(url):
-            raise BloqueadoPorRobots(f"robots.txt não autoriza {redigir(url)}")
-        todos = {**self.cabecalhos, **(cabecalhos or {})}
-        corpo = None
-        if json_corpo is not None:
-            corpo = json.dumps(json_corpo, ensure_ascii=False).encode("utf-8")
-            todos.setdefault("Content-Type", "application/json")
-        resposta = self._enviar(Requisicao(metodo, url, corpo, todos))
-        if resposta.status == 403 and any(m in resposta.corpo for m in _MARCAS_DE_PAIS):
-            raise BloqueadoPorPais(
-                f"{metodo} {redigir(url)}: a origem bloqueia acesso de fora do Brasil; "
-                "rode a partir de um IP brasileiro"
+        if self.respects_robots and not self._allowed(url):
+            raise BlockedByRobots(f"robots.txt does not allow {redact(url)}")
+        all_headers = {**self.headers, **(headers or {})}
+        body = None
+        if json_body is not None:
+            body = json.dumps(json_body, ensure_ascii=False).encode("utf-8")
+            all_headers.setdefault("Content-Type", "application/json")
+        response = self._send(Request(method, url, body, all_headers))
+        if response.status == 403 and any(m in response.body for m in _COUNTRY_MARKS):
+            raise BlockedByCountry(
+                f"{method} {redact(url)}: the origin blocks access from this country; "
+                "run from an address it accepts"
             )
-        if not 200 <= resposta.status < 300:
-            trecho = resposta.corpo[:300].decode("utf-8", errors="replace")
-            raise ErroColeta(f"{metodo} {redigir(url)} -> HTTP {resposta.status}: {trecho}")
-        return resposta
+        if not 200 <= response.status < 300:
+            excerpt = response.body[:300].decode("utf-8", errors="replace")
+            raise FetchError(f"{method} {redact(url)} -> HTTP {response.status}: {excerpt}")
+        return response
