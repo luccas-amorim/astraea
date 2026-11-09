@@ -5,8 +5,8 @@
 Astreia (*Astraea*), a deusa da justiça que foi a última imortal a abandonar a Terra
 ao fim da Idade do Ferro e que, segundo o mito, voltará. O Astraea não julga: observa
 de longe, de cima, o que o mundo diz e decide sobre o crime que a Convenção de 1948
-chamou pelo nome. O `MITO.md`, como nos projetos-irmãos, fica para a sessão que
-inaugurar o site.
+chamou pelo nome. O `MITO.md`, como nos projetos-irmãos, conta o mito por
+inteiro (escrito em 09/11/2026, na fase 1).
 
 ## Objetivo
 

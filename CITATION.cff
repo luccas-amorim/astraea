@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "Se você usar o Astraea em pesquisa ou publicação, por favor cite conforme abaixo."
+title: "Astraea — Observatório da lei penal do mundo e do crime de genocídio"
+abstract: >-
+  Observatório de superfície, com dados abertos, sobre o crime de genocídio e a lei
+  penal do mundo: por país, o que a lei penal e os tratados dizem; o que o noticiário
+  publica sobre alegações de genocídio; e o que os tribunais internacionais decidem.
+  O sistema não qualifica fatos: registra quem afirmou, em que grau, com fonte, data
+  de leitura e grau de confiança.
+type: dataset
+authors:
+  # Autoria pessoal na fase 1 (D14, recomendação seguida até resposta em contrário em
+  # docs/07-decisoes-pendentes.md). Coletivo só se houver colaboração acadêmica formal.
+  - family-names: "Amorim"
+    given-names: "Luccas de"
+    orcid: "https://orcid.org/0000-0003-1910-1541"
+# Até a primeira release com DOI (Zenodo, fase 5), cite pela data.
+date-released: "2026-11-09"
+license:
+  - Apache-2.0
+  - CC-BY-4.0
+repository-code: "https://github.com/luccas-amorim/astraea"
+keywords:
+  - genocídio
+  - direito penal internacional
+  - direito penal comparado
+  - Convenção de 1948
+  - Estatuto de Roma
+  - tribunais internacionais
+  - dados abertos
+  - proveniência
