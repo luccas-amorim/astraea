@@ -2,7 +2,7 @@ import http.client
 
 import pytest
 
-from aletheia.http import (
+from astraea.engine.http import (
     USER_AGENT,
     BloqueadoPorPais,
     BloqueadoPorRobots,

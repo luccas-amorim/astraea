@@ -19,8 +19,8 @@ from dataclasses import asdict, dataclass, field
 from datetime import date
 from pathlib import Path
 
-from aletheia.captura import nome_seguro
-from aletheia.contrato import Referencia
+from astraea.engine.captura import nome_seguro
+from astraea.engine.contrato import Referencia
 
 # `dados` de uma referência pendente acima disto não é guardado: pode conter o texto do
 # item (nomes de pessoas), e o adaptador precisa saber baixar de novo só pela URL.

@@ -16,9 +16,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from aletheia.contrato import Documento
-from aletheia.lexico import Casador
-from aletheia.texto import dobrar
+from astraea.engine.contrato import Documento
+from astraea.engine.lexico import Casador
+from astraea.engine.texto import dobrar
 
 RAIO_TRECHO = 160
 

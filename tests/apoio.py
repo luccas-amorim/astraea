@@ -2,7 +2,7 @@
 
 from datetime import date
 
-from aletheia import config, fontes, lexico, rodada
+from astraea.engine import config, fontes, lexico, rodada
 
 FEED = "https://jornal.exemplo.br/feed"
 BASE = "https://jornal.exemplo.br/2026/10"

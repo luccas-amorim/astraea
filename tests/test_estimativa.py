@@ -4,9 +4,9 @@ from datetime import date
 
 import pytest
 
-from aletheia import cli, estimativa
-from aletheia.estimativa import Par, normalizar_url
-from aletheia.url import identidade
+from astraea.engine import cli, estimativa
+from astraea.engine.estimativa import Par, normalizar_url
+from astraea.engine.url import identidade
 
 
 def test_normalizar_url_reexportada():
@@ -38,7 +38,7 @@ def _vistas(caminho, observacoes):
 
 
 def estimativa_colunas():
-    from aletheia.saidas.vistas import COLUNAS
+    from astraea.engine.saidas.vistas import COLUNAS
 
     return COLUNAS
 
@@ -106,7 +106,7 @@ def test_sem_vistas_relatorio_vazio(tmp_path):
 
 def test_cli_estimar_exige_vistas_e_grava_relatorio(cfg, capsys):
     assert cli.main(["estimar", "--config", str(cfg)]) == 2
-    dados = json.loads(cfg.read_text())
+    dados = json.loads(cfg.read_text(encoding="utf-8"))
     dados["vistas"] = {"arquivo": "vistas.csv"}
     cfg.write_text(json.dumps(dados))
     assert cli.main(["estimar", "--config", str(cfg)]) == 0

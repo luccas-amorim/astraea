@@ -18,13 +18,13 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime, timedelta
 
-from aletheia import estado
-from aletheia.captura import Corpus
-from aletheia.config import Config
-from aletheia.contrato import Documento, Fonte, Referencia
-from aletheia.http import BloqueadoPorRobots, redigir
-from aletheia.lexico import Casador
-from aletheia.triagem import Resultado, triar
+from astraea.engine import estado
+from astraea.engine.captura import Corpus
+from astraea.engine.config import Config
+from astraea.engine.contrato import Documento, Fonte, Referencia
+from astraea.engine.http import BloqueadoPorRobots, redigir
+from astraea.engine.lexico import Casador
+from astraea.engine.triagem import Resultado, triar
 
 log = logging.getLogger(__name__)
 

@@ -29,7 +29,7 @@ import urllib.robotparser
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
-from aletheia import __version__
+from astraea.engine import __version__
 
 log = logging.getLogger(__name__)
 

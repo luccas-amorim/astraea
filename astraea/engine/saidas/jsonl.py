@@ -6,8 +6,8 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from aletheia import __version__
-from aletheia.rodada import TRIADO, Rodada
+from astraea.engine import __version__
+from astraea.engine.rodada import TRIADO, Rodada
 
 
 def _linha(rodada: Rodada, dados: dict) -> str:

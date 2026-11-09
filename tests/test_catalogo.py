@@ -4,11 +4,11 @@ import csv
 import json
 from datetime import date
 
-from aletheia import cli, config, fontes, rodada
-from aletheia.contrato import Referencia
-from aletheia.saidas import catalogo, vistas
-from aletheia.triagem import Resultado
-from aletheia.url import identidade
+from astraea.engine import cli, config, fontes, rodada
+from astraea.engine.contrato import Referencia
+from astraea.engine.saidas import catalogo, vistas
+from astraea.engine.triagem import Resultado
+from astraea.engine.url import identidade
 from tests.apoio import _rodar
 
 
@@ -124,7 +124,7 @@ def test_vistas_uma_linha_por_observacao(cfg, rede_jornal, tmp_path):
 
 
 def test_sem_guardar_texto_nada_vai_para_o_corpus(cfg, rede_jornal):
-    dados = json.loads(cfg.read_text())
+    dados = json.loads(cfg.read_text(encoding="utf-8"))
     dados["guardar_texto"] = False
     cfg.write_text(json.dumps(dados))
     c, r = _rodar(cfg, rede_jornal)
@@ -134,7 +134,7 @@ def test_sem_guardar_texto_nada_vai_para_o_corpus(cfg, rede_jornal):
 
 
 def test_cli_atualiza_catalogo_e_vistas(cfg, monkeypatch, rede_jornal, capsys):
-    dados = json.loads(cfg.read_text())
+    dados = json.loads(cfg.read_text(encoding="utf-8"))
     dados["catalogo"] = {"arquivo": "catalogo.csv"}
     dados["vistas"] = {"arquivo": "vistas.csv"}
     dados["fontes"][0]["estrato"] = "imprensa"

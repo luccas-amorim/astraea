@@ -15,17 +15,17 @@
 
 from __future__ import annotations
 
-from aletheia.contrato import Fonte
-from aletheia.fontes.crossref import Crossref
-from aletheia.fontes.gdelt import Gdelt
-from aletheia.fontes.ia import InternetArchive
-from aletheia.fontes.lista import Lista
-from aletheia.fontes.openalex import OpenAlex
-from aletheia.fontes.rss import Rss
-from aletheia.fontes.topico import Topico
-from aletheia.fontes.wayback import Wayback
-from aletheia.fontes.wikipedia import Wikipedia
-from aletheia.http import Transporte, transporte_urllib
+from astraea.engine.contrato import Fonte
+from astraea.engine.fontes.crossref import Crossref
+from astraea.engine.fontes.gdelt import Gdelt
+from astraea.engine.fontes.ia import InternetArchive
+from astraea.engine.fontes.lista import Lista
+from astraea.engine.fontes.openalex import OpenAlex
+from astraea.engine.fontes.rss import Rss
+from astraea.engine.fontes.topico import Topico
+from astraea.engine.fontes.wayback import Wayback
+from astraea.engine.fontes.wikipedia import Wikipedia
+from astraea.engine.http import Transporte, transporte_urllib
 
 TIPOS = {
     "rss": Rss,

@@ -2,10 +2,10 @@ from datetime import UTC, datetime
 
 import pytest
 
-from aletheia import lexico
-from aletheia.captura import montar_documento
-from aletheia.contrato import Referencia
-from aletheia.triagem import recortar, triar
+from astraea.engine import lexico
+from astraea.engine.captura import montar_documento
+from astraea.engine.contrato import Referencia
+from astraea.engine.triagem import recortar, triar
 
 REF = Referencia(fonte="teste", id_na_fonte="1", url="https://exemplo.br/1")
 

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astraea"
+version = "0.0.1"
+description = "Astraea: observatório da lei penal do mundo e do crime de genocídio."
+license = { text = "Apache-2.0" }
+authors = [{ name = "Luccas de Amorim" }]
+requires-python = ">=3.11"
+# Sem dependências de execução: biblioteca padrão apenas, como o motor de onde veio.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+astraea = "astraea.engine.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["astraea*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

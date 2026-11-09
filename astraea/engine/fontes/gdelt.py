@@ -20,9 +20,9 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator
 from datetime import date, datetime, timedelta
 
-from aletheia.contrato import Documento, Referencia
-from aletheia.fontes.rss import documento_html, pagina_integra
-from aletheia.http import Cliente, Transporte, transporte_urllib
+from astraea.engine.contrato import Documento, Referencia
+from astraea.engine.fontes.rss import documento_html, pagina_integra
+from astraea.engine.http import Cliente, Transporte, transporte_urllib
 
 URL = "https://api.gdeltproject.org/api/v2/doc/doc"
 TETO = 250

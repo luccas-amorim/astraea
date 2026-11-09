@@ -9,8 +9,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from aletheia.rodada import FALHA, ROBOTS, SENTINELA, TRIADO, Linha, Rodada
-from aletheia.saidas.jsonl import contagens
+from astraea.engine.rodada import FALHA, ROBOTS, SENTINELA, TRIADO, Linha, Rodada
+from astraea.engine.saidas.jsonl import contagens
 
 
 def _celula(texto: str | None) -> str:

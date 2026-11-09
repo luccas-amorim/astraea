@@ -22,9 +22,9 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from aletheia.estimativa import canal
-from aletheia.rodada import TRIADO, Rodada
-from aletheia.url import identidade, original_do_wayback
+from astraea.engine.estimativa import canal
+from astraea.engine.rodada import TRIADO, Rodada
+from astraea.engine.url import identidade, original_do_wayback
 
 COLUNAS = ("id", "canal", "fonte", "rodada", "nivel", "publicado_em", "hash_texto", "url")
 

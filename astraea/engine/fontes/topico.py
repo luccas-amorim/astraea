@@ -33,11 +33,17 @@ from datetime import date
 from html.parser import HTMLParser
 from urllib.parse import urlencode, urljoin, urlsplit
 
-from aletheia.arquivo import CDX, snapshot
-from aletheia.contrato import Documento, Referencia
-from aletheia.fontes.rss import documento_html, pagina_integra
-from aletheia.http import BloqueadoPorRobots, Cliente, ErroColeta, Transporte, transporte_urllib
-from aletheia.url import normalizar, original_do_wayback
+from astraea.engine.arquivo import CDX, snapshot
+from astraea.engine.contrato import Documento, Referencia
+from astraea.engine.fontes.rss import documento_html, pagina_integra
+from astraea.engine.http import (
+    BloqueadoPorRobots,
+    Cliente,
+    ErroColeta,
+    Transporte,
+    transporte_urllib,
+)
+from astraea.engine.url import normalizar, original_do_wayback
 
 log = logging.getLogger(__name__)
 

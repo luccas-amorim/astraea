@@ -39,7 +39,7 @@ from datetime import date
 from itertools import combinations
 from pathlib import Path
 
-from aletheia.url import normalizar as normalizar_url  # noqa: F401  (reexportado)
+from astraea.engine.url import normalizar as normalizar_url  # noqa: F401  (reexportado)
 
 # Canais cuja listagem só alcança uma janela curta; comparação sem `--desde` não vale.
 JANELA_CURTA = {"gdelt"}

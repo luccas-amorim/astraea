@@ -4,8 +4,8 @@ import json
 from datetime import date
 from urllib.parse import parse_qs, urlsplit
 
-from aletheia import arquivo, fontes
-from aletheia.fontes import crossref, gdelt, ia, openalex, topico, wayback, wikipedia
+from astraea.engine import arquivo, fontes
+from astraea.engine.fontes import crossref, gdelt, ia, openalex, topico, wayback, wikipedia
 
 
 def _query(url):
@@ -174,7 +174,7 @@ def test_topico_le_versoes_arquivadas_da_propria_pagina(rede, fixtures):
 
 
 def test_extrair_links_resolve_relativos_dentro_de_captura(fixtures):
-    html = (fixtures / "topico" / "pagina2.html").read_text()
+    html = (fixtures / "topico" / "pagina2.html").read_text(encoding="utf-8")
     captura = f"{arquivo.ARQUIVO}/2020id_/https://ponte.org/tag/carandiru/"
     links = topico.extrair_links(html, captura, "ponte.org")
     assert links[0] == "https://ponte.org/2023/02/juri-remarcado/"
@@ -390,7 +390,7 @@ def test_wayback_exclui_ruido_de_endereco(rede):
 def test_topico_bloqueado_por_robots_falha_nomeado_ou_le_so_o_arquivo(rede, fixtures):
     import pytest
 
-    from aletheia.http import BloqueadoPorRobots
+    from astraea.engine.http import BloqueadoPorRobots
 
     base = "https://ponte.org/tag/carandiru/"
     rede.responder("https://ponte.org/robots.txt", "User-agent: *\nDisallow: /tag/\n")

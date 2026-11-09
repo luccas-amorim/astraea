@@ -35,8 +35,8 @@ import csv
 import os
 from pathlib import Path
 
-from aletheia.rodada import TRIADO, Rodada
-from aletheia.url import dominio, identidade, original_do_wayback
+from astraea.engine.rodada import TRIADO, Rodada
+from astraea.engine.url import dominio, identidade, original_do_wayback
 
 COLUNAS = (
     "id",

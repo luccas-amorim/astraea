@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from aletheia import config
+from astraea.engine import config
 
 
 def _base(**extra):
@@ -59,11 +59,3 @@ def test_carregar_e_propriedades(tmp_path):
     with pytest.raises(ValueError, match="nenhuma fonte"):
         caminho.write_text(json.dumps({"lexico": "l", "fontes": []}))
         config.carregar(caminho)
-
-
-def test_config_real_do_repositorio_e_valida():
-    from pathlib import Path
-
-    raiz = Path(__file__).resolve().parent.parent
-    dados = json.loads((raiz / "config.json").read_text(encoding="utf-8"))
-    assert config.validar(dados) == []

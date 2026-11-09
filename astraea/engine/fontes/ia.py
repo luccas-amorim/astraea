@@ -16,9 +16,9 @@ from __future__ import annotations
 from collections.abc import Iterator
 from datetime import date
 
-from aletheia.captura import montar_documento
-from aletheia.contrato import Documento, Referencia
-from aletheia.http import Cliente, Transporte, transporte_urllib
+from astraea.engine.captura import montar_documento
+from astraea.engine.contrato import Documento, Referencia
+from astraea.engine.http import Cliente, Transporte, transporte_urllib
 
 URL = "https://archive.org/advancedsearch.php"
 DETALHES = "https://archive.org/details"

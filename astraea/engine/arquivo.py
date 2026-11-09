@@ -14,8 +14,8 @@ from __future__ import annotations
 
 from urllib.parse import urlencode
 
-from aletheia.http import Cliente, ErroColeta, Transporte, transporte_urllib
-from aletheia.url import original_do_wayback
+from astraea.engine.http import Cliente, ErroColeta, Transporte, transporte_urllib
+from astraea.engine.url import original_do_wayback
 
 CDX = "https://web.archive.org/cdx/search/cdx"
 ARQUIVO = "https://web.archive.org/web"

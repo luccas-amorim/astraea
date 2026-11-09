@@ -5,11 +5,11 @@ from datetime import date
 
 import pytest
 
-from aletheia import cli, config, estado, lexico, rodada, saidas
-from aletheia.captura import Corpus
-from aletheia.contrato import Referencia
-from aletheia.fontes.rss import documento_html
-from aletheia.http import Resposta
+from astraea.engine import cli, config, estado, lexico, rodada, saidas
+from astraea.engine.captura import Corpus
+from astraea.engine.contrato import Referencia
+from astraea.engine.fontes.rss import documento_html
+from astraea.engine.http import Resposta
 from tests.apoio import BASE, FEED, _rodar
 
 
@@ -41,7 +41,9 @@ def test_rodada_completa(cfg, rede_jornal):
 def test_saidas(cfg, rede_jornal):
     c, r = _rodar(cfg, rede_jornal)
     pasta = saidas.escrever(r, c.saidas)
-    aceitos = [json.loads(x) for x in (pasta / "aceitos.jsonl").read_text().splitlines()]
+    aceitos = [
+        json.loads(x) for x in (pasta / "aceitos.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
     assert len(aceitos) == 1
     item = aceitos[0]
     assert item["url"] == f"{BASE}/carandiru-34-anos"
@@ -52,16 +54,16 @@ def test_saidas(cfg, rede_jornal):
     assert item["snapshot"] is None
     assert item["corpus"] == f"corpus/rss_jornal/{item['hash_texto']}.json"
     assert (c.diretorio / item["corpus"]).exists()
-    assert (pasta / "pede-juizo.jsonl").read_text() == ""
-    assert len((pasta / "itens.jsonl").read_text().splitlines()) == 3
+    assert (pasta / "pede-juizo.jsonl").read_text(encoding="utf-8") == ""
+    assert len((pasta / "itens.jsonl").read_text(encoding="utf-8").splitlines()) == 3
 
-    completo = (pasta / "relatorio-completo.md").read_text()
-    resumo = (pasta / "relatorio-resumo.md").read_text()
+    completo = (pasta / "relatorio-completo.md").read_text(encoding="utf-8")
+    resumo = (pasta / "relatorio-resumo.md").read_text(encoding="utf-8")
     assert completo.startswith("# Alétheia: rodada")
     assert "Descartados no nível 0" in completo and "drenagem" in completo
     assert "drenagem" not in resumo
     assert "Falhas de captura ou de integridade (1)" in resumo
-    meta = json.loads((pasta / "rodada.json").read_text())
+    meta = json.loads((pasta / "rodada.json").read_text(encoding="utf-8"))
     assert meta["contagens"]["situacao"] == {"reprovado_sentinela": 1, "triado": 2}
     assert meta["codigo_saida"] == 3 and meta["pede_leitura"] is True
     assert meta["incompletas"] == {}
@@ -184,12 +186,14 @@ def test_listagem_incompleta_nao_e_falha_mas_nao_avanca_a_data(cfg, fixtures):
     assert r.codigo_saida == rodada.PEDE_LEITURA
     assert estado.ler(c.estado, "fake:incompleta").ultima_rodada is None
     pasta = saidas.escrever(r, c.saidas)
-    assert "continuam na próxima rodada (1)" in (pasta / "relatorio-resumo.md").read_text()
+    assert "continuam na próxima rodada (1)" in (pasta / "relatorio-resumo.md").read_text(
+        encoding="utf-8"
+    )
 
 
 def test_retriar_aplica_lexico_novo_sem_rede(cfg, rede_jornal, tmp_path):
     c, _ = _rodar(cfg, rede_jornal)
-    novo = json.loads((tmp_path / "lexico.json").read_text())
+    novo = json.loads((tmp_path / "lexico.json").read_text(encoding="utf-8"))
     novo["versao"] = "2026-10-05"
     novo["termos"].append({"chave": "drenagem", "formas": ["drenagem"]})
     novo["contexto"]["exige_qualquer"].append("prefeitura")

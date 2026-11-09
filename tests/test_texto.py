@@ -1,4 +1,4 @@
-from aletheia.texto import Pagina, decodificar, dobrar, normalizar
+from astraea.engine.texto import Pagina, decodificar, dobrar, normalizar
 
 
 def test_cp1252_declarado_como_latin1(fixtures):

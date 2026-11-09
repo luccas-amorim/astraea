@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from aletheia import lexico
-from aletheia.texto import dobrar
+from astraea.engine import lexico
+from astraea.engine.texto import dobrar
 
 RAIZ = Path(__file__).parents[1]
 

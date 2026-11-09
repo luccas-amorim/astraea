@@ -2,9 +2,9 @@ from datetime import date
 
 import pytest
 
-from aletheia import fontes
-from aletheia.contrato import Fonte, Referencia
-from aletheia.fontes.rss import Rss, ler_feed
+from astraea.engine import fontes
+from astraea.engine.contrato import Fonte, Referencia
+from astraea.engine.fontes.rss import Rss, ler_feed
 
 FEED = "https://jornal.exemplo.br/feed"
 

@@ -14,8 +14,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from aletheia.rodada import Rodada
-from aletheia.saidas import jsonl, relatorio
+from astraea.engine.rodada import Rodada
+from astraea.engine.saidas import jsonl, relatorio
 
 
 def escrever(rodada: Rodada, raiz: Path) -> Path:

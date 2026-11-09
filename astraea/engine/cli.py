@@ -21,8 +21,8 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from aletheia import __version__, arquivo, config, estimativa, fontes, lexico, rodada, saidas
-from aletheia.saidas import catalogo, vistas
+from astraea.engine import __version__, arquivo, config, estimativa, fontes, lexico, rodada, saidas
+from astraea.engine.saidas import catalogo, vistas
 
 
 def _instancias(cfg: config.Config, caminho_config: str, escolhidas: list[str] | None):

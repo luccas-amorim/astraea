@@ -44,10 +44,10 @@ from collections.abc import Callable, Iterator
 from datetime import date, datetime
 from urllib.parse import urlencode
 
-from aletheia.arquivo import ARQUIVO, CDX, snapshot
-from aletheia.contrato import Documento, Referencia
-from aletheia.fontes.rss import MARCAS_DE_ERRO, documento_html, pagina_integra
-from aletheia.http import Cliente, Transporte, transporte_urllib
+from astraea.engine.arquivo import ARQUIVO, CDX, snapshot
+from astraea.engine.contrato import Documento, Referencia
+from astraea.engine.fontes.rss import MARCAS_DE_ERRO, documento_html, pagina_integra
+from astraea.engine.http import Cliente, Transporte, transporte_urllib
 
 __all__ = ["ARQUIVO", "CDX", "Wayback", "MARCAS_DO_WAYBACK"]
 

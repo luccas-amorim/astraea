@@ -22,7 +22,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from aletheia.texto import dobrar
+from astraea.engine.texto import dobrar
 
 
 class ErroLexico(ValueError):

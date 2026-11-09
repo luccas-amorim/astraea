@@ -1,6 +1,6 @@
 import pytest
 
-from aletheia.url import dominio, identidade, normalizar, original_do_wayback
+from astraea.engine.url import dominio, identidade, normalizar, original_do_wayback
 
 
 @pytest.mark.parametrize(

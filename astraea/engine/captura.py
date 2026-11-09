@@ -16,8 +16,8 @@ from dataclasses import asdict
 from datetime import UTC, date, datetime
 from pathlib import Path
 
-from aletheia.contrato import Documento, Fonte, Referencia
-from aletheia.texto import normalizar, sha256
+from astraea.engine.contrato import Documento, Fonte, Referencia
+from astraea.engine.texto import normalizar, sha256
 
 
 def montar_documento(

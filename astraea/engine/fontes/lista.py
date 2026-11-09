@@ -19,10 +19,10 @@ from collections.abc import Iterator
 from datetime import date
 from pathlib import Path
 
-from aletheia.contrato import Documento, Referencia
-from aletheia.fontes.rss import documento_html, pagina_integra
-from aletheia.http import Cliente, Transporte, transporte_urllib
-from aletheia.url import normalizar
+from astraea.engine.contrato import Documento, Referencia
+from astraea.engine.fontes.rss import documento_html, pagina_integra
+from astraea.engine.http import Cliente, Transporte, transporte_urllib
+from astraea.engine.url import normalizar
 
 
 class Lista:

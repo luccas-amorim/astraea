@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from aletheia.http import Requisicao, Resposta
+from astraea.engine.http import Requisicao, Resposta
 from tests.apoio import BASE, FEED
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -47,7 +47,7 @@ class Rede:
 @pytest.fixture(autouse=True)
 def sem_espera(monkeypatch):
     """O limite por minuto é testado em test_http com relógio falso; aqui, nada dorme."""
-    monkeypatch.setattr("aletheia.http.time.sleep", lambda segundos: None)
+    monkeypatch.setattr("astraea.engine.http.time.sleep", lambda segundos: None)
 
 
 @pytest.fixture

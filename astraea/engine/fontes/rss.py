@@ -15,10 +15,10 @@ from collections.abc import Iterator
 from datetime import date, datetime
 from email.utils import parsedate_to_datetime
 
-from aletheia.captura import montar_documento
-from aletheia.contrato import Documento, Referencia
-from aletheia.http import Cliente, Resposta, Transporte, transporte_urllib
-from aletheia.texto import Pagina, decodificar
+from astraea.engine.captura import montar_documento
+from astraea.engine.contrato import Documento, Referencia
+from astraea.engine.http import Cliente, Resposta, Transporte, transporte_urllib
+from astraea.engine.texto import Pagina, decodificar
 
 _ATOM = "{http://www.w3.org/2005/Atom}"
 
