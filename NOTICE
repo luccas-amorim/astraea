@@ -11,3 +11,22 @@ Este produto inclui código copiado de:
 O código copiado vive em astraea/engine/ e astraea/sources/, junto com os testes e as
 fixtures em tests/, e diverge livremente do original depois da cópia. Correções portadas
 depois disso são registradas no CHANGELOG.md com o novo commit de referência.
+
+Este produto inclui dados de terceiros:
+
+  Unicode CLDR — Common Locale Data Repository, versão 49.0.0
+  https://github.com/unicode-org/cldr-json (tag 49.0.0, lida em 2026-11-09)
+  Copyright © 2001–2026 Unicode, Inc.
+  Licença Unicode v3 (SPDX: Unicode-3.0), aviso integral em LICENSE-unicode.txt
+  Usado em data/countries.json: códigos ISO 3166-1 alfa-3 (cldr-core,
+  supplemental/codeMappings.json) e nomes de país em inglês e em português
+  (cldr-localenames-full, main/en e main/pt, territories.json). Exceções: Kosovo usa
+  XKX (D1), não o XKK do CLDR; a Palestina usa a forma "alt-short" do CLDR
+  ("Palestine", "Palestina").
+
+  Nações Unidas — lista oficial dos Estados-membros
+  https://www.un.org/en/about-us/member-states (lida em 2026-11-09)
+  Termos de uso: https://www.un.org/en/about-us/terms-of-use
+  Usada em data/countries.json para conferir os 193 membros e registrar a data de
+  admissão (un_member_since). Só fatos (quem é membro e desde quando), com a fonte
+  citada; nenhum texto da página é reproduzido.

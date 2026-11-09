@@ -1,0 +1,1775 @@
+[
+  {
+    "id": "AFG",
+    "name": {
+      "en": "Afghanistan",
+      "pt-BR": "Afeganistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1946-11-19"
+  },
+  {
+    "id": "AGO",
+    "name": {
+      "en": "Angola",
+      "pt-BR": "Angola"
+    },
+    "un_status": "member",
+    "un_member_since": "1976-12-01"
+  },
+  {
+    "id": "ALB",
+    "name": {
+      "en": "Albania",
+      "pt-BR": "Albânia"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "AND",
+    "name": {
+      "en": "Andorra",
+      "pt-BR": "Andorra"
+    },
+    "un_status": "member",
+    "un_member_since": "1993-07-28"
+  },
+  {
+    "id": "ARE",
+    "name": {
+      "en": "United Arab Emirates",
+      "pt-BR": "Emirados Árabes Unidos"
+    },
+    "un_status": "member",
+    "un_member_since": "1971-12-09"
+  },
+  {
+    "id": "ARG",
+    "name": {
+      "en": "Argentina",
+      "pt-BR": "Argentina"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "ARM",
+    "name": {
+      "en": "Armenia",
+      "pt-BR": "Armênia"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "ATG",
+    "name": {
+      "en": "Antigua & Barbuda",
+      "pt-BR": "Antígua e Barbuda"
+    },
+    "un_status": "member",
+    "un_member_since": "1981-11-11"
+  },
+  {
+    "id": "AUS",
+    "name": {
+      "en": "Australia",
+      "pt-BR": "Austrália"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-01"
+  },
+  {
+    "id": "AUT",
+    "name": {
+      "en": "Austria",
+      "pt-BR": "Áustria"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "AZE",
+    "name": {
+      "en": "Azerbaijan",
+      "pt-BR": "Azerbaijão"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "BDI",
+    "name": {
+      "en": "Burundi",
+      "pt-BR": "Burundi"
+    },
+    "un_status": "member",
+    "un_member_since": "1962-09-18"
+  },
+  {
+    "id": "BEL",
+    "name": {
+      "en": "Belgium",
+      "pt-BR": "Bélgica"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-12-27"
+  },
+  {
+    "id": "BEN",
+    "name": {
+      "en": "Benin",
+      "pt-BR": "Benin"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "BFA",
+    "name": {
+      "en": "Burkina Faso",
+      "pt-BR": "Burquina Faso"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "BGD",
+    "name": {
+      "en": "Bangladesh",
+      "pt-BR": "Bangladesh"
+    },
+    "un_status": "member",
+    "un_member_since": "1974-09-17"
+  },
+  {
+    "id": "BGR",
+    "name": {
+      "en": "Bulgaria",
+      "pt-BR": "Bulgária"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "BHR",
+    "name": {
+      "en": "Bahrain",
+      "pt-BR": "Barein"
+    },
+    "un_status": "member",
+    "un_member_since": "1971-09-21"
+  },
+  {
+    "id": "BHS",
+    "name": {
+      "en": "Bahamas",
+      "pt-BR": "Bahamas"
+    },
+    "un_status": "member",
+    "un_member_since": "1973-09-18"
+  },
+  {
+    "id": "BIH",
+    "name": {
+      "en": "Bosnia & Herzegovina",
+      "pt-BR": "Bósnia e Herzegovina"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-05-22"
+  },
+  {
+    "id": "BLR",
+    "name": {
+      "en": "Belarus",
+      "pt-BR": "Bielorrússia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "BLZ",
+    "name": {
+      "en": "Belize",
+      "pt-BR": "Belize"
+    },
+    "un_status": "member",
+    "un_member_since": "1981-09-25"
+  },
+  {
+    "id": "BOL",
+    "name": {
+      "en": "Bolivia",
+      "pt-BR": "Bolívia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-14"
+  },
+  {
+    "id": "BRA",
+    "name": {
+      "en": "Brazil",
+      "pt-BR": "Brasil"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "BRB",
+    "name": {
+      "en": "Barbados",
+      "pt-BR": "Barbados"
+    },
+    "un_status": "member",
+    "un_member_since": "1966-12-09"
+  },
+  {
+    "id": "BRN",
+    "name": {
+      "en": "Brunei",
+      "pt-BR": "Brunei"
+    },
+    "un_status": "member",
+    "un_member_since": "1984-09-21"
+  },
+  {
+    "id": "BTN",
+    "name": {
+      "en": "Bhutan",
+      "pt-BR": "Butão"
+    },
+    "un_status": "member",
+    "un_member_since": "1971-09-21"
+  },
+  {
+    "id": "BWA",
+    "name": {
+      "en": "Botswana",
+      "pt-BR": "Botsuana"
+    },
+    "un_status": "member",
+    "un_member_since": "1966-10-17"
+  },
+  {
+    "id": "CAF",
+    "name": {
+      "en": "Central African Republic",
+      "pt-BR": "República Centro-Africana"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "CAN",
+    "name": {
+      "en": "Canada",
+      "pt-BR": "Canadá"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-09"
+  },
+  {
+    "id": "CHE",
+    "name": {
+      "en": "Switzerland",
+      "pt-BR": "Suíça"
+    },
+    "un_status": "member",
+    "un_member_since": "2002-09-10"
+  },
+  {
+    "id": "CHL",
+    "name": {
+      "en": "Chile",
+      "pt-BR": "Chile"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "CHN",
+    "name": {
+      "en": "China",
+      "pt-BR": "China"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "CIV",
+    "name": {
+      "en": "Côte d’Ivoire",
+      "pt-BR": "Costa do Marfim"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "CMR",
+    "name": {
+      "en": "Cameroon",
+      "pt-BR": "Camarões"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "COD",
+    "name": {
+      "en": "Congo - Kinshasa",
+      "pt-BR": "Congo - Kinshasa"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "COG",
+    "name": {
+      "en": "Congo - Brazzaville",
+      "pt-BR": "República do Congo"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "COL",
+    "name": {
+      "en": "Colombia",
+      "pt-BR": "Colômbia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-05"
+  },
+  {
+    "id": "COM",
+    "name": {
+      "en": "Comoros",
+      "pt-BR": "Comores"
+    },
+    "un_status": "member",
+    "un_member_since": "1975-11-12"
+  },
+  {
+    "id": "CPV",
+    "name": {
+      "en": "Cape Verde",
+      "pt-BR": "Cabo Verde"
+    },
+    "un_status": "member",
+    "un_member_since": "1975-09-16"
+  },
+  {
+    "id": "CRI",
+    "name": {
+      "en": "Costa Rica",
+      "pt-BR": "Costa Rica"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-02"
+  },
+  {
+    "id": "CUB",
+    "name": {
+      "en": "Cuba",
+      "pt-BR": "Cuba"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "CYP",
+    "name": {
+      "en": "Cyprus",
+      "pt-BR": "Chipre"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "CZE",
+    "name": {
+      "en": "Czechia",
+      "pt-BR": "Tchéquia"
+    },
+    "un_status": "member",
+    "un_member_since": "1993-01-19"
+  },
+  {
+    "id": "DEU",
+    "name": {
+      "en": "Germany",
+      "pt-BR": "Alemanha"
+    },
+    "un_status": "member",
+    "un_member_since": "1973-09-18"
+  },
+  {
+    "id": "DJI",
+    "name": {
+      "en": "Djibouti",
+      "pt-BR": "Djibuti"
+    },
+    "un_status": "member",
+    "un_member_since": "1977-09-20"
+  },
+  {
+    "id": "DMA",
+    "name": {
+      "en": "Dominica",
+      "pt-BR": "Dominica"
+    },
+    "un_status": "member",
+    "un_member_since": "1978-12-18"
+  },
+  {
+    "id": "DNK",
+    "name": {
+      "en": "Denmark",
+      "pt-BR": "Dinamarca"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "DOM",
+    "name": {
+      "en": "Dominican Republic",
+      "pt-BR": "República Dominicana"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "DZA",
+    "name": {
+      "en": "Algeria",
+      "pt-BR": "Argélia"
+    },
+    "un_status": "member",
+    "un_member_since": "1962-10-08"
+  },
+  {
+    "id": "ECU",
+    "name": {
+      "en": "Ecuador",
+      "pt-BR": "Equador"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-12-21"
+  },
+  {
+    "id": "EGY",
+    "name": {
+      "en": "Egypt",
+      "pt-BR": "Egito"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "ERI",
+    "name": {
+      "en": "Eritrea",
+      "pt-BR": "Eritreia"
+    },
+    "un_status": "member",
+    "un_member_since": "1993-05-28"
+  },
+  {
+    "id": "ESP",
+    "name": {
+      "en": "Spain",
+      "pt-BR": "Espanha"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "EST",
+    "name": {
+      "en": "Estonia",
+      "pt-BR": "Estônia"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "ETH",
+    "name": {
+      "en": "Ethiopia",
+      "pt-BR": "Etiópia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-13"
+  },
+  {
+    "id": "FIN",
+    "name": {
+      "en": "Finland",
+      "pt-BR": "Finlândia"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "FJI",
+    "name": {
+      "en": "Fiji",
+      "pt-BR": "Fiji"
+    },
+    "un_status": "member",
+    "un_member_since": "1970-10-13"
+  },
+  {
+    "id": "FRA",
+    "name": {
+      "en": "France",
+      "pt-BR": "França"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "FSM",
+    "name": {
+      "en": "Micronesia",
+      "pt-BR": "Micronésia"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "GAB",
+    "name": {
+      "en": "Gabon",
+      "pt-BR": "Gabão"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "GBR",
+    "name": {
+      "en": "United Kingdom",
+      "pt-BR": "Reino Unido"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "GEO",
+    "name": {
+      "en": "Georgia",
+      "pt-BR": "Geórgia"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-07-31"
+  },
+  {
+    "id": "GHA",
+    "name": {
+      "en": "Ghana",
+      "pt-BR": "Gana"
+    },
+    "un_status": "member",
+    "un_member_since": "1957-03-08"
+  },
+  {
+    "id": "GIN",
+    "name": {
+      "en": "Guinea",
+      "pt-BR": "Guiné"
+    },
+    "un_status": "member",
+    "un_member_since": "1958-12-12"
+  },
+  {
+    "id": "GMB",
+    "name": {
+      "en": "Gambia",
+      "pt-BR": "Gâmbia"
+    },
+    "un_status": "member",
+    "un_member_since": "1965-09-21"
+  },
+  {
+    "id": "GNB",
+    "name": {
+      "en": "Guinea-Bissau",
+      "pt-BR": "Guiné-Bissau"
+    },
+    "un_status": "member",
+    "un_member_since": "1974-09-17"
+  },
+  {
+    "id": "GNQ",
+    "name": {
+      "en": "Equatorial Guinea",
+      "pt-BR": "Guiné Equatorial"
+    },
+    "un_status": "member",
+    "un_member_since": "1968-11-12"
+  },
+  {
+    "id": "GRC",
+    "name": {
+      "en": "Greece",
+      "pt-BR": "Grécia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-25"
+  },
+  {
+    "id": "GRD",
+    "name": {
+      "en": "Grenada",
+      "pt-BR": "Granada"
+    },
+    "un_status": "member",
+    "un_member_since": "1974-09-17"
+  },
+  {
+    "id": "GTM",
+    "name": {
+      "en": "Guatemala",
+      "pt-BR": "Guatemala"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-21"
+  },
+  {
+    "id": "GUY",
+    "name": {
+      "en": "Guyana",
+      "pt-BR": "Guiana"
+    },
+    "un_status": "member",
+    "un_member_since": "1966-09-20"
+  },
+  {
+    "id": "HND",
+    "name": {
+      "en": "Honduras",
+      "pt-BR": "Honduras"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-12-17"
+  },
+  {
+    "id": "HRV",
+    "name": {
+      "en": "Croatia",
+      "pt-BR": "Croácia"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-05-22"
+  },
+  {
+    "id": "HTI",
+    "name": {
+      "en": "Haiti",
+      "pt-BR": "Haiti"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "HUN",
+    "name": {
+      "en": "Hungary",
+      "pt-BR": "Hungria"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "IDN",
+    "name": {
+      "en": "Indonesia",
+      "pt-BR": "Indonésia"
+    },
+    "un_status": "member",
+    "un_member_since": "1950-09-28"
+  },
+  {
+    "id": "IND",
+    "name": {
+      "en": "India",
+      "pt-BR": "Índia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-30"
+  },
+  {
+    "id": "IRL",
+    "name": {
+      "en": "Ireland",
+      "pt-BR": "Irlanda"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "IRN",
+    "name": {
+      "en": "Iran",
+      "pt-BR": "Irã"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "IRQ",
+    "name": {
+      "en": "Iraq",
+      "pt-BR": "Iraque"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-12-21"
+  },
+  {
+    "id": "ISL",
+    "name": {
+      "en": "Iceland",
+      "pt-BR": "Islândia"
+    },
+    "un_status": "member",
+    "un_member_since": "1946-11-19"
+  },
+  {
+    "id": "ISR",
+    "name": {
+      "en": "Israel",
+      "pt-BR": "Israel"
+    },
+    "un_status": "member",
+    "un_member_since": "1949-05-11"
+  },
+  {
+    "id": "ITA",
+    "name": {
+      "en": "Italy",
+      "pt-BR": "Itália"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "JAM",
+    "name": {
+      "en": "Jamaica",
+      "pt-BR": "Jamaica"
+    },
+    "un_status": "member",
+    "un_member_since": "1962-09-18"
+  },
+  {
+    "id": "JOR",
+    "name": {
+      "en": "Jordan",
+      "pt-BR": "Jordânia"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "JPN",
+    "name": {
+      "en": "Japan",
+      "pt-BR": "Japão"
+    },
+    "un_status": "member",
+    "un_member_since": "1956-12-18"
+  },
+  {
+    "id": "KAZ",
+    "name": {
+      "en": "Kazakhstan",
+      "pt-BR": "Cazaquistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "KEN",
+    "name": {
+      "en": "Kenya",
+      "pt-BR": "Quênia"
+    },
+    "un_status": "member",
+    "un_member_since": "1963-12-16"
+  },
+  {
+    "id": "KGZ",
+    "name": {
+      "en": "Kyrgyzstan",
+      "pt-BR": "Quirguistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "KHM",
+    "name": {
+      "en": "Cambodia",
+      "pt-BR": "Camboja"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "KIR",
+    "name": {
+      "en": "Kiribati",
+      "pt-BR": "Quiribati"
+    },
+    "un_status": "member",
+    "un_member_since": "1999-09-14"
+  },
+  {
+    "id": "KNA",
+    "name": {
+      "en": "St. Kitts & Nevis",
+      "pt-BR": "São Cristóvão e Névis"
+    },
+    "un_status": "member",
+    "un_member_since": "1983-09-23"
+  },
+  {
+    "id": "KOR",
+    "name": {
+      "en": "South Korea",
+      "pt-BR": "Coreia do Sul"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "KWT",
+    "name": {
+      "en": "Kuwait",
+      "pt-BR": "Kuwait"
+    },
+    "un_status": "member",
+    "un_member_since": "1963-05-14"
+  },
+  {
+    "id": "LAO",
+    "name": {
+      "en": "Laos",
+      "pt-BR": "Laos"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "LBN",
+    "name": {
+      "en": "Lebanon",
+      "pt-BR": "Líbano"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "LBR",
+    "name": {
+      "en": "Liberia",
+      "pt-BR": "Libéria"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-02"
+  },
+  {
+    "id": "LBY",
+    "name": {
+      "en": "Libya",
+      "pt-BR": "Líbia"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "LCA",
+    "name": {
+      "en": "St. Lucia",
+      "pt-BR": "Santa Lúcia"
+    },
+    "un_status": "member",
+    "un_member_since": "1979-09-18"
+  },
+  {
+    "id": "LIE",
+    "name": {
+      "en": "Liechtenstein",
+      "pt-BR": "Liechtenstein"
+    },
+    "un_status": "member",
+    "un_member_since": "1990-09-18"
+  },
+  {
+    "id": "LKA",
+    "name": {
+      "en": "Sri Lanka",
+      "pt-BR": "Sri Lanka"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "LSO",
+    "name": {
+      "en": "Lesotho",
+      "pt-BR": "Lesoto"
+    },
+    "un_status": "member",
+    "un_member_since": "1966-10-17"
+  },
+  {
+    "id": "LTU",
+    "name": {
+      "en": "Lithuania",
+      "pt-BR": "Lituânia"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "LUX",
+    "name": {
+      "en": "Luxembourg",
+      "pt-BR": "Luxemburgo"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "LVA",
+    "name": {
+      "en": "Latvia",
+      "pt-BR": "Letônia"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "MAR",
+    "name": {
+      "en": "Morocco",
+      "pt-BR": "Marrocos"
+    },
+    "un_status": "member",
+    "un_member_since": "1956-11-12"
+  },
+  {
+    "id": "MCO",
+    "name": {
+      "en": "Monaco",
+      "pt-BR": "Mônaco"
+    },
+    "un_status": "member",
+    "un_member_since": "1993-05-28"
+  },
+  {
+    "id": "MDA",
+    "name": {
+      "en": "Moldova",
+      "pt-BR": "Moldávia"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "MDG",
+    "name": {
+      "en": "Madagascar",
+      "pt-BR": "Madagascar"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "MDV",
+    "name": {
+      "en": "Maldives",
+      "pt-BR": "Maldivas"
+    },
+    "un_status": "member",
+    "un_member_since": "1965-09-21"
+  },
+  {
+    "id": "MEX",
+    "name": {
+      "en": "Mexico",
+      "pt-BR": "México"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-07"
+  },
+  {
+    "id": "MHL",
+    "name": {
+      "en": "Marshall Islands",
+      "pt-BR": "Ilhas Marshall"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "MKD",
+    "name": {
+      "en": "North Macedonia",
+      "pt-BR": "Macedônia do Norte"
+    },
+    "un_status": "member",
+    "un_member_since": "1993-04-08"
+  },
+  {
+    "id": "MLI",
+    "name": {
+      "en": "Mali",
+      "pt-BR": "Mali"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-28"
+  },
+  {
+    "id": "MLT",
+    "name": {
+      "en": "Malta",
+      "pt-BR": "Malta"
+    },
+    "un_status": "member",
+    "un_member_since": "1964-12-01"
+  },
+  {
+    "id": "MMR",
+    "name": {
+      "en": "Myanmar (Burma)",
+      "pt-BR": "Mianmar (Birmânia)"
+    },
+    "un_status": "member",
+    "un_member_since": "1948-04-19"
+  },
+  {
+    "id": "MNE",
+    "name": {
+      "en": "Montenegro",
+      "pt-BR": "Montenegro"
+    },
+    "un_status": "member",
+    "un_member_since": "2006-06-28"
+  },
+  {
+    "id": "MNG",
+    "name": {
+      "en": "Mongolia",
+      "pt-BR": "Mongólia"
+    },
+    "un_status": "member",
+    "un_member_since": "1961-10-27"
+  },
+  {
+    "id": "MOZ",
+    "name": {
+      "en": "Mozambique",
+      "pt-BR": "Moçambique"
+    },
+    "un_status": "member",
+    "un_member_since": "1975-09-16"
+  },
+  {
+    "id": "MRT",
+    "name": {
+      "en": "Mauritania",
+      "pt-BR": "Mauritânia"
+    },
+    "un_status": "member",
+    "un_member_since": "1961-10-27"
+  },
+  {
+    "id": "MUS",
+    "name": {
+      "en": "Mauritius",
+      "pt-BR": "Maurício"
+    },
+    "un_status": "member",
+    "un_member_since": "1968-04-24"
+  },
+  {
+    "id": "MWI",
+    "name": {
+      "en": "Malawi",
+      "pt-BR": "Malaui"
+    },
+    "un_status": "member",
+    "un_member_since": "1964-12-01"
+  },
+  {
+    "id": "MYS",
+    "name": {
+      "en": "Malaysia",
+      "pt-BR": "Malásia"
+    },
+    "un_status": "member",
+    "un_member_since": "1957-09-17"
+  },
+  {
+    "id": "NAM",
+    "name": {
+      "en": "Namibia",
+      "pt-BR": "Namíbia"
+    },
+    "un_status": "member",
+    "un_member_since": "1990-04-23"
+  },
+  {
+    "id": "NER",
+    "name": {
+      "en": "Niger",
+      "pt-BR": "Níger"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "NGA",
+    "name": {
+      "en": "Nigeria",
+      "pt-BR": "Nigéria"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-10-07"
+  },
+  {
+    "id": "NIC",
+    "name": {
+      "en": "Nicaragua",
+      "pt-BR": "Nicarágua"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "NLD",
+    "name": {
+      "en": "Netherlands",
+      "pt-BR": "Países Baixos"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-12-10"
+  },
+  {
+    "id": "NOR",
+    "name": {
+      "en": "Norway",
+      "pt-BR": "Noruega"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-27"
+  },
+  {
+    "id": "NPL",
+    "name": {
+      "en": "Nepal",
+      "pt-BR": "Nepal"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "NRU",
+    "name": {
+      "en": "Nauru",
+      "pt-BR": "Nauru"
+    },
+    "un_status": "member",
+    "un_member_since": "1999-09-14"
+  },
+  {
+    "id": "NZL",
+    "name": {
+      "en": "New Zealand",
+      "pt-BR": "Nova Zelândia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "OMN",
+    "name": {
+      "en": "Oman",
+      "pt-BR": "Omã"
+    },
+    "un_status": "member",
+    "un_member_since": "1971-10-07"
+  },
+  {
+    "id": "PAK",
+    "name": {
+      "en": "Pakistan",
+      "pt-BR": "Paquistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1947-09-30"
+  },
+  {
+    "id": "PAN",
+    "name": {
+      "en": "Panama",
+      "pt-BR": "Panamá"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-13"
+  },
+  {
+    "id": "PER",
+    "name": {
+      "en": "Peru",
+      "pt-BR": "Peru"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-31"
+  },
+  {
+    "id": "PHL",
+    "name": {
+      "en": "Philippines",
+      "pt-BR": "Filipinas"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "PLW",
+    "name": {
+      "en": "Palau",
+      "pt-BR": "Palau"
+    },
+    "un_status": "member",
+    "un_member_since": "1994-12-15"
+  },
+  {
+    "id": "PNG",
+    "name": {
+      "en": "Papua New Guinea",
+      "pt-BR": "Papua-Nova Guiné"
+    },
+    "un_status": "member",
+    "un_member_since": "1975-10-10"
+  },
+  {
+    "id": "POL",
+    "name": {
+      "en": "Poland",
+      "pt-BR": "Polônia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "PRK",
+    "name": {
+      "en": "North Korea",
+      "pt-BR": "Coreia do Norte"
+    },
+    "un_status": "member",
+    "un_member_since": "1991-09-17"
+  },
+  {
+    "id": "PRT",
+    "name": {
+      "en": "Portugal",
+      "pt-BR": "Portugal"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "PRY",
+    "name": {
+      "en": "Paraguay",
+      "pt-BR": "Paraguai"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "PSE",
+    "name": {
+      "en": "Palestine",
+      "pt-BR": "Palestina"
+    },
+    "un_status": "observer",
+    "un_member_since": null
+  },
+  {
+    "id": "QAT",
+    "name": {
+      "en": "Qatar",
+      "pt-BR": "Catar"
+    },
+    "un_status": "member",
+    "un_member_since": "1971-09-21"
+  },
+  {
+    "id": "ROU",
+    "name": {
+      "en": "Romania",
+      "pt-BR": "Romênia"
+    },
+    "un_status": "member",
+    "un_member_since": "1955-12-14"
+  },
+  {
+    "id": "RUS",
+    "name": {
+      "en": "Russia",
+      "pt-BR": "Rússia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "RWA",
+    "name": {
+      "en": "Rwanda",
+      "pt-BR": "Ruanda"
+    },
+    "un_status": "member",
+    "un_member_since": "1962-09-18"
+  },
+  {
+    "id": "SAU",
+    "name": {
+      "en": "Saudi Arabia",
+      "pt-BR": "Arábia Saudita"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "SDN",
+    "name": {
+      "en": "Sudan",
+      "pt-BR": "Sudão"
+    },
+    "un_status": "member",
+    "un_member_since": "1956-11-12"
+  },
+  {
+    "id": "SEN",
+    "name": {
+      "en": "Senegal",
+      "pt-BR": "Senegal"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-28"
+  },
+  {
+    "id": "SGP",
+    "name": {
+      "en": "Singapore",
+      "pt-BR": "Singapura"
+    },
+    "un_status": "member",
+    "un_member_since": "1965-09-21"
+  },
+  {
+    "id": "SLB",
+    "name": {
+      "en": "Solomon Islands",
+      "pt-BR": "Ilhas Salomão"
+    },
+    "un_status": "member",
+    "un_member_since": "1978-09-19"
+  },
+  {
+    "id": "SLE",
+    "name": {
+      "en": "Sierra Leone",
+      "pt-BR": "Serra Leoa"
+    },
+    "un_status": "member",
+    "un_member_since": "1961-09-27"
+  },
+  {
+    "id": "SLV",
+    "name": {
+      "en": "El Salvador",
+      "pt-BR": "El Salvador"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "SMR",
+    "name": {
+      "en": "San Marino",
+      "pt-BR": "San Marino"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "SOM",
+    "name": {
+      "en": "Somalia",
+      "pt-BR": "Somália"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "SRB",
+    "name": {
+      "en": "Serbia",
+      "pt-BR": "Sérvia"
+    },
+    "un_status": "member",
+    "un_member_since": "2000-11-01"
+  },
+  {
+    "id": "SSD",
+    "name": {
+      "en": "South Sudan",
+      "pt-BR": "Sudão do Sul"
+    },
+    "un_status": "member",
+    "un_member_since": "2011-07-14"
+  },
+  {
+    "id": "STP",
+    "name": {
+      "en": "São Tomé & Príncipe",
+      "pt-BR": "São Tomé e Príncipe"
+    },
+    "un_status": "member",
+    "un_member_since": "1975-09-16"
+  },
+  {
+    "id": "SUR",
+    "name": {
+      "en": "Suriname",
+      "pt-BR": "Suriname"
+    },
+    "un_status": "member",
+    "un_member_since": "1975-12-04"
+  },
+  {
+    "id": "SVK",
+    "name": {
+      "en": "Slovakia",
+      "pt-BR": "Eslováquia"
+    },
+    "un_status": "member",
+    "un_member_since": "1993-01-19"
+  },
+  {
+    "id": "SVN",
+    "name": {
+      "en": "Slovenia",
+      "pt-BR": "Eslovênia"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-05-22"
+  },
+  {
+    "id": "SWE",
+    "name": {
+      "en": "Sweden",
+      "pt-BR": "Suécia"
+    },
+    "un_status": "member",
+    "un_member_since": "1946-11-19"
+  },
+  {
+    "id": "SWZ",
+    "name": {
+      "en": "Eswatini",
+      "pt-BR": "Essuatíni"
+    },
+    "un_status": "member",
+    "un_member_since": "1968-09-24"
+  },
+  {
+    "id": "SYC",
+    "name": {
+      "en": "Seychelles",
+      "pt-BR": "Seicheles"
+    },
+    "un_status": "member",
+    "un_member_since": "1976-09-21"
+  },
+  {
+    "id": "SYR",
+    "name": {
+      "en": "Syria",
+      "pt-BR": "Síria"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "TCD",
+    "name": {
+      "en": "Chad",
+      "pt-BR": "Chade"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "TGO",
+    "name": {
+      "en": "Togo",
+      "pt-BR": "Togo"
+    },
+    "un_status": "member",
+    "un_member_since": "1960-09-20"
+  },
+  {
+    "id": "THA",
+    "name": {
+      "en": "Thailand",
+      "pt-BR": "Tailândia"
+    },
+    "un_status": "member",
+    "un_member_since": "1946-12-15"
+  },
+  {
+    "id": "TJK",
+    "name": {
+      "en": "Tajikistan",
+      "pt-BR": "Tadjiquistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "TKM",
+    "name": {
+      "en": "Turkmenistan",
+      "pt-BR": "Turcomenistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "TLS",
+    "name": {
+      "en": "Timor-Leste",
+      "pt-BR": "Timor-Leste"
+    },
+    "un_status": "member",
+    "un_member_since": "2002-09-27"
+  },
+  {
+    "id": "TON",
+    "name": {
+      "en": "Tonga",
+      "pt-BR": "Tonga"
+    },
+    "un_status": "member",
+    "un_member_since": "1999-09-14"
+  },
+  {
+    "id": "TTO",
+    "name": {
+      "en": "Trinidad & Tobago",
+      "pt-BR": "Trinidad e Tobago"
+    },
+    "un_status": "member",
+    "un_member_since": "1962-09-18"
+  },
+  {
+    "id": "TUN",
+    "name": {
+      "en": "Tunisia",
+      "pt-BR": "Tunísia"
+    },
+    "un_status": "member",
+    "un_member_since": "1956-11-12"
+  },
+  {
+    "id": "TUR",
+    "name": {
+      "en": "Türkiye",
+      "pt-BR": "Turquia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "TUV",
+    "name": {
+      "en": "Tuvalu",
+      "pt-BR": "Tuvalu"
+    },
+    "un_status": "member",
+    "un_member_since": "2000-09-05"
+  },
+  {
+    "id": "TWN",
+    "name": {
+      "en": "Taiwan",
+      "pt-BR": "Taiwan"
+    },
+    "un_status": "non_member",
+    "un_member_since": null
+  },
+  {
+    "id": "TZA",
+    "name": {
+      "en": "Tanzania",
+      "pt-BR": "Tanzânia"
+    },
+    "un_status": "member",
+    "un_member_since": "1961-12-14"
+  },
+  {
+    "id": "UGA",
+    "name": {
+      "en": "Uganda",
+      "pt-BR": "Uganda"
+    },
+    "un_status": "member",
+    "un_member_since": "1962-10-25"
+  },
+  {
+    "id": "UKR",
+    "name": {
+      "en": "Ukraine",
+      "pt-BR": "Ucrânia"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "URY",
+    "name": {
+      "en": "Uruguay",
+      "pt-BR": "Uruguai"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-12-18"
+  },
+  {
+    "id": "USA",
+    "name": {
+      "en": "United States",
+      "pt-BR": "Estados Unidos"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-10-24"
+  },
+  {
+    "id": "UZB",
+    "name": {
+      "en": "Uzbekistan",
+      "pt-BR": "Uzbequistão"
+    },
+    "un_status": "member",
+    "un_member_since": "1992-03-02"
+  },
+  {
+    "id": "VAT",
+    "name": {
+      "en": "Vatican City",
+      "pt-BR": "Cidade do Vaticano"
+    },
+    "un_status": "observer",
+    "un_member_since": null
+  },
+  {
+    "id": "VCT",
+    "name": {
+      "en": "St. Vincent & Grenadines",
+      "pt-BR": "São Vicente e Granadinas"
+    },
+    "un_status": "member",
+    "un_member_since": "1980-09-16"
+  },
+  {
+    "id": "VEN",
+    "name": {
+      "en": "Venezuela",
+      "pt-BR": "Venezuela"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-15"
+  },
+  {
+    "id": "VNM",
+    "name": {
+      "en": "Vietnam",
+      "pt-BR": "Vietnã"
+    },
+    "un_status": "member",
+    "un_member_since": "1977-09-20"
+  },
+  {
+    "id": "VUT",
+    "name": {
+      "en": "Vanuatu",
+      "pt-BR": "Vanuatu"
+    },
+    "un_status": "member",
+    "un_member_since": "1981-09-15"
+  },
+  {
+    "id": "WSM",
+    "name": {
+      "en": "Samoa",
+      "pt-BR": "Samoa"
+    },
+    "un_status": "member",
+    "un_member_since": "1976-12-15"
+  },
+  {
+    "id": "XKX",
+    "name": {
+      "en": "Kosovo",
+      "pt-BR": "Kosovo"
+    },
+    "un_status": "non_member",
+    "un_member_since": null
+  },
+  {
+    "id": "YEM",
+    "name": {
+      "en": "Yemen",
+      "pt-BR": "Iêmen"
+    },
+    "un_status": "member",
+    "un_member_since": "1947-09-30"
+  },
+  {
+    "id": "ZAF",
+    "name": {
+      "en": "South Africa",
+      "pt-BR": "África do Sul"
+    },
+    "un_status": "member",
+    "un_member_since": "1945-11-07"
+  },
+  {
+    "id": "ZMB",
+    "name": {
+      "en": "Zambia",
+      "pt-BR": "Zâmbia"
+    },
+    "un_status": "member",
+    "un_member_since": "1964-12-01"
+  },
+  {
+    "id": "ZWE",
+    "name": {
+      "en": "Zimbabwe",
+      "pt-BR": "Zimbábue"
+    },
+    "un_status": "member",
+    "un_member_since": "1980-08-25"
+  }
+]
