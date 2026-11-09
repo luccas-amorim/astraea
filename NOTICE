@@ -1,0 +1,13 @@
+Astraea
+Copyright 2026 Luccas de Amorim
+
+Este produto inclui código copiado de:
+
+  Alétheia — Observatório do Massacre do Carandiru
+  https://github.com/luccas-amorim/aletheia
+  commit 6168d364b904a390d77d6ce0c0ac6c2719d16c01 (copiado em 2026-11-09)
+  Licença MIT, texto integral em LICENSE-aletheia.txt
+
+O código copiado vive em astraea/engine/ e astraea/sources/, junto com os testes e as
+fixtures em tests/, e diverge livremente do original depois da cópia. Correções portadas
+depois disso são registradas no CHANGELOG.md com o novo commit de referência.

@@ -1,0 +1,5 @@
+# Texto com LF no repositório, qualquer que seja o sistema de quem clona.
+* text=auto eol=lf
+# Fixtures são gravações de respostas reais: byte a byte, sem conversão de fim de linha
+# nem de codificação (há página em cp1252 de propósito).
+tests/fixtures/** -text
