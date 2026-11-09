@@ -60,7 +60,9 @@ confiança**.
 ## O que o Astraea é
 
 - Um **observatório de superfície** com três telas e uma página inicial, publicado como
-  site estático no GitHub Pages, com os dados abertos em JSON ao lado.
+  site estático no GitHub Pages em inglês e em português do Brasil, com os dados
+  abertos em JSON ao lado (chaves em inglês, rótulos nas duas línguas; as demais
+  línguas mais usadas entram depois do MVP).
 - Um **índice com proveniência**: cada item diz URL, data de captura, hash do texto lido,
   língua original, fonte, nível de triagem e versão do léxico que o aceitou.
 - Um **mecanismo de promoção**: o registro superficial que acumula evidência (ordem da
@@ -108,23 +110,23 @@ envolvidos. É dela que o léxico é gerado.
 
 ## Universo de países
 
-Decisão proposta (confiança A; o argumento contrário está em
+Decidido em 09/11/2026 (D1, como recomendado; o argumento contrário está em
 `07-decisoes-pendentes.md`):
 
 - **193 Estados-membros da ONU**: entram todos.
 - **2 Estados observadores** (Palestina `PSE`, Santa Sé `VAT`): entram, com o campo
-  `estatuto_onu` = `observador`. Ambos são partes na Convenção de 1948 e a Palestina é
+  `un_status` = `observer`. Ambos são partes na Convenção de 1948 e a Palestina é
   parte no Estatuto de Roma; deixá-los fora apagaria registros centrais da função 3.
-- **Entidades de reconhecimento limitado** (Kosovo, Taiwan): entram, com `estatuto_onu`
-  = `nao_membro` e nota de reconhecimento. Kosovo não tem código ISO oficial; usa-se o
+- **Entidades de reconhecimento limitado** (Kosovo, Taiwan): entram, com `un_status`
+  = `non_member` e nota de reconhecimento. Kosovo não tem código ISO oficial; usa-se o
   código reservado `XKX` (como o Banco Mundial e a Comissão Europeia), documentado como
   exceção. Taiwan tem `TWN` na ISO 3166. Outras entidades (Saara Ocidental `ESH`,
   Somalilândia, Transnístria…) **não** entram como registro na fase 1; entram como
-  `situacao` quando houver alegação de genocídio a elas ligada.
+  `situation` quando houver alegação de genocídio a elas ligada.
 - **Total: 197 registros** na fase 1.
 
 O `id` é o código alfa-3 e nunca muda; um país que mude de nome (Suazilândia →
-Essuatíni) mantém o código, e um que deixe de existir ganha `vigencia_ate` em vez de
+Essuatíni) mantém o código, e um que deixe de existir ganha `valid_until` em vez de
 sair, como no acervo do AtlasPen.
 
 ## Licenças

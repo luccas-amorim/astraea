@@ -383,7 +383,14 @@ Legenda: **TQ** = reusar tal como está (dependência ou cópia literal com avis
    mostra que "motor pronto" não é "operação pronta"); o Wayback falha por SSL com
    frequência; o GDELT só guarda ~90 dias; o ctresb/leis está em crise de armazenamento
    e depende de doações; os três repositórios do autor são mantidos por uma pessoa.
-5. **Recomendação que sai daqui, para o esboço do plano:** o Astraea **não copia** o
+5. **Atualização de 09/11/2026:** a recomendação abaixo não foi adotada. Pela D2, o
+   motor do Astraea nasce de uma **cópia** do Alétheia, traduzida para inglês (D8) e
+   livre para divergir; o Alétheia não é dependência (ver `04-arquitetura.md`, "Onde o
+   motor vive"). Os vereditos **TQ** da tabela da seção 6 continuam valendo no sentido
+   de "cópia literal com aviso". Este inventário é o retrato de 06/11/2026 e cita os
+   ativos com os nomes que eles têm nos repositórios de origem.
+
+   **Recomendação que saiu daqui, para o esboço do plano:** o Astraea **não copia** o
    motor; **depende** dele como pacote, apontando para um commit fixo do Alétheia (ou de
    um pacote extraído, `argos-core`, decisão pendente em `07-decisoes-pendentes.md`),
    e contribui de volta os adaptadores genéricos (`lista` com *parser* por página, RSS

@@ -13,11 +13,14 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 
 ## Estado do projeto
 
-Em 06/11/2026 o repositório tem só o plano. Não há motor, dados, site nem *workflows*.
-O `06-roteiro.md` diz a ordem; a fase 1 começa pela função 1 (países) e pela carga das
-situações iniciais. Antes de escrever código, leia o `00-inventario.md`: o motor é o do
-Alétheia (`luccas-amorim/aletheia`), instalado como dependência fixada por `sha`, e
-não se copia.
+Em 09/11/2026 o repositório tem só o plano. Não há motor, dados, site nem *workflows*.
+O `06-roteiro.md` diz a ordem; a fase 1 começa pela importação do motor, pela função 1
+(países) e pela carga das situações iniciais. Antes de escrever código, leia o
+`00-inventario.md` e o `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
+nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
+origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
+dependência; correção que valha a pena trazer de lá é portada à mão e registrada no
+`CHANGELOG.md`.
 
 ## Regras que não se negociam
 
@@ -25,25 +28,25 @@ não se copia.
    data, na taxonomia de `docs/03-modelo-de-dados.md`. Tela, resumo, commit e issue
    dizem "alegado por X", "medida provisória da CIJ", nunca "genocídio" solto.
 2. **Nunca texto integral de terceiros.** Metadados, *link*, data, fonte, língua e
-   resumo próprio. `trecho` só em relatório de rodada, até 320 caracteres.
-3. **Robô não muda status nem promove.** `situacoes.status`, `promocao` e qualquer
-   campo com `conferido_por: humano` só mudam por commit de pessoa. O validador
+   resumo próprio. `excerpt` só em relatório de rodada, até 320 caracteres.
+3. **Robô não muda status nem promove.** `situations.statuses`, `promotion` e qualquer
+   campo com `checked_by: human` só mudam por commit de pessoa. O validador
    reprova o contrário.
 4. **Fonte secundária aponta, não escreve.** Wikipedia, Wikidata, agregadores e
    modelos de linguagem geram perguntas e rascunhos marcados; nunca preenchem campo
    de país nem decidem triagem.
 5. **`id` é append-only.** País é ISO 3166-1 alfa-3 (`XKX` para Kosovo); situação é
    *slug*; documento é `hash` da URL normalizada. Nunca reatribuído; o que sai vai para
-   `data/ids-aposentados.json`.
+   `data/retired-ids.json`.
 6. **Fonte × derivado.** `data/` é editável; `static/data/` é gerado por
-   `scripts/transformar.py` e a CI exige sincronia. Nunca edite o derivado.
+   `scripts/transform.py` e a CI exige sincronia. Nunca edite o derivado.
 7. **Robots, limites e bloqueios são política.** O cliente HTTP obedece `robots.txt`
    e o limite declarado por fonte; WAF, CAPTCHA e bloqueio por país não se contornam.
    Google e APIs comerciais de notícias ficam fora.
-8. **Pessoas.** Nome de pessoa só em `decisoes.json`, como o tribunal o escreve.
+8. **Pessoas.** Nome de pessoa só em `decisions.json`, como o tribunal o escreve.
    Política de remoção em `docs/pessoas.md`.
-9. **Nada entra sem carimbo.** Campo afirmado tem `url`, `fonte`, `lido_em`,
-   `confianca` e `conferido_por`. `--rascunho` só na carga inicial, e o relatório de
+9. **Nada entra sem carimbo.** Campo afirmado tem `url`, `source`, `read_on`,
+   `confidence` e `checked_by`. `--draft` só na carga inicial, e o relatório de
    qualidade conta o que ainda está em rascunho.
 
 ## Como trabalhar neste repositório
@@ -51,13 +54,20 @@ não se copia.
 - **Antes de concluir**, rode a bateria (quando ela existir; até lá, o que houver):
 
   ```
-  python scripts/transformar.py --estrito
+  python scripts/transform.py --strict
   python -m pytest
-  aletheia validar-lexico data/lexico/*.json
-  aletheia validar-config config/*.json
+  astraea validate-lexicon data/lexicon/*.json
+  astraea validate-config config/*.json
   ruff check . && ruff format --check .
   ```
 
+- **Línguas.** Dados e código em **inglês**: nomes de arquivo, chaves, valores de
+  vocabulário fechado, *ids*, *slugs*, comandos, opções, nomes de módulo e de
+  *workflow*. Chave publicada não se traduz nem se renomeia depois. Documentação
+  (`docs/`, este arquivo, `CHANGELOG.md`), commits e issues continuam em português, e
+  os nomes dos robôs (Tabelião, Escrivão…) também, como nomes próprios. As telas
+  nascem em `en` e `pt-BR`; o que se traduz são rótulos e textos nossos, nunca as
+  chaves (`03-modelo-de-dados.md`, "Várias línguas").
 - **Uma sessão = uma entrada no `CHANGELOG.md`**, com data e o que mudou de dado, de
   fonte ou de regra. Correção de dado antigo entra como correção; alteração de status
   de situação entra com o ato que a sustentou.
@@ -66,7 +76,7 @@ não se copia.
   Não escreva regra em comentário de código.
 - **Para o dono do projeto**, que não programa no dia a dia e usa Windows: todo passo
   que ele precise executar vem explícito, com os avisos que o PowerShell vai mostrar;
-  todo *script* que altere arquivo roda em modo simulação por padrão (`--executar`
+  todo *script* que altere arquivo roda em modo simulação por padrão (`--execute`
   para valer) e nunca apaga; quando uma escolha sua divergir do que ele pediu, diga e
   diga por quê; em prosa, termo estrangeiro em itálico.
 - **Trabalhe em branch própria** quando houver código; commits pequenos que expliquem
@@ -82,6 +92,6 @@ não se copia.
 - Previsão, pontuação de risco, ranking de países: não entra. O Astraea aponta para o
   Early Warning Project e para o Genocide Watch.
 - Campo de país preenchido "por analogia" com país vizinho ou com a mesma tradição
-  jurídica: não entra. Fica vazio com `motivo`.
+  jurídica: não entra. Fica vazio com `reason`.
 - Léxico em código: não entra. Léxico é dado, um arquivo por língua, gerado de
-  `situacoes.json` mais os termos fixos.
+  `situations.json` mais os termos fixos.

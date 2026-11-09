@@ -11,6 +11,10 @@ proíbem robôs excluem a fonte.**
 Confiança: **A** oficial/intergovernamental, **B** acadêmica/ONG com método público,
 **C** imprensa/comunitária/secundária.
 
+Os nomes de campo e de adaptador citados aqui foram atualizados em 09/11/2026 para o
+vocabulário em inglês do `03-modelo-de-dados.md` (D8); o resultado das sondagens não
+mudou.
+
 > **Aviso sobre o ambiente da sondagem.** A verificação foi feita de uma rede corporativa
 > com inspeção TLS (IP de saída 130.41.92.237). Alguns bloqueios (Cloudflare na Library
 > of Congress, bloqueio de IP no WorldLII, certificado "vencido" em
@@ -24,7 +28,7 @@ Confiança: **A** oficial/intergovernamental, **B** acadêmica/ONG com método p
 
 | Fonte | Conf. | O que entrega para os campos | Licença / termos | `robots.txt` | API / massa | Línguas | Atualização | Veredito |
 |---|---|---|---|---|---|---|---|---|
-| **UN Treaty Collection** (treaties.un.org), capítulos IV.1 (Convenção de 1948) e XVIII.10 (Estatuto de Roma) | A | assinatura; ratificação/adesão/sucessão com data e tipo; declarações, reservas, objeções, retiradas, notas; "STATUS AS AT 06-11-2026": 41 signatários e **154 partes** na Convenção; 137 signatários e **125 partes** no Estatuto, com seção de retiradas (art. 127) | termos gerais da ONU: uso pessoal não comercial, sem redistribuir nem derivar sem permissão; página própria de termos da UNTC → "Page not found" | `User-agent: *`, `Crawl-delay: 2`, **sem `Disallow`** | **XML por tratado, verificado**: `/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml` e `/Volume%20II/Chapter%20XVIII/XVIII-10.en.xml` (HTTP 200; `encoding="ISO-8859-1"`, servido como `text/html`, sem `Last-Modified`); estrutura `Treaty/Header/ExternalData/Status`, `Participants/Table/Row/Entry`, `Declarations`, `Objections`, `EndNotes`; nomes com `<superscript>` de nota a limpar; PDF ao lado | EN, FR | diária | **A fonte da função 1.** Entra por `lista` sobre o XML, mensal; a sentinela é a linha "STATUS AS AT" |
+| **UN Treaty Collection** (treaties.un.org), capítulos IV.1 (Convenção de 1948) e XVIII.10 (Estatuto de Roma) | A | assinatura; ratificação/adesão/sucessão com data e tipo; declarações, reservas, objeções, retiradas, notas; "STATUS AS AT 06-11-2026": 41 signatários e **154 partes** na Convenção; 137 signatários e **125 partes** no Estatuto, com seção de retiradas (art. 127) | termos gerais da ONU: uso pessoal não comercial, sem redistribuir nem derivar sem permissão; página própria de termos da UNTC → "Page not found" | `User-agent: *`, `Crawl-delay: 2`, **sem `Disallow`** | **XML por tratado, verificado**: `/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml` e `/Volume%20II/Chapter%20XVIII/XVIII-10.en.xml` (HTTP 200; `encoding="ISO-8859-1"`, servido como `text/html`, sem `Last-Modified`); estrutura `Treaty/Header/ExternalData/Status`, `Participants/Table/Row/Entry`, `Declarations`, `Objections`, `EndNotes`; nomes com `<superscript>` de nota a limpar; PDF ao lado | EN, FR | diária | **A fonte da função 1.** Entra por `listing` sobre o XML, mensal; a sentinela é a linha "STATUS AS AT" |
 | **CICV — IHL Databases / National Practice** | A | legislação e jurisprudência nacional de implementação do DIH, com filtros por instrumento, tipo, tópico e Estado (fontes secundárias falam em 195 países) | termos gerais do CICV: cópia com indicação de fonte, sem modificação, sem uso comercial; `legal-notice` do subdomínio → 404 | tudo permitido | nenhuma; **SPA** ("You need to enable JavaScript") | 7 línguas de interface | não observada | **Consulta manual** por país durante a carga; o filtro "genocídio" **não foi confirmado nem negado** (o componente não expôs as opções) |
 | **UNODC SHERLOC — Database of Legislation** | A | legislação por país (~190 + Santa Sé e Palestina com asterisco; **sem Kosovo nem Taiwan**); a taxonomia tem "Genocide (underlying acts)" e "Genocide (contextual elements)", **mas as buscas testadas devolvem 0 leis** | termos da ONU (uso pessoal, não comercial) | 404 | nenhuma; SPA; `WebFetch` 403, navegador funciona | 6 oficiais | não declarada | **Fora** por ora: taxonomia existe, conteúdo de genocídio vazio; reconferir a cada semestre |
 | **Legislationline** (OSCE/ODIHR) | A | **em reconstrução**: redireciona para `odihr.osce.org/odihr/legal-opinions-and-comments/`; a coleção de códigos penais (`/documents/section/criminal-codes`) → 404; "The new platform will be available in the coming months" | não encontrados | Drupal padrão | nenhuma | EN | — | **Indisponível em 06/11/2026**; o Arquivista reconfere mensalmente; cópias antigas de códigos existem em ecoi.net (pista) |
@@ -33,15 +37,15 @@ Confiança: **A** oficial/intergovernamental, **B** acadêmica/ONG com método p
 | **BAILII** | B | só Reino Unido e Irlanda | cópia gratuita com crédito; **proíbe "external indexing … by web robots" e "bulk downloading"**; bloqueia domínios | `Disallow` das coleções; GPTBot vetado | não | EN | — | **Não** |
 | **Cornell LII /world** | B | diretório de *links* por região; sem dado por país | CC BY-NC-SA 2.5 | Drupal, `Crawl-delay: 10` | não | EN | sem data | irrelevante (só *links*) |
 | **Prevent Genocide International** | C | **nada: domínio estacionado** (`/lander`, página de *parking*); último *snapshot* no Wayback em 06/11/2024 | — | do estacionador | não | — | morto | **Fora**; a lista histórica de legislação doméstica só via Wayback, como semente |
-| **Cornell Center on the Death Penalty Worldwide** | B | status por país em 4 categorias, execuções, perfis; "We update global execution figures each Wednesday"; base "being redesigned" | sem termos; "© 2026 Cornell" | não lido | não; HTML | EN, FR | semanal | **Sim, por `lista`** no espelho `dpw.lawschool.cornell.edu` (o domínio principal apresentou certificado vencido via proxy corporativo) |
+| **Cornell Center on the Death Penalty Worldwide** | B | status por país em 4 categorias, execuções, perfis; "We update global execution figures each Wednesday"; base "being redesigned" | sem termos; "© 2026 Cornell" | não lido | não; HTML | EN, FR | semanal | **Sim, por `listing`** no espelho `dpw.lawschool.cornell.edu` (o domínio principal apresentou certificado vencido via proxy corporativo) |
 | **Anistia Internacional — Death Sentences and Executions** | B | relatório anual em PDF (abril), 13 línguas, com anexo por país; a página web só traz agregados ("113 abolicionistas") | **CC BY-NC-ND 4.0** (`/about-us/permissions/`) | proíbe `/*/search/`; alguns robôs vetados; `crawl-delay: 5` para CCBot | não; PDF | 13 | anual | **Sim, carga anual à mão** do anexo; a licença ND impede derivar o PDF, não impede registrar o status com citação |
 | **Constitute Project** | B | constituições (cláusulas sobre pena de morte), não códigos penais; XML de países e tópicos | **sem CC**: "commercial use is expressly prohibited"; "used solely for providing information to users of this site" | **proíbe `/*.xml$`, `/*.json`, `/*?*key=*`**: os próprios endpoints de dados | API com chave (doc em Google Doc) | EN, AR, ES | — | **Não** (robots veda os dados) |
 | **ICC — Assembly of States Parties** | A | lista de Estados-partes por grupo regional, sem datas | `terms-use` → "Browser Validation Page" | Drupal padrão | não | EN, FR | — | **Fraco**; o XML XVIII.10 da UNTC é superior; Gcore bloqueou navegador e `WebFetch`, `curl` passou |
 | **Wikidata** | C | P1891 "signatory", P6193 "ratified by" existem, **mas os itens da Convenção (Q865344) e do Estatuto (Q838958) têm 0 declarações**; 70 itens `P31 = código penal`; nenhuma propriedade de pena de morte | **CC0** | Wikimedia: exige `User-Agent`, respeitar 429 e `maxlag` | SPARQL, API, *dumps* | multilíngue | contínua | **Semente quase vazia** para estes campos; serve para nomes, ISO e *links* de código penal |
-| **Wikipedia (EN)** | C | "List of parties to the Genocide Convention" (tabela Estado/assinatura/depósito/método; "As of September 2026, 154 states"; seção **"Municipal laws"** com dispositivos internos por país); "Capital punishment by country" (status, última execução, ano de abolição, categorias da Anistia "as of 2025") | CC BY-SA 4.0 + GFDL; proíbe uso automatizado abusivo | Wikimedia padrão | API, *dumps* | EN (+) | contínua | **Semente, nunca fonte**: a seção "Municipal laws" é o índice de partida para `genocidio_interno`, a conferir fonte a fonte |
+| **Wikipedia (EN)** | C | "List of parties to the Genocide Convention" (tabela Estado/assinatura/depósito/método; "As of September 2026, 154 states"; seção **"Municipal laws"** com dispositivos internos por país); "Capital punishment by country" (status, última execução, ano de abolição, categorias da Anistia "as of 2025") | CC BY-SA 4.0 + GFDL; proíbe uso automatizado abusivo | Wikimedia padrão | API, *dumps* | EN (+) | contínua | **Semente, nunca fonte**: a seção "Municipal laws" é o índice de partida para `domestic_genocide`, a conferir fonte a fonte |
 | **GlobaLex** (NYU) | B | guias narrativos de pesquisa por país; "Last Updated: January/February 2026" | © NYU | **veta robôs de IA** (ClaudeBot, Anthropic-AI, GPTBot…) | não | EN | — | guia para leitura humana na promoção; não se raspa |
 | **Foreign Law Guide** (Brill) | B | ~190 jurisdições, **assinatura paga** (fontes secundárias) | não lido | não lido (CloudFront 403/202) | não | — | — | **Não** |
-| **EUR-Lex / N-Lex** | A | só direito da UE; N-Lex é portal para as 27 bases nacionais e lista sites oficiais de 17 países fora da UE | EUR-Lex: reutilização livre (Decisão 2011/833/UE), metadados CC0; N-Lex: "consult the copyright notice of the database concerned" | EUR-Lex: não lido (202); N-Lex: inexistente | EUR-Lex: *webservice*/SPARQL | 24 | diária | **N-Lex como catálogo de `url_oficial`** para 27 + 17 países; não se raspa |
+| **EUR-Lex / N-Lex** | A | só direito da UE; N-Lex é portal para as 27 bases nacionais e lista sites oficiais de 17 países fora da UE | EUR-Lex: reutilização livre (Decisão 2011/833/UE), metadados CC0; N-Lex: "consult the copyright notice of the database concerned" | EUR-Lex: não lido (202); N-Lex: inexistente | EUR-Lex: *webservice*/SPARQL | 24 | diária | **N-Lex como catálogo de `official_url`** para 27 + 17 países; não se raspa |
 | **Conselho da Europa (CODICES etc.)** | A | nenhuma base de códigos penais nacionais localizada | não lido | `coe.int` → 403 | — | — | — | **Fora** (403, 404, 502, certificado inválido) |
 | **International Crimes Database** (Asser), **TRIAL (UJAR/UJIM)** | B | casos e verbetes; **sem seção de legislação** | ICD: "All Rights Reserved", citar e notificar; TRIAL: reprodução além da lei exige autorização | ICD 404; TRIAL `Crawl-delay: 10` | não; PDFs | EN, FR, ES | ICD irregular; UJAR anual | função 3, não 1 |
 | **ICC Legal Tools Database** | A | 441.314 documentos; coleção "National Criminal Jurisdictions" com 20.914 itens (leis, decisões, comunicados, misturados), PURLs estáveis `/doc/<id>/` | não comercial; citar PURL; "All rights reserved" | `ai-train=no`; `Allow: /`; robôs de IA vetados | não documentada; SPA | EN | diária | **consulta manual** durante a promoção; não se raspa |
@@ -56,25 +60,25 @@ históricas.
 1. **A função 1 não é um *crawler*; é um conjunto de dados curado com uma fonte
    automatizada.** O único dado por país que se lê por robô com estabilidade é o XML da
    UN Treaty Collection: assinatura, vinculação, tipo, reservas, objeções e retiradas
-   das duas convenções, para 154 e 125 partes. Isso preenche `convencao_1948` e
-   `estatuto_roma` de todos os 197 registros no primeiro mês, com confiança A.
-2. **`codigo_penal` e `genocidio_interno` não têm base aberta viva em 06/11/2026.**
+   das duas convenções, para 154 e 125 partes. Isso preenche `genocide_convention` e
+   `rome_statute` de todos os 197 registros no primeiro mês, com confiança A.
+2. **`penal_code` e `domestic_genocide` não têm base aberta viva em 06/11/2026.**
    Prevent Genocide morreu; Legislationline está fora do ar; SHERLOC tem a taxonomia e
    não tem o conteúdo; o CICV exige navegação manual; Legal Tools mistura tudo e veta
    robôs; os LIIs bloqueiam. Esses dois campos entram **à mão, país a país**, a partir
    de dois índices de partida (a seção "Municipal laws" da Wikipedia e o N-Lex para a
-   `url_oficial`) e conferidos na fonte oficial ou, na falta dela, numa fonte B com
-   `confianca: B`. O ritmo realista é de **10 a 20 países por sessão de trabalho**;
+   `official_url`) e conferidos na fonte oficial ou, na falta dela, numa fonte B com
+   `confidence: B`. O ritmo realista é de **10 a 20 países por sessão de trabalho**;
    os 197 levam de 10 a 20 sessões, e o roteiro ordena pelos países com situação
    monitorada.
-3. **Pena de morte** entra pelo espelho do Cornell (`lista`, semanal, 4 categorias) e
+3. **Pena de morte** entra pelo espelho do Cornell (`listing`, semanal, 4 categorias) e
    pelo anexo anual da Anistia (carga à mão, CC BY-NC-ND: registra-se o status com
    citação, não se redistribui o PDF).
 4. **Pena máxima** não tem fonte global: é lida do código penal de cada país na mesma
-   sessão de carga de `codigo_penal`, e fica `desconhecido` até lá.
+   sessão de carga de `penal_code`, e fica `unknown` até lá.
 5. **A questão transversal 1 ganha um dado**: SHERLOC não lista Kosovo nem Taiwan e
    marca Santa Sé e Palestina com asterisco; a UNTC lista a Palestina e a Santa Sé como
-   partes. O esquema com `estatuto_onu` acomoda os quatro sem forçar nenhuma fonte.
+   partes. O esquema com `un_status` acomoda os quatro sem forçar nenhuma fonte.
 6. **Três fontes pedem repetição de outra rede** antes de serem descartadas: Library
    of Congress (API JSON documentada e sem chave, se o Cloudflare for do ambiente),
    WorldLII (o `robots.txt` permite *crawler* genérico) e o domínio principal do
@@ -96,7 +100,7 @@ verificou-se existência, estrutura, termos e acesso.
 
 | Fonte | Conf. | Entrega | Licença / termos | `robots.txt` | API e limites | Línguas | Janela | Custo | Veredito |
 |---|---|---|---|---|---|---|---|---|---|
-| **GDELT DOC 2.0 API** | B (índice) | lista de artigos (URL, título, data, domínio, língua, país da fonte) em JSON/CSV/RSS; nunca texto | "unlimited and unrestricted use … without fee"; **citação obrigatória** ao GDELT (`about.html#termsofuse`) | `api.gdeltproject.org/robots.txt` → 404; `www.gdeltproject.org` só proíbe `/data/` | sem chave; **1 requisição a cada 5 s por IP** (mensagem literal do servidor: "Please limit requests to one every 5 seconds… All high-traffic users should switch to our ngrams dataset"); `maxrecords` até 250; operadores `sourcelang:`, `sourcecountry:`, `theme:`, `domain:` dentro de `query`; modo `timelinevol` dá a contagem por dia | 65 línguas traduzidas, busca em inglês | docs dizem "3 meses", mas a consulta com `startdatetime=20190101` **devolveu artigo de 04/01/2019**: cobre desde 2017 | grátis | **Espinha da função 2 no MVP**, com o adaptador do Alétheia (que já consulta dia a dia e refatia em 6 h) e `limite_por_minuto: 12` (= 5 s) |
+| **GDELT DOC 2.0 API** | B (índice) | lista de artigos (URL, título, data, domínio, língua, país da fonte) em JSON/CSV/RSS; nunca texto | "unlimited and unrestricted use … without fee"; **citação obrigatória** ao GDELT (`about.html#termsofuse`) | `api.gdeltproject.org/robots.txt` → 404; `www.gdeltproject.org` só proíbe `/data/` | sem chave; **1 requisição a cada 5 s por IP** (mensagem literal do servidor: "Please limit requests to one every 5 seconds… All high-traffic users should switch to our ngrams dataset"); `maxrecords` até 250; operadores `sourcelang:`, `sourcecountry:`, `theme:`, `domain:` dentro de `query`; modo `timelinevol` dá a contagem por dia | 65 línguas traduzidas, busca em inglês | docs dizem "3 meses", mas a consulta com `startdatetime=20190101` **devolveu artigo de 04/01/2019**: cobre desde 2017 | grátis | **Espinha da função 2 no MVP**, com o adaptador do Alétheia (que já consulta dia a dia e refatia em 6 h) e `rate_limit_per_minute: 12` (= 5 s) |
 | **GDELT GKG 2.1** (arquivos de 15 min) | B | CSV zipado a cada 15 min: URL, data, temas (`V2THEMES`), tom, locais, pessoas; sem texto; arquivo inglês ~5 MB/1.191 linhas, tradução ~12 MB/3.027 linhas | idem | `data.gdeltproject.org/robots.txt` → 404 | download HTTP direto, sem chave; `lastupdate.txt` e `lastupdate-translation.txt` (este apontou para arquivo ainda não publicado → 404 transitório) | inglês + "translation" (47 línguas-fonte vistas num arquivo) | desde 02/2015 | grátis; **~1,5 GB/dia** de download (192 arquivos) | **Fase 2**, se o Recenseador mostrar truncamento da DOC API: sem teto de 250 e com os temas já marcados |
 | **Temas GKG** | — | `LOOKUP-GKGTHEMES.TXT` (59.315 temas): **`WB_2509_GENOCIDE`** (2,29 M ocorrências), `WB_2508_ETHNIC_CLEANSING` (438 k), `WB_2510_WAR_CRIMES`, `WB_2513_CRIMES_AGAINST_HUMANITY`, `SELF_IDENTIFIED_ATROCITY`, família `CRISISLEX_*`; não há tema "GENOCIDE" puro | — | — | — | — | — | — | usar `theme:WB_2509_GENOCIDE` na DOC API como segundo canal, ao lado da busca por termo |
 | **GDELT no BigQuery** | B | SQL sobre GKG e eventos completos | dados abertos; BigQuery sob termos Google Cloud | — | conta Google Cloud; *sandbox* sem cartão: 1 TiB de consulta/mês; acima, US$ 6,25/TiB; **uma varredura do GKG inteiro custa vários TiB** | idem | desde 2015 | grátis até 1 TiB/mês | **Fora** do fluxo (conta Google, custo imprevisível); útil para pesquisa pontual |
@@ -142,10 +146,10 @@ verificou-se existência, estrutura, termos e acesso.
 
 1. **O GDELT continua sendo a espinha, mas com duas correções ao plano original.**
    (a) O servidor pede **5 segundos entre requisições**: o adaptador do Alétheia já
-   respeita isso (`limite_por_minuto: 12`), e a rodada semanal com 5 línguas × 7 dias ×
+   respeita isso (`rate_limit_per_minute: 12`), e a rodada semanal com 5 línguas × 7 dias ×
    até 4 fatias de 6 h fica em ~140 requisições, 12 minutos. (b) A janela **não é de
    90 dias**: a consulta a 2019 funcionou, então o retroativo de notícias desde 2017 é
-   possível para uma situação promovida, com paciência (o `desde_efetivo` do adaptador
+   possível para uma situação promovida, com paciência (o `effective_since` do adaptador
    precisa parar de cortar em 90 dias quando a resposta provar que há dado).
 2. **Dois canais no GDELT, não um**: a busca por termo em cada língua (`sourcelang:`) e
    a busca por tema `WB_2509_GENOCIDE`. O **modo `timelinevol`** dá a contagem diária
@@ -159,11 +163,11 @@ verificou-se existência, estrutura, termos e acesso.
    o Astraea também não se faz passar por navegador); **respeitar o *opt-out* expresso
    de mineração de texto** (El País, EFE, Al Jazeera cl. 6, Anistia): nesses domínios o
    robô não baixa a página, tria só pelo título e pela descrição do *feed*, e o item
-   fica no nível máximo 2 com `motivo: "sem_texto_por_politica"`; e honrar
+   fica no nível máximo 2 com `reason: "no_text_by_policy"`; e honrar
    `Crawl-delay` (10 s em `un.org` e na Agência Brasil, 5 s na Anistia).
 4. **RSS na fase 1**: UN News (10 línguas), BBC World Service (várias línguas, dentro do
    §15), DW, France 24, Agência Brasil, Guardian, Le Monde, JusticeInfo, HRW, Crisis
-   Group, Genocide Watch; Xinhua e Anadolu marcados como estatais em `fontes.json`.
+   Group, Genocide Watch; Xinhua e Anadolu marcados como estatais em `sources.json`.
    Fora por termos: Reuters, AP, AFP, TASS, Google News, Guardian API, ACLED, NewsAPI,
    GNews. Fora por custo: Common Crawl, BigQuery.
 5. **ReliefWeb entra na fase 1** depois do pedido de `appname` (formulário; grátis):
@@ -192,7 +196,7 @@ API ao vivo (exige conta).
 
 | Fonte | Conf. | Canal verificado | Formato | `robots.txt` | Termos | Línguas | Freq. | Bloqueio | Veredito |
 |---|---|---|---|---|---|---|---|---|---|
-| **CIJ** (icj-cij.org) | A | lista HTML de *press releases* e página de caso com abas (ordens, julgamentos); **sem RSS** (`/rss.xml` 404); lista de e-mail | HTML + PDF com padrão estável `/sites/default/files/case-related/{n}/{n}-AAAAMMDD-{tipo}-NN-00-{en\|fr}.pdf` | Drupal padrão; sem `crawl-delay`; nada contra robôs | `/disclaimer`: não reproduzir para fins comerciais; "consultation or use … constitutes full acceptance" | EN, FR | irregular; PRs numerados por ano (2026/28 em 04/11) | **PDFs devolvem 403 `cf-mitigated: challenge`** a cliente não-navegador; o HTML responde 200 | **Sim, por `lista`**: listar atos, datas, números de PR e URLs das páginas; o PDF fica como URL, nunca baixado pelo robô |
+| **CIJ** (icj-cij.org) | A | lista HTML de *press releases* e página de caso com abas (ordens, julgamentos); **sem RSS** (`/rss.xml` 404); lista de e-mail | HTML + PDF com padrão estável `/sites/default/files/case-related/{n}/{n}-AAAAMMDD-{tipo}-NN-00-{en\|fr}.pdf` | Drupal padrão; sem `crawl-delay`; nada contra robôs | `/disclaimer`: não reproduzir para fins comerciais; "consultation or use … constitutes full acceptance" | EN, FR | irregular; PRs numerados por ano (2026/28 em 04/11) | **PDFs devolvem 403 `cf-mitigated: challenge`** a cliente não-navegador; o HTML responde 200 | **Sim, por `listing`**: listar atos, datas, números de PR e URLs das páginas; o PDF fica como URL, nunca baixado pelo robô |
 | **TPI** (icc-cpi.int) | A | **RSS verificados**: `/rss/news/all` e `/rss/records/all` (registro, situação, caso, órgão, data) | HTML (+PDF em `/sites/default/files/CourtRecords/`) | Drupal padrão | `/disclaimer`: uso pessoal não comercial, sem redistribuir; reprodução sem permissão escrita salvo o permitido | EN, FR (+ outras nos registros) | diária | `WebFetch` recebeu 403 em tudo; cliente `curl` identificado recebeu 200 (nginx): bloqueio seletivo por UA/IP de ferramentas | **Sim, por `rss`**: o melhor canal do levantamento |
 | **ICC Legal Tools Database** (legal-tools.org) | A | SPA React; URLs `/doc/{id}/`; *backend* JSON em `/api/` não documentado | HTML/PDF | **bloqueia ~40 robôs de IA**, inclusive `ClaudeBot` e `anthropic-ai`; `Content-Signal: ai-train=no`; `crawl-delay: 10` | `/footer/terms-of-use` só por clique "Agree"; **não lido** | EN | contínua | Cloudflare | **Não** na fase 1: API sem documentação, termos não lidos, robôs de IA vetados |
 | **IRMCT** (irmct.org) | A | **RSS verificado** `/en/rss.xml` (notícias); UCR (`ucr.irmct.org`) exige **registro e login**; CLD sem API | HTML/PDF | Drupal, `Crawl-delay: 10` | uso pessoal não comercial; reprodução com fonte; UCR "reserves the right to deny … access" | EN, FR, BCS, RW | baixa (mensal) | UCR fechado a anônimos | **RSS do site**; UCR fora (sem conta e sem termos para automação) |
@@ -201,12 +205,12 @@ API ao vivo (exige conta).
 | **RSCSL** (rscsl.org) | A | **RSS verificado** `/feed/` (WordPress) | HTML/PDF | permite tudo | só "© All Rights Reserved" | EN | 3–4 itens/ano | nenhum | RSS; sem genocídio no mandato, só para completude |
 | **Kosovo Specialist Chambers** (scp-ks.org) | A | **RSS verificados** `/en/news/rss` e `/en/blogs/30/feed`; repositório com filtros, sem API | HTML/PDF | Drupal padrão | `/en/legal-notice`: cópia livre para uso privado, informação e educação, com fonte | EN, SQ, SR | semanal | nenhum | RSS; **não julga genocídio** (fora do MVP) |
 | **STL** (encerrado) | — | `stl-tsl.org` **não resolve DNS**; acervo migrou para Stanford Virtual Tribunals | — | não lido (timeout) | Stanford: "publicly available online for free" | EN, FR, AR | nada novo | — | nada a monitorar |
-| **Corte IDH** (corteidh.or.cr) | A | comunicados em PDF `/docs/comunicados/cp_NN_AAAA.pdf`; buscador de jurisprudência é aplicação **vLex** sem API pública; RSS não localizado | PDF/HTML | content signals `ai-train=no`; `Allow: /` | **não lidos**: domínio inteiro atrás de Cloudflare `challenge` para qualquer cliente não-navegador | ES (parte EN/PT) | alta | **Cloudflare challenge** em todas as páginas | **Inviável por robô na fase 1**; entra por `lista` curada à mão quando houver ato sobre genocídio |
+| **Corte IDH** (corteidh.or.cr) | A | comunicados em PDF `/docs/comunicados/cp_NN_AAAA.pdf`; buscador de jurisprudência é aplicação **vLex** sem API pública; RSS não localizado | PDF/HTML | content signals `ai-train=no`; `Allow: /` | **não lidos**: domínio inteiro atrás de Cloudflare `challenge` para qualquer cliente não-navegador | ES (parte EN/PT) | alta | **Cloudflare challenge** em todas as páginas | **Inviável por robô na fase 1**; entra por `listing` curada à mão quando houver ato sobre genocídio |
 | **CIDH** (oas.org/es/cidh) | A | lista HTML de comunicados; sem RSS; lista de e-mail | HTML | `Crawl-delay: 3`; proíbe `/decisions/`, `/documents/` | não lidos | ES, EN, PT, FR | quase diária | nenhum | *scraping* leve da lista; baixo rendimento para genocídio |
 | **TEDH / HUDOC** | A | **endpoint JSON do próprio site** `hudoc.echr.coe.int/app/query/results?query=…&select=itemid,docname,kpdate,ecli,appno…` (devolve `resultcount` e `results[]`); **RSS verificado** de *press releases*; *feeds* por país e câmara em echr.coe.int/rss-feeds | JSON/HTML/PDF/DOCX | `hudoc`: **não existe** (devolve o HTML do app); `echr.coe.int`: proíbe `/search` | `copyright-and-disclaimer`: reprodução para uso privado, informação e educação, com "© ECHR-CEDH"; comercial com permissão; **nada sobre acesso automatizado** | EN, FR | diária | Cloudflare na frente, serviu 200 | **RSS sim; JSON com parcimônia** (não documentado; consulta testada `genocide` em câmara/grande câmara: 393 resultados) |
 | **Corte Africana** (african-court.org, ajudata) | A | **RSS verificado** `/afchpr/feed/`; AJUDATA lista `/decisions`, `/pending`, sumários; sem API; "Follow cases" com CAPTCHA | HTML/PDF | 404 nos dois hosts (não lido) | só "© All Rights Reserved" | EN, FR, AR, PT | 4 sessões/ano | `/wpafc/` → 500 | RSS + *scraping* leve do AJUDATA |
 | **Comissão Africana** (achpr.au.int) | A | URLs datadas de *press releases*, decisões e resoluções; `/en/rss.xml` existe mas **mistura 2026 com 2018–2020** | HTML/PDF | content signals `ai-train=no`; comentário de 26/08/2026: um *crawler* enumerando buscas derrubou o banco → `/search` proibido | "Site Terms" → 404 | EN, FR, AR, SW, PT | semanal | Cloudflare (serviu 200) | *scraping* leve das listas, **nunca `/search`**; fonte sensível a automação |
-| **TRIAL International** | B | **RSS verificado** `/feed/`; UJAR 2026 em PDF (abril/2026; 86 casos em 20 países) | HTML/PDF | `Crawl-delay: 10` | "Legal Content" não lido | EN, FR | semanal; UJAR anual | nenhum | RSS; UJAR como `lista` anual de jurisdição universal |
+| **TRIAL International** | B | **RSS verificado** `/feed/`; UJAR 2026 em PDF (abril/2026; 86 casos em 20 países) | HTML/PDF | `Crawl-delay: 10` | "Legal Content" não lido | EN, FR | semanal; UJAR anual | nenhum | RSS; UJAR como `listing` anual de jurisdição universal |
 | **International Crimes Database** (Asser) | B | `/Cases/ByName`, `/Crimes/Genocide`, `/Case/{id}` (~3.331); sem RSS; ainda atualizado (03/11/2026) | HTML | permite tudo | "© 2013 … All Rights Reserved"; "as is" | EN | irregular | nenhum | *scraping* leve para carga histórica; não monitorar |
 | **Open Society Justice Initiative** | B | `/litigation` com filtros; sem RSS; poucas datas | HTML | Drupal padrão | termos → 404 | EN | irregular | Cloudflare (200) | baixo valor; fora |
 | **OHCHR / CDH** (ohchr.org) | A | páginas de mandato das comissões de inquérito (`/en/hr-bodies/hrc/co-is`: 15 mandatos) listam relatórios e PRs; `/en/rss.xml` é *feed* genérico; `/en/latest` → 403 | HTML/PDF | Drupal padrão | termos gerais da ONU: uso pessoal não comercial, sem obra derivada sem permissão | EN + AR/FR/ES/RU/ZH | 3 sessões/ano + PRs semanais | Cloudflare `challenge` em partes | *scraping* leve das páginas de mandato (funcionaram); IIMM (`iimm.un.org`) sem RSS |
@@ -222,15 +226,15 @@ API ao vivo (exige conta).
    "um ato por registro" do modelo de dados. O bloqueio ao `WebFetch` e não ao
    `curl` identificado mostra que a identificação do projeto no `User-Agent` importa
    (e que uma política de UA pode mudar: o Arquivista vigia).
-2. **A CIJ entra por `lista`**: a página de cada caso pendente (178, 182, 192, 202) e
+2. **A CIJ entra por `listing`**: a página de cada caso pendente (178, 182, 192, 202) e
    a lista de *press releases* são HTML lido sem bloqueio; o PDF do ato fica como URL
    e **não é baixado** (Cloudflare o veta a robôs). Como o Astraea guarda só
-   metadados, a restrição não custa nada; o `hash_texto` de ato da CIJ fica `null`
-   com `motivo: "pdf_bloqueado_a_robo"`.
+   metadados, a restrição não custa nada; o `text_hash` de ato da CIJ fica `null`
+   com `reason: "pdf_blocked_to_robots"`.
 3. **IRMCT, RSCSL, KSC, Corte Africana e TRIAL entram por RSS** com custo quase zero;
    só IRMCT e Corte Africana têm genocídio no mandato.
 4. **A Corte IDH é inviável por robô** (Cloudflare para tudo, buscador terceirizado à
-   vLex). Entra por `lista` curada à mão. A alternativa que não se faz: navegador
+   vLex). Entra por `listing` curada à mão. A alternativa que não se faz: navegador
    automatizado para passar no *challenge*.
 5. **A jurisprudência histórica (TPII, TPIR, ECCC) é carga única**, feita à mão a
    partir das listas estáticas de casos, nas situações iniciais.
@@ -239,8 +243,8 @@ API ao vivo (exige conta).
 7. **Legal Tools, UN Digital Library, ODS, WorldCourts e ORIL ficam fora**, cada um
    por motivo de política (robôs vetados, `Disallow`, termos, pagamento), não por
    dificuldade técnica.
-8. **As comissões de inquérito da ONU são fonte de `investigacao` e `alegacao`**, não
-   de decisão: entram no Escrivão como páginas de mandato (`lista`), e a URL canônica
+8. **As comissões de inquérito da ONU são fonte de `investigation` e `allegation`**, não
+   de decisão: entram no Escrivão como páginas de mandato (`listing`), e a URL canônica
    do documento é `docs.un.org/{lang}/{símbolo}`.
 
 ### 3.3 Estado dos casos de genocídio em 06/11/2026 (para a carga inicial)
@@ -282,16 +286,16 @@ Tudo abaixo vem da página oficial citada, salvo onde marcado "imprensa".
    bloqueou o `WebFetch` e serviu o `curl` identificado.
 2. **`Content-Signal: ai-train=no`** aparece em vários hosts (Legal Tools, LIIs, Corte
    IDH, Comissão Africana, WorldCourts). O Astraea não treina modelo com nada; o sinal
-   fica registrado em `fontes.json` e a política de modelo de linguagem (D4 em
+   fica registrado em `sources.json` e a política de modelo de linguagem (D4 em
    `07-decisoes-pendentes.md`) exclui esses domínios de qualquer rascunho automático.
 3. **PDF bloqueado não é dado perdido.** Como só se guardam metadados, o ato da CIJ
-   entra com URL, data e número, `hash_texto: null` e motivo.
+   entra com URL, data e número, `text_hash: null` e motivo.
 4. **Três fontes-chave exigem gesto humano único:** `appname` do ReliefWeb
    (formulário), chave do Media Cloud (cadastro), e nenhuma outra. Não há chave paga
    no MVP.
 5. **Reconferência periódica é parte do sistema:** Legislationline (em
    reconstrução), SHERLOC (taxonomia vazia), EMM (site novo), Library of Congress e
-   WorldLII (bloqueio talvez do ambiente) ganham `estado: suspensa` em `fontes.json` com
+   WorldLII (bloqueio talvez do ambiente) ganham `state: suspended` em `sources.json` com
    data de reconferência, e o Arquivista as reabre.
 
 <!-- Verificação concluída em 06/11/2026 com as três sondagens. -->

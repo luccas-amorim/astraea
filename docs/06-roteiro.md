@@ -9,9 +9,9 @@ duas sessões por semana; ambas são chutes declarados, a corrigir ao fim de cad
 
 O MVP é o que está **pronto ao fim da fase 4**:
 
-- **Leis penais do mundo:** 197 registros com `convencao_1948` e `estatuto_roma`
-  preenchidos pelo robô e carimbados; `pena_de_morte` proposto pelo robô e confirmado;
-  `codigo_penal` e `genocidio_interno` preenchidos à mão só para os países das dez
+- **Leis penais do mundo:** 197 registros com `genocide_convention` e `rome_statute`
+  preenchidos pelo robô e carimbados; `death_penalty` proposto pelo robô e confirmado;
+  `penal_code` e `domestic_genocide` preenchidos à mão só para os países das dez
   situações iniciais (~25 países); os demais vazios com motivo e contados na tela.
 - **Decisões:** todos os atos da CIJ e do TPI sobre genocídio desde 01/01/2019, mais a
   carga histórica das dez situações, com status na taxonomia e URL oficial; RSS de TPI,
@@ -20,13 +20,15 @@ O MVP é o que está **pronto ao fim da fase 4**:
 - **Notícias:** GDELT (termo + tema, 5 línguas), ReliefWeb e ~15 *feeds* rodando toda
   semana há quatro semanas sem intervenção; nível 3 na tela; contagem por língua e por
   nível publicada; taxa de falso positivo da primeira amostra publicada.
-- **Site:** página inicial e três telas estáticas, dados abertos em `static/data/`,
-  `CITATION.cff`, página de fontes com confiança e termos.
+- **Site:** página inicial e três telas estáticas em `en` e `pt-BR`, dados abertos em
+  `static/data/` com rótulos nas duas línguas, `CITATION.cff`, página de fontes com
+  confiança e termos.
 - **Um registro promovido de ponta a ponta** (Gâmbia v. Mianmar é o candidato natural:
   sentença de mérito marcada para 19/11/2026).
 
 O que o MVP **não** tem: os 197 países com código penal conferido; léxicos além das
-cinco línguas; Media Cloud e GKG; mapa; Astro; dossiê-filho; `argos-core`.
+cinco línguas; telas e rótulos além de `en` e `pt-BR`; Media Cloud e GKG; mapa; Astro;
+dossiê-filho; motor comum a outros projetos.
 
 ## Fases
 
@@ -34,39 +36,49 @@ cinco línguas; Media Cloud e GKG; mapa; Astro; dossiê-filho; `argos-core`.
 
 `docs/00` a `docs/07`, `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`. **Pronto quando:**
 você respondeu às decisões de `07-decisoes-pendentes.md` que afetam a fase 1 (D1, D2,
-D3, D7, D8) e o plano foi ajustado.
+D3, D7, D8) e o plano foi ajustado. **Feito em 09/11/2026**: D1, D3 e D7 aceitas como
+recomendadas; D2 virou motor próprio a partir do Alétheia; D8 virou dados e código em
+inglês, com telas em `en` e `pt-BR`.
 
-### Fase 1 — Esqueleto (3 sessões, ~2 semanas)
+### Fase 1 — Esqueleto (4 sessões, ~2 semanas)
 
-1. Licenças (`LICENSE` Apache-2.0, `LICENSE-CC-BY-4.0`, `NOTICE`), `CITATION.cff`,
-   `CHANGELOG.md`, `MITO.md`, `.gitignore`, `pyproject.toml` com o Alétheia fixado por
-   `sha` e `pytest`/`ruff` em dev.
-2. `data/` com `paises.json` (197 registros só com `id`, nomes e `estatuto_onu`, lidos
-   de uma lista ISO em domínio público e conferidos contra a lista de membros da ONU),
-   `situacoes.json` (as dez de D6, com `termos` em cinco línguas), `fontes.json` (todas
-   as fontes de `02-fontes.md` com `estado`), `lexico/` gerado, `ids-aposentados.json`.
-3. `scripts/transformar.py --estrito | --rascunho` com as dez travas de
-   `03-modelo-de-dados.md`; `scripts/gerar_lexico.py`; `ci.yml`; `deploy.yml` com uma
-   página inicial mínima lendo `qualidade.json`.
-4. Política de robô em código: `User-Agent` próprio, `Crawl-delay`, lista de domínios
-   com `sem_texto_por_politica`.
+1. **Motor** (1 sessão): cópia literal dos módulos do Alétheia em `astraea/engine/`,
+   testes copiados verdes, depois a tradução para inglês em commit separado, com
+   testes verdes de novo (passo a passo em `04-arquitetura.md`, "Onde o motor vive").
+2. Licenças (`LICENSE` Apache-2.0, `LICENSE-CC-BY-4.0`, `LICENSE-aletheia.txt` MIT,
+   `NOTICE` com o `sha` de origem do motor), `CITATION.cff`, `CHANGELOG.md`, `MITO.md`,
+   `.gitignore`, `pyproject.toml` sem dependências de execução e com `pytest`/`ruff`
+   em dev.
+3. `data/` com `countries.json` (197 registros só com `id`, `name` em `en` e `pt-BR` e
+   `un_status`, lidos de uma lista ISO em domínio público e conferidos contra a lista
+   de membros da ONU), `situations.json` (as dez de D6, com `terms` em cinco línguas),
+   `sources.json` (todas as fontes de `02-fontes.md` com `state`), `lexicon/` gerado,
+   `retired-ids.json`, `i18n/en.json` e `i18n/pt-BR.json` com o rótulo de cada campo e
+   de cada valor.
+4. `scripts/transform.py --strict | --draft` com as onze travas de
+   `03-modelo-de-dados.md`; `scripts/build_lexicon.py`; `scripts/build_site.py`;
+   `ci.yml`; `deploy.yml` com uma página inicial mínima em `/en/` e `/pt-br/` lendo
+   `quality.json`.
+5. Política de robô em código: `User-Agent` próprio, `Crawl-delay`, lista de domínios
+   com `no_text_by_policy`.
 
-**Pronto quando:** `ci.yml` verde; o site publica a página inicial com "197 países, 0
-conferidos"; `transformar --estrito` reprova um registro de exemplo sem carimbo e
-`--rascunho` o aceita.
+**Pronto quando:** `ci.yml` verde; o site publica a página inicial nas duas línguas
+com "197 países, 0 conferidos" / "197 countries, 0 checked"; `transform --strict`
+reprova um registro de exemplo sem carimbo e `--draft` o aceita; a trava 11 reprova
+um valor sem rótulo em `pt-BR`.
 
 ### Fase 2 — Função 1 automática (3 sessões, ~2 semanas)
 
-1. **Tabelião:** adaptador `lista` sobre o XML da UNTC (IV.1 e XVIII.10): decodificar
+1. **Tabelião:** adaptador `listing` sobre o XML da UNTC (IV.1 e XVIII.10): decodificar
    ISO-8859-1, limpar `<superscript>`, mapear nome → ISO (tabela de exceções à mão),
    extrair assinatura, vinculação, tipo, reservas, objeções, retiradas; sentinela =
-   "STATUS AS AT". Fixture com o XML de 06/11/2026. Grava com `conferido_por: robo`.
-2. **Pena de morte:** adaptador `lista` sobre o espelho do Cornell; carga do anexo da
+   "STATUS AS AT". Fixture com o XML de 06/11/2026. Grava com `checked_by: robot`.
+2. **Pena de morte:** adaptador `listing` sobre o espelho do Cornell; carga do anexo da
    Anistia 2024 à mão (status por país, com citação).
-3. `paises.yml` mensal abrindo PR; tela `/paises` com tabela, filtros, completude e
+3. `countries.yml` mensal abrindo PR; tela `/countries` com tabela, filtros, completude e
    ficha com proveniência.
-4. Carga humana dos ~25 países das situações iniciais: `codigo_penal`,
-   `genocidio_interno`, `pena_maxima`, começando pelo Brasil (lido do AtlasPen).
+4. Carga humana dos ~25 países das situações iniciais: `penal_code`,
+   `domestic_genocide`, `max_penalty`, começando pelo Brasil (lido do AtlasPen).
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira
@@ -74,36 +86,36 @@ reconferência de Legislationline e SHERLOC está agendada no Arquivista.
 
 ### Fase 3 — Função 3 (4 sessões, ~3 semanas)
 
-1. Adaptador `rss` do Alétheia configurado para TPI (registros e notícias), IRMCT,
+1. Adaptador `rss` do motor (vindo do Alétheia) configurado para TPI (registros e notícias), IRMCT,
    KSC, RSCSL, Corte Africana, TRIAL, HUDOC (*press releases*); filtro por léxico de
    situação; tratamento de gzip sem cabeçalho.
-2. Adaptador `cij`: `lista` sobre a página de cada caso pendente e sobre a lista de
-   *press releases*; o PDF fica como URL com `hash_texto: null` e motivo.
-3. Adaptador `ohchr`: `lista` sobre as páginas de mandato das comissões de inquérito.
+2. Adaptador `icj`: `listing` sobre a página de cada caso pendente e sobre a lista de
+   *press releases*; o PDF fica como URL com `text_hash: null` e motivo.
+3. Adaptador `ohchr`: `listing` sobre as páginas de mandato das comissões de inquérito.
 4. Carga histórica à mão: atos de 2019–2026 da CIJ (178, 182, 192, 193, 197, 202) e
    do TPI (Darfur); sentenças de mérito históricas das dez situações (TPIR Akayesu,
-   TPII Krstić, CIJ Bósnia e Croácia, ECCC caso 002/02); Corte IDH e CIDH por `lista`
+   TPII Krstić, CIJ Bósnia e Croácia, ECCC caso 002/02); Corte IDH e CIDH por `listing`
    curada quando houver ato pertinente.
-5. `tribunais.yml` semanal; tela `/decisoes` e `/situacoes/<id>` com a linha do tempo e
+5. `courts.yml` semanal; tela `/decisions` e `/situations/<id>` com a linha do tempo e
    o rótulo com órgão.
 
 **Pronto quando:** a rodada semanal roda três semanas seguidas; a sentença da CIJ de
-19/11/2026 (Gâmbia v. Mianmar) entra pelo fluxo (pede-juízo → status `decisao_merito`
-com `resultado` → tela) e serve de prova da promoção; nenhum status sem órgão passa no
+19/11/2026 (Gâmbia v. Mianmar) entra pelo fluxo (pede-juízo → status `merits_decision`
+com `outcome` → tela) e serve de prova da promoção; nenhum status sem órgão passa no
 validador.
 
 ### Fase 4 — Função 2 (4 sessões + 4 semanas de calibração)
 
-1. `config/noticias.json`: GDELT por língua (`sourcelang:` × termos do léxico) e por
-   tema (`WB_2509_GENOCIDE`), com `limite_por_minuto: 12`; *feeds* da lista da fase 1 de
+1. `config/news.json`: GDELT por língua (`sourcelang:` × termos do léxico) e por
+   tema (`WB_2509_GENOCIDE`), com `rate_limit_per_minute: 12`; *feeds* da lista da fase 1 de
    `02-fontes.md`; ReliefWeb (depois do `appname`).
 2. Adaptador `reliefweb`; ajuste do adaptador GDELT para não cortar em 90 dias quando a
    resposta tiver dado; `timelinevol` no Recenseador.
 3. Léxicos en, fr, es, pt, ar com `contexto` jurídico por língua, revisados por falante
    quando houver.
-4. `noticias.yml` **diário durante 4 semanas**, lendo o relatório a cada 2–3 dias e
+4. `news.yml` **diário durante 4 semanas**, lendo o relatório a cada 2–3 dias e
    ajustando exclusões; depois semanal.
-5. Tela `/noticias` (90 dias, filtros, gráfico por língua e semana).
+5. Tela `/news` (90 dias, filtros, gráfico por língua e semana).
 
 **Pronto quando:** quatro semanas seguidas sem intervenção; a amostra de 60 itens
 (20 de nível 3, 20 de nível 2, 20 de nível 1) foi lida e a taxa de falso positivo do
@@ -112,10 +124,10 @@ está registrada; o Recenseador não acusa truncamento em mais de 10% dos dias-l
 
 ### Fase 5 — Fechamento do MVP (2 sessões)
 
-1. Página inicial com contadores e situações; `/projeto` com metodologia, fontes,
+1. Página inicial com contadores e situações; `/about` com metodologia, fontes,
    robôs, dados abertos, pessoas, como citar.
 2. `AUDITORIA.md` do Astraea (protocolo pré-registrado, adaptado do AtlasPen: estratos
-   por fonte e nível, semente = hash do commit), `auditoria.yml`, primeira amostra.
+   por fonte e nível, semente = hash do commit), `audit.yml`, primeira amostra.
 3. Versão `0.1.0`, release no GitHub e DOI no Zenodo.
 
 **Pronto quando:** os quatro critérios de sucesso de `01-visao-e-escopo.md` estão
@@ -129,21 +141,37 @@ cumpridos e a taxa da primeira auditoria está publicada.
 | 7 | Media Cloud como 2.º canal e estimativa de cobertura por língua | fim da fase 4 |
 | 8 | GKG de 15 min | Recenseador acusando truncamento |
 | 9 | léxicos nas línguas das situações (birmanês, tigrínia, amárico, uigur, ucraniano, russo) | contagem de nível 1 por língua |
-| 10 | primeiro dossiê-filho (`astraea-<situacao>`, modelo Alétheia com Wayback) | registro em `detalhado` |
-| 11 | `argos-core` extraído; Argos, Alétheia e Astraea dependem dele | 3.º adaptador genérico provado |
+| 10 | primeiro dossiê-filho (`astraea-<situation>`, modelo Alétheia com Wayback) | registro em `detailed` |
+| 11 | motor comum extraído do motor do Astraea, se outro projeto (Argos, Alétheia) quiser adotá-lo | pedido de um segundo consumidor |
 | 12 | separação `astraea-dados` | árvore > 500 MB ou > 1 commit de robô/dia |
 | 13 | Astro no site; mapa (D13) | telas pedindo componentes compartilhados |
+| 14 | **várias línguas**: telas, rótulos e dicionário de dados abertos em espanhol, francês e árabe (com leitura da direita para a esquerda), depois chinês e russo, completando as seis oficiais da ONU mais o português | fim da fase 5; é a primeira depois do MVP, junto com a 6 |
+
+**Fase 14 em detalhe.** Um *locale* novo entra de uma vez, por sessão própria, e só vai
+ao ar quando estiver completo: `data/i18n/<locale>.json` com todos os campos e valores
+(a trava 11 passa a valer para ele), `site/i18n/<locale>.json` com a interface inteira,
+o nome de cada país e de cada situação, e o dicionário de dados abertos gerado. Os
+textos nossos (descrições e resumos) não precisam estar completos: a tela mostra a
+versão que existe, marcada com a língua, e `quality.json` conta o que falta. Quem
+traduz é uma pessoa, ou um modelo de linguagem com revisão humana, conforme a D4. A
+ordem pode mudar por decisão registrada, por exemplo se um leitor de uma língua se
+oferecer para revisar. Estimativa: 1 sessão por *locale* para rótulos e interface,
+mais a revisão por falante.
 
 ## Esforço total até o MVP
 
 | Fase | Sessões | Semanas | Leitura humana acumulada |
 |---|---|---|---|
-| 1 | 3 | 2 | — |
+| 1 | 4 | 2 | — |
 | 2 | 3 | 2 | ~25 países |
 | 3 | 4 | 3 | ~60 atos históricos |
 | 4 | 4 (+ calibração) | 6 | 60 itens de amostra |
 | 5 | 2 | 1 | 1 auditoria |
-| **Total** | **16** | **~14 semanas** | |
+| **Total** | **17** | **~14 semanas** | |
+
+A sessão a mais da fase 1 é a importação do motor. As duas línguas da tela não têm
+sessão própria: cada tela nasce com os seus rótulos em `en` e `pt-BR`, e isso pesa um
+pouco em cada sessão das fases 2 a 5 (chute: 10 a 15% a mais).
 
 Com duas sessões por semana, o MVP sai em pouco mais de três meses; com uma, em seis.
 Depois do MVP, o regime é de 2 a 4 horas por semana (nível 2 de tribunais, amostra de
@@ -209,19 +237,21 @@ nenhuma proteção do Windows além dessa política de *scripts* do PowerShell.
 pip install -e ".[dev]"
 ```
 
-Isso baixa o motor do Alétheia (do GitHub, no `sha` fixado) e as ferramentas de
-teste. Demora um minuto.
+Isso instala o próprio Astraea, com o motor que já vem dentro dele, e baixa as
+ferramentas de teste (`pytest`, `ruff`). Demora um minuto.
 
 ### Rodar a bateria (toda sessão)
 
 ```powershell
-python scripts\transformar.py --estrito
+python scripts\transform.py --strict
 python -m pytest
 ```
 
 Os *scripts* do projeto **nunca apagam** e, quando alteram arquivo, rodam em
-simulação por padrão: `python scripts\transformar.py` mostra o que faria;
-`python scripts\transformar.py --executar` grava. A CI roda sempre com `--executar`
+simulação por padrão: `python scripts\transform.py` mostra o que faria;
+`python scripts\transform.py --execute` grava. Os comandos e as opções são em inglês
+(`--strict`, `--draft`, `--execute`); as mensagens que eles mostram também, e o
+`CHANGELOG.md` de cada sessão explica em português o que cada uma quer dizer. A CI roda sempre com `--execute`
 num diretório temporário e compara.
 
 ### Configurar o GitHub (uma vez, na interface do site)
@@ -229,11 +259,11 @@ num diretório temporário e compara.
 1. **Settings → Pages → Build and deployment → Source:** *GitHub Actions*.
 2. **Settings → Actions → General → Workflow permissions:** *Read and write
    permissions*, e marque *Allow GitHub Actions to create and approve pull requests*
-   (o `paises.yml` abre PR).
+   (o `countries.yml` abre PR).
 3. **Settings → Secrets and variables → Actions:** nenhum segredo na fase 1. Na fase
    4, `RELIEFWEB_APPNAME` (o nome aprovado no formulário do ReliefWeb) e, se usar,
    `MEDIACLOUD_API_KEY`. O cliente HTTP redige os dois de qualquer log.
-4. **Actions → *Notícias* → Run workflow** para a primeira rodada à mão, com `fonte`
+4. **Actions → *Notícias* → Run workflow** para a primeira rodada à mão, com `source`
    preenchida (uma fonte pequena primeiro, como no `docs/operacao.md` do Alétheia).
 
 ### O que você NÃO precisa fazer

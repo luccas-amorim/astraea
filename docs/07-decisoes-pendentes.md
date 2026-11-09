@@ -5,10 +5,22 @@ o grau de confiança (**A** alta, **M** média, **B** baixa), o fundamento e o m
 argumento contrário. O plano foi escrito **assumindo a leitura recomendada**; onde a
 resposta for outra, o documento afetado está indicado.
 
+Decisão tomada não sai deste arquivo: ganha a linha **Decidida** com a data e o que
+mudou, e o texto original fica como registro do porquê.
+
+| | Estado em 09/11/2026 |
+|---|---|
+| D1, D3, D7 | **decididas** como recomendado |
+| D2 | **decidida** de outro modo: motor próprio a partir de cópia do Alétheia |
+| D8 | **decidida** de outro modo: dados e código em inglês; telas em `en` e `pt-BR` |
+| D4, D5, D6, D9 a D17 | pendentes; a fase 1 segue a recomendação de D5, D6, D14 e D15 até resposta em contrário |
+
 ## D1. Universo de países: 197, com Kosovo como `XKX`
 
-**Recomendo:** 193 membros + Palestina e Santa Sé (`observador`) + Kosovo e Taiwan
-(`nao_membro`), total 197; outras entidades só como `situacao`. **Confiança: A.**
+**Decidida em 09/11/2026:** como recomendado.
+
+**Recomendo:** 193 membros + Palestina e Santa Sé (`observer`) + Kosovo e Taiwan
+(`non_member`), total 197; outras entidades só como `situation`. **Confiança: A.**
 
 **Fundamento.** Palestina e Santa Sé são partes na Convenção de 1948 e a Palestina no
 Estatuto de Roma; a situação de Gaza é a de maior volume na função 2 e 3. Kosovo e
@@ -18,13 +30,23 @@ reservado que o Banco Mundial e a Comissão Europeia usam; `TWN` é ISO. Afeta
 
 **Contra.** Incluir entidades de reconhecimento limitado é, em si, uma tomada de
 posição que um projeto acadêmico sobre genocídio pode preferir evitar; a alternativa
-é 195 (membros + observadores) e Kosovo/Taiwan só como `situacao`. O custo é perder
+é 195 (membros + observadores) e Kosovo/Taiwan só como `situation`. O custo é perder
 o registro de lei penal deles.
 
 ## D2. Onde vive o motor: dependência do Alétheia agora, `argos-core` depois
 
-**Recomendo:** opção A do `04-arquitetura.md` no MVP (`pip install` do Alétheia por
-`sha`), extração de `argos-core` quando o adaptador `lista` com *parser* por página
+**Decidida em 09/11/2026, de outro modo:** o Alétheia é inspiração e ponto de partida,
+não dependência. O motor do Astraea nasce de uma **cópia** dos módulos do Alétheia (com
+o aviso MIT e o `sha` de origem no `NOTICE`), é traduzido para inglês e diverge
+livremente. Entre copiar e reescrever do zero, a escolha foi copiar, porque os testes e
+as *fixtures* vêm junto e a tradução é mecânica. O que as outras opções custariam e
+como se paga a divergência está em `04-arquitetura.md`, "Onde o motor vive". O
+argumento contrário abaixo ("três cópias") deixa de pesar porque a cópia não pretende
+ficar igual: com chaves em inglês (D8) e textos por *locale*, o contrato do Astraea já
+é outro.
+
+**Recomendação original:** opção A do `04-arquitetura.md` no MVP (`pip install` do Alétheia por
+`sha`), extração de `argos-core` quando o adaptador `listing` com *parser* por página
 estiver provado em dois tribunais. **Confiança: M.**
 
 **Fundamento.** Zero cópia, correção compartilhada, e o Alétheia já é a versão mais
@@ -32,15 +54,17 @@ completa do motor. A extração antes de haver um terceiro consumidor real seria
 refatorar por antecipação.
 
 **Contra.** O pacote se chama `aletheia`, o README fala de Carandiru, e mudar o
-contrato para servir ao Astraea (p. ex. `Documento.linguas`) obriga a mexer no
+contrato para servir ao Astraea (p. ex. `Document.languages`) obriga a mexer no
 repositório do outro projeto a cada passo. Quem prefere independência total escolhe
 a opção C (vendorizar) e aceita três cópias.
 
 ## D3. Repositório único ou código separado de dados
 
+**Decidida em 09/11/2026:** como recomendado.
+
 **Recomendo:** único no MVP, com gatilho objetivo de separação (árvore acima de
 500 MB ou mais de um commit de robô por dia) e com a regra de que robôs só comitam
-em `data/`, `estado/` e `saidas/`. **Confiança: M.**
+em `data/`, `state/` e `runs/`. **Confiança: M.**
 
 **Fundamento.** É a sua ideia, e ela se sustenta por 1 a 2 anos pelas contas do
 `04-arquitetura.md`; o AtlasPen e o Alétheia já operam assim. Separar antes de ter
@@ -54,7 +78,7 @@ já sabe que vai separar prefere nascer separado (`astraea` + `astraea-dados`).
 
 **Recomendo:** permitir modelo de linguagem para **(a)** tradução de título para
 português e **(b)** rascunho de resumo próprio de atos de tribunal, sempre com
-`autor: "modelo:<id>"`, revisão humana obrigatória antes de `conferido_por: humano`,
+`author: "model:<id>"`, revisão humana obrigatória antes de `checked_by: human`,
 e nunca na triagem nem no preenchimento de campo de país. **Confiança: M.**
 
 **Fundamento.** A política do Argos ("nenhum modelo na triagem; um nível opt-in,
@@ -95,7 +119,7 @@ Xinjiang/uigures, Iazidis/Sinjar (Daesh), Ruanda 1994, Srebrenica/Bósnia, Cambo
 (ECCC). **Confiança: M.**
 
 **Fundamento.** Cobrem os três tribunais principais, os três status mais altos da
-taxonomia, línguas distintas e casos encerrados (para testar `decisao_merito`) e em
+taxonomia, línguas distintas e casos encerrados (para testar `merits_decision`) e em
 curso (para testar medida provisória e promoção).
 
 **Contra.** Dez é pouco para um observatório "do mundo" e muito para uma pessoa
@@ -105,6 +129,9 @@ alternativa é começar com as cinco que têm ato de tribunal internacional e de
 resto para o gatilho de promoção.
 
 ## D7. Licença dos dados: CC BY 4.0
+
+**Decidida em 09/11/2026:** como recomendado. O `NOTICE` ganha também o aviso MIT do
+motor copiado do Alétheia (D2).
 
 **Recomendo:** Apache-2.0 para código e CC BY 4.0 para dados, resumos e
 documentação, com `NOTICE` listando o que é de terceiro (GDELT pede citação; a UN
@@ -120,7 +147,18 @@ reutilização escolhe CC0 para `data/` e CC BY só para os textos.
 
 ## D8. Chaves dos dados em português
 
-**Recomendo:** chaves em português (`pena_de_morte`, `convencao_1948`), como no
+**Decidida em 09/11/2026, de outro modo:** **dados e código em inglês**, ou seja,
+nomes de arquivo, chaves, valores de vocabulário fechado, *ids*, *slugs*, comandos,
+opções e nomes de módulo e de *workflow*. A documentação, o `CHANGELOG.md`, os commits,
+as issues e os nomes dos robôs continuam em português. As telas nascem em `en` e
+`pt-BR`, e as demais línguas mais usadas entram pela fase 14 do `06-roteiro.md`. O
+"por enquanto" da decisão vale para a documentação e para as telas; **as chaves não
+mudam mais depois de publicadas**, porque são o contrato de quem consome os dados. O
+que se traduz são rótulos e textos nossos (`03-modelo-de-dados.md`, "Várias línguas").
+Afeta `03` (todos os nomes), `04` (rotas e motor), `06` (fase 1 e fase 14), `AGENTS.md`
+e `CONTRIBUTING.md`.
+
+**Recomendação original:** chaves em português (`pena_de_morte`, `convencao_1948`), como no
 AtlasPen, com dicionário bilíngue em `docs/dados-abertos.md`. **Confiança: B.**
 
 **Fundamento.** Coerência com os três projetos-irmãos e com o público primário; o
@@ -134,8 +172,8 @@ a mais cara de mudar depois (quebra todo consumidor).
 ## D9. Pessoas nomeadas
 
 **Recomendo:** adotar o `docs/pessoas.md` do Alétheia tal como está, com uma regra a
-mais: nome de pessoa só aparece em `decisoes.json` e como o **tribunal** o escreve
-(nome do caso, mandado); nunca em `paises.json`, `situacoes.json` nem em resumo de
+mais: nome de pessoa só aparece em `decisions.json` e como o **tribunal** o escreve
+(nome do caso, mandado); nunca em `countries.json`, `situations.json` nem em resumo de
 notícia. Remoção a pedido em 7 dias; base legal LGPD e, para fontes europeias, GDPR
 art. 85 (pesquisa e liberdade de expressão). **Confiança: A.**
 
@@ -163,7 +201,7 @@ esse fim explícito.
 **Recomendo:** decisões desde 01/01/2019 (abrange Gâmbia v. Mianmar, Gaza, Ucrânia e
 as últimas sentenças do IRMCT); notícias desde a primeira rodada (o GDELT só volta 90
 dias); países sem retroativo (o status de tratado já é histórico). Casos anteriores a
-2019 entram como `decisao_merito` histórica, à mão, só para as situações iniciais.
+2019 entram como `merits_decision` histórica, à mão, só para as situações iniciais.
 **Confiança: M.**
 
 **Contra.** Para a pesquisa, o valor está no histórico completo (Akayesu, Krstić,
@@ -183,7 +221,7 @@ tribunais (volume pequeno, custo baixo) e semanal para notícias.
 
 **Recomendo:** sim, coroplético em SVG gerado no *build* a partir de um mapa-múndi
 em domínio público (Natural Earth), sem biblioteca, com os quatro estados do
-`genocidio_interno` como cor. **Confiança: M.**
+`domestic_genocide` como cor. **Confiança: M.**
 
 **Contra.** Mapa de genocídio tipificado é mapa político: fronteiras de Kosovo,
 Taiwan, Saara Ocidental, Crimeia e Palestina viram decisão cartográfica, com
@@ -218,9 +256,9 @@ esses agregadores cobrem, com licença aberta.
 
 ## D17. Dossiês-filhos: modelo e nome
 
-**Recomendo:** `astraea-<situacao>` para dossiê de situação (modelo Alétheia) e
+**Recomendo:** `astraea-<situation>` para dossiê de situação (modelo Alétheia) e
 registro no AtlasPen (ou projeto equivalente do país) para detalhamento de lei;
-`promocao.onde` guarda a URL. **Confiança: M.**
+`promotion.where` guarda a URL. **Confiança: M.**
 
 **Contra.** Multiplicar repositórios multiplica manutenção; a alternativa é uma pasta
-`dossies/<situacao>/` dentro do Astraea até o segundo dossiê existir.
+`dossiers/<situation>/` dentro do Astraea até o segundo dossiê existir.
