@@ -149,25 +149,36 @@ melhoria registrada no roteiro).
 Alétheia é ponto de partida, não dependência. O Astraea copia o que lhe serve, traduz
 para inglês e segue sozinho.
 
-### Como nasce (fase 1, primeira sessão)
+### Como nasceu (fase 1, primeira sessão, 09/11/2026)
 
-1. **Cópia literal.** Primeiro commit do motor: os módulos do Alétheia que o Astraea
-   usa, tal como estão no `sha` da `main` no dia da cópia (em 09/11/2026, `6168d36`),
-   em `astraea/engine/`, com os testes e as *fixtures* deles, o texto da licença MIT em
-   `LICENSE-aletheia.txt` e uma linha no `NOTICE` com o repositório e o `sha` de origem.
-2. **Prova da cópia.** Os testes copiados passam sem mudança. Se não passarem, o
-   problema é do ambiente (Python 3.14, por exemplo) e se resolve antes de traduzir.
-3. **Tradução.** Commit separado que só renomeia para inglês (módulos, classes,
-   funções, chaves das saídas, esquema do léxico, comandos), com os testes renomeados
-   junto e verdes. Daí em diante o motor diverge livremente.
+Quatro commits, para que cada um se leia sozinho:
 
-O que se copia: contrato, cliente HTTP (com `redigir()` de segredos), captura com
-`.part` e sentinela, estado com pendentes, triagem, léxico e seu esquema, saídas,
-validação de configuração, os adaptadores `gdelt`, `rss` e `lista`, o arquivo de
-referência no Wayback (`arquivo.py`, para `snapshot`) e a estimativa de cobertura. O
-que não se copia agora: `topico`, `wikipedia`, `openalex`, `crossref`, `ia` e a
-varredura CDX do `wayback`, que ficam fora da fase 1 e podem vir depois pelo mesmo
-caminho (cópia, prova, tradução).
+1. **Cópia literal** (`9e63641`): o pacote `aletheia/` inteiro do `sha` `6168d36`, byte
+   a byte, em `astraea/engine/`, com testes, *fixtures*, esquema do léxico e licença
+   MIT (`LICENSE-aletheia.txt`); o `NOTICE` registra a origem.
+2. **Prova da cópia** (`25cca33`): só o necessário para rodar aqui (*imports*,
+   `pyproject.toml`, leitura em UTF-8 nos testes). Os testes passaram: 123 dos 124 do
+   Alétheia; o que saiu validava o `config.json` do próprio Alétheia. As duas falhas
+   iniciais eram do Windows, não do Python 3.14: o `autocrlf` trocava o fim de linha das
+   *fixtures* (resolvido por `.gitattributes`) e o `read_text()` sem `encoding` lia em
+   cp1252.
+3. **Recorte** (`7fb8d78`): saem `wayback` (varredura CDX), `topico`, `wikipedia`,
+   `openalex`, `crossref`, `ia` e o comando `sondar`, com os testes deles. Ficam 105
+   testes. Esses canais podem voltar depois pelo mesmo caminho (cópia, prova, tradução).
+4. **Tradução** (`353f5b4`): só renomeia e traduz; os 105 testes, traduzidos junto,
+   continuam passando.
+
+Ficaram: contrato, cliente HTTP (com redação de segredos), captura com `.part` e
+sentinela, estado com pendentes, triagem, léxico e seu esquema, configuração, rodada,
+saídas, catálogo, observações, estimativa de cobertura, o arquivo de referência no
+Wayback (`archive.py`, para `snapshot`) e os adaptadores `rss`, `gdelt` e
+`curated_list`.
+
+**Correção ao plano.** O `00-inventario.md` dava o adaptador `lista` do Alétheia como a
+base dos leitores de tabela (UN Treaty Collection, CIJ). Lendo o código, o `lista` do
+Alétheia é outra coisa: lê um CSV feito à mão. Ele virou `curated_list` e serve à carga
+curada (Corte IDH). O leitor de tabela que muda devagar é o do **Argos**, que não foi
+copiado; o Astraea escreve o seu, `listing`, na fase 2, sobre o XML da UNTC.
 
 ### Nomes
 
@@ -177,12 +188,19 @@ caminho (cópia, prova, tradução).
 | `listar(desde)`, `baixar(ref)`, `sentinela(doc)` | `list(since)`, `fetch(ref)`, `sentinel(doc)` |
 | `destaques`, `hash_texto`, `capturado_em` | `highlights`, `text_hash`, `captured_at` |
 | `BloqueadoPorRobots`, `BloqueadoPorPais` | `BlockedByRobots`, `BlockedByCountry` |
-| `captura.py`, `estado.py`, `triagem.py`, `lexico.py`, `saidas/`, `estimativa.py`, `arquivo.py` | `capture.py`, `state.py`, `triage.py`, `lexicon.py`, `outputs/`, `estimate.py`, `archive.py` |
-| adaptador `lista` | adaptador `listing` |
-| `aceitos.jsonl`, `pede-juizo.jsonl`, `itens.jsonl`, `rodada.json` | `accepted.jsonl`, `needs-review.jsonl`, `items.jsonl`, `run.json` |
+| `captura.py`, `estado.py`, `texto.py`, `triagem.py`, `lexico.py`, `rodada.py`, `estimativa.py`, `arquivo.py` | `capture.py`, `state.py`, `text.py`, `triage.py`, `lexicon.py`, `run.py`, `estimate.py`, `archive.py` |
+| `saidas/` (`jsonl`, `relatorio`, `catalogo`, `vistas`) | `outputs/` (`jsonl`, `report`, `catalog`, `observations`) |
+| `aletheia/fontes/`, `cli.py` dentro do motor | `astraea/sources/`, `astraea/cli.py` |
+| adaptador `lista` (CSV curado à mão) | adaptador `curated_list`; `listing` fica para os leitores de página e de XML (fases 2 e 3) |
+| `Casador`, `triar`, `Resultado` (`nivel`, `motivo`, `chaves`, `trecho`, `onde`) | `Matcher`, `triage`, `Result` (`level`, `reason`, `keys`, `excerpt`, `where`) |
+| motivos `sem_termo`, `so_exclusao`, `sem_contexto`, `pede_juizo`, `aceito` | `no_term`, `only_excluded`, `no_context`, `needs_review`, `accepted` |
+| destaques `manchete`, `linha_fina` | `headline`, `standfirst` |
+| `aceitos.jsonl`, `pede-juizo.jsonl`, `itens.jsonl`, `rodada.json`, `relatorio-completo.md`, `relatorio-resumo.md` | `accepted.jsonl`, `needs-review.jsonl`, `items.jsonl`, `run.json`, `report-full.md`, `report-summary.md` |
 | `estado/<fonte>.json`, `saidas/<rodada>/` | `state/<source>.json`, `runs/<run>/` |
-| `aletheia rodar`, `retriar`, `estimar`, `sondar`, `validar-lexico`, `validar-config` | `astraea run`, `retriage`, `estimate`, `probe`, `validate-lexicon`, `validate-config` |
-| léxico: `termos`, `chave`, `formas`, `exclusoes`, `categorias`, `peso`, `contexto.exige_qualquer` | `terms`, `key`, `forms`, `exclusions`, `categories`, `weight`, `context.requires_any` |
+| `aletheia rodar`, `retriar`, `estimar`, `validar-lexico`, `validar-config` | `astraea run`, `retriage`, `estimate`, `validate-lexicon`, `validate-config` |
+| configuração: `lexico`, `diretorio`, `desde`, `guardar_texto`, `fontes`, `tipo`, `estrato`, `limite_por_minuto`, `minimo_caracteres`, `vistas` | `lexicon`, `directory`, `since`, `store_text`, `sources`, `type`, `stratum`, `rate_limit_per_minute`, `min_chars`, `observations` |
+| estratos `imprensa`, `imprensa-historica`, `academico`, `juridico`, `memoria`, `geral` | `press`, `historical-press`, `academic`, `legal`, `memory`, `general` |
+| léxico: `versao`, `termos`, `chave`, `formas`, `exclusoes`, `categorias`, `peso`, `contexto.exige_qualquer` | `version`, `terms`, `key`, `forms`, `exclusions`, `categories`, `weight`, `context.requires_any` |
 
 ### O preço, e como pagá-lo
 

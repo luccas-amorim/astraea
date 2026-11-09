@@ -13,10 +13,11 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 
 ## Estado do projeto
 
-Em 09/11/2026 o repositório tem só o plano. Não há motor, dados, site nem *workflows*.
-O `06-roteiro.md` diz a ordem; a fase 1 começa pela importação do motor, pela função 1
-(países) e pela carga das situações iniciais. Antes de escrever código, leia o
-`00-inventario.md` e o `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
+Em 09/11/2026 o repositório tem o plano e o motor (`astraea/engine/`, `astraea/sources/`,
+`astraea/cli.py`, 105 testes). Não há dados, site nem *workflows*. O `06-roteiro.md`
+diz a ordem; a fase 1 segue pelas licenças, pela função 1 (países) e pela carga das
+situações iniciais. Antes de escrever código, leia o `00-inventario.md` e o
+`04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
 dependência; correção que valha a pena trazer de lá é portada à mão e registrada no
@@ -82,7 +83,13 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
 - **Trabalhe em branch própria** quando houver código; commits pequenos que expliquem
   o porquê. **Não faça `git push` nem abra PR sem o usuário pedir.**
 - Editar `.md` com Python ou `sed` no Windows introduz CRLF; grave bytes ou confira o
-  fim de linha (lição do AtlasPen).
+  fim de linha (lição do AtlasPen). O `.gitattributes` grava texto com LF e as
+  *fixtures* byte a byte (`-text`); não mude isso.
+- Todo `open`, `read_text` e `write_text` de texto leva `encoding="utf-8"`, inclusive
+  nos testes: no Windows o padrão é cp1252, e foi o que derrubou dois testes do motor
+  copiado (lição da sessão de 09/11/2026).
+- Ambiente: `python -m venv .venv`, `pip install -e ".[dev]"`; a bateria roda com o
+  Python e o `ruff` de dentro do `.venv`.
 
 ## O que não entra, e onde entra
 

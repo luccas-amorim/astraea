@@ -45,6 +45,9 @@ inglês, com telas em `en` e `pt-BR`.
 1. **Motor** (1 sessão): cópia literal dos módulos do Alétheia em `astraea/engine/`,
    testes copiados verdes, depois a tradução para inglês em commit separado, com
    testes verdes de novo (passo a passo em `04-arquitetura.md`, "Onde o motor vive").
+   **Feito em 09/11/2026**: 105 testes verdes no Python 3.14, `ruff` limpo, comando
+   `astraea` instalado; `pyproject.toml`, `NOTICE` e `LICENSE-aletheia.txt` já
+   existem (sobra do item 2: `LICENSE`, `LICENSE-CC-BY-4.0`, `CITATION.cff`, `MITO.md`).
 2. Licenças (`LICENSE` Apache-2.0, `LICENSE-CC-BY-4.0`, `LICENSE-aletheia.txt` MIT,
    `NOTICE` com o `sha` de origem do motor), `CITATION.cff`, `CHANGELOG.md`, `MITO.md`,
    `.gitignore`, `pyproject.toml` sem dependências de execução e com `pytest`/`ruff`
