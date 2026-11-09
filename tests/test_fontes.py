@@ -19,9 +19,7 @@ def test_adaptadores_cumprem_o_contrato():
             assert callable(getattr(classe, nome))
         assert isinstance(classe.respeita_robots, bool)
     assert isinstance(Rss("x", FEED, cliente=None), Fonte)
-    assert set(fontes.TIPOS) == {
-        "rss", "wayback", "openalex", "gdelt", "crossref", "ia", "topico", "wikipedia", "lista"
-    }  # fmt: skip
+    assert set(fontes.TIPOS) == {"rss", "gdelt", "lista"}
 
 
 def test_tipo_desconhecido_e_recusado():

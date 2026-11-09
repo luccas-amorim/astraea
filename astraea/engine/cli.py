@@ -6,7 +6,6 @@
     aletheia estimar --config ... [--desde AAAA-MM-DD]
     aletheia validar-lexico lexico.json
     aletheia validar-config config.json
-    aletheia sondar --config ... [--fonte wayback:folha]
 
 Saídas: 0 nada a ler; 2 erro de execução ou fonte fora do ar; 3 há itens que pedem juízo.
 `rodada.json` traz `pede_leitura` mesmo quando o código é 2: um não esconde o outro.
@@ -120,24 +119,6 @@ def _validar_config(args: argparse.Namespace) -> int:
     return rodada.SEM_NADA
 
 
-def _sondar(args: argparse.Namespace) -> int:
-    """Quantos blocos de índice cada prefixo do Wayback exige: calibra as fatias."""
-    cfg = config.carregar(args.config)
-    instancias = _instancias(cfg, args.config, args.fonte)
-    for fonte in instancias:
-        if not hasattr(fonte, "blocos"):
-            continue
-        for prefixo in fonte.prefixos:
-            try:
-                blocos = fonte.blocos(prefixo)
-            except Exception as erro:  # noqa: BLE001
-                print(f"{fonte.id}  {prefixo}: erro: {erro}")
-                continue
-            aviso = "  (largo demais: prefira seções)" if blocos and blocos > 600 else ""
-            print(f"{fonte.id}  {prefixo}: {blocos} blocos{aviso}")
-    return rodada.SEM_NADA
-
-
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="aletheia", description=__doc__.split("\n")[0])
     parser.add_argument("--version", action="version", version=f"aletheia {__version__}")
@@ -170,11 +151,6 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("validar-config", help="confere a configuração: fontes, estratos, níveis")
     p.add_argument("arquivo")
     p.set_defaults(func=_validar_config)
-
-    p = sub.add_parser("sondar", help="mede o tamanho de cada prefixo do Wayback (rede)")
-    p.add_argument("--config", required=True)
-    p.add_argument("--fonte", action="append")
-    p.set_defaults(func=_sondar)
 
     args = parser.parse_args(argv)
     logging.basicConfig(
