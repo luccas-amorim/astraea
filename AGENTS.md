@@ -1,0 +1,87 @@
+# Instruções para agentes de IA — Astraea
+
+Observatório de superfície sobre o crime de genocídio e a lei penal do mundo: três
+telas (leis penais por país, notícias, decisões de tribunais internacionais), site
+estático no GitHub Pages, dados abertos em JSON. **O valor central é a proveniência**:
+todo dado diz de onde veio, quando foi lido e com que confiança. Um dado sem fonte é
+pior que um dado ausente.
+
+Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê via
+`CLAUDE.md`, que só o importa. Regra nova entra **aqui**. O plano do projeto está em
+`docs/00` a `docs/07`; o que ainda não foi decidido está em
+`docs/07-decisoes-pendentes.md`, e **decisão pendente não se decide em código**.
+
+## Estado do projeto
+
+Em 06/11/2026 o repositório tem só o plano. Não há motor, dados, site nem *workflows*.
+O `06-roteiro.md` diz a ordem; a fase 1 começa pela função 1 (países) e pela carga das
+situações iniciais. Antes de escrever código, leia o `00-inventario.md`: o motor é o do
+Alétheia (`luccas-amorim/aletheia`), instalado como dependência fixada por `sha`, e
+não se copia.
+
+## Regras que não se negociam
+
+1. **O sistema nunca afirma genocídio.** Registra quem afirmou, em que grau, com URL e
+   data, na taxonomia de `docs/03-modelo-de-dados.md`. Tela, resumo, commit e issue
+   dizem "alegado por X", "medida provisória da CIJ", nunca "genocídio" solto.
+2. **Nunca texto integral de terceiros.** Metadados, *link*, data, fonte, língua e
+   resumo próprio. `trecho` só em relatório de rodada, até 320 caracteres.
+3. **Robô não muda status nem promove.** `situacoes.status`, `promocao` e qualquer
+   campo com `conferido_por: humano` só mudam por commit de pessoa. O validador
+   reprova o contrário.
+4. **Fonte secundária aponta, não escreve.** Wikipedia, Wikidata, agregadores e
+   modelos de linguagem geram perguntas e rascunhos marcados; nunca preenchem campo
+   de país nem decidem triagem.
+5. **`id` é append-only.** País é ISO 3166-1 alfa-3 (`XKX` para Kosovo); situação é
+   *slug*; documento é `hash` da URL normalizada. Nunca reatribuído; o que sai vai para
+   `data/ids-aposentados.json`.
+6. **Fonte × derivado.** `data/` é editável; `static/data/` é gerado por
+   `scripts/transformar.py` e a CI exige sincronia. Nunca edite o derivado.
+7. **Robots, limites e bloqueios são política.** O cliente HTTP obedece `robots.txt`
+   e o limite declarado por fonte; WAF, CAPTCHA e bloqueio por país não se contornam.
+   Google e APIs comerciais de notícias ficam fora.
+8. **Pessoas.** Nome de pessoa só em `decisoes.json`, como o tribunal o escreve.
+   Política de remoção em `docs/pessoas.md`.
+9. **Nada entra sem carimbo.** Campo afirmado tem `url`, `fonte`, `lido_em`,
+   `confianca` e `conferido_por`. `--rascunho` só na carga inicial, e o relatório de
+   qualidade conta o que ainda está em rascunho.
+
+## Como trabalhar neste repositório
+
+- **Antes de concluir**, rode a bateria (quando ela existir; até lá, o que houver):
+
+  ```
+  python scripts/transformar.py --estrito
+  python -m pytest
+  aletheia validar-lexico data/lexico/*.json
+  aletheia validar-config config/*.json
+  ruff check . && ruff format --check .
+  ```
+
+- **Uma sessão = uma entrada no `CHANGELOG.md`**, com data e o que mudou de dado, de
+  fonte ou de regra. Correção de dado antigo entra como correção; alteração de status
+  de situação entra com o ato que a sustentou.
+- **Issue que o robô abre, a pessoa fecha** com `Closes #N` no PR ou no commit.
+- **Decisão nova vai para `docs/`** (o documento afetado) e, se for regra, para cá.
+  Não escreva regra em comentário de código.
+- **Para o dono do projeto**, que não programa no dia a dia e usa Windows: todo passo
+  que ele precise executar vem explícito, com os avisos que o PowerShell vai mostrar;
+  todo *script* que altere arquivo roda em modo simulação por padrão (`--executar`
+  para valer) e nunca apaga; quando uma escolha sua divergir do que ele pediu, diga e
+  diga por quê; em prosa, termo estrangeiro em itálico.
+- **Trabalhe em branch própria** quando houver código; commits pequenos que expliquem
+  o porquê. **Não faça `git push` nem abra PR sem o usuário pedir.**
+- Editar `.md` com Python ou `sed` no Windows introduz CRLF; grave bytes ou confira o
+  fim de linha (lição do AtlasPen).
+
+## O que não entra, e onde entra
+
+- Texto de notícia ou de decisão: não entra. Entra o *link* e, se houver, o
+  `snapshot` do Internet Archive.
+- Alegação de imprensa como status: não entra. Entra como notícia ligada à situação.
+- Previsão, pontuação de risco, ranking de países: não entra. O Astraea aponta para o
+  Early Warning Project e para o Genocide Watch.
+- Campo de país preenchido "por analogia" com país vizinho ou com a mesma tradição
+  jurídica: não entra. Fica vazio com `motivo`.
+- Léxico em código: não entra. Léxico é dado, um arquivo por língua, gerado de
+  `situacoes.json` mais os termos fixos.
