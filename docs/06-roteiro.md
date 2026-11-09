@@ -51,13 +51,18 @@ inglês, com telas em `en` e `pt-BR`.
 2. Licenças (`LICENSE` Apache-2.0, `LICENSE-CC-BY-4.0`, `LICENSE-aletheia.txt` MIT,
    `NOTICE` com o `sha` de origem do motor), `CITATION.cff`, `CHANGELOG.md`, `MITO.md`,
    `.gitignore`, `pyproject.toml` sem dependências de execução e com `pytest`/`ruff`
-   em dev.
+   em dev. **Feito em 09/11/2026** (sessão 2), com `LICENSE-unicode.txt` a mais, pelo
+   CLDR.
 3. `data/` com `countries.json` (197 registros só com `id`, `name` em `en` e `pt-BR` e
    `un_status`, lidos de uma lista ISO em domínio público e conferidos contra a lista
    de membros da ONU), `situations.json` (as dez de D6, com `terms` em cinco línguas),
    `sources.json` (todas as fontes de `02-fontes.md` com `state`), `lexicon/` gerado,
    `retired-ids.json`, `i18n/en.json` e `i18n/pt-BR.json` com o rótulo de cada campo e
-   de cada valor.
+   de cada valor. **Feito em 09/11/2026** (sessão 2), menos `situations.json` e
+   `lexicon/`, que ficam para a sessão 3: `countries.json` com 197 registros (códigos e
+   nomes do Unicode CLDR 49, conferidos contra a lista da ONU), `sources.json` com 87
+   entradas, `retired-ids.json` vazio, rótulos nas duas línguas e
+   `scripts/vocabularies.py` como lista única dos vocabulários.
 4. `scripts/transform.py --strict | --draft` com as onze travas de
    `03-modelo-de-dados.md`; `scripts/build_lexicon.py`; `scripts/build_site.py`;
    `ci.yml`; `deploy.yml` com uma página inicial mínima em `/en/` e `/pt-br/` lendo

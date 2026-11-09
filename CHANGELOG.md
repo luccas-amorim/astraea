@@ -3,6 +3,71 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-09 — Fase 1, sessão 2: licenças e primeiros dados
+
+Branch `fase1/dados`. Nenhuma linha do motor mudou.
+
+**Licenças:** `LICENSE` (Apache-2.0, texto baixado de apache.org) e `LICENSE-CC-BY-4.0`
+(texto de creativecommons.org), ambos sem alteração; `LICENSE-unicode.txt` (aviso do
+CLDR, que a Licença Unicode v3 exige junto dos dados); `CITATION.cff` com autoria pessoal
+(D14, como recomendado); `MITO.md` (Arato, Ovídio, Virgílio). O `NOTICE` ganhou as duas
+fontes de dados de terceiros desta sessão.
+
+**Dados novos** (todos em `data/`):
+
+- `countries.json` — os 197 registros da D1, só com `id`, `name` (`en`, `pt-BR`),
+  `un_status` e `un_member_since`. Nenhum campo de lei penal ou de tratado: ficam
+  **ausentes** até a fase 2. De onde veio cada coisa:
+  - **códigos alfa-3**: Unicode CLDR 49.0.0, `cldr-core/supplemental/codeMappings.json`
+    (sha256 `e046ac4c…46c7`), pela tag `49.0.0` do repositório `unicode-org/cldr-json`;
+  - **nomes**: o mesmo CLDR, `cldr-localenames-full/main/en/territories.json`
+    (`1326fb3b…bf04`) e `main/pt/territories.json` (`89604c7c…9ee8`; o `pt` do CLDR é o
+    português do Brasil), na forma padrão de cada um;
+  - **membros e data de admissão**: https://www.un.org/en/about-us/member-states, lida
+    em 09/11/2026 (sha256 da página `7447a452…6067`), depois de ler o `robots.txt`
+    (`Crawl-delay: 10`, página permitida). Os 193 cartões da página foram casados com o
+    CLDR pelo código alfa-2 da bandeira de cada cartão, e os 193 nomes conferidos um a
+    um: as diferenças são só de forma ("Bolivia (Plurinational State of)" × "Bolivia").
+    `un_member_since` é a data de admissão tal como a ONU a publica (Alemanha 1973,
+    Sérvia 2000, Rússia 1945).
+  - **Exceções**, ambas no `NOTICE`: Kosovo é `XKX` (D1), não o `XKK` do CLDR; a
+    Palestina usa a forma `alt-short` do CLDR ("Palestine", "Palestina"), porque a forma
+    padrão, "Palestinian Territories", nomeia um território, e o registro da D1 é o
+    Estado observador.
+- `sources.json` — 87 entradas: todas as fontes do `02-fontes.md` (85, uma por canal) e
+  as duas desta sessão (`cldr`, `un-member-states`). 46 `active`, 10 `suspended`,
+  31 `discarded`, cada uma com `reason`. Ficaram sem `robots_checked_on` 16 fontes,
+  porque o 02 não registra a leitura do `robots.txt` delas: `loc-glm`,
+  `prevent-genocide`, `cornell-dpw`, `foreign-law-guide`, `eur-lex`, `coe`,
+  `gdelt-bigquery`, `gdelt-ngrams`, `emm`, `afp`, `guardian-api`, `el-pais`,
+  `bing-news`, `stl`, `hudoc`, `afchpr`. O robô recusa essas fontes até a reconferência.
+  A leitura dos campos (uma entrada por canal, `api`, `reason`, 404 como lido) está no
+  `03-modelo-de-dados.md`, seção "Fontes".
+- `retired-ids.json` — lista vazia.
+- `i18n/en.json` e `i18n/pt-BR.json` — 108 campos e 110 valores rotulados nas duas
+  línguas. A convenção da chave está no `03`, seção "Várias línguas".
+
+**Código:** `scripts/vocabularies.py`, lista única dos vocabulários fechados, das chaves de
+campo e dos *locales* (a C5 do `CONTRIBUTING.md` já apontava para ele); o `transform.py`
+da sessão 3 deve ler dele. `tests/test_data.py`: os 197 *ids* (únicos, alfa-3, conjunto
+exato da D1), `un_status` e data por grupo, campos permitidos, `retired-ids.json`, forma
+das fontes e cobertura dos rótulos nas duas línguas.
+
+**Bateria:** 115 testes passam; `ruff check` e `ruff format --check` limpos.
+`transform.py`, `data/lexicon/` e `config/` ainda não existem, então `validate-lexicon` e
+`validate-config` não têm o que validar.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- Nomes do CLDR que soam a menu: "Congo - Kinshasa" (`COD`, nas duas línguas), "Congo -
+  Brazzaville" (`COG`, em inglês), "Myanmar (Burma)", "St. Kitts & Nevis". O CLDR tem
+  variantes (`alt-variant`, `alt-short`) para vários deles; usei só a da Palestina.
+- `VAT` aparece como "Vatican City" / "Cidade do Vaticano", o nome do CLDR. O observador
+  na ONU é a Santa Sé, e o CLDR não tem esse nome.
+- `icc-asp` ficou `discarded`: o 02 a chama de "fraca" e superada pelo XML da UNTC.
+- `reason` em `sources.json` ficou em inglês, sem versão por *locale*; traduzir depende
+  da D4 (autoria por modelo).
+
 ## 2026-11-09 — Fase 1, sessão 1: o motor (versão 0.0.1)
 
 Primeiro código do Astraea. Nenhum dado, fonte ou *workflow* ainda.

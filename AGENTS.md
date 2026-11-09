@@ -13,10 +13,13 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 
 ## Estado do projeto
 
-Em 09/11/2026 o repositório tem o plano e o motor (`astraea/engine/`, `astraea/sources/`,
-`astraea/cli.py`, 105 testes). Não há dados, site nem *workflows*. O `06-roteiro.md`
-diz a ordem; a fase 1 segue pelas licenças, pela função 1 (países) e pela carga das
-situações iniciais. Antes de escrever código, leia o `00-inventario.md` e o
+Em 09/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
+`astraea/cli.py`), as licenças e os primeiros dados: `data/countries.json` (197 registros,
+só `id`, `name`, `un_status`, `un_member_since`), `data/sources.json` (87 fontes),
+`data/retired-ids.json` e `data/i18n/`; `scripts/vocabularies.py` é a lista única dos
+vocabulários fechados e das chaves de rótulo. 115 testes. Não há situações, léxico,
+`transform.py`, site nem *workflows*. O `06-roteiro.md` diz a ordem; a fase 1 segue pela
+sessão 3 (situações, léxico, `transform.py`). Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
