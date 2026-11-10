@@ -26,17 +26,22 @@ pessoa), `data/sources.json` (89 fontes), `data/untc-names.json` e
 rascunho), `data/retired-ids.json` e `data/i18n/`. `scripts/vocabularies.py` é a lista
 única dos vocabulários fechados e das chaves de rótulo; `scripts/build_lexicon.py` gera o
 léxico; `scripts/transform.py` valida com as onze travas e gera `static/data/`;
-`scripts/build_site.py` gera a página inicial em `/en/` e `/pt-br/` (modelos e textos em
-`site/`, saída em `_site/`, fora do git). `.github/workflows/ci.yml` roda a bateria em
-todo *push* e PR; `deploy.yml` publica no GitHub Pages. O motor honra o `Crawl-delay` por
+`scripts/build_site.py` gera, em `/en/` e `/pt-br/`, a página inicial, a tela
+`/countries/` (completude por campo e a tabela dos 197 com filtros em CSS, sem
+JavaScript) e as 197 fichas `/countries/<ISO>/` com o carimbo de cada campo (modelos e
+textos em `site/`, saída em `_site/`, fora do git). `.github/workflows/ci.yml` roda a
+bateria em todo *push* e PR; `deploy.yml` publica no GitHub Pages; `countries.yml`, no
+dia 1 de cada mês, roda as duas cargas por `scripts/countries_monthly.py` e abre PR da
+branch `robot/countries` (ou issue, se uma carga falhar); nunca comita na `main`. O motor honra o `Crawl-delay` por
 host e não baixa página de domínio com `no_text_by_policy` (`astraea/engine/policy.py`).
 O adaptador `listing` (`astraea/sources/listing.py`) lê tabela que muda devagar; os
 formatos são o XML por tratado da UNTC, que `scripts/load_treaties.py` grava em
 `countries.json`, e as quatro listas de pena de morte do Cornell, que
 `scripts/load_death_penalty.py` grava em `death_penalty` (os dois em simulação por
-padrão). 297 testes. A fase 1 e os itens 1 e 2 da fase 2 estão feitos (o anexo da
-Anistia espera a carga à mão do dono); o `06-roteiro.md` diz a ordem, e a próxima sessão
-é a do `countries.yml` e da tela `/countries`. Antes de escrever código, leia o `00-inventario.md` e o
+padrão). 346 testes. A fase 1 e os itens 1 a 3 da fase 2 estão feitos (o anexo da
+Anistia espera a carga à mão do dono; o `countries.yml` ainda não rodou no GitHub); o
+`06-roteiro.md` diz a ordem, e a próxima sessão é a carga humana dos ~25 países (item 4),
+começando pelo Brasil. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
@@ -119,6 +124,10 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
   fonte ou de regra. Correção de dado antigo entra como correção; alteração de status
   de situação entra com o ato que a sustentou.
 - **Issue que o robô abre, a pessoa fecha** com `Closes #N` no PR ou no commit.
+- **Teste não fixa o valor do dia.** O PR mensal do robô muda `countries.json`; teste que
+  compare o repositório com uma *fixture* tem de aceitar bloco lido depois (`read_on`
+  mais novo) ou carimbado por pessoa, como fazem `test_load_treaties.py` e
+  `test_load_death_penalty.py`. Do contrário, o primeiro mês com novidade reprova a CI.
 - **Decisão nova vai para `docs/`** (o documento afetado) e, se for regra, para cá.
   Não escreva regra em comentário de código.
 - **Para o dono do projeto**, que não programa no dia a dia e usa Windows: todo passo
