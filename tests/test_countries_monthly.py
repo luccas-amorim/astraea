@@ -294,6 +294,9 @@ def test_it_reads_with_execute_and_proposes_only_after_the_battery(workflow):
     assert workflow.index("name: Open or update the pull request") > battery
     assert "if: failure() || steps.read.outputs.issue == 'yes'" in workflow
     assert "secrets.COUNTRIES_PR_TOKEN || github.token" in workflow
+    # the issue never depends on the personal token, which may have expired
+    issue = workflow[workflow.index("name: Open an issue") :]
+    assert "GH_TOKEN: ${{ github.token }}" in issue
 
 
 @pytest.mark.skipif(shutil.which("bash") is None, reason="no bash to check the syntax")

@@ -92,9 +92,12 @@ jobs:
             echo "Pull request opened: $title" >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      # Always with GITHUB_TOKEN: an issue needs no CI, and an expired personal token
+      # (the usual reason for a failed checkout) must not silence the warning.
       - name: Open an issue
         if: failure() || steps.read.outputs.issue == 'yes'
         env:
+          GH_TOKEN: ${{ github.token }}
           STEPS_FAILED: >-
             ${{ steps.read.outcome == 'failure' || steps.battery.outcome == 'failure'
             || steps.pr.outcome == 'failure' }}
@@ -111,10 +114,12 @@ jobs:
               echo "### Passo do workflow"
               echo
               echo "A execução $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-              echo "falhou num passo (a leitura, a bateria ou a abertura do PR). Nenhum PR foi"
-              echo "aberto ou atualizado, e nada foi gravado na \`main\`. Abra o link, clique no"
-              echo "passo com ✗ e leia a mensagem; depois rode de novo em **Actions → Countries"
-              echo "→ Run workflow** e feche esta issue."
+              echo "falhou num passo (o checkout, a leitura, a bateria ou a abertura do PR). Nenhum"
+              echo "PR foi aberto ou atualizado, e nada foi gravado na \`main\`. Abra o link, clique"
+              echo "no passo com ✗ e leia a mensagem. Se o passo for o checkout ou a abertura do PR"
+              echo "com \"Bad credentials\" ou \"401\", o *token* \`COUNTRIES_PR_TOKEN\` venceu: gere outro"
+              echo "e troque o *secret*. Depois rode de novo em **Actions → Countries → Run"
+              echo "workflow** e feche esta issue."
             } >> "$RUNNER_TEMP/issue.md"
           fi
           gh issue create --title "$title" --body-file "$RUNNER_TEMP/issue.md"
