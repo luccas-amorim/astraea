@@ -12,7 +12,11 @@ Key convention for labels in data/i18n/<locale>.json:
   read_on, confidence, checked_by, note, reason, author, text), are labelled once, by
   their bare name;
 - a value is labelled as "<field key>.<value>": "death_penalty.status.retentionist",
-  "confidence.A", "level.3".
+  "confidence.A", "level.3", "categories.court".
+
+Besides the vocabularies, this file holds the few constants of the model that the
+validator and the lexicon builder share: the languages that have a lexicon, the fields
+that are localized texts, the stamp, and the order of the taxonomy.
 """
 
 from __future__ import annotations
@@ -144,6 +148,23 @@ SOURCE_FIELDS: tuple[str, ...] = (
     "state",
 )
 
+# data/verification.json: one line says which fields of which records were read where.
+VERIFICATION_FIELDS: tuple[str, ...] = (
+    "entity",
+    "records",
+    "fields",
+    "result",
+    "method",
+)
+
+# Written only by scripts/transform.py, in static/data/ (never in data/).
+DERIVED_FIELDS: tuple[str, ...] = (
+    "completeness",
+    "provenance",
+    "highest_status",
+    "label",
+)
+
 FIELDS: tuple[str, ...] = (
     SHARED_FIELDS
     + COUNTRY_FIELDS
@@ -151,7 +172,17 @@ FIELDS: tuple[str, ...] = (
     + NEWS_FIELDS
     + DECISION_FIELDS
     + SOURCE_FIELDS
+    + VERIFICATION_FIELDS
+    + DERIVED_FIELDS
 )
+
+# The fields each entity of data/ may carry (the shared ones are allowed everywhere).
+ENTITY_FIELDS: dict[str, tuple[str, ...]] = {
+    "countries": COUNTRY_FIELDS,
+    "situations": SITUATION_FIELDS,
+    "sources": SOURCE_FIELDS,
+    "verification": VERIFICATION_FIELDS,
+}
 
 _TAXONOMY = (
     "allegation",
@@ -224,14 +255,70 @@ VOCABULARIES: dict[str, tuple[str, ...]] = {
     ),
     "taxonomy_status": _TAXONOMY,
     "outcome": _OUTCOME,
+    # lexicon: the facets of a term; they travel to news.categories
+    "categories": ("qualification", "instrument", "court", "procedure", "situation"),
     # sources
     "function": ("1", "2", "3"),
     "api": ("yes", "no"),
     "state": ("active", "suspended", "discarded"),
+    # verification trail
+    "entity": ("countries", "situations", "news", "decisions", "sources"),
+    "result": ("confirmed", "corrected", "unconfirmed"),
+    # derived (static/data/countries.json)
+    "completeness": ("stamped", "draft", "empty"),
 }
 
 # Locales active in the MVP (docs/03-modelo-de-dados.md, "Várias línguas").
 LOCALES: tuple[str, ...] = ("en", "pt-BR")
+
+# Languages that have a lexicon in phase 1 (ISO 639-1). It follows the recommendation of
+# D5 (docs/07-decisoes-pendentes.md) until the owner answers otherwise.
+LEXICON_LANGUAGES: tuple[str, ...] = ("en", "fr", "es", "pt", "ar")
+
+# Texts of ours: {"<locale>": {"text": ..., "author": ...}} (docs/03, "Várias línguas").
+LOCALIZED_TEXT_FIELDS: tuple[str, ...] = (
+    "note",
+    "description",
+    "summary",
+    "title_translations",
+    "validity_note",
+    "genocide_convention.reservations_note",
+)
+# A summary is a summary, not a copy (check 8).
+LIMITED_TEXT_FIELDS: tuple[str, ...] = ("description", "summary")
+TEXT_LIMIT = 600
+
+# The stamp (CONTRIBUTING.md, C1): what an asserted field carries, in the block itself or
+# in a line of data/verification.json.
+STAMP_FIELDS: tuple[str, ...] = ("url", "source", "read_on", "confidence", "checked_by")
+
+# The blocks of a country and its asserted scalar fields, stamped by verification.json.
+COUNTRY_BLOCKS: tuple[str, ...] = (
+    "penal_code",
+    "domestic_genocide",
+    "genocide_convention",
+    "rome_statute",
+    "max_penalty",
+    "death_penalty",
+)
+COUNTRY_STAMPED_SCALARS: tuple[str, ...] = ("name", "un_status", "un_member_since")
+
+# Taxonomy, lowest to highest, for "the highest status reached". "closed" says that one
+# proceeding ended; it is not a degree of the qualification, so it only shows when the
+# situation has nothing else.
+STATUS_ORDER: tuple[str, ...] = (
+    "closed",
+    "allegation",
+    "political_recognition",
+    "investigation",
+    "accusation",
+    "provisional_measures",
+    "merits_decision",
+)
+# Statuses that only a person records (check 6).
+HUMAN_ONLY_STATUSES: tuple[str, ...] = ("provisional_measures", "merits_decision")
+# A verification line stamps a field only with one of these results.
+STAMPING_RESULTS: tuple[str, ...] = ("confirmed", "corrected")
 
 
 def value_keys() -> list[str]:

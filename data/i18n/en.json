@@ -1,5 +1,24 @@
 {
   "locale": "en",
+  "formats": {
+    "date": "D MMM YYYY",
+    "month": "MMM YYYY",
+    "year": "YYYY",
+    "months_short": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
+  },
   "fields": {
     "id": "Identifier",
     "name": "Name",
@@ -108,7 +127,16 @@
     "sentinel": "Integrity sentinel",
     "state_media": "State media",
     "no_text_by_policy": "Text not read by policy",
-    "state": "State"
+    "state": "State",
+    "entity": "Entity",
+    "records": "Records",
+    "fields": "Fields",
+    "result": "Result of the check",
+    "method": "How it was checked",
+    "completeness": "Completeness",
+    "provenance": "Provenance",
+    "highest_status": "Highest status reached",
+    "label": "Display label"
   },
   "values": {
     "confidence.A": "A — official or intergovernmental",
@@ -213,6 +241,11 @@
     "outcome.recognized": "recognized",
     "outcome.not_recognized": "not recognized",
     "outcome.partial": "partial",
+    "categories.qualification": "legal qualification",
+    "categories.instrument": "treaty or statute",
+    "categories.court": "court or tribunal",
+    "categories.procedure": "procedure",
+    "categories.situation": "situation",
     "function.1": "1 — penal laws of the world",
     "function.2": "2 — news",
     "function.3": "3 — court decisions",
@@ -220,6 +253,17 @@
     "api.no": "no",
     "state.active": "active",
     "state.suspended": "suspended",
-    "state.discarded": "discarded"
+    "state.discarded": "discarded",
+    "entity.countries": "countries",
+    "entity.situations": "situations",
+    "entity.news": "news",
+    "entity.decisions": "court decisions",
+    "entity.sources": "sources",
+    "result.confirmed": "confirmed",
+    "result.corrected": "corrected after the check",
+    "result.unconfirmed": "not confirmed",
+    "completeness.stamped": "stamped: source, date and who checked",
+    "completeness.draft": "draft, without full stamp",
+    "completeness.empty": "empty"
   }
 }
