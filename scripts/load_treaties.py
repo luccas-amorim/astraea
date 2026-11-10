@@ -37,6 +37,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import country_names  # noqa: E402
 import vocabularies as voc  # noqa: E402
 from transform import dumps, is_full_date, show  # noqa: E402
 
@@ -47,6 +48,7 @@ ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://treaties.un.org/doc/Publication/MTDSG/"
 SOURCE = "untc"
 CONFIDENCE = "A"
+NAMES_FILE = "untc-names.json"
 
 
 @dataclass(frozen=True)
@@ -96,44 +98,22 @@ class LoadError(RuntimeError):
 def name_map(countries: list[dict], names_file: dict) -> tuple[dict[str, str | None], dict]:
     """UNTC name -> id (None: deliberately outside the 197), and id -> reason for the
     records that stay empty. The English names of countries.json match letter for letter;
-    the rest comes from data/untc-names.json."""
-    ids = {c["id"] for c in countries}
-    mapping: dict[str, str | None] = {c["name"]["en"]: c["id"] for c in countries}
-    problems: list[str] = []
-    for entry in names_file.get("names", []):
-        untc, ident = entry.get("untc"), entry.get("id")
-        if not untc or untc in mapping:
-            problems.append(f"untc-names.json: {untc!r} is empty, repeated or already a name")
-            continue
-        if ident is None and not entry.get("reason"):
-            problems.append(f"untc-names.json: {untc!r} maps to nothing without a reason")
-        if ident is not None and ident not in ids:
-            problems.append(f"untc-names.json: {untc!r} maps to {ident!r}, not a record")
-        mapping[untc] = ident
-    absent: dict[str, str] = {}
-    for entry in names_file.get("absent", []):
-        ident, reason = entry.get("id"), entry.get("reason")
-        if ident not in ids or not reason:
-            problems.append(f"untc-names.json: absent {ident!r} is not a record or has no reason")
-            continue
-        absent[ident] = reason
-    if problems:
-        raise LoadError("\n".join(problems))
+    the rest comes from data/untc-names.json (scripts/country_names.py)."""
+    try:
+        mapping, absent, _ = country_names.name_map(countries, names_file, "untc", NAMES_FILE)
+    except country_names.NameMapError as error:
+        raise LoadError(str(error)) from error
     return mapping, absent
 
 
 def match(table: Table, mapping: dict[str, str | None], chapter: str) -> dict[str, dict]:
     """id -> cells of the row. A name without a map stops everything."""
     rows: dict[str, dict] = {}
-    unknown = [row.key for row in table.rows if row.key not in mapping]
-    if unknown:
-        raise LoadError(
-            "\n".join(
-                f"{chapter}: {name!r} is not a name of countries.json nor of "
-                "data/untc-names.json; check it in the M49 table and add it by hand"
-                for name in unknown
-            )
-        )
+    problem = country_names.unknown_names(
+        (row.key for row in table.rows), mapping, chapter, "data/" + NAMES_FILE
+    )
+    if problem:
+        raise LoadError(problem)
     for row in table.rows:
         ident = mapping[row.key]
         if ident is None:
