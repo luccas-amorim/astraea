@@ -1,8 +1,12 @@
 """The death penalty load (scripts/load_death_penalty.py) and the death_penalty blocks.
 
-The load is pure (`plan`): the table in, records out. The real-data tests check that the
-four fixtures, which are the API responses of 2026-11-10 byte for byte, give back exactly
-the countries.json in the repository, and that the counts agree with the lists.
+The load is pure (`plan`): the table in, records out. The four fixtures are the API
+responses of 2026-11-10 byte for byte; the load tests run on the records as those fixtures
+read them (`countries`), not on the repository, which the monthly reading (countries.yml)
+or the Amnesty annex may have moved on since. The real-data tests check that the
+repository agrees with the fixtures except in the blocks read later or checked by a
+person, that every block is stamped or empty with a reason, and that the counts read from
+the fixtures agree with the lists.
 """
 
 from __future__ import annotations
@@ -42,8 +46,14 @@ def table():
 
 
 @pytest.fixture(scope="module")
-def countries():
+def repository():
     return load("countries.json")
+
+
+@pytest.fixture(scope="module")
+def countries(repository, table, names):
+    """The records as the fixtures read them: the repository with the block read again."""
+    return ld.plan(bare(repository), table, names, READ_ON)[0]
 
 
 @pytest.fixture(scope="module")
@@ -62,10 +72,31 @@ def by_id(records):
     return {c["id"]: c for c in records}
 
 
+def later(block) -> bool:
+    """A block a later reading or a person wrote: it may differ from the fixtures. A later
+    reading that moves a country to "de facto" empties its block, with no date: a reason
+    block may differ too."""
+    return isinstance(block, dict) and (
+        block.get("checked_by") == "human"
+        or (block.get("read_on") or "") > READ_ON
+        or set(block) == {"reason"}
+    )
+
+
 # ------------------------------------------------------------------ the load
 
 
-def test_the_fixtures_give_back_the_countries_in_the_repository(table, countries, names):
+def test_the_repository_agrees_with_the_fixtures_but_for_later_readings(repository, countries):
+    assert [c["id"] for c in repository] == [c["id"] for c in countries]
+    for old, new in zip(repository, countries, strict=True):
+        assert {k: v for k, v in old.items() if k != ld.BLOCK} == {
+            k: v for k, v in new.items() if k != ld.BLOCK
+        }, old["id"]
+        if old[ld.BLOCK] != new[ld.BLOCK]:
+            assert later(old[ld.BLOCK]), old["id"]
+
+
+def test_the_fixtures_read_twice_change_nothing(table, countries, names):
     new, report = ld.plan(countries, table, names, READ_ON)
     assert report == [] and new == countries
     first, report = ld.plan(bare(countries), table, names, READ_ON)
@@ -158,8 +189,8 @@ def _data_dir(tmp_path, countries):
     return data
 
 
-def test_simulation_writes_nothing(tmp_path, capsys):
-    data = _data_dir(tmp_path, bare(load("countries.json")))
+def test_simulation_writes_nothing(tmp_path, capsys, countries):
+    data = _data_dir(tmp_path, bare(countries))
     before = (data / "countries.json").read_bytes()
     args = ["--json-dir", str(FIXTURES), "--read-on", READ_ON, "--data", str(data)]
     assert ld.main(args) == 0
@@ -168,7 +199,7 @@ def test_simulation_writes_nothing(tmp_path, capsys):
     assert "would write: " in out and "(197 blocks)" in out
     assert "sha256 844e476e8ecb78a9b1597417b38fd9f23bed58c53a6edbfa31b0fb16ce738018" in out
     assert ld.main([*args, "--execute"]) == 0
-    assert (data / "countries.json").read_bytes() == (DATA / "countries.json").read_bytes()
+    assert (data / "countries.json").read_text(encoding="utf-8") == ld.dumps(countries)
     assert ld.main(args) == 0
     assert "up to date" in capsys.readouterr().out
     assert ld.main(["--json-dir", str(FIXTURES), "--data", str(data)]) == 2  # no --read-on
@@ -207,18 +238,24 @@ def test_only_the_categories_that_coincide_are_recorded():
 # ------------------------------------------------------------------ the real data
 
 
-def test_every_record_has_the_block_stamped_or_empty_with_a_reason(countries):
+def test_every_record_has_the_block_stamped_or_empty_with_a_reason(repository):
+    """In the repository as it is: a later reading moves read_on; the Amnesty annex is a
+    person's block, with its own source (docs/03, "Como a pessoa carrega o anexo")."""
     urls = set(ld.category_urls().values())
-    for c in countries:
+    for c in repository:
         block = c["death_penalty"]
         if "status" not in block:
             assert set(block) == {"reason"} and block["reason"], c["id"]
+            continue
+        assert block["read_on"] >= READ_ON, c["id"]
+        if block["checked_by"] == "human":
+            assert all(block.get(k) for k in voc.STAMP_FIELDS), c["id"]
             continue
         assert block == {
             "status": block["status"],
             "url": block["url"],
             "source": "cornell-dpw",
-            "read_on": READ_ON,
+            "read_on": block["read_on"],
             "confidence": "B",
             "checked_by": "robot",
         }, c["id"]
@@ -265,7 +302,7 @@ def test_known_values(countries):
 
 def test_the_source_is_active_and_its_confidence_agrees(countries):
     source = next(s for s in load("sources.json") if s["id"] == ld.SOURCE)
-    assert source["state"] == "active" and source["robots_checked_on"] == READ_ON
+    assert source["state"] == "active" and source["robots_checked_on"] >= READ_ON
     assert source["confidence"] == ld.CONFIDENCE
 
 
