@@ -3,6 +3,186 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-10 — Fase 2, sessão 1: Tabelião (tratados pela UN Treaty Collection)
+
+Branch `fase2/tabeliao`. Não havia resposta às "Escolhas a revisar" das sessões 3 e 4;
+elas continuam abertas, nas entradas daquelas sessões.
+
+**Dado novo: `genocide_convention` e `rome_statute` nos 197 registros.** 195 com os dois
+blocos carimbados (`source: untc`, confiança A, `checked_by: robot`, `read_on:
+2026-11-10`); Taiwan e Kosovo com os dois vazios e `reason`. Contagens, iguais às do
+bloco `Status` do depositário e às de 06/11/2026 no `02-fontes.md`:
+
+| | Partes | Signatários sem vínculo | Retirados | Não participam | Vazios |
+|---|---|---|---|---|---|
+| Convenção sobre o Genocídio (IV-1) | **154** | 1 (República Dominicana) | — | 40 | 2 |
+| Estatuto de Roma (XVIII-10) | **124** + Ilhas Cook = **125** | 29 | 2 (Burundi, Filipinas) | 40 | 2 |
+
+A UNTC conta 41 signatários na Convenção e 137 no Estatuto (quem assinou, vinculado ou
+não; os colchetes de quem se retirou não contam). Seis países notificaram a retirada do
+Estatuto em 2026, com efeito em 2027, e continuam `party` com as duas datas: Níger,
+Burkina Faso, Mali, Venezuela, Chade e Nauru. A Hungria notificou em 2025 e revogou em
+29/05/2026.
+
+**Leituras desta sessão**, todas pelo cliente HTTP do motor, com o `User-Agent` do
+Astraea e o `robots.txt` obedecido:
+
+- `https://treaties.un.org/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml`:
+  HTTP 200, 78.616 bytes, `text/html`, sem `Last-Modified`, sha256
+  `e2d65ee6723990e38be51bf431494e0986966d291b63a688b00ebcde3fc43d8d`.
+- `https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XVIII/XVIII-10.en.xml`:
+  HTTP 200, 119.352 bytes, `text/html`, sem `Last-Modified`, sha256
+  `54071add75dd8a6d564f4c95d47ec6d18fe540fed7f99e5ba1257e0dd81d99fa`.
+- `robots.txt` do `treaties.un.org`: `Crawl-delay: 2`, sem `Disallow`; o cliente esperou
+  os 2 segundos entre as requisições.
+- As duas páginas HTML dos tratados
+  (`/Pages/ViewDetails.aspx?src=TREATY&mtdsg_no=IV-1&chapter=4&clang=_en`, sha256
+  `19be9275898ce6cd6d7b38d352b3f3c99db297332d6de34cf0448ad4695dba54`, e
+  `mtdsg_no=XVIII-10&chapter=18`, sha256
+  `b857c8226bbfd6a7aa58f35f1e3ccc6451180ff3d7c09e150fc7d89e3b70a362`), lidas uma vez só
+  para achar a linha "STATUS AS AT": as duas diziam "10-11-2026 10:15:36 EDT".
+- `https://unstats.un.org/unsd/methodology/m49/overview/` (tabela M49): HTTP 200,
+  1.721.575 bytes, sha256 `b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb`;
+  o `robots.txt` só veda `/wiki/`. Também abri esse `robots.txt` uma vez com o `curl`,
+  fora do motor, só para lê-lo.
+
+**Correções ao plano:**
+
+- **A sentinela não é "STATUS AS AT".** Essa linha não está no XML; está na página HTML
+  e marca a hora em que a página foi gerada. A sentinela é o bloco `Status` do XML
+  (signatários e partes) conferido contra as linhas: a leitura só vale quando as linhas
+  contam o mesmo. Registrado no `02-fontes.md` (1.4, nova) e no `sources.json` (`untc`).
+- **As *fixtures* não são o XML inteiro.** O XML traz o texto integral das declarações,
+  reservas, objeções e notas do depositário, e a regra 2 ("nunca texto integral de
+  terceiros") e os termos da ONU impedem pô-lo no repositório. **Divergi do que você
+  pediu:** as *fixtures* em `tests/fixtures/untc/` são os arquivos baixados, byte a byte,
+  com cada parágrafo de prosa trocado por um marcador que diz a que artigos ele se
+  refere. A tabela, as contagens, as datas e a tabela de retiradas ficam intactas. O
+  `scripts/trim_untc_fixtures.py` as gera e se recusa a gravar se o adaptador ler a
+  *fixture* de modo diferente do original; com os arquivos acima, as duas leituras são
+  idênticas. sha256 das *fixtures*: `IV-1.en.xml`
+  `cf92b55e7d874a6f885fa99c44c2a132b601bf0e80929dac4dba34cd8fef7501`, `XVIII-10.en.xml`
+  `4171037da17689267be311ebf1ea8141a9f02017b33791b175d41c035db4ff6c`.
+- O 06 falava em *fixture* com o XML de 06/11/2026; o de 06/11 não foi guardado, e as
+  *fixtures* são de 10/11.
+
+**Código:**
+
+- `astraea/sources/listing.py` (novo): o adaptador `listing`. Lê a tabela inteira numa
+  requisição, confere a sentinela e devolve uma referência por linha, com `id` = chave +
+  resumo da linha: **linha que muda volta a ser lida**, a que não muda não. O formato
+  `untc_treaty` decodifica pela declaração do XML (ISO-8859-1 lido como cp1252, como o
+  resto do motor, sem perder byte), ignora o `text/html` do cabeçalho, limpa os
+  `<superscript>` dos nomes, lê os códigos de ação do próprio cabeçalho da tabela
+  (`Accession(a), Succession(d), Ratification`), as declarações e reservas, as objeções e
+  a tabela de retiradas. Data em formato desconhecido, código de ação fora do cabeçalho,
+  nome repetido, declaração ou objeção de quem não está na tabela, linha riscada sem
+  retirada e contagem que não fecha **interrompem a leitura**: nada é adivinhado.
+  Registrado em `astraea/sources/__init__.py` (tipo `listing`).
+- `scripts/load_treaties.py` (novo): a carga. Lê os dois XML pela rede (ou de uma pasta,
+  com `--xml-dir` e `--read-on`), casa os nomes, monta os blocos, mostra o sha256 de cada
+  resposta e o que mudaria; `--execute` grava. Nunca apaga; não toca bloco com
+  `checked_by: human`; bloco com os mesmos valores fica como estava, com o `read_on`
+  antigo, para que a leitura mensal sem novidade dê diff vazio.
+- `scripts/trim_untc_fixtures.py` (novo): as *fixtures*, como descrito acima.
+- `scripts/transform.py`: data de tratado tem de ser completa (`check 0`).
+- Testes: `tests/test_listing.py` (20: as duas *fixtures*, a referência por linha, linha
+  alterada, `robots.txt`, sentinela, arquivo truncado, página de erro, formatos
+  desconhecidos, decodificação, *superscript*, datas, artigos),
+  `tests/test_load_treaties.py` (14: a carga a partir das *fixtures* devolve exatamente o
+  `countries.json` do repositório; nome sem mapa, bloco de pessoa, leitura sem novidade,
+  simulação, leitura que falha; contagens e valores conhecidos) e dois no
+  `tests/test_transform.py` (data de tratado, `participation`).
+
+**Dados e vocabulário** (C5: `scripts/vocabularies.py`, `data/i18n/` e o `03` juntos):
+
+- `data/untc-names.json` (novo): os 30 nomes da UNTC que não são, letra por letra, o
+  `name.en` de `countries.json`, cada um com o alfa-3 e a forma do nome na tabela M49.
+  Os outros 153 casam letra por letra, e todos os que a M49 tem concordam com ela. Cinco
+  formas da M49 foram escritas à mão: "Bahamas (The)" → "Bahamas", "Czech Republic" →
+  "Czechia", "Côte d'Ivoire" → "Côte d’Ivoire" (apóstrofo curvo), "St. Kitts and Nevis" e
+  "St. Vincent and the Grenadines" → "Saint …". As Ilhas Cook estão com `id: null` e
+  `reason`. A Palestina é "State of Palestine" → `PSE`; a Santa Sé não aparece em nenhum
+  dos dois tratados; Taiwan e Kosovo estão em `absent`, com a razão de ficarem vazios.
+- `sources.json`: fonte nova `unsd-m49` (89 fontes); `untc` com a sentinela corrigida e
+  `robots_checked_on: 2026-11-10`. O `NOTICE` ganhou as duas.
+- Campos novos: `genocide_convention.participation`, `.reservations_article_ix`,
+  `.objections`; `rome_statute.participation`, `.consent_type` (com `acceptance` e
+  `approval`, que o Estatuto tem), `.withdrawal_notified`, `.objections`. `withdrawal`
+  passou a ser, explicitamente, a data em que a retirada produz efeito. 7 campos e 18
+  valores rotulados nas duas línguas. O porquê de cada um está no `03`, parágrafo novo
+  "Como o Tabelião preenche os tratados".
+
+**Bateria:** 274 testes passam; `ruff check` e `ruff format --check` limpos;
+`astraea validate-lexicon data/lexicon/*.json` valida os cinco; `python
+scripts/transform.py --draft --check` passa; `python scripts/build_site.py` simula as
+duas páginas. **`--strict` reprova, de propósito, só pelos mesmos 9 status em rascunho**
+(travas 3 e 6); nenhum campo de tratado está em rascunho. `config/` ainda não existe.
+`countries.complete` continua 0: faltam os blocos de lei penal e de pena.
+
+**O que as mensagens novas dizem** (saem em inglês):
+
+- `IV-1: 78616 bytes, sha256 …; Status: 41 signatories, 154 parties; the rows agree`: a
+  leitura passou na sentinela; o sha256 é o que vai para o CHANGELOG.
+- `new: BRA.genocide_convention = party` e `changed: HUN.rome_statute: participation:
+  'withdrawn' -> 'party'`: o que a carga mudaria, campo a campo. Num mês sem novidade,
+  não aparece nenhuma das duas.
+- `left alone (checked by a person): BRA.rome_statute`: bloco que você carimbou; o robô
+  não o toca.
+- `FAIL IV-1: 'Fooland' is not a name of countries.json nor of data/untc-names.json;
+  check it in the M49 table and add it by hand` e `nothing was written`: país novo na
+  tabela, ou nome mudado. Confira o nome na M49, acrescente a linha em
+  `data/untc-names.json` e rode de novo.
+- `FAIL the Status block says 41 signatories and 154 parties; the rows count …`: o
+  arquivo veio incompleto ou mudou de forma; nada foi gravado.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **`url` é o endereço do XML lido**, não a página `ViewDetails` do exemplo do `03`, que é
+  mais legível para gente. Se preferir a página, a troca é uma linha do *script*.
+- **Taiwan e Kosovo vazios com `reason`**, e não `none`. Se preferir `none` carimbado, é
+  apagar a lista `absent` de `data/untc-names.json` e rodar a carga.
+- **`reservations` não separa declaração de reserva**, e `reservations_article_ix` só diz
+  que o texto cita o art. IX. A Argentina, por exemplo, tem `yes` por uma reserva ao art.
+  IX limitada aos territórios do art. XII.
+- **Retirada revogada some do bloco** (África do Sul, Gâmbia, Hungria). Se quiser o
+  rastro, cabe um campo `withdrawal_rescinded`.
+- **Signatário que anunciou não querer ser parte** (Estados Unidos, Israel, Rússia,
+  Sudão, nas notas do depositário) fica `signatory`, como a tabela o mostra.
+- **`read_on` só muda quando o valor muda.** O PR mensal fica limpo, mas o carimbo diz
+  quando o valor foi lido pela primeira vez, não a última leitura. Se quiser as duas
+  coisas, a leitura mensal pode gravar uma linha `confirmed` em `verification.json`
+  (decisão da fase 2, item 3).
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver a carga sem gravar nada** (lê os dois XML da UNTC pela internet; leva alguns
+   segundos por causa do `Crawl-delay`):
+
+   ```powershell
+   python scripts\load_treaties.py
+   ```
+
+   Deve terminar com `up to date: data/countries.json`. Se a ONU tiver mudado alguma
+   linha desde 10/11, aparecem linhas `changed:` e `would write: data/countries.json`;
+   nada foi gravado, e `--execute` grava.
+2. **Rodar a bateria:**
+
+   ```powershell
+   python scripts\transform.py --draft --check
+   python -m pytest
+   ```
+
+   O primeiro termina com `static/data is up to date`; o segundo, com `274 passed`.
+3. **Ver um país:** abra `data\countries.json` no editor e procure `"BRA"`. Os dois blocos
+   novos estão depois de `un_member_since`.
+4. **Enviar ao GitHub.** O merge na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-10 — Fase 1, sessão 4: site mínimo, CI, deploy e política de robô
 
 Branch `fase1/site`. Fecha a fase 1. Não havia resposta às "Escolhas a revisar" da
