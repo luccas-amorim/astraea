@@ -1,0 +1,85 @@
+# CI: the battery of AGENTS.md on every push and pull request. Commits nothing.
+#
+# While the initial load lasts, the rule is `transform.py --draft`: --strict runs as an
+# informative step that shows how many fields are still in draft and does not fail the
+# CI, unless it fails for something other than drafts. AGENTS.md says when --strict
+# becomes the rule again.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  battery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Validate (draft)
+        run: python scripts/transform.py --draft
+
+      - name: Derived data in sync (draft --check)
+        run: python scripts/transform.py --draft --check
+
+      - name: Validate (strict, informative while drafts remain)
+        shell: bash
+        run: |
+          set +e
+          python scripts/transform.py --strict > strict.log 2>&1
+          code=$?
+          set -e
+          cat strict.log
+          count=$(grep -E "fields in draft, in [0-9]+ records" strict.log | tail -n 1)
+          {
+            echo "### transform.py --strict"
+            if [ "$code" -eq 0 ]; then
+              echo "Passed: nothing in draft. Time to make --strict the rule (AGENTS.md)."
+            else
+              echo "Informative while the initial load lasts: ${count:-no count}."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" -ne 0 ]; then
+            if grep -q "strict: only drafts stand in the way" strict.log; then
+              echo "::notice title=strict (informative)::${count}"
+            else
+              echo "::error title=strict::fails for something other than drafts"
+              exit 1
+            fi
+          fi
+
+      - name: Tests
+        run: python -m pytest
+
+      - name: Lexicons
+        run: astraea validate-lexicon data/lexicon/*.json
+
+      # validate-config enters when config/ exists:
+      # - name: Run configurations
+      #   run: for f in config/*.json; do astraea validate-config "$f"; done
+
+      - name: Site (simulation)
+        run: python scripts/build_site.py --out "$RUNNER_TEMP/site"
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Format
+        run: ruff format --check .
