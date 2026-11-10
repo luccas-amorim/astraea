@@ -1,0 +1,38 @@
+  <h1>$heading</h1>
+  <p class="tagline">$intro</p>
+  <p class="rule">$no_verdict</p>
+
+  <section aria-labelledby="completeness">
+    <h2 id="completeness">$completeness_title</h2>
+    <p class="note">$completeness_intro</p>
+    <div class="table-wrap">
+    <table class="completeness">
+      <thead><tr><th scope="col">$column_field</th>$state_headers</tr></thead>
+      <tbody>
+$completeness_rows
+      </tbody>
+    </table>
+    </div>
+    <p class="counter" data-total="$countries_total" data-complete="$countries_complete">$complete_counter</p>
+  </section>
+
+  <section class="list" aria-labelledby="table">
+    <h2 id="table">$table_title</h2>
+    <p class="note">$filters_intro</p>
+$filter_inputs
+    <div class="filters">
+$filter_groups
+    </div>
+    <div class="table-wrap">
+    <table class="countries">
+      <caption>$table_caption</caption>
+      <thead><tr>$column_headers</tr></thead>
+      <tbody>
+$rows
+      </tbody>
+    </table>
+    </div>
+    <p class="shown"><span class="n"></span> $shown</p>
+  </section>
+
+  <p class="note">$data_note <a href="${up}static/data/countries.json"><code>countries.json</code></a> · <a href="${up}static/data/quality.json"><code>quality.json</code></a></p>
