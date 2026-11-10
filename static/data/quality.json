@@ -95,14 +95,14 @@
         "empty": 197
       },
       "genocide_convention": {
-        "stamped": 0,
+        "stamped": 195,
         "draft": 0,
-        "empty": 197
+        "empty": 2
       },
       "rome_statute": {
-        "stamped": 0,
+        "stamped": 195,
         "draft": 0,
-        "empty": 197
+        "empty": 2
       },
       "max_penalty": {
         "stamped": 0,
@@ -169,9 +169,9 @@
     }
   },
   "sources": {
-    "total": 88,
+    "total": 89,
     "by_state": {
-      "active": 47,
+      "active": 48,
       "suspended": 10,
       "discarded": 31
     },

@@ -1,0 +1,169 @@
+{
+  "description": "UN Treaty Collection participant names that are not, letter for letter, the English name of a record of countries.json, with the ISO 3166-1 alpha-3 code each one stands for. Kept by hand and checked against the UN Statistics Division M49 table, which pairs the UN names with the alpha-3 codes: `m49` is the form of the name there. A UNTC name that is neither here nor a name of countries.json stops the load (scripts/load_treaties.py): it is never guessed.",
+  "source": "unsd-m49",
+  "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+  "read_on": "2026-11-10",
+  "names": [
+    {
+      "untc": "Antigua and Barbuda",
+      "m49": "Antigua and Barbuda",
+      "id": "ATG"
+    },
+    {
+      "untc": "Bahamas (The)",
+      "m49": "Bahamas",
+      "id": "BHS"
+    },
+    {
+      "untc": "Bolivia (Plurinational State of)",
+      "m49": "Bolivia (Plurinational State of)",
+      "id": "BOL"
+    },
+    {
+      "untc": "Bosnia and Herzegovina",
+      "m49": "Bosnia and Herzegovina",
+      "id": "BIH"
+    },
+    {
+      "untc": "Cabo Verde",
+      "m49": "Cabo Verde",
+      "id": "CPV"
+    },
+    {
+      "untc": "Congo",
+      "m49": "Congo",
+      "id": "COG"
+    },
+    {
+      "untc": "Cook Islands",
+      "m49": "Cook Islands",
+      "id": null,
+      "reason": "Outside the 197 of D1: not a UN Member State nor observer; the UNTC lists it as a participant in its own right."
+    },
+    {
+      "untc": "Czech Republic",
+      "m49": "Czechia",
+      "id": "CZE"
+    },
+    {
+      "untc": "Côte d'Ivoire",
+      "m49": "Côte d’Ivoire",
+      "id": "CIV"
+    },
+    {
+      "untc": "Democratic People's Republic of Korea",
+      "m49": "Democratic People's Republic of Korea",
+      "id": "PRK"
+    },
+    {
+      "untc": "Democratic Republic of the Congo",
+      "m49": "Democratic Republic of the Congo",
+      "id": "COD"
+    },
+    {
+      "untc": "Iran (Islamic Republic of)",
+      "m49": "Iran (Islamic Republic of)",
+      "id": "IRN"
+    },
+    {
+      "untc": "Lao People's Democratic Republic",
+      "m49": "Lao People's Democratic Republic",
+      "id": "LAO"
+    },
+    {
+      "untc": "Myanmar",
+      "m49": "Myanmar",
+      "id": "MMR"
+    },
+    {
+      "untc": "Naoero",
+      "m49": "Naoero",
+      "id": "NRU"
+    },
+    {
+      "untc": "Netherlands (Kingdom of the)",
+      "m49": "Netherlands (Kingdom of the)",
+      "id": "NLD"
+    },
+    {
+      "untc": "Republic of Korea",
+      "m49": "Republic of Korea",
+      "id": "KOR"
+    },
+    {
+      "untc": "Republic of Moldova",
+      "m49": "Republic of Moldova",
+      "id": "MDA"
+    },
+    {
+      "untc": "Russian Federation",
+      "m49": "Russian Federation",
+      "id": "RUS"
+    },
+    {
+      "untc": "Sao Tome and Principe",
+      "m49": "Sao Tome and Principe",
+      "id": "STP"
+    },
+    {
+      "untc": "St. Kitts and Nevis",
+      "m49": "Saint Kitts and Nevis",
+      "id": "KNA"
+    },
+    {
+      "untc": "St. Vincent and the Grenadines",
+      "m49": "Saint Vincent and the Grenadines",
+      "id": "VCT"
+    },
+    {
+      "untc": "State of Palestine",
+      "m49": "State of Palestine",
+      "id": "PSE"
+    },
+    {
+      "untc": "Syrian Arab Republic",
+      "m49": "Syrian Arab Republic",
+      "id": "SYR"
+    },
+    {
+      "untc": "Trinidad and Tobago",
+      "m49": "Trinidad and Tobago",
+      "id": "TTO"
+    },
+    {
+      "untc": "United Kingdom of Great Britain and Northern Ireland",
+      "m49": "United Kingdom of Great Britain and Northern Ireland",
+      "id": "GBR"
+    },
+    {
+      "untc": "United Republic of Tanzania",
+      "m49": "United Republic of Tanzania",
+      "id": "TZA"
+    },
+    {
+      "untc": "United States of America",
+      "m49": "United States of America",
+      "id": "USA"
+    },
+    {
+      "untc": "Venezuela (Bolivarian Republic of)",
+      "m49": "Venezuela (Bolivarian Republic of)",
+      "id": "VEN"
+    },
+    {
+      "untc": "Viet Nam",
+      "m49": "Viet Nam",
+      "id": "VNM"
+    }
+  ],
+  "absent": [
+    {
+      "id": "TWN",
+      "reason": "No entry of its own in the UNTC participants tables: the depositary lists China only, and the China entry is that of the People's Republic of China. Left empty rather than read as non-participation (no field by analogy)."
+    },
+    {
+      "id": "XKX",
+      "reason": "Not a UN Member State nor observer, and no entry in the UNTC participants tables. Left empty rather than read as non-participation (no field by analogy)."
+    }
+  ]
+}

@@ -7,18 +7,18 @@
     "confidence": "A",
     "license": "UN terms of use: personal, non-commercial; no redistribution or derivatives without permission",
     "terms_url": "https://www.un.org/en/about-us/terms-of-use",
-    "robots_checked_on": "2026-11-06",
+    "robots_checked_on": "2026-11-10",
     "api": "yes",
     "rate_limit_per_minute": 30,
     "languages": [
       "en",
       "fr"
     ],
-    "sentinel": "STATUS AS AT",
+    "sentinel": "Status block (Signatories, Parties), checked against the participants rows",
     "state_media": false,
     "no_text_by_policy": false,
     "state": "active",
-    "reason": "Primary source of function 1: per-treaty XML (IV-1 Genocide Convention, XVIII-10 Rome Statute), read monthly by listing; own terms page not found, general UN terms apply."
+    "reason": "Primary source of function 1: per-treaty XML (IV-1 Genocide Convention, XVIII-10 Rome Statute), read monthly by listing (scripts/load_treaties.py); own terms page not found, general UN terms apply."
   },
   {
     "id": "un-member-states",
@@ -59,6 +59,31 @@
     "no_text_by_policy": false,
     "state": "active",
     "reason": "Official list of the non-member States with a standing invitation as observers (Holy See, State of Palestine); read on 2026-11-10 to check data/countries.json (un_status of the four non-members)."
+  },
+  {
+    "id": "unsd-m49",
+    "name": "UN Statistics Division — Standard country or area codes (M49)",
+    "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+    "function": 1,
+    "confidence": "A",
+    "license": "UN terms of use: personal, non-commercial; no redistribution or derivatives without permission",
+    "terms_url": "https://www.un.org/en/about-us/terms-of-use",
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "en",
+      "fr",
+      "es",
+      "ru",
+      "zh",
+      "ar"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "UN names paired with ISO 3166-1 alpha-3 codes; read on 2026-11-10 to check data/untc-names.json, the map from UNTC participant names to the 197 records."
   },
   {
     "id": "cldr",
