@@ -41,7 +41,6 @@ jobs:
     timeout-minutes: 60
     env:
       GH_TOKEN: ${{ secrets.COUNTRIES_PR_TOKEN || github.token }}
-      REPORT: ${{ runner.temp }}/report
     steps:
       - uses: actions/checkout@v7
         with:
@@ -59,7 +58,7 @@ jobs:
 
       - name: Read the sources
         id: read
-        run: python scripts/countries_monthly.py --execute --report-dir "$REPORT"
+        run: python scripts/countries_monthly.py --execute --report-dir "$RUNNER_TEMP/report"
 
       # The battery of the CI on what the pull request would carry: a pull request
       # that the CI would fail is never opened.
@@ -79,16 +78,16 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C robot/countries
           git add data/countries.json static/data CHANGELOG.md
-          git commit --allow-empty --file "$REPORT/commit-message.txt"
+          git commit --allow-empty --file "$RUNNER_TEMP/report/commit-message.txt"
           git push --force origin robot/countries
-          title="$(cat "$REPORT/pr-title.txt")"
+          title="$(cat "$RUNNER_TEMP/report/pr-title.txt")"
           number="$(gh pr list --head robot/countries --state open --json number --jq '.[0].number')"
           if [ -n "$number" ]; then
-            gh pr edit "$number" --title "$title" --body-file "$REPORT/pr-body.md"
+            gh pr edit "$number" --title "$title" --body-file "$RUNNER_TEMP/report/pr-body.md"
             echo "Pull request #$number updated" >> "$GITHUB_STEP_SUMMARY"
           else
             gh pr create --base main --head robot/countries --title "$title" \
-              --body-file "$REPORT/pr-body.md"
+              --body-file "$RUNNER_TEMP/report/pr-body.md"
             echo "Pull request opened: $title" >> "$GITHUB_STEP_SUMMARY"
           fi
 
@@ -104,9 +103,9 @@ jobs:
         run: |
           title="Leitura mensal dos países falhou ($(date -u +%F)): passo do workflow"
           : > "$RUNNER_TEMP/issue.md"
-          if [ -f "$REPORT/issue-body.md" ]; then
-            title="$(cat "$REPORT/issue-title.txt")"
-            cat "$REPORT/issue-body.md" >> "$RUNNER_TEMP/issue.md"
+          if [ -f "$RUNNER_TEMP/report/issue-body.md" ]; then
+            title="$(cat "$RUNNER_TEMP/report/issue-title.txt")"
+            cat "$RUNNER_TEMP/report/issue-body.md" >> "$RUNNER_TEMP/issue.md"
           fi
           if [ "$STEPS_FAILED" = "true" ]; then
             {
