@@ -14,11 +14,14 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 ## Estado do projeto
 
 Em 10/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
-`astraea/cli.py`), as licenças, os dados da fase 1 e o Tabelião: `data/countries.json`
-(197 registros com `id`, `name`, `un_status`, `un_member_since`, `situations` e os blocos
-`genocide_convention` e `rome_statute`, carimbados pelo robô, ou vazios com `reason` em
-Taiwan e Kosovo), `data/situations.json` (as dez da D6; nove status, todos sem carimbo de
-pessoa), `data/sources.json` (89 fontes), `data/untc-names.json` (nome da UNTC → alfa-3), `data/verification.json` (a trilha que carimba os campos escalares),
+`astraea/cli.py`), as licenças, os dados da fase 1, o Tabelião e a pena de morte:
+`data/countries.json` (197 registros com `id`, `name`, `un_status`, `un_member_since`,
+`situations`, os blocos `genocide_convention` e `rome_statute`, carimbados pelo robô ou
+vazios com `reason` em Taiwan e Kosovo, e `death_penalty`, carimbado pelo robô a partir
+do Cornell em 130 países e vazio com `reason` em 67), `data/situations.json` (as dez da D6; nove status, todos sem carimbo de
+pessoa), `data/sources.json` (89 fontes), `data/untc-names.json` e
+`data/cornell-names.json` (nome da UNTC e do Cornell → alfa-3, um arquivo por fonte),
+`data/verification.json` (a trilha que carimba os campos escalares),
 `data/lexicon/` (termos fixos em `fixed/` e o léxico gerado em cinco línguas; o árabe é
 rascunho), `data/retired-ids.json` e `data/i18n/`. `scripts/vocabularies.py` é a lista
 única dos vocabulários fechados e das chaves de rótulo; `scripts/build_lexicon.py` gera o
@@ -27,10 +30,13 @@ léxico; `scripts/transform.py` valida com as onze travas e gera `static/data/`;
 `site/`, saída em `_site/`, fora do git). `.github/workflows/ci.yml` roda a bateria em
 todo *push* e PR; `deploy.yml` publica no GitHub Pages. O motor honra o `Crawl-delay` por
 host e não baixa página de domínio com `no_text_by_policy` (`astraea/engine/policy.py`).
-O adaptador `listing` (`astraea/sources/listing.py`) lê tabela que muda devagar; o
-primeiro formato é o XML por tratado da UNTC, que `scripts/load_treaties.py` grava em
-`countries.json` (simulação por padrão). 274 testes. A fase 1 e o item 1 da fase 2 estão
-feitos; o `06-roteiro.md` diz a ordem, e a próxima sessão é a da pena de morte. Antes de escrever código, leia o `00-inventario.md` e o
+O adaptador `listing` (`astraea/sources/listing.py`) lê tabela que muda devagar; os
+formatos são o XML por tratado da UNTC, que `scripts/load_treaties.py` grava em
+`countries.json`, e as quatro listas de pena de morte do Cornell, que
+`scripts/load_death_penalty.py` grava em `death_penalty` (os dois em simulação por
+padrão). 297 testes. A fase 1 e os itens 1 e 2 da fase 2 estão feitos (o anexo da
+Anistia espera a carga à mão do dono); o `06-roteiro.md` diz a ordem, e a próxima sessão
+é a do `countries.yml` e da tela `/countries`. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é

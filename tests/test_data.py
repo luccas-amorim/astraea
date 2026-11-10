@@ -49,6 +49,7 @@ COUNTRY_KEYS = {
     "un_member_since",
     "genocide_convention",
     "rome_statute",
+    "death_penalty",
     "situations",
 }
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -92,8 +93,9 @@ def test_un_status_and_admission_date_follow_d1(countries):
 
 
 def test_countries_carry_only_the_fields_of_this_session(countries):
-    # The treaty blocks came in phase 2, session 1 (tests/test_load_treaties.py); the
-    # penal law blocks are still absent, not null.
+    # The treaty blocks came in phase 2, session 1 (tests/test_load_treaties.py), and
+    # death_penalty in session 2 (tests/test_load_death_penalty.py); the penal law
+    # blocks are still absent, not null.
     for c in countries:
         assert set(c) == COUNTRY_KEYS, c["id"]
         assert isinstance(c["situations"], list) and c["situations"] == sorted(c["situations"])

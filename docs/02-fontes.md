@@ -21,6 +21,9 @@ mudou.
 > deathpenaltyworldwide.org) podem ser do ambiente, não da fonte. A primeira sessão com a
 > sua máquina e com um *runner* do GitHub Actions deve **repetir** as linhas marcadas
 > "bloqueado" antes de descartá-las.
+>
+> Em 10/11/2026, da máquina do dono, o certificado de deathpenaltyworldwide.org continua
+> vencido (expirou em 21/12/2025): é da fonte, não do ambiente (1.5).
 
 ## Função 1: leis penais do mundo
 
@@ -37,7 +40,7 @@ mudou.
 | **BAILII** | B | só Reino Unido e Irlanda | cópia gratuita com crédito; **proíbe "external indexing … by web robots" e "bulk downloading"**; bloqueia domínios | `Disallow` das coleções; GPTBot vetado | não | EN | — | **Não** |
 | **Cornell LII /world** | B | diretório de *links* por região; sem dado por país | CC BY-NC-SA 2.5 | Drupal, `Crawl-delay: 10` | não | EN | sem data | irrelevante (só *links*) |
 | **Prevent Genocide International** | C | **nada: domínio estacionado** (`/lander`, página de *parking*); último *snapshot* no Wayback em 06/11/2024 | — | do estacionador | não | — | morto | **Fora**; a lista histórica de legislação doméstica só via Wayback, como semente |
-| **Cornell Center on the Death Penalty Worldwide** | B | status por país em 4 categorias, execuções, perfis; "We update global execution figures each Wednesday"; base "being redesigned" | sem termos; "© 2026 Cornell" | não lido | não; HTML | EN, FR | semanal | **Sim, por `listing`** no espelho `dpw.lawschool.cornell.edu` (o domínio principal apresentou certificado vencido via proxy corporativo) |
+| **Cornell Center on the Death Penalty Worldwide** | B | status por país em 4 categorias, execuções, perfis; "We update global execution figures each Wednesday"; base "being redesigned" | sem termos; "© 2026 Cornell" | não lido (lido em 10/11: permite tudo, 1.5) | não; HTML (em 10/11: a base do mapa responde JSON, 1.5) | EN, FR | semanal | **Sim, por `listing`** no espelho `dpw.lawschool.cornell.edu` (o domínio principal apresentou certificado vencido via proxy corporativo; em 10/11, vencido de qualquer rede, 1.5) |
 | **Anistia Internacional — Death Sentences and Executions** | B | relatório anual em PDF (abril), 13 línguas, com anexo por país; a página web só traz agregados ("113 abolicionistas") | **CC BY-NC-ND 4.0** (`/about-us/permissions/`) | proíbe `/*/search/`; alguns robôs vetados; `crawl-delay: 5` para CCBot | não; PDF | 13 | anual | **Sim, carga anual à mão** do anexo; a licença ND impede derivar o PDF, não impede registrar o status com citação |
 | **Constitute Project** | B | constituições (cláusulas sobre pena de morte), não códigos penais; XML de países e tópicos | **sem CC**: "commercial use is expressly prohibited"; "used solely for providing information to users of this site" | **proíbe `/*.xml$`, `/*.json`, `/*?*key=*`**: os próprios endpoints de dados | API com chave (doc em Google Doc) | EN, AR, ES | — | **Não** (robots veda os dados) |
 | **ICC — Assembly of States Parties** | A | lista de Estados-partes por grupo regional, sem datas | `terms-use` → "Browser Validation Page" | Drupal padrão | não | EN, FR | — | **Fraco**; o XML XVIII.10 da UNTC é superior; Gcore bloqueou navegador e `WebFetch`, `curl` passou |
@@ -112,6 +115,54 @@ verificou-se existência, estrutura, termos e acesso.
   Sul, Gâmbia e Hungria revogaram.
 - O `robots.txt` foi relido pelo cliente do motor (`Crawl-delay: 2`, sem `Disallow`) e
   continua sem `Last-Modified` no XML.
+
+### 1.5 O que a leitura de 10/11/2026 corrigiu (fase 2, sessão 2: pena de morte)
+
+Leituras feitas da máquina do dono pelo cliente HTTP do motor, com o `User-Agent` do
+Astraea e o `robots.txt` obedecido; os sha256 estão no `CHANGELOG.md`.
+
+- **O domínio principal tem certificado vencido de qualquer rede.** O de
+  `deathpenaltyworldwide.org` (GoDaddy) expirou em 21/12/2025; `www.` derruba a
+  conexão. Não se contorna (regra 7): o Astraea lê o espelho.
+- **O espelho `dpw.lawschool.cornell.edu`** tem certificado válido (Let's Encrypt, até
+  19/12/2026) e `robots.txt` que permite tudo (`User-Agent: *`, `Disallow:` vazio;
+  `Last-Modified` 30/10/2026). **Não há página de termos de uso** no espelho nem na
+  base: só "© 2026 Cornell Center on the Death Penalty Worldwide" no rodapé. O Astraea
+  grava só a categoria de cada país, com a fonte citada, sem texto.
+- **A tabela não está no HTML.** A legenda do mapa da página inicial pede a uma base em
+  outro servidor, `cornell-dpw.herokuapp.com`, uma lista por categoria:
+  `/api/countries/by-law-status/1?lawStatus=<categoria>` (`1` é inglês; `2`, francês),
+  que devolve uma lista JSON de `{displayName, isoCode}` (ISO alfa-2 ou `null`). O
+  `robots.txt` desse servidor responde 404, o que pela convenção não veda nada. As quatro
+  categorias são `Abolitionist`, `Abolitionist For Ordinary Crimes`, `Abolitionist de
+  facto` e `Retentionist`. **A página não dá contagem por categoria**: a sentinela é a
+  forma das quatro listas (todas vieram, nenhuma vazia, nenhum nome em duas).
+- **Em 10/11/2026: 95 + 6 + 45 + 35 = 181 nomes.** Seis estão fora dos 197 (cinco
+  territórios e o Chipre do Norte); 22 dos 197 não estão em nenhuma lista (Andorra,
+  Burkina Faso, Burundi, Cabo Verde, Congo, Guatemala, Ilhas Marshall, Kiribati,
+  Liechtenstein, Malta, Maurício, Micronésia, Mônaco, Nauru, Palau, Samoa, San Marino,
+  Santa Sé, São Tomé e Príncipe, Seicheles, Suriname, Tuvalu).
+- **A própria base define só duas categorias**, na pergunta "Retentionist or Abolitionist
+  De Facto" do perfil de país: retencionista é quem executou nos últimos dez anos;
+  abolicionista *de facto*, quem não executa há pelo menos dez. As outras duas não têm
+  definição publicada. A correspondência com as categorias da Anistia, e por que o *de
+  facto* não é gravado, está no `03-modelo-de-dados.md` ("Como a pena de morte é
+  preenchida").
+- **A página se contradiz.** O mapa da página inicial é colorido por um *plugin* (um
+  dicionário alfa-2 → cor no próprio HTML), e diverge da lista da base em sete países que
+  a base classifica: Cazaquistão e Israel (base: crimes comuns; mapa: abolicionista e
+  retencionista), Guiné Equatorial e Coreia do Norte (base: retencionista; mapa: crimes
+  comuns e *de facto*), Papua-Nova Guiné, Zâmbia (base: *de facto*; mapa: abolicionista) e
+  Coreia do Sul (base: *de facto*; mapa: retencionista). O mapa ainda pinta cinco países
+  que a base não lista (Burkina Faso, Burundi, Congo, Guatemala, Suriname) e tem erro
+  visível nos rótulos das duas Coreias. **O robô lê a base** (decisão do dono,
+  10/11/2026); os quatro que ficam carimbados apesar da divergência (Cazaquistão,
+  Israel, Guiné Equatorial, Coreia do Norte) são os primeiros a conferir no anexo da
+  Anistia.
+- A configuração da página declara `currentYear = '2020'` e o rodapé injetado diz "©
+  2025 Cornell University"; com o aviso de que a base está sendo refeita, são sinais de
+  que a classificação pode estar atrasada em alguns países. A confiança fica B, e a
+  carga anual da Anistia é a conferência.
 
 ## Função 2: notícias
 

@@ -110,9 +110,9 @@
         "empty": 197
       },
       "death_penalty": {
-        "stamped": 0,
+        "stamped": 130,
         "draft": 0,
-        "empty": 197
+        "empty": 67
       }
     },
     "names_missing": {
@@ -178,7 +178,6 @@
     "robots_unchecked": [
       "loc-glm",
       "prevent-genocide",
-      "cornell-dpw",
       "foreign-law-guide",
       "eur-lex",
       "coe",

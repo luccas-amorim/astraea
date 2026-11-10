@@ -3,6 +3,232 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-10 — Fase 2, sessão 2: pena de morte (Cornell pelo `listing`; caminho da Anistia)
+
+Branch `fase2/pena-de-morte`. Não havia resposta às "Escolhas a revisar" das sessões 3 e
+4 da fase 1 nem da sessão 1 da fase 2; elas continuam abertas, nas entradas daquelas
+sessões.
+
+**Dado novo: `death_penalty` nos 197 registros.** 130 carimbados (`source:
+cornell-dpw`, confiança B, `checked_by: robot`, `read_on: 2026-11-10`, `url` da lista em
+que o país está) e 67 vazios com `reason`. Nenhuma `note`: é texto nosso e depende da
+D4. Contagens, conferidas contra a fonte do dia (a última leitura pela rede, ao fim da
+sessão, deu `up to date`):
+
+| Lista do Cornell (`lawStatus`) | Nomes na lista | Fora dos 197 | Nos 197 | Gravado como |
+|---|---|---|---|---|
+| `Abolitionist` | 95 | 6 | **89** | `abolitionist_all_crimes` |
+| `Abolitionist For Ordinary Crimes` | 6 | — | **6** | `abolitionist_ordinary_crimes` |
+| `Abolitionist de facto` | 45 | — | **45** | vazio com `reason` (não corresponde, adiante) |
+| `Retentionist` | 35 | — | **35** | `retentionist` |
+| em nenhuma lista | — | — | **22** | vazio com `reason` |
+| **total** | **181** | **6** | **197** | 130 carimbados, 67 vazios |
+
+Os seis fora dos 197: Malvinas, Terras Austrais Francesas, Groenlândia, Nova Caledônia,
+Porto Rico e Chipre do Norte. Os 22 dos 197 que o Cornell não lista: Andorra, Burkina
+Faso, Burundi, Cabo Verde, Congo, Guatemala, Ilhas Marshall, Kiribati, Liechtenstein,
+Malta, Maurício, Micronésia, Mônaco, Nauru, Palau, Samoa, San Marino, Santa Sé, São Tomé
+e Príncipe, Seicheles, Suriname e Tuvalu. Kosovo (abolicionista), Taiwan e Palestina
+(retencionistas) estão nas listas e foram carimbados como os demais. A página não dá
+contagem por categoria; as contagens acima são as das próprias listas.
+
+**Leituras desta sessão**, todas pelo cliente HTTP do motor, com o `User-Agent` do
+Astraea e o `robots.txt` obedecido, da máquina do dono:
+
+- As quatro listas, `https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=…`
+  (HTTP 200, `application/json`, sem `Last-Modified`), lidas três vezes pela rede (na
+  sondagem, na carga em simulação e na conferência final) com os mesmos bytes; as
+  *fixtures* são essas respostas, byte a byte:
+  - `Abolitionist`: 4.081 bytes, sha256
+    `ab64273c83c17156d528e43099d560662db7c4a8339cfa3662de7582cacffd71`;
+  - `Abolitionist%20For%20Ordinary%20Crimes`: 247 bytes, sha256
+    `4a17359c19be557d945165377da22143fd93d8a748db9d339abc2b94f60eedaf`;
+  - `Abolitionist%20de%20facto`: 1.970 bytes, sha256
+    `a95d4eec7a1890fad4cd433fad6940a4a80e7c567896683d734fcdc96c57a30e`;
+  - `Retentionist`: 1.478 bytes, sha256
+    `844e476e8ecb78a9b1597417b38fd9f23bed58c53a6edbfa31b0fb16ce738018`.
+
+  O `--execute` gravou a partir das *fixtures* (`--json-dir tests/fixtures/cornell
+  --read-on 2026-11-10`), idênticas à leitura pela rede.
+- `https://dpw.lawschool.cornell.edu/robots.txt`: 24 bytes (`User-Agent: *`,
+  `Disallow:` vazio), `Last-Modified` 30/10/2026, sha256
+  `e1f21c9aa28d50ca112ed357f34b67c550597effd4d42fd55b4e27300dd8f9c1`.
+  `https://cornell-dpw.herokuapp.com/robots.txt`: 404 (nada vedado).
+- Para achar a tabela e as definições: a página inicial do espelho (112.000 bytes,
+  sha256 `9de13bc98ec528e7fdf74d596a4c4967bbbf15e91659155d52e9be01207350d6`), a página
+  `/database/` (55.342 bytes,
+  `d64f4cee707f049870b90eaec3e8fcf4c3249eef9be04711a82bd54125fd3592`), o `app.js` do
+  tema (539.310 bytes, `ac953d4153b56a20dff3c7386a161f5eb9c9d7eb8bf97a66d59eac4ce1c91e92`),
+  a raiz da base (93.283 bytes,
+  `eccc2b0a27351905e415b544a84efa10a5d7e2db113b974540a1fc184dacc746`, onde está a
+  definição de retencionista e de *de facto*) e os cinco `_nuxt/*.js` da base (nenhuma
+  definição das outras duas categorias). Duas requisições de sondagem à base, sem
+  `lawStatus` e com um valor inexistente, devolveram 400; não fazem parte da carga e não
+  se repetem.
+- Certificados: o do espelho é válido (Let's Encrypt, até 19/12/2026); o de
+  `deathpenaltyworldwide.org` **venceu em 21/12/2025** (GoDaddy), lido só nas datas, sem
+  baixar página; `www.deathpenaltyworldwide.org` derrubou a conexão.
+- A tabela M49 (`unsd-m49`), relida para conferir os nomes: 1.721.575 bytes, sha256
+  `b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb`, a mesma resposta da
+  sessão 1.
+
+**Correções ao plano** (no `02-fontes.md`, 1.5, nova):
+
+- **A tabela não está no espelho.** A página do espelho não traz a classificação; a
+  legenda do mapa a pede, uma lista por categoria, a uma base em outro servidor
+  (`cornell-dpw.herokuapp.com`). O robô lê essa base, que é o que a página mostra.
+- **Sem termos de uso** no espelho nem na base; o certificado vencido do domínio
+  principal é da fonte, não do *proxy* da sondagem de 06/11.
+- **Sentinela:** como a página não dá contagem por categoria, a sentinela é a forma das
+  quatro listas: todas vieram, cada uma lista JSON não vazia de `{displayName,
+  isoCode}`, nenhum nome em duas. Registrada no `sources.json`.
+- **As categorias não são as quatro da Anistia.** Correspondem três; o *de facto* do
+  Cornell (nenhuma execução em pelo menos dez anos, definição da própria base) cobre
+  dois valores da Anistia, que para "abolicionista na prática" pede também política ou
+  prática estabelecida de não executar. Tabela e razões no `03-modelo-de-dados.md`,
+  "Como a pena de morte é preenchida".
+- **A página se contradiz:** o mapa da página inicial e a lista da base divergem em sete
+  países (Cazaquistão, Israel, Guiné Equatorial, Coreia do Norte, Papua-Nova Guiné,
+  Zâmbia, Coreia do Sul), e o mapa pinta cinco que a base não lista. Detalhe no 02, 1.5.
+
+**Decisões suas nesta sessão** (perguntadas e respondidas em 10/11/2026, registradas no
+`03` e no `02`):
+
+- **Os 45 países *de facto* ficam vazios com `reason`** até a carga da Anistia; o robô
+  nunca escreve `abolitionist_in_practice`.
+- **O robô grava a lista da base, e a divergência do mapa fica registrada.** Os quatro
+  carimbados apesar dela (Cazaquistão e Israel como `abolitionist_ordinary_crimes`;
+  Guiné Equatorial e Coreia do Norte como `retentionist`) são os primeiros a conferir no
+  anexo.
+
+**Decisão minha, como pedido: os mapas de nomes ficam em arquivos separados**
+(`data/untc-names.json` e `data/cornell-names.json`), com o código comum em
+`scripts/country_names.py`. A mesma grafia pode querer dizer coisas diferentes em duas
+fontes, e um apelido conferido para uma seria aceito em silêncio para a outra;
+separados, cada linha diz para que fonte foi conferida, e tirar uma fonte não mexe na
+outra. O preço é repetir algumas linhas (Antígua e Barbuda, RD Congo, São Cristóvão e
+Névis…).
+
+**Código:**
+
+- `astraea/sources/listing.py`: tabela publicada em partes (`PARTED_FORMATS`): uma
+  requisição por valor do parâmetro, lidas juntas, e a tabela é inteira ou recusada
+  inteira. Formato novo `cornell_dpw_status`. `read()` devolve as respostas de todas as
+  partes (o `load_treaties.py` acompanha).
+- `scripts/country_names.py` (novo): o mapa de nomes, comum à UNTC e ao Cornell.
+- `scripts/load_death_penalty.py` (novo): a carga. Simulação por padrão, `--execute`
+  grava, `--json-dir` e `--read-on` leem arquivos salvos. Nunca apaga; não toca bloco
+  com `checked_by: human` e diz quando o Cornell lê outra coisa; não esvazia bloco
+  carimbado de país que sumiu das listas (mantém e avisa); valores iguais mantêm o
+  `read_on` antigo; nome sem mapa, ou com `iso2` diferente do conferido, interrompe a
+  carga.
+- `tests/conftest.py`: o transporte falso distingue URLs que só diferem na *query*.
+- Testes: 6 novos em `tests/test_listing.py` (as quatro *fixtures*, sentinela, forma
+  desconhecida, nome em duas listas, leitura das quatro partes com `robots.txt`, parte
+  que falha) e `tests/test_load_death_penalty.py` (17: a carga das *fixtures* devolve
+  exatamente o `countries.json` do repositório; nome sem mapa, código mudado, bloco de
+  pessoa, país que sai das listas, leitura sem novidade, mudança campo a campo,
+  simulação, leitura que falha; a correspondência; contagens, valores conhecidos, fonte
+  e mapa de nomes).
+
+**Dados:** `data/cornell-names.json` (novo): os 22 nomes do Cornell que não são o
+`name.en` de `countries.json`, cada um com o `iso2` que a lista dá e a forma da M49 para
+esse código; 16 caem nos 197 ("East Timor" → `TLS`, "Ivory Coast" → `CIV`, "Macedonia"
+→ `MKD`, "Turkey" → `TUR`…) e 6 ficam fora com `reason`. Os 159 outros nomes casam
+letra por letra e, todos os que a M49 tem, com o mesmo alfa-3 do código que o Cornell
+dá (Kosovo e Taiwan não estão na M49). `sources.json`: `cornell-dpw` com
+`robots_checked_on: 2026-11-10`, `api: yes`, 10 requisições por minuto, a sentinela e o
+motivo novo; o `NOTICE` ganhou a fonte. Nenhum campo nem valor novo de vocabulário: os
+quatro valores de `death_penalty.status` já tinham rótulo.
+
+**Bateria:** 297 testes passam; `ruff check` e `ruff format --check` limpos; `astraea
+validate-lexicon data/lexicon/*.json` valida os cinco; `python scripts/transform.py
+--draft --check` passa; `python scripts/build_site.py` simula as duas páginas.
+**`--strict` reprova, de propósito, só pelos mesmos 9 status em rascunho** (travas 3 e
+6); nenhum campo de pena de morte está em rascunho. `config/` ainda não existe.
+`countries.complete` continua 0: faltam os blocos de lei penal e de pena máxima.
+
+**O que as mensagens novas dizem** (saem em inglês):
+
+- `Retentionist: https://…?lawStatus=Retentionist: 1478 bytes, sha256 …` e `4 lists (95
+  Abolitionist, …); each one whole, no name in two`: a leitura passou na sentinela; os
+  sha256 vão para o CHANGELOG.
+- `new: BRA.death_penalty = abolitionist_ordinary_crimes`, `changed: JPN.death_penalty:
+  status: …`: o que a carga mudaria. Numa semana sem novidade, nenhuma das duas.
+- `left alone (checked by a person): JAM.death_penalty; Cornell reads 'Abolitionist de
+  facto', the block says 'abolitionist_in_practice'`: bloco que você carimbou; o robô
+  não o toca, e a segunda metade diz que as duas fontes divergem. Não é erro.
+- `kept (no longer in the Cornell lists): JPN.death_penalty = 'retentionist', read on
+  2026-11-10`: o país sumiu das listas; o robô manteve o que já tinha lido. Vale olhar a
+  página do Cornell.
+- `FAIL cornell: 'Fooland' is not a name of countries.json nor of
+  data/cornell-names.json; check it in the M49 table and add it by hand` e `nothing was
+  written`: nome novo ou mudado nas listas. Confira na M49 e acrescente a linha.
+- `FAIL cornell: 'Macedonia' now comes with isoCode 'MC', and cornell-names.json was
+  checked with 'MK'`: o Cornell mudou o código de um nome do mapa; confira de novo.
+- `FAIL Retentionist: not a JSON document`, `FAIL … an empty list`, `FAIL the four lists
+  did not come`: a base respondeu outra coisa (erro, página de manutenção, reforma);
+  nada foi gravado.
+
+**Anistia: o caminho para a sua carga** (detalhe no `03-modelo-de-dados.md`, "Como a
+pessoa carrega o anexo da Anistia"):
+
+- **Campo:** o bloco `death_penalty` do país, inteiro, no lugar do que o robô escreveu:
+  `status` (um dos quatro valores, como o anexo classifica), `url` (o documento lido, em
+  amnesty.org), `source: "amnesty"`, `read_on` (o dia em que você leu), `confidence:
+  "B"`, `checked_by: "human"`. A hipótese de guerra ou de código militar vai em `note`,
+  com as suas palavras: `"note": {"pt-BR": {"text": "…", "author": "human"}}`.
+- **O que o robô faz com isso:** nada. Bloco com `checked_by: human` nunca é tocado; o
+  relatório só avisa quando o Cornell classifica o país de outro jeito.
+- **Por onde começar:** os 45 *de facto* (vazios, esperando você) e os quatro em que a
+  página do Cornell se contradiz. O `06` fala no anexo de 2024; se já houver um mais
+  recente, a escolha de qual carregar é sua.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **`url` é o endereço da lista lida na base** (JSON), não a página do espelho, que é
+  mais legível para gente mas não traz a classificação. Se preferir a página, a troca é
+  uma linha do *script*.
+- **Os 22 que o Cornell não lista ficam vazios com `reason`**, sem nenhuma inferência.
+- **Bloco carimbado de país que some das listas fica**, com aviso, e não vira vazio:
+  com a base sendo refeita, uma ausência pode ser defeito dela. Se preferir que o robô
+  esvazie, é uma condição no `plan`.
+- **Confiança B, apesar dos sinais de atraso** (`02`, 1.5). A alternativa seria não
+  carimbar nada do Cornell até a Anistia, o que deixaria os 197 vazios.
+- **`reason` está em inglês**, como dado, igual ao de `sources.json`.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver a carga sem gravar nada** (lê as quatro listas pela internet; leva uns 30
+   segundos, porque o robô espera 6 segundos entre as requisições):
+
+   ```powershell
+   python scripts\load_death_penalty.py
+   ```
+
+   Deve terminar com `up to date: data/countries.json`. Se o Cornell tiver mudado alguma
+   classificação, aparecem linhas `changed:` e `would write: data/countries.json`; nada
+   foi gravado, e `--execute` grava.
+2. **Rodar a bateria:**
+
+   ```powershell
+   python scripts\transform.py --draft --check
+   python -m pytest
+   ```
+
+   O primeiro termina com `static/data is up to date`; o segundo, com `297 passed`.
+3. **Ver um país:** abra `data\countries.json` no editor e procure `"JAM"` (vazio, *de
+   facto*) ou `"BRA"` (carimbado). O bloco novo está depois de `rome_statute`.
+4. **Carregar um país da Anistia**, quando for a hora: troque o bloco `death_penalty`
+   desse país pelo modelo do `03`, rode `python scripts\transform.py --draft --execute`
+   e faça você o commit (o carimbo `human` é seu, regra 3).
+5. **Enviar ao GitHub.** O merge na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-10 — Fase 2, sessão 1: Tabelião (tratados pela UN Treaty Collection)
 
 Branch `fase2/tabeliao`. Não havia resposta às "Escolhas a revisar" das sessões 3 e 4;

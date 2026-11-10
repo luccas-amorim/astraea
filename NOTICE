@@ -55,6 +55,15 @@ Este produto inclui dados de terceiros:
   Nações Unidas — Divisão de Estatística, Standard country or area codes (M49)
   https://unstats.un.org/unsd/methodology/m49/overview/ (lida em 2026-11-10)
   Termos de uso: https://www.un.org/en/about-us/terms-of-use
-  Usada em data/untc-names.json para conferir a que código ISO 3166-1 alfa-3 corresponde
-  cada nome da UNTC que não é, letra por letra, o nome em inglês de countries.json. Só
-  o par nome–código, com a fonte citada.
+  Usada em data/untc-names.json e data/cornell-names.json para conferir a que código
+  ISO 3166-1 alfa-3 corresponde cada nome da UNTC e do Cornell que não é, letra por
+  letra, o nome em inglês de countries.json. Só o par nome–código, com a fonte citada.
+
+  Cornell Center on the Death Penalty Worldwide — listas de países por situação da pena
+  de morte (a base por trás do mapa de https://dpw.lawschool.cornell.edu)
+  https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1 (lidas em 2026-11-10)
+  © 2026 Cornell Center on the Death Penalty Worldwide; nenhum termo de uso encontrado
+  no espelho nem no servidor da base
+  Usada em data/countries.json (death_penalty) e, como nome e código ISO, em
+  data/cornell-names.json: a categoria de cada país, com a fonte citada. As fixtures em
+  tests/fixtures/cornell/ são as quatro respostas, que só têm nomes e códigos.

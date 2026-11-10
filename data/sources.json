@@ -268,20 +268,20 @@
     "url": "https://dpw.lawschool.cornell.edu",
     "function": 1,
     "confidence": "B",
-    "license": "No terms found; © Cornell",
+    "license": "No terms of use found on the mirror nor on the database host; © 2026 Cornell Center on the Death Penalty Worldwide",
     "terms_url": null,
-    "robots_checked_on": null,
-    "api": "no",
-    "rate_limit_per_minute": null,
+    "robots_checked_on": "2026-11-10",
+    "api": "yes",
+    "rate_limit_per_minute": 10,
     "languages": [
       "en",
       "fr"
     ],
-    "sentinel": null,
+    "sentinel": "the four by-law-status lists (Abolitionist, Abolitionist For Ordinary Crimes, Abolitionist de facto, Retentionist), each a non-empty JSON list of {displayName, isoCode}, no name in two",
     "state_media": false,
     "no_text_by_policy": false,
     "state": "active",
-    "reason": "Weekly listing of death penalty status on the dpw.lawschool.cornell.edu mirror (the main domain showed an expired certificate via the probe proxy); robots.txt not read yet."
+    "reason": "Death penalty status read weekly by listing (scripts/load_death_penalty.py) from the database API behind the world map of the dpw.lawschool.cornell.edu mirror (cornell-dpw.herokuapp.com, robots.txt 404); the main domain deathpenaltyworldwide.org serves a certificate expired on 2025-12-21. The de facto category does not coincide with Amnesty's abolitionist in practice and is not recorded."
   },
   {
     "id": "amnesty",

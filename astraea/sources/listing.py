@@ -14,10 +14,18 @@ which fails (`TableError`) when the table is not whole. Formats are registered i
 `FORMATS`. The first one is `untc_treaty`, the per-treaty XML of the United Nations
 Treaty Collection (`docs/02-fontes.md`, 1.1), read by the Tabelião.
 
+Some origins publish the table in **parts**, one document per value of a query
+parameter (the Cornell death penalty lists, one per category). Those formats are in
+`PARTED_FORMATS`: the listing makes one request per part and the format reads them
+together, so the table is still whole or refused as a whole.
+
 Configuration:
     {"type": "listing", "id": "listing:untc-iv-1", "format": "untc_treaty",
      "url": "https://treaties.un.org/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml",
      "rate_limit_per_minute": 30}
+    {"type": "listing", "id": "listing:cornell-dpw", "format": "cornell_dpw_status",
+     "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1",
+     "rate_limit_per_minute": 10}
 """
 
 from __future__ import annotations
@@ -70,6 +78,23 @@ class Table:
 Format = Callable[[bytes], Table]
 
 
+@dataclass(frozen=True)
+class PartedFormat:
+    """A table published in parts: one document per value of `parameter`."""
+
+    parse: Callable[[Mapping[str, bytes]], Table]
+    parameter: str
+    values: tuple[str, ...]
+
+    def urls(self, base: str) -> dict[str, str]:
+        """value -> URL, with the value percent-encoded as the origin's own page does
+        (`%20`, not `+`)."""
+        sep = "&" if "?" in base else "?"
+        return {
+            v: f"{base}{sep}{self.parameter}={urllib.parse.quote(v, safe='')}" for v in self.values
+        }
+
+
 class Listing:
     respects_robots = True
 
@@ -81,8 +106,9 @@ class Listing:
         client: Client,
         rate_limit_per_minute: int = 30,
     ) -> None:
-        if format not in FORMATS:
-            raise ValueError(f"unknown listing format: {format!r} (known: {sorted(FORMATS)})")
+        if format not in FORMATS and format not in PARTED_FORMATS:
+            known = sorted([*FORMATS, *PARTED_FORMATS])
+            raise ValueError(f"unknown listing format: {format!r} (known: {known})")
         self.id = id
         self.url = url
         self.format = format
@@ -95,10 +121,21 @@ class Listing:
         client = Client(limit, respects_robots=True, transport=transport)
         return cls(cfg["id"], cfg["url"], cfg["format"], client, limit)
 
-    def read(self) -> tuple[Table, Response]:
-        """One request; the table, and the response it came from (for its hash)."""
-        response = self.client.request(self.url)
-        return FORMATS[self.format](response.body), response
+    def urls(self) -> dict[str, str]:
+        """part -> URL; a single-document format has one part, named ""."""
+        parted = PARTED_FORMATS.get(self.format)
+        return parted.urls(self.url) if parted else {"": self.url}
+
+    def read(self) -> tuple[Table, tuple[Response, ...]]:
+        """One request per part (one, for most formats); the table, and the responses it
+        came from, in the order of the parts (for their hashes)."""
+        responses = {part: self.client.request(url) for part, url in self.urls().items()}
+        parted = PARTED_FORMATS.get(self.format)
+        if parted:
+            table = parted.parse({part: r.body for part, r in responses.items()})
+        else:
+            table = FORMATS[self.format](responses[""].body)
+        return table, tuple(responses.values())
 
     def list(self, since: date) -> Iterator[Reference]:
         table, _ = self.read()
@@ -398,4 +435,77 @@ def parse_untc_treaty(raw: bytes) -> Table:
     )
 
 
+# ------------------------------------------------------------------ format: Cornell lists
+
+# The four values of `lawStatus` that the legend of the world map on
+# dpw.lawschool.cornell.edu sends to the database API, as the page writes them.
+CORNELL_CATEGORIES: tuple[str, ...] = (
+    "Abolitionist",
+    "Abolitionist For Ordinary Crimes",
+    "Abolitionist de facto",
+    "Retentionist",
+)
+_CORNELL_KEYS = frozenset({"displayName", "isoCode"})
+_ISO2 = re.compile(r"[A-Z]{2}")
+
+
+def _cornell_list(category: str, raw: bytes) -> list[tuple[str, str | None]]:
+    try:
+        items = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise TableError(f"{category}: not a JSON document ({error})") from error
+    if not isinstance(items, list):
+        raise TableError(f"{category}: not a JSON list")
+    if not items:
+        raise TableError(f"{category}: an empty list")
+    out = []
+    for item in items:
+        if not isinstance(item, dict) or set(item) != _CORNELL_KEYS:
+            raise TableError(f"{category}: an item of unknown shape: {item!r}")
+        name, iso = item["displayName"], item["isoCode"]
+        if not isinstance(name, str) or not name.strip():
+            raise TableError(f"{category}: an item without a name: {item!r}")
+        if iso is not None and not (isinstance(iso, str) and _ISO2.fullmatch(iso)):
+            raise TableError(f"{category}: {name!r} with an isoCode of unknown shape: {iso!r}")
+        out.append((_SPACE.sub(" ", name).strip(), iso))
+    return out
+
+
+def parse_cornell_dpw_status(parts: Mapping[str, bytes]) -> Table:
+    """The four lists of the Cornell Center on the Death Penalty Worldwide.
+
+    The legend of the world map on dpw.lawschool.cornell.edu asks the database API, once
+    per category, for the countries in it (`/api/countries/by-law-status/1?lawStatus=…`,
+    1 being English): a JSON list of `{displayName, isoCode}`, the code being ISO 3166-1
+    alpha-2 or null. The table is the four lists together.
+
+    The page gives no count per category, so the sentinel is the shape itself: the four
+    lists came, each a non-empty JSON list of objects with exactly those two keys, and no
+    name is in two of them (nor twice in one). Anything else stops the reading.
+    """
+    if set(parts) != set(CORNELL_CATEGORIES):
+        missing = sorted(set(CORNELL_CATEGORIES) - set(parts))
+        unknown = sorted(set(parts) - set(CORNELL_CATEGORIES))
+        raise TableError(f"the four lists did not come: missing {missing}, unknown {unknown}")
+    rows: dict[str, dict[str, Any]] = {}
+    counts: dict[str, int] = {}
+    for category in CORNELL_CATEGORIES:
+        items = _cornell_list(category, parts[category])
+        for name, iso in items:
+            if name in rows:
+                where = rows[name]["category"]
+                raise TableError(f"{name!r} is in {where!r} and again in {category!r}")
+            rows[name] = {"category": category, "iso_code": iso}
+        counts[category] = len(items)
+    listed = ", ".join(f"{n} {c}" for c, n in counts.items())
+    return Table(
+        rows=tuple(Row(name, cells) for name, cells in rows.items()),
+        sentinel=f"4 lists ({listed}); each one whole, no name in two",
+        meta={"counts": counts},
+    )
+
+
 FORMATS: dict[str, Format] = {"untc_treaty": parse_untc_treaty}
+PARTED_FORMATS: dict[str, PartedFormat] = {
+    "cornell_dpw_status": PartedFormat(parse_cornell_dpw_status, "lawStatus", CORNELL_CATEGORIES),
+}
