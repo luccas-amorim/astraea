@@ -21,6 +21,7 @@ data/
   lexicon/fixed/<lang>.json  os termos fixos de cada língua, mantidos à mão
   lexicon/<lang>.json     o léxico por língua, gerado de situations.json + termos fixos
   verification.json       trilha: o que foi conferido, quando, por quem, com que resultado
+  untc-names.json         nome da UN Treaty Collection → alfa-3, à mão, conferido na M49
   exceptions.json         achado já julgado, com motivo e data
   retired-ids.json        ids que já foram públicos e nunca voltam
   i18n/<locale>.json      rótulos de campos e de valores por língua (en, pt-BR)
@@ -108,8 +109,8 @@ pergunta da pesquisa não entram; a lista cresce por decisão registrada.
 | `un_member_since` | data ou `null` | contexto temporal das obrigações |
 | `penal_code` | bloco | **a pergunta central da função 1**: há um código penal vigente, de quando, onde se lê o texto oficial. `exists` (`yes` / `no` / `unknown`; `no` cobre países de *common law* sem código, com `note`), `title` (na língua original), `enacted_year`, `consolidated_on`, `official_url`, `alternative_url` (LII, tradução), `language`, proveniência |
 | `domestic_genocide` | bloco | se o país pode julgar genocídio pelo direito próprio: `status` (`criminalized` / `partial` / `no` / `unknown`), `provision`, `instrument`, `year`, `follows_convention_definition` (`yes` / `broader` / `narrower` / `unknown`), proveniência. `partial` cobre tipificação por remissão genérica ao direito internacional |
-| `genocide_convention` | bloco | obrigação de prevenir e punir: `signature`, `bound_since` (data da vinculação), `consent_type` (`ratification` / `accession` / `succession`), `reservations` (`yes` / `no`), `reservations_note` (p. ex. ao art. IX, que afasta a jurisdição da CIJ), proveniência |
-| `rome_statute` | bloco | jurisdição do TPI: `signature`, `bound_since`, `withdrawal` (data ou `null`), proveniência |
+| `genocide_convention` | bloco | obrigação de prevenir e punir: `participation` (`party` / `signatory` / `none`), `signature`, `bound_since` (data da vinculação), `consent_type` (`ratification` / `accession` / `succession`), `reservations` (`yes` / `no`), `reservations_article_ix` (`yes` / `no`: alguma declaração ou reserva trata do art. IX, que dá jurisdição à CIJ), `objections` (`yes` / `no`: o país objetou a reserva de outro), `reservations_note` (texto nosso, à mão), proveniência |
+| `rome_statute` | bloco | jurisdição do TPI: `participation` (`party` / `signatory` / `withdrawn` / `none`), `signature`, `bound_since`, `consent_type` (`ratification` / `acceptance` / `approval` / `accession` / `succession`), `withdrawal` (data em que a retirada do art. 127 produz efeito, ou `null`), `withdrawal_notified` (data da notificação), `objections` (`yes` / `no`), proveniência |
 | `max_penalty` | bloco | escala punitiva: `type` (`years` / `life` / `death` / `unknown`), `years` (inteiro, se `years`), `applies_to_genocide` (`yes` / `no` / `unknown`), proveniência |
 | `death_penalty` | bloco | `status` segundo a classificação da Anistia (`abolitionist_all_crimes`, `abolitionist_ordinary_crimes`, `abolitionist_in_practice`, `retentionist`), `note` para a hipótese condicional (guerra), proveniência |
 | `situations` | lista de ids | liga o país às situações em que é parte, território ou foro; existe nos 197 registros (lista vazia onde não há elo) e é o espelho de `situations.countries`: o validador cobra os dois lados |
@@ -224,6 +225,43 @@ Santa Sé, Kosovo e Taiwan foi carimbado na sessão 4 pela página de Estados n�
 da ONU (`un-non-member-states`): Santa Sé e Palestina com confiança A, porque a página
 os lista; Kosovo e Taiwan com confiança B, porque o carimbo vem da ausência nas duas
 listas da ONU, que juntas são o rol inteiro de Estados.
+
+**Como o Tabelião preenche os tratados** (fase 2, sessão 1, 10/11/2026). O
+`scripts/load_treaties.py` lê os dois XML da UN Treaty Collection pelo adaptador
+`listing` e grava os dois blocos nos 197 registros, com `source: untc`, `url` do XML lido,
+confiança A e `checked_by: robot`:
+
+- **`participation`** existe para que o bloco afirme alguma coisa também de quem não
+  participa: a tabela do depositário é o rol inteiro de participantes, e a ausência
+  nela é lida como `none`, carimbada. `signatory` é quem assinou e não se vinculou;
+  `withdrawn`, quem saiu pelo art. 127 (a UNTC põe as datas entre colchetes).
+- **Taiwan e Kosovo ficam vazios com `reason`** (`{"reason": …}`), não como `none`: não
+  têm linha própria na UNTC, e a ausência de quem não pode depositar não é escolha de não
+  aderir. A linha "China" é da República Popular da China, e vai para `CHN` como a UNTC a
+  publica (assinatura de 1949, ratificação de 1983). Santa Sé e Palestina são lidas como
+  qualquer Estado: a Palestina é parte das duas; a Santa Sé, de nenhuma.
+- **`reservations`** é `yes` quando o depositário lista, para o país, declaração ou reserva
+  com texto. A UNTC reúne as duas numa seção só ("Declarations and Reservations") e o
+  robô não as separa; uma entrada que só tem a marca de nota (reserva retirada) não conta.
+  **`reservations_article_ix`** é `yes` quando algum desses textos cita o art. IX
+  ("article IX", "articles VIII and IX", "Ad article IX"). Nenhum dos dois é juízo sobre o
+  alcance da reserva; `reservations_note` fica para a pessoa (é texto nosso, D4).
+- **`objections`**: o país aparece na seção de objeções, como autor.
+- **Retirada do Estatuto.** `withdrawal` é a data de efeito que a nota do depositário
+  dá; uma retirada notificada que ainda não produziu efeito (Níger, Burkina Faso, Mali,
+  Venezuela, Chade e Nauru, com efeito em 2027) deixa o país como `party`, com as duas
+  datas. Retirada revogada (África do Sul, Gâmbia, Hungria) não deixa rastro no bloco: a
+  nota do depositário é a referência.
+- **Datas de tratado são sempre completas** (`AAAA-MM-DD`): o validador reprova o
+  contrário (estrutura, `check 0`).
+- **Leitura sem novidade não muda o arquivo.** Se os valores de um bloco são os mesmos,
+  o bloco fica como estava, com o `read_on` antigo, para que o PR mensal mostre diff
+  vazio. Bloco com `checked_by: human` nunca é tocado pelo robô.
+- **Nomes.** O nome da UNTC casa letra por letra com `name.en` de `countries.json` ou
+  está em `data/untc-names.json`, tabela feita à mão e conferida na tabela M49 da Divisão
+  de Estatística da ONU (`unsd-m49`), que liga os nomes da ONU ao alfa-3. Nome que não
+  casa interrompe a carga antes de gravar qualquer coisa. As Ilhas Cook, parte do
+  Estatuto, estão na tabela com `id: null` e `reason`: ficam fora dos 197 da D1.
 
 ## Entidade 2: situação (`situations.json`)
 

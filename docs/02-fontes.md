@@ -28,7 +28,7 @@ mudou.
 
 | Fonte | Conf. | O que entrega para os campos | Licença / termos | `robots.txt` | API / massa | Línguas | Atualização | Veredito |
 |---|---|---|---|---|---|---|---|---|
-| **UN Treaty Collection** (treaties.un.org), capítulos IV.1 (Convenção de 1948) e XVIII.10 (Estatuto de Roma) | A | assinatura; ratificação/adesão/sucessão com data e tipo; declarações, reservas, objeções, retiradas, notas; "STATUS AS AT 06-11-2026": 41 signatários e **154 partes** na Convenção; 137 signatários e **125 partes** no Estatuto, com seção de retiradas (art. 127) | termos gerais da ONU: uso pessoal não comercial, sem redistribuir nem derivar sem permissão; página própria de termos da UNTC → "Page not found" | `User-agent: *`, `Crawl-delay: 2`, **sem `Disallow`** | **XML por tratado, verificado**: `/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml` e `/Volume%20II/Chapter%20XVIII/XVIII-10.en.xml` (HTTP 200; `encoding="ISO-8859-1"`, servido como `text/html`, sem `Last-Modified`); estrutura `Treaty/Header/ExternalData/Status`, `Participants/Table/Row/Entry`, `Declarations`, `Objections`, `EndNotes`; nomes com `<superscript>` de nota a limpar; PDF ao lado | EN, FR | diária | **A fonte da função 1.** Entra por `listing` sobre o XML, mensal; a sentinela é a linha "STATUS AS AT" |
+| **UN Treaty Collection** (treaties.un.org), capítulos IV.1 (Convenção de 1948) e XVIII.10 (Estatuto de Roma) | A | assinatura; ratificação/adesão/sucessão com data e tipo; declarações, reservas, objeções, retiradas, notas; "STATUS AS AT 06-11-2026": 41 signatários e **154 partes** na Convenção; 137 signatários e **125 partes** no Estatuto, com seção de retiradas (art. 127) | termos gerais da ONU: uso pessoal não comercial, sem redistribuir nem derivar sem permissão; página própria de termos da UNTC → "Page not found" | `User-agent: *`, `Crawl-delay: 2`, **sem `Disallow`** | **XML por tratado, verificado**: `/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml` e `/Volume%20II/Chapter%20XVIII/XVIII-10.en.xml` (HTTP 200; `encoding="ISO-8859-1"`, servido como `text/html`, sem `Last-Modified`); estrutura `Treaty/Header/ExternalData/Status`, `Participants/Table/Row/Entry`, `Declarations`, `Objections`, `EndNotes`; nomes com `<superscript>` de nota a limpar; PDF ao lado | EN, FR | diária | **A fonte da função 1.** Entra por `listing` sobre o XML, mensal; a sentinela é o bloco `Status` do XML conferido contra as linhas (correção de 10/11/2026, adiante) |
 | **CICV — IHL Databases / National Practice** | A | legislação e jurisprudência nacional de implementação do DIH, com filtros por instrumento, tipo, tópico e Estado (fontes secundárias falam em 195 países) | termos gerais do CICV: cópia com indicação de fonte, sem modificação, sem uso comercial; `legal-notice` do subdomínio → 404 | tudo permitido | nenhuma; **SPA** ("You need to enable JavaScript") | 7 línguas de interface | não observada | **Consulta manual** por país durante a carga; o filtro "genocídio" **não foi confirmado nem negado** (o componente não expôs as opções) |
 | **UNODC SHERLOC — Database of Legislation** | A | legislação por país (~190 + Santa Sé e Palestina com asterisco; **sem Kosovo nem Taiwan**); a taxonomia tem "Genocide (underlying acts)" e "Genocide (contextual elements)", **mas as buscas testadas devolvem 0 leis** | termos da ONU (uso pessoal, não comercial) | 404 | nenhuma; SPA; `WebFetch` 403, navegador funciona | 6 oficiais | não declarada | **Fora** por ora: taxonomia existe, conteúdo de genocídio vazio; reconferir a cada semestre |
 | **Legislationline** (OSCE/ODIHR) | A | **em reconstrução**: redireciona para `odihr.osce.org/odihr/legal-opinions-and-comments/`; a coleção de códigos penais (`/documents/section/criminal-codes`) → 404; "The new platform will be available in the coming months" | não encontrados | Drupal padrão | nenhuma | EN | — | **Indisponível em 06/11/2026**; o Arquivista reconfere mensalmente; cópias antigas de códigos existem em ecoi.net (pista) |
@@ -93,6 +93,25 @@ Wayback da Prevent Genocide; filtro "genocídio" no CICV; anexo por país do rel
 da Anistia (PDF não extraído no ambiente); organização por país da coleção do Legal
 Tools; `Last-Modified` do XML da UNTC. Nenhuma fonte foi percorrida país a país:
 verificou-se existência, estrutura, termos e acesso.
+
+### 1.4 O que a leitura de 10/11/2026 corrigiu (fase 2, sessão 1)
+
+- **"STATUS AS AT" não é sentinela.** A linha está na página HTML do tratado
+  (`/Pages/ViewDetails.aspx`), não no XML, e marca a hora em que a página foi gerada: lida
+  em 10/11/2026, dizia "STATUS AS AT : 10-11-2026 10:15:36 EDT" nos dois tratados. O XML
+  traz o bloco `Status` (`Signatories`, `Parties`); a sentinela do adaptador é ele,
+  conferido contra as linhas da tabela (as datas entre colchetes, de quem se retirou, não
+  contam). Em 10/11/2026: 41 signatários e 154 partes na Convenção; 137 e 125 no
+  Estatuto, os mesmos números de 06/11.
+- **As 125 partes do Estatuto incluem as Ilhas Cook**, que não estão entre os 197 da D1.
+  Entre os 197, são 124.
+- **A nota de retiradas do Estatuto é uma tabela** dentro da nota 2 do XML, com data de
+  notificação, data de efeito (ou "(Withdrawn)", quando a retirada foi revogada) e a
+  notificação do depositário. Em 10/11/2026: Burundi e Filipinas saíram; Níger, Burkina
+  Faso, Mali, Venezuela, Chade e Nauru notificaram em 2026, com efeito em 2027; África do
+  Sul, Gâmbia e Hungria revogaram.
+- O `robots.txt` foi relido pelo cliente do motor (`Crawl-delay: 2`, sem `Disallow`) e
+  continua sem `Last-Modified` no XML.
 
 ## Função 2: notícias
 

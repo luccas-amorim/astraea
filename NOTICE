@@ -37,3 +37,24 @@ Este produto inclui dados de terceiros:
   Usada em data/verification.json para conferir o un_status de Santa Sé e Palestina
   (observadores) e, por ausência nesta lista e na de membros, de Kosovo e Taiwan. Só
   fatos, com a fonte citada; nenhum texto da página é reproduzido.
+
+  Nações Unidas — United Nations Treaty Collection, situação da Convenção para a
+  Prevenção e a Repressão do Crime de Genocídio (capítulo IV-1) e do Estatuto de Roma
+  do Tribunal Penal Internacional (capítulo XVIII-10)
+  https://treaties.un.org/doc/Publication/MTDSG/Volume%20I/Chapter%20IV/IV-1.en.xml
+  https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XVIII/XVIII-10.en.xml
+  (lidas em 2026-11-10)
+  Termos de uso: https://www.un.org/en/about-us/terms-of-use
+  Usada em data/countries.json (genocide_convention e rome_statute): assinatura,
+  vinculação, forma de consentimento, existência de declarações, reservas e objeções,
+  retiradas. As fixtures em tests/fixtures/untc/ são esses arquivos com toda a prosa do
+  depositário (declarações, reservas, objeções, notas) trocada por marcadores
+  (scripts/trim_untc_fixtures.py): ficam só a tabela de participantes, as contagens e
+  as datas. Nenhum texto do depositário é reproduzido.
+
+  Nações Unidas — Divisão de Estatística, Standard country or area codes (M49)
+  https://unstats.un.org/unsd/methodology/m49/overview/ (lida em 2026-11-10)
+  Termos de uso: https://www.un.org/en/about-us/terms-of-use
+  Usada em data/untc-names.json para conferir a que código ISO 3166-1 alfa-3 corresponde
+  cada nome da UNTC que não é, letra por letra, o nome em inglês de countries.json. Só
+  o par nome–código, com a fonte citada.

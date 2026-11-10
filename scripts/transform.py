@@ -482,6 +482,9 @@ class Validator:
                 continue
             if asserts(block) and (missing := missing_stamp(block)):
                 self.add(3, at, f"asserted without stamp: missing {', '.join(missing)}")
+            for key in voc.TREATY_DATE_FIELDS.get(name, ()):
+                if block.get(key) is not None and not is_full_date(block[key]):
+                    self.add(STRUCTURE, f"{at}.{key}", f"{block[key]!r} is not a date YYYY-MM-DD")
             self._source(at, block.get("source"))
             self._read_on(at, block.get("read_on"))
         self._penalties(where, country)

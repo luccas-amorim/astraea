@@ -65,15 +65,22 @@ COUNTRY_FIELDS: tuple[str, ...] = (
     "domestic_genocide.year",
     "domestic_genocide.follows_convention_definition",
     "genocide_convention",
+    "genocide_convention.participation",
     "genocide_convention.signature",
     "genocide_convention.bound_since",
     "genocide_convention.consent_type",
     "genocide_convention.reservations",
+    "genocide_convention.reservations_article_ix",
+    "genocide_convention.objections",
     "genocide_convention.reservations_note",
     "rome_statute",
+    "rome_statute.participation",
     "rome_statute.signature",
     "rome_statute.bound_since",
+    "rome_statute.consent_type",
     "rome_statute.withdrawal",
+    "rome_statute.withdrawal_notified",
+    "rome_statute.objections",
     "max_penalty",
     "max_penalty.type",
     "max_penalty.years",
@@ -207,8 +214,20 @@ VOCABULARIES: dict[str, tuple[str, ...]] = {
     "penal_code.exists": ("yes", "no", "unknown"),
     "domestic_genocide.status": ("criminalized", "partial", "no", "unknown"),
     "domestic_genocide.follows_convention_definition": ("yes", "broader", "narrower", "unknown"),
+    "genocide_convention.participation": ("party", "signatory", "none"),
     "genocide_convention.consent_type": ("ratification", "accession", "succession"),
     "genocide_convention.reservations": ("yes", "no"),
+    "genocide_convention.reservations_article_ix": ("yes", "no"),
+    "genocide_convention.objections": ("yes", "no"),
+    "rome_statute.participation": ("party", "signatory", "withdrawn", "none"),
+    "rome_statute.consent_type": (
+        "ratification",
+        "acceptance",
+        "approval",
+        "accession",
+        "succession",
+    ),
+    "rome_statute.objections": ("yes", "no"),
     "max_penalty.type": ("years", "life", "death", "unknown"),
     "max_penalty.applies_to_genocide": ("yes", "no", "unknown"),
     "death_penalty.status": (
@@ -302,6 +321,11 @@ COUNTRY_BLOCKS: tuple[str, ...] = (
     "death_penalty",
 )
 COUNTRY_STAMPED_SCALARS: tuple[str, ...] = ("name", "un_status", "un_member_since")
+# Dates of a treaty block: always full (docs/03, "Data parcial").
+TREATY_DATE_FIELDS: dict[str, tuple[str, ...]] = {
+    "genocide_convention": ("signature", "bound_since"),
+    "rome_statute": ("signature", "bound_since", "withdrawal", "withdrawal_notified"),
+}
 
 # Taxonomy, lowest to highest, for "the highest status reached". "closed" says that one
 # proceeding ended; it is not a degree of the qualification, so it only shows when the

@@ -93,6 +93,9 @@ um valor sem rótulo em `pt-BR`.
    ISO-8859-1, limpar `<superscript>`, mapear nome → ISO (tabela de exceções à mão),
    extrair assinatura, vinculação, tipo, reservas, objeções, retiradas; sentinela =
    "STATUS AS AT". Fixture com o XML de 06/11/2026. Grava com `checked_by: robot`.
+   **Feito em 10/11/2026** (fase 2, sessão 1), com duas correções: a sentinela é o bloco
+   `Status` do XML (o "STATUS AS AT" é da página HTML e só marca a hora de geração), e as
+   *fixtures* são os XML de 10/11/2026 sem a prosa do depositário (regra 2).
 2. **Pena de morte:** adaptador `listing` sobre o espelho do Cornell; carga do anexo da
    Anistia 2024 à mão (status por país, com citação).
 3. `countries.yml` mensal abrindo PR; tela `/countries` com tabela, filtros, completude e
