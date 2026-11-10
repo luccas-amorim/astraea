@@ -100,7 +100,7 @@ flowchart LR
 | **Tabelião** | 1 | lê o **XML por tratado** da UN Treaty Collection (IV.1 e XVIII.10, verificado em `02-fontes.md`) e grava `genocide_convention` e `rome_statute` de cada país, com data, tipo, reservas e retiradas; acusa país novo, retirada e reserva nova | adaptador `listing` do Argos (tabela que muda devagar; linha alterada volta a ser lida) | mensal |
 | **Cartógrafo** | 1 | a sondagem mostrou que **não há base aberta viva** de códigos penais: na fase 1 o Cartógrafo só reconfere, todo mês, se Legislationline, SHERLOC, Library of Congress e WorldLII voltaram a responder, e reabre a fonte em `sources.json` quando sim; `penal_code` e `domestic_genocide` entram por carga humana | Cotejador do AtlasPen ("só pergunta") | mensal |
 | **Sentenciador** (nome a decidir, D15) | 1 | lê a classificação de pena de morte no espelho do Cornell e propõe `death_penalty`; o anexo anual da Anistia entra à mão | `listing` | semanal (Cornell atualiza às quartas) |
-| **Vigia das notícias** | 2 | `astraea run` com `config/news.json`: GDELT por língua (`sourcelang:` × termos) e por tema (`WB_2509_GENOCIDE`), a 1 requisição por 5 s; ReliefWeb por `appname`; ~15 *feeds* RSS (lista em `02-fontes.md`); lê a página do veículo para triar, **exceto nos domínios com *opt-out* de mineração de texto**, onde tria só pelo *feed* e marca `no_text_by_policy`; grava nível ≥ 2 em `news/`, conta nível 0–1 no relatório | motor inteiro (do Alétheia) + adaptador `reliefweb` novo | semanal (diário na fase de calibração) |
+| **Vigia das notícias** | 2 | `astraea run` com `config/news.json`: GDELT por língua (`sourcelang:` × termos) e por tema (`WB_2509_GENOCIDE`), a 1 requisição por 5 s; ReliefWeb por `appname`; ~15 *feeds* RSS (lista em `02-fontes.md`); lê a página do veículo para triar, **exceto nos domínios com *opt-out* de mineração de texto** (os de `data/sources.json` com `no_text_by_policy`, lidos pela chave `registry` da configuração; `astraea/engine/policy.py`), onde tria só pelo título e pela descrição do *feed*, com nível máximo 2 e `reason: "no_text_by_policy"`; grava nível ≥ 2 em `news/`, conta nível 0–1 no relatório | motor inteiro (do Alétheia) + adaptador `reliefweb` novo | semanal (diário na fase de calibração) |
 | **Escrivão** | 3 | adaptador `icj` (`listing` sobre página de caso e lista de *press releases*; PDF só como URL), `rss` do TPI (registros e notícias), IRMCT, KSC, RSCSL, Corte Africana, TRIAL e HUDOC, `listing` sobre as páginas de mandato da OHCHR; grava `procedural_step` e `press_release` em `decisions.json`; o que parece ordem ou sentença vai para pede-juízo (`needs-review.jsonl`) | motor + `listing` | semanal |
 | **Recenseador** | 2 e 3 | uma vez por mês confronta a lista de casos da CIJ e do TPI com o que o Escrivão viu, e a contagem do GDELT por língua com o que o Vigia gravou: defesa contra o falso negativo | Recenseador do AtlasPen | mensal |
 | **Arquivista** | todas | fonte com `robots_checked_on` vencido, léxico sem versão nova há 180 dias, documento de `docs/` cuja dependência mudou | Arquivista do AtlasPen | semanal |
@@ -113,13 +113,13 @@ Nenhum robô escreve em `situations.statuses`, em `promotion` ou em campo com
 
 | Workflow | Cron (UTC) | Timeout | Commit | Observações |
 |---|---|---|---|---|
-| `ci.yml` | push e PR | 15 min | não | `transform --strict`, derivado sincronizado, `pytest`, validação de léxico e config, `ruff` |
+| `ci.yml` | push e PR | 15 min | não | `transform --draft`, derivado sincronizado (`--draft --check`), `pytest`, validação de léxico (e de config, quando `config/` existir), `build_site.py` em simulação, `ruff`; enquanto houver rascunho, `--strict` é passo informativo que mostra a contagem e só reprova por outra causa (quando volta a ser a régua: `AGENTS.md`) |
 | `news.yml` | segunda 06:00 | 340 min | uma fonte por vez, `git pull --rebase` + push depois de cada uma (padrão do Alétheia) | `concurrency: news`, sem cancelar; entradas manuais `since` e `source` |
 | `courts.yml` | terça 06:00 | 120 min | idem | separado do de notícias para que a falha de um não cale o outro |
 | `countries.yml` | dia 1, 05:00 | 60 min | abre **PR**, nunca comita na `main` | o diff de ratificações é pequeno e legível; o PR é a revisão |
 | `sources-check.yml` | sexta 02:00 | 15 min | não; abre issue | ensaio das fontes, como o `fontes.yml` do AtlasPen: na sexta se descobre que a fonte mudou, não na segunda |
 | `audit.yml` | manual (trimestral) | 30 min | abre PR com a planilha da amostra | |
-| `deploy.yml` | push em `main` tocando `static/`, `site/` ou `data/` | 10 min | — | `upload-pages-artifact` + `deploy-pages`, como no AtlasPen; sem Astro na fase 1 |
+| `deploy.yml` | push em `main` tocando `static/`, `site/`, `data/`, `scripts/build_site.py`, `CITATION.cff` ou o próprio *workflow*; também à mão (`workflow_dispatch`) | 10 min | — | confere o derivado (`--draft --check`), gera `_site/` no *runner* com `build_site.py --execute` e publica com `upload-pages-artifact` + `deploy-pages`, como no AtlasPen; sem Astro na fase 1 |
 
 Limites verificados em 06/11/2026 (docs.github.com):
 
@@ -272,6 +272,20 @@ páginas saem de modelos em `site/` por `scripts/build_site.py` (só biblioteca 
 uma cópia por *locale* e uma ficha por país e por situação, porque o GitHub Pages não
 reescreve rotas. Astro entra quando as telas pedirem componentes compartilhados
 (fase 3 do roteiro), e o AtlasPen já tem a configuração a copiar.
+
+**Como a página é gerada (decidido em 10/11/2026, sessão 4).** A página inicial é
+montada pelo `build_site.py` no *build*, não por JavaScript no navegador: o *script* lê
+`static/data/quality.json` e `static/data/situations.json` e escreve o HTML pronto, com
+os contadores e as situações. Assim a página funciona sem JavaScript, o teste confere o
+contador no HTML e o *deploy* a refaz a cada mudança de dado. JavaScript entra quando
+uma tela pedir filtro (países, notícias). A saída é **`_site/`** (fora do git, o nome
+que o `upload-pages-artifact` espera): `index.html` na raiz, `en/index.html`,
+`pt-br/index.html`, `assets/style.css`, uma cópia de `static/data/` em
+`_site/static/data/` (os dados abertos ficam no mesmo caminho do repositório) e o
+`CITATION.cff`. Os textos da interface vivem em `site/i18n/<locale>.json` e os modelos
+em `site/templates/`; as datas usam os `formats` de `static/data/i18n/<locale>.json` pela
+mesma função dos rótulos derivados. Nenhum texto de interface usa a palavra como rótulo
+de situação ou de país (regra 1); um teste confere isso nas duas línguas.
 
 **Duas línguas desde o primeiro dia.** Toda rota existe em `/en/…` e em `/pt-br/…`,
 com o mesmo caminho depois do prefixo (`/en/countries/BRA`, `/pt-br/countries/BRA`): o

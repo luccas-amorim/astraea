@@ -3,6 +3,156 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-10 — Fase 1, sessão 4: site mínimo, CI, deploy e política de robô
+
+Branch `fase1/site`. Fecha a fase 1. Não havia resposta às "Escolhas a revisar" da
+sessão 3; elas continuam abertas, na entrada daquela sessão.
+
+**Site** (`docs/04-arquitetura.md`, "As telas", parágrafo novo "Como a página é gerada"):
+
+- `scripts/build_site.py` gera a página inicial em `/en/` e `/pt-br/` e uma raiz curta
+  que leva à língua do navegador (com os dois *links* para quem lê sem JavaScript). A
+  página mostra o que é o Astraea; o contador "197 countries, 0 checked" / "197 países,
+  0 conferidos" (`countries.total` e `countries.complete` de `quality.json`); as dez
+  situações com o rótulo do status mais alto no *locale*, *link* para a página oficial
+  lida e a marca "rascunho: ainda não conferido por uma pessoa", ou "sem status
+  registrado"; quantos campos estão em rascunho; como citar (montado do
+  `CITATION.cff`); os *links* dos dados abertos. Datas pelos `formats` dos rótulos, com a
+  mesma função do `transform.py`. Seletor de língua e marcas `hreflang`.
+- Textos da interface em `site/i18n/en.json` e `site/i18n/pt-BR.json`; modelos em
+  `site/templates/`; uma folha de estilo em `site/assets/`, sem *framework* nem fonte
+  externa.
+- **Saída em `_site/`**, fora do git (`.gitignore`); o 04 não dizia o diretório.
+  Simulação por padrão, `--execute` grava, nunca apaga.
+- **Divergência do 04, registrada lá:** a página é montada no *build*, em Python, e não
+  lida por JavaScript no navegador. Funciona sem JavaScript, e o teste confere o contador
+  no HTML.
+- Regra 1 na tela: um teste confere, nas duas línguas, que a palavra só aparece nos
+  textos de interface como nome do crime ("crime of genocide", "crime de genocídio") e
+  nunca na lista de situações nem nos contadores.
+
+**Workflows** (`.github/workflows/`):
+
+- `ci.yml`, em todo *push* e PR: `transform.py --draft`, `--draft --check`, `pytest`,
+  `astraea validate-lexicon data/lexicon/*.json`, `build_site.py` em simulação, `ruff
+  check` e `ruff format --check`. O `--strict` roda como passo informativo: mostra a
+  contagem de rascunhos no resumo da execução e só reprova se falhar por outra causa. O
+  `AGENTS.md` diz quando ele volta a ser a régua. `validate-config` está comentado até
+  `config/` existir. Python 3.14, o mesmo da sua máquina.
+- `deploy.yml`, em *push* na `main` que toque `static/`, `site/` ou `data/`, e também à
+  mão: confere o derivado, gera `_site/` no *runner* e publica com
+  `upload-pages-artifact` e `deploy-pages`. Não faz commit. **Acrescentei** aos caminhos
+  `scripts/build_site.py`, `CITATION.cff` e o próprio *workflow*, porque uma mudança no
+  gerador ou na citação também muda a página publicada.
+- Versões das *actions* conferidas nas páginas de *releases* em 10/11/2026:
+  `checkout@v7`, `setup-python@v7`, `configure-pages@v6`, `upload-pages-artifact@v5`,
+  `deploy-pages@v5`. **Os workflows não foram executados**: sem *push*, só deu para
+  conferir os comandos localmente, um por um, inclusive o *script* do passo informativo.
+
+**Política de robô no motor** (item 5 do roteiro). **Divergência em relação ao
+Alétheia**, cujo cliente só lia o `robots.txt` para `Disallow` e baixava toda página:
+
+- `astraea/engine/http.py`: o cliente guarda o `Crawl-delay` de cada host entre duas
+  requisições a ele, contando a leitura do `robots.txt`; vale o maior entre esse intervalo
+  e o limite por minuto da fonte. O `User-Agent` próprio não mudou.
+- `astraea/engine/policy.py` (novo): lê de `data/sources.json` os domínios das fontes com
+  `no_text_by_policy` (o host cobre os subdomínios: `elpais.com` cobre
+  `feeds.elpais.com`). Neles a rodada não baixa a página: monta o documento com o título
+  e a descrição da listagem, e a triagem para no nível 2 com `reason:
+  "no_text_by_policy"` (níveis 0 e 1 mantêm o motivo). Vale para todo adaptador, não só
+  para o RSS: um artigo da Al Jazeera achado pelo GDELT também não é baixado.
+- `Document.policy` é campo novo; o adaptador `rss` guarda a descrição do item
+  (`description` no RSS, `summary` no Atom); a configuração de rodada ganha a chave
+  `registry` (o caminho de `data/sources.json`), cobrada por `validate-config` e por
+  `astraea run`.
+- `sources.json` já marcava `no_text_by_policy` nos quatro domínios que o 02 lista (El
+  País, EFE, Al Jazeera, Anistia); um teste passa a conferir isso.
+
+**Dado novo: carimbo do `un_status` dos quatro não membros.** A página
+https://www.un.org/en/about-us/non-member-states foi lida em 10/11/2026 pelo cliente do
+motor, com o `robots.txt` obedecido e o `Crawl-delay: 10` do `un.org` respeitado (sha256
+da resposta `a2f57eccfc47cbfa94aa116973cb6c9032bd8e260f5c4318960e29e35692ea4c`). Fonte
+nova `un-non-member-states` em `sources.json` (88 fontes) e duas linhas novas em
+`verification.json`, ambas `checked_by: robot`:
+
+- Santa Sé (`VAT`) e Palestina (`PSE`) como observadores, confiança A: a página as
+  lista.
+- Kosovo (`XKX`) e Taiwan (`TWN`) como não membros, confiança B: o carimbo vem da
+  ausência nesta lista e na de membros lida em 09/11/2026, que juntas são o rol inteiro
+  de Estados da ONU. Nenhuma página da ONU os nomeia.
+
+O `NOTICE` ganhou a página nova. Com isso, **os rascunhos caem de 13 campos em 9
+registros para 9 campos em 5 registros**: só os nove status das situações, que esperam o
+seu carimbo (regra 3). `countries.complete` continua 0, porque os campos de lei penal e
+de tratado ainda não existem.
+
+**Bateria:** 238 testes passam (17 do site, 11 da política de robô); `ruff check` e
+`ruff format --check` limpos; `astraea validate-lexicon data/lexicon/*.json` valida os
+cinco; `python scripts/transform.py --draft --check` passa; `python
+scripts/build_site.py --execute` gera as duas páginas. **`--strict` reprova, de
+propósito, só pelos 9 status em rascunho** (travas 3 e 6).
+
+**O que as mensagens novas dizem** (saem em inglês):
+
+- `would write (new): _site/en/index.html`: simulação do `build_site.py`, que diz o que
+  gravaria; `left alone (...)`: arquivo em `_site/` que o *script* não gera e não apaga.
+- `site: 10 files, home page in /en/, /pt-br/; base URL https://...`: resumo; o endereço
+  serve às marcas `hreflang`.
+- Na CI, `strict (informative): 9 fields in draft, in 5 records`: aviso azul, não erro.
+- `"registry" is required (data/sources.json)`: configuração de rodada sem o caminho das
+  fontes; o robô se recusa a rodar sem saber quais domínios não pode ler.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **Kosovo e Taiwan com confiança B por ausência.** Se preferir que ausência não
+  carimbe, basta apagar a última linha de `verification.json` e rodar
+  `python scripts\transform.py --draft --execute`: os dois voltam a ser rascunho.
+- **O título da citação** está em português nas duas páginas, porque é o do
+  `CITATION.cff`.
+- **Nenhum nome de robô** aparece na página (o "Sentenciador" é provisório, D15).
+- O texto "o que é o Astraea" é meu e é texto de interface, não campo de dado: leia
+  antes da primeira publicação.
+- A CI usa só o Python 3.14. O `pyproject.toml` promete 3.11+, mas nada roda no 3.11;
+  se quiser a promessa conferida, uma matriz com as duas versões dobra o tempo da CI.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto:**
+
+1. **Enviar ao GitHub.** O merge na `main` local já foi feito; falta o *push*, que é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
+   Na primeira vez pode abrir uma janela do *Git Credential Manager* pedindo para entrar
+   no GitHub pelo navegador; é esperado. Se aparecer `rejected ... (fetch first)`, a
+   `main` mudou no GitHub (por exemplo, por um envio de arquivo pela interface do site):
+   rode `git pull --rebase` e repita o *push*.
+2. **Ligar o Pages.** No site do GitHub, no repositório: **Settings → Pages → Build and
+   deployment → Source: GitHub Actions**. Sem isso o *deploy* falha no passo
+   `configure-pages` com um erro como `Get Pages site failed` ou `Not Found`: não é
+   defeito do código. Depois de mudar, vá em **Actions → Deploy → Run workflow → Run
+   workflow** para publicar sem novo *push*.
+3. **Ver a CI.** Aba **Actions** do repositório. Cada *push* cria uma execução de **CI**
+   (e, quando toca o site ou os dados, uma de **Deploy**). Bolinha verde: passou;
+   vermelha: falhou (clique nela e depois no passo com ✗ para ver a mensagem). O passo
+   "Validate (strict, informative while drafts remain)" fica verde e deixa um aviso azul
+   com a contagem de rascunhos; o quadro **Summary** da execução repete a contagem. Aviso
+   amarelo sobre versão de *Node.js* de alguma *action* é do GitHub, não do projeto, e não
+   derruba nada.
+4. **Ver o site.** Quando o *Deploy* ficar verde, o endereço aparece no quadro dele
+   (`github-pages`): deve ser https://luccas-amorim.github.io/astraea/, que leva a
+   `/en/` ou `/pt-br/`.
+5. **Ver a página antes do *push*** (opcional):
+
+   ```powershell
+   python scripts\build_site.py --execute
+   python -m http.server 8000 --directory _site
+   ```
+
+   Abra http://localhost:8000/ no navegador e feche o servidor com Ctrl+C no PowerShell.
+   O Windows pode perguntar, numa janela do "Firewall do Windows Defender", se o Python
+   pode usar a rede: "Cancelar" basta, porque o endereço é local.
+
 ## 2026-11-10 — Fase 1, sessão 3: situações, léxico e validador
 
 Branch `fase1/validador`. O motor (`astraea/engine/`, `astraea/sources/`) não mudou;
