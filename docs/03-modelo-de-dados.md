@@ -18,6 +18,7 @@ data/
   news/YYYY/MM.jsonl      função 2: um documento por linha, particionado por mês
   decisions.json          função 3: um ato processual por objeto
   sources.json            cada fonte declarada, com grau de confiança e termos
+  lexicon/fixed/<lang>.json  os termos fixos de cada língua, mantidos à mão
   lexicon/<lang>.json     o léxico por língua, gerado de situations.json + termos fixos
   verification.json       trilha: o que foi conferido, quando, por quem, com que resultado
   exceptions.json         achado já julgado, com motivo e data
@@ -32,7 +33,8 @@ data/
 | **Identificador estável** | `countries.id` é ISO 3166-1 alfa-3 (`XKX` para Kosovo, documentado); `situations.id` é *slug* ASCII em inglês; `news.id` e `decisions.id` são `hash` curto da URL normalizada. Nenhum `id` é reatribuído; o que sai entra em `retired-ids.json` | AtlasPen C3 |
 | **Bloco de proveniência** | todo campo afirmado é um objeto com `source`, `url`, `read_on`, `confidence` e `checked_by`, ou uma linha em `verification.json`; campo sem fonte é `null` com `reason` | AtlasPen `conferencia.json` |
 | **Confiança por fonte** | `A` oficial ou intergovernamental (UN Treaty Collection, tribunal, diário oficial); `B` acadêmica, LII ou ONG especializada com método público (CICV, Cornell, Amnesty); `C` imprensa, comunitária ou secundária (Wikipedia, Wikidata, agregadores). Declarada em `sources.json`, nunca no registro | nova |
-| **Confiança por registro** | `checked_by`: `robot` (lido por adaptador com sentinela), `human` (lido por pessoa, com nome e data), `sample` (caiu na amostra de auditoria e foi conferido); e `level` da triagem (0–3) nas funções 2 e 3 | Argos/Alétheia |
+| **Confiança por registro** | `checked_by`: `robot` (lido por máquina: adaptador com sentinela ou *script* de carga com o `hash` da resposta registrado no `CHANGELOG.md`), `human` (lido por pessoa, com nome e data), `sample` (caiu na amostra de auditoria e foi conferido); e `level` da triagem (0–3) nas funções 2 e 3 | Argos/Alétheia |
+| **Data parcial** | data de ato ou de período pode ser `AAAA`, `AAAA-MM` ou `AAAA-MM-DD`: grava-se a precisão que a fonte dá ("June 2005" é `2005-06`), nunca um dia inventado. `read_on` e as datas de tratado são sempre completas | nova (10/11/2026) |
 | **Vocabulário fechado** | todo campo de enumeração tem lista fixa validada no *build*; valor fora da lista reprova | AtlasPen `--estrito` |
 | **Condição, não lacuna** | quando a resposta depende de hipótese (pena de morte só em tempo de guerra; genocídio tipificado por remissão ao Estatuto), o campo principal fica no valor seguro e `note` diz a hipótese | AtlasPen `*_condicao` |
 | **Língua original** | todo texto de terceiro registra `language` ISO 639-1; todo texto nosso (nota, descrição, resumo, tradução de título) é um **texto localizado** (ver "Várias línguas"), e cada versão registra `author` = `human` ou `model:<id>` | nova |
@@ -73,6 +75,26 @@ Regras:
    ato (a petição no site da CIJ, o comunicado da Procuradoria no site do TPI). Os
    demais status entram por pessoa, com a decisão lida.
 
+Leitura adotada em 10/11/2026 (fase 1, sessão 3), para o `transform.py` calcular o
+"status mais alto":
+
+- A ordem é `allegation` < `political_recognition` < `investigation` < `accusation` <
+  `provisional_measures` < `merits_decision`. **`closed` fica abaixo de todos**: diz
+  que um procedimento terminou, não é um grau da qualificação, e só aparece quando a
+  situação não tem outro status (do contrário um arquivamento esconderia uma medida
+  provisória de outro tribunal). A ordem está em `scripts/vocabularies.py`
+  (`STATUS_ORDER`).
+- Entre dois status do mesmo grau vale o **mais antigo**: a data em que o grau foi
+  alcançado pela primeira vez.
+- O rótulo é `<status> — <órgão>, <data>`; em `merits_decision` o resultado vai junto,
+  entre parênteses ("decisão de mérito (parcial) — International Court of Justice,
+  26/02/2007"), porque "decisão de mérito" sozinha não diz se o genocídio foi
+  reconhecido. O órgão aparece como está em `by`, na língua em que foi gravado.
+- Um status carrega `code`, `by`, `date`, `url`, `confidence` e `checked_by` (e
+  `outcome`, quando couber). Não tem `source` nem `read_on`: a leitura por pessoa que o
+  confirma fica em `checked_by: human` e, se quiser data, numa linha de
+  `verification.json`.
+
 ## Entidade 1: país (`countries.json`)
 
 Cada campo abaixo vem com a justificativa de existir. Campos que não respondem a uma
@@ -90,7 +112,7 @@ pergunta da pesquisa não entram; a lista cresce por decisão registrada.
 | `rome_statute` | bloco | jurisdição do TPI: `signature`, `bound_since`, `withdrawal` (data ou `null`), proveniência |
 | `max_penalty` | bloco | escala punitiva: `type` (`years` / `life` / `death` / `unknown`), `years` (inteiro, se `years`), `applies_to_genocide` (`yes` / `no` / `unknown`), proveniência |
 | `death_penalty` | bloco | `status` segundo a classificação da Anistia (`abolitionist_all_crimes`, `abolitionist_ordinary_crimes`, `abolitionist_in_practice`, `retentionist`), `note` para a hipótese condicional (guerra), proveniência |
-| `situations` | lista de ids | liga o país às situações em que é parte, território ou foro |
+| `situations` | lista de ids | liga o país às situações em que é parte, território ou foro; existe nos 197 registros (lista vazia onde não há elo) e é o espelho de `situations.countries`: o validador cobra os dois lados |
 | `promotion` | bloco | `level` (`surface` / `under_investigation` / `detailed`), `trigger`, `since`, `where` (URL do repositório-filho ou pasta) |
 | `valid_until`, `validity_note` | data, texto localizado | país que deixou de existir não sai: ganha data e nota, como o acervo do AtlasPen |
 | `updated_at` | data | o `max` de todos os `read_on` do registro, derivado |
@@ -192,6 +214,14 @@ espera encontrar, e o carimbo só vem quando o robô ou a pessoa leu a fonte. Um
 registro assim **não passa** no validador estrito; passa no modo `--draft`, que é o
 da carga inicial.
 
+**Carimbo dos campos escalares** (decidido em 10/11/2026). `name`, `un_status` e
+`un_member_since` são valores soltos, sem bloco onde guardar fonte e data. O carimbo
+deles é uma linha de `verification.json` (seção "Trilha de conferência", adiante) que
+cobre o campo e o registro. Sem linha que o cubra, o campo é rascunho: reprova em
+`--strict` (trava 3) e é contado em `--draft`. Em 10/11/2026 os 197 nomes e o
+`un_status` e a data dos 193 membros estão carimbados; o `un_status` de Palestina,
+Santa Sé, Kosovo e Taiwan não, porque a página lida só lista os membros.
+
 ## Entidade 2: situação (`situations.json`)
 
 | Campo | Tipo | Por que existe |
@@ -199,7 +229,7 @@ da carga inicial.
 | `id` | *slug* em inglês | `rohingya-myanmar`, `gaza-2023`, `darfur`, `srebrenica-1995` |
 | `name` | nome por *locale* | exibição |
 | `countries` | lista de `{id, role}`, com `role` em `territory`, `party`, `forum`, `applicant`, `respondent` | liga à função 1 |
-| `period` | `{start, end, approximate}` | datas aproximadas aceitas, com `approximate: true` |
+| `period` | `{start, end, approximate}` | datas aproximadas aceitas, com `approximate: true`; data parcial aceita (`2003`, `2016-10`) |
 | `statuses` | lista de objetos da taxonomia, cada um com `code`, `by`, `date`, `url`, `confidence`, `checked_by` | **a resposta à questão transversal 2**; a tela mostra o mais alto |
 | `description` | texto localizado, até 600 caracteres por versão | contexto sem copiar terceiros |
 | `terms` | lista de `{lang, forms[], exclusions[]}` | gera o léxico; é o que o robô procura |
@@ -353,6 +383,24 @@ Leitura adotada na carga de 09/11/2026 (fase 1, sessão 2):
 - `rate_limit_per_minute` vem do `Crawl-delay` (10 s → 6) ou do limite declarado pela
   fonte (GDELT, 5 s → 12); sem nenhum dos dois, `null`.
 
+## Trilha de conferência (`verification.json`)
+
+Uma linha diz **quais campos de quais registros foram lidos onde, quando, por quem e
+com que resultado**. É o carimbo dos campos que não são bloco (ver "Carimbo dos campos
+escalares") e o registro de qualquer reconferência posterior.
+
+| Campo | Tipo | Por que existe |
+|---|---|---|
+| `entity` | `countries` / `situations` / `news` / `decisions` / `sources` | de que arquivo são os registros |
+| `records` | lista de ids, por extenso | a linha nunca se estende sozinha a um registro novo: quem entra depois precisa de leitura própria |
+| `fields` | lista de chaves de campo | o que foi conferido |
+| `source`, `url`, `read_on`, `confidence`, `checked_by` | o carimbo | os mesmos cinco de um bloco |
+| `result` | `confirmed` / `corrected` / `unconfirmed` | `corrected` quer dizer que a leitura mudou o dado; só `confirmed` e `corrected` carimbam |
+| `method` | texto em inglês, como dado | como foi lido (o que foi casado com o quê, onde está o `hash`) |
+
+Quando duas linhas cobrem o mesmo campo, vale a de `read_on` mais recente. A linha
+segue as travas 2, 3 e 4 como qualquer bloco.
+
 ## Léxico (`lexicon/<lang>.json`)
 
 Formato do `lexico.schema.json` do Argos, com as chaves traduzidas e sem outra
@@ -370,6 +418,39 @@ O `context.requires_any` por língua traz os marcadores jurídicos ("tribunal",
 relevante do uso retórico da palavra. É a diferença entre nível 1 e nível 2. As
 **formas** do léxico ficam, claro, na língua do arquivo: só as chaves são em inglês.
 
+Como ficou em 10/11/2026 (fase 1, sessão 3):
+
+- **Onde vivem os termos fixos:** `data/lexicon/fixed/<lang>.json`, um por língua, no
+  próprio formato do léxico (`id`, `version` com a data da última edição, `terms`,
+  `context`). São dado, editado à mão. As doze chaves são as mesmas nas cinco línguas
+  (`genocide`, `genocide-convention`, `intent-to-destroy`, `icj`, `icc`, `icty`,
+  `ictr`, `irmct`, `eccc`, `provisional-measures`, `rome-statute`,
+  `universal-jurisdiction`), para que `matched_keys` se compare entre línguas.
+- **Quem gera:** `scripts/build_lexicon.py` (simulação por padrão, `--execute` grava).
+  Cada situação entra como um termo cuja chave é o `id` da situação, com a categoria
+  `situation`; é por essa chave que a notícia ganha o elo em `situations`.
+  `data/lexicon/<lang>.json` **não se edita**: o `transform.py` e os testes reprovam o
+  arquivo que não bate com as duas fontes.
+- **Versão:** `<língua>-<data dos termos fixos>-<resumo do conteúdo>`
+  (`pt-2026-11-10-24ff3d5c`). O resumo muda sozinho quando qualquer termo muda, mesmo
+  de situação, e é ele que `lexicon_version` grava em cada item.
+- **Categorias** (vocabulário fechado, com rótulo em `data/i18n/`): `qualification`
+  (a palavra e a intenção), `instrument` (Convenção de 1948, Estatuto de Roma), `court`
+  (os tribunais), `procedure` (medidas provisórias, jurisdição universal) e `situation`
+  (só para os termos gerados das situações).
+- **Formas amarradas.** A reticência (`…`) do motor liga duas partes a até 60
+  caracteres. Usa-se onde a palavra sozinha é ruído: "medidas provisórias … CIJ" (no
+  Brasil, medida provisória é ato do Executivo), "Tigré … Etiópia" (sem acento a forma
+  casa "tigre"), "genocide … Ukraine" (o nome do país sozinho traria toda a guerra).
+  Siglas ambíguas ficam fora: `ICC` em inglês (críquete) e `CPI` em português.
+- **Nome de país não é termo de situação.** Entram o grupo, o lugar específico e o nome
+  do caso ("Rohingya", "Srebrenica", "South Africa v. Israel"). Como um termo de
+  situação sozinho já leva o item ao nível 2, a tela de notícias deve exigir alguma
+  categoria além de `situation` (decisão da fase 4, quando a tela existir).
+- **Árabe:** escrito sem falante, marcado `DRAFT` na `description` dos dois arquivos.
+  O casamento é por palavra inteira, e por isso as formas listam as partículas
+  prefixadas (و، بـ، لـ، كـ) uma a uma.
+
 ## Derivados (`static/data/`)
 
 Gerados por `scripts/transform.py --strict`, nunca editados: `countries.json` com
@@ -381,15 +462,44 @@ o gráfico); `decisions.json` ordenado; `i18n/<locale>.json` copiado de `data/i1
 `quality.json` com o relatório de cada geração (campos vazios por motivo, fontes
 vencidas, itens sem carimbo, textos sem versão em cada *locale*).
 
+O que o `transform.py` gera desde 10/11/2026 (o resto entra com as fases 3 e 4):
+
+- `countries.json`: o registro, mais `provenance` (o carimbo de cada campo escalar,
+  tirado de `verification.json`), `completeness` (o estado de `un_status` e de cada um
+  dos seis blocos: `stamped`, `draft` ou `empty`, e a contagem de cada estado) e
+  `updated_at`.
+- `situations.json`: o registro, mais `highest_status` (o status mais alto com o seu
+  `label` por *locale*, ou `null` quando a situação ainda não tem status) e
+  `updated_at`.
+- `i18n/<locale>.json`: cópia.
+- `quality.json`: `drafts` (quantos campos e registros estão em rascunho, e a lista);
+  por campo de país, quantos carimbados, em rascunho e vazios; `countries.complete`
+  (países com tudo carimbado); `countries.priority` (país sem `domestic_genocide`
+  conferido que é território ou requerido de situação com status ≥ `investigation`:
+  o gatilho de promoção do `04-arquitetura.md`); situações por status mais alto e sem
+  status; termos e textos que faltam por língua; fontes por estado, sem leitura de
+  `robots.txt` e com leitura vencida; versão e tamanho de cada léxico.
+
+O relatório não usa o relógio: `as_of` é a data da leitura mais recente gravada nos
+dados, e a validade de 180 dias do `robots.txt` é contada a partir dela. Assim os
+mesmos dados dão sempre os mesmos arquivos, e a CI pode exigir sincronia
+(`transform.py --check`). Os arquivos são os mesmos em `--strict` e em `--draft`.
+O *script* roda em simulação por padrão, grava com `--execute` e nunca apaga: arquivo
+que ele não gera e encontra em `static/data/` é só avisado.
+
 ## O que o validador reprova (`--strict`)
 
 1. `id` fora do padrão, repetido ou reaproveitado (confere `retired-ids.json`).
 2. Valor fora do vocabulário fechado em qualquer enumeração.
-3. Campo afirmado (valor não nulo) sem `url`, `source`, `read_on` ou `confidence`.
+3. Campo afirmado (valor não nulo) sem `url`, `source`, `read_on`, `confidence` ou
+   `checked_by` (os cinco do carimbo, C1 do `CONTRIBUTING.md`); campo escalar sem linha
+   de `verification.json` que o cubra; status sem `checked_by`.
 4. `source` que não existe em `sources.json`, ou com `state` ≠ `active`.
-5. Status da taxonomia sem `by`, `date` ou `url`; `merits_decision` sem `outcome`.
+5. Status da taxonomia sem `by`, `date`, `url` ou `confidence`; `merits_decision` sem
+   `outcome`.
 6. Status `provisional_measures` ou `merits_decision` com `checked_by` ≠ `human`.
-7. `situations` referenciando id inexistente; país em situação sem `role`.
+7. `situations` referenciando id inexistente; país em situação sem `role`; situação
+   apontando país inexistente; elo que existe só de um lado.
 8. Qualquer versão de `description` ou `summary` com mais de 600 caracteres
    (resumo é resumo, não cópia).
 9. Texto nosso sem `author` em alguma versão; texto localizado com *locale* fora da
@@ -403,6 +513,14 @@ O modo `--draft` relaxa só 3 e 6, para a carga inicial, e o relatório de quali
 conta quantos registros ainda estão em rascunho. A falta de uma versão de texto num
 *locale* não reprova: a tela mostra a versão que existe, marcada com a língua, e
 `quality.json` conta a lacuna.
+
+Além das onze, o validador reprova nos dois modos o que impede a leitura (aparece
+como `check 0 (structure)`): arquivo ausente ou que não é JSON, registro que não é
+objeto, campo com rótulo mas de outra entidade, período ou termos malformados, linha
+da trilha apontando registro inexistente, e **léxico gerado que não bate com as suas
+fontes**. A trava 10 só vale quando `max_penalty` já foi carregado: enquanto o bloco
+não existe, um país retencionista não é contradição. As mensagens saem em inglês, uma
+por linha, no formato `check N (nome): onde: o quê`.
 
 ## Várias línguas
 
@@ -422,8 +540,16 @@ campo é rotulado pelo caminho dentro do registro, com ponto para bloco aninhado
 que significam o mesmo em qualquer bloco (`url`, `source`, `read_on`, `confidence`,
 `checked_by`, `note`, `reason`, `author`, `text`) são rotulados uma vez, pelo nome solto;
 o valor é `<chave do campo>.<valor>` (`death_penalty.status.retentionist`,
-`confidence.A`, `level.3`, `function.1`). Os booleanos e as categorias do léxico ainda
-não têm rótulo: as categorias nascem com o léxico, na sessão 3 da fase 1.
+`confidence.A`, `level.3`, `function.1`, `categories.court`). Os booleanos ainda não
+têm rótulo. As categorias do léxico, os campos da trilha e os campos derivados
+(`completeness`, `provenance`, `highest_status`, `label`) ganharam rótulo em
+10/11/2026.
+
+**Datas por *locale*.** Cada `data/i18n/<locale>.json` traz `formats`: os padrões
+`date`, `month` e `year` (com as marcas `D`, `DD`, `MM`, `MMM` e `YYYY`) e
+`months_short`. É dali que sai "26 Jan 2024" em `en` e "26/01/2024" em `pt-BR` no
+rótulo de status, e a data parcial usa o padrão da sua precisão ("Jun 2005",
+"06/2005"). A tela deve ler os mesmos padrões.
 
 *Locales* ativos no MVP: `en` e `pt-BR`. As chaves de *locale* seguem a BCP 47
 (`pt-BR`); a língua de documento de terceiro segue a ISO 639-1 (`pt`), que é o que as

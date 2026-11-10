@@ -43,7 +43,10 @@
 ## Passos de uma atualização de dado (PR)
 
 1. Edite **apenas** `data/`.
-2. Regenere o derivado: `python scripts/transform.py --strict --execute` (no Windows, abra o
+2. Se mexeu em termos (`situations.terms` ou `data/lexicon/fixed/`), refaça o léxico:
+   `python scripts/build_lexicon.py --execute`. Depois regenere o derivado:
+   `python scripts/transform.py --draft --execute` enquanto durar a carga inicial,
+   `--strict --execute` quando não houver mais rascunho (no Windows, abra o
    PowerShell na pasta do projeto; o aviso "a execução de scripts foi desabilitada"
    diz respeito a `.ps1`, não a Python, e pode ser ignorado).
 3. Rode a bateria de `AGENTS.md`.
@@ -56,11 +59,13 @@
 
 `valor` não nulo exige `url`, `source` (existente em `sources.json` e `ativa`),
 `read_on`, `confidence` e `checked_by`. Sem isso, `--strict` reprova. A carga inicial
-usa `--draft`, e o relatório conta os rascunhos.
+usa `--draft`, e o relatório conta os rascunhos. Campo que não é bloco (`name`,
+`un_status`, `un_member_since`) recebe o carimbo por uma linha de
+`data/verification.json` que cite o registro e o campo.
 
 ### C2. Status sem órgão não é status ⛔ imposta
 
-Cada item de `situations.statuses` tem `codigo`, `por`, `data`, `url`, `confidence`.
+Cada item de `situations.statuses` tem `code`, `by`, `date`, `url`, `confidence`.
 `merits_decision` exige `outcome`. `provisional_measures` e `merits_decision` exigem
 `checked_by: human`.
 
@@ -115,9 +120,10 @@ agregado (GDELT, UN Treaty Collection) é citada no `NOTICE` e na página de fon
 
 ```bash
 pip install -e ".[dev]"            # instala o Astraea (com o motor) e as ferramentas
-python scripts/transform.py --strict
+python scripts/build_lexicon.py            # simulação; --execute grava o léxico
+python scripts/transform.py --draft        # --strict quando não houver rascunho
 python -m pytest
-astraea validate-lexicon data/lexicon/pt.json
+astraea validate-lexicon data/lexicon/*.json
 ```
 
 Exige Python 3.11+. Sem dependências de execução: o motor usa só a biblioteca padrão,

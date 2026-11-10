@@ -62,11 +62,19 @@ inglês, com telas em `en` e `pt-BR`.
    `lexicon/`, que ficam para a sessão 3: `countries.json` com 197 registros (códigos e
    nomes do Unicode CLDR 49, conferidos contra a lista da ONU), `sources.json` com 87
    entradas, `retired-ids.json` vazio, rótulos nas duas línguas e
-   `scripts/vocabularies.py` como lista única dos vocabulários.
+   `scripts/vocabularies.py` como lista única dos vocabulários. **Completado em
+   10/11/2026** (sessão 3): `situations.json` com as dez situações (nove status em
+   cinco delas, todos à espera do carimbo de pessoa; cinco ainda sem status),
+   `verification.json`, os termos fixos em `lexicon/fixed/` e o léxico gerado nas
+   cinco línguas (o árabe em rascunho, sem falante).
 4. `scripts/transform.py --strict | --draft` com as onze travas de
    `03-modelo-de-dados.md`; `scripts/build_lexicon.py`; `scripts/build_site.py`;
    `ci.yml`; `deploy.yml` com uma página inicial mínima em `/en/` e `/pt-br/` lendo
-   `quality.json`.
+   `quality.json`. **Feito em 10/11/2026** (sessão 3): `transform.py`,
+   `build_lexicon.py` e `static/data/` gerado. Ficam para a sessão 4 `build_site.py`,
+   `ci.yml` e `deploy.yml`. Enquanto houver rascunho, a CI valida com `--draft` e
+   compara o derivado com `--draft --check`; `--strict` volta a ser a régua quando os
+   status tiverem carimbo de pessoa.
 5. Política de robô em código: `User-Agent` próprio, `Crawl-delay`, lista de domínios
    com `no_text_by_policy`.
 
@@ -251,13 +259,20 @@ ferramentas de teste (`pytest`, `ruff`). Demora um minuto.
 ### Rodar a bateria (toda sessão)
 
 ```powershell
-python scripts\transform.py --strict
+python scripts\transform.py --draft
 python -m pytest
 ```
 
+Durante a carga inicial o modo é `--draft`: ele aceita o campo ainda sem carimbo e
+diz quantos são ("13 fields in draft, in 9 records"). `python scripts\transform.py
+--strict` mostra a lista do que falta carimbar e termina com "strict: FAILED"; isso
+é esperado até os status das situações serem conferidos por você.
+
 Os *scripts* do projeto **nunca apagam** e, quando alteram arquivo, rodam em
-simulação por padrão: `python scripts\transform.py` mostra o que faria;
-`python scripts\transform.py --execute` grava. Os comandos e as opções são em inglês
+simulação por padrão: `python scripts\transform.py --draft` mostra o que faria;
+`python scripts\transform.py --draft --execute` grava. O mesmo vale para
+`python scripts\build_lexicon.py`, que refaz o léxico depois de uma mudança nos
+termos. Os comandos e as opções são em inglês
 (`--strict`, `--draft`, `--execute`); as mensagens que eles mostram também, e o
 `CHANGELOG.md` de cada sessão explica em português o que cada uma quer dizer. A CI roda sempre com `--execute`
 num diretório temporário e compara.

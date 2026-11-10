@@ -13,13 +13,18 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 
 ## Estado do projeto
 
-Em 09/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
-`astraea/cli.py`), as licenças e os primeiros dados: `data/countries.json` (197 registros,
-só `id`, `name`, `un_status`, `un_member_since`), `data/sources.json` (87 fontes),
-`data/retired-ids.json` e `data/i18n/`; `scripts/vocabularies.py` é a lista única dos
-vocabulários fechados e das chaves de rótulo. 115 testes. Não há situações, léxico,
-`transform.py`, site nem *workflows*. O `06-roteiro.md` diz a ordem; a fase 1 segue pela
-sessão 3 (situações, léxico, `transform.py`). Antes de escrever código, leia o `00-inventario.md` e o
+Em 10/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
+`astraea/cli.py`), as licenças e os dados da fase 1: `data/countries.json` (197 registros,
+só `id`, `name`, `un_status`, `un_member_since`, `situations`), `data/situations.json`
+(as dez da D6; nove status, todos sem carimbo de pessoa), `data/sources.json` (87
+fontes), `data/verification.json` (a trilha que carimba os campos escalares),
+`data/lexicon/` (termos fixos em `fixed/` e o léxico gerado em cinco línguas; o árabe é
+rascunho), `data/retired-ids.json` e `data/i18n/`. `scripts/vocabularies.py` é a lista
+única dos vocabulários fechados e das chaves de rótulo; `scripts/build_lexicon.py` gera o
+léxico; `scripts/transform.py` valida com as onze travas e gera `static/data/`. 210
+testes. Não há site nem *workflows*. O `06-roteiro.md` diz a ordem; a fase 1 segue pela
+sessão 4 (`build_site.py`, `ci.yml`, `deploy.yml`, página inicial, política de robô em
+código). Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
@@ -43,7 +48,10 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
    *slug*; documento é `hash` da URL normalizada. Nunca reatribuído; o que sai vai para
    `data/retired-ids.json`.
 6. **Fonte × derivado.** `data/` é editável; `static/data/` é gerado por
-   `scripts/transform.py` e a CI exige sincronia. Nunca edite o derivado.
+   `scripts/transform.py` e a CI exige sincronia. Nunca edite o derivado. A exceção
+   dentro de `data/` é `data/lexicon/<lang>.json`, gerado por
+   `scripts/build_lexicon.py`: edita-se `data/lexicon/fixed/<lang>.json` e
+   `situations.terms`, e o validador reprova o léxico que não bate com eles.
 7. **Robots, limites e bloqueios são política.** O cliente HTTP obedece `robots.txt`
    e o limite declarado por fonte; WAF, CAPTCHA e bloqueio por país não se contornam.
    Google e APIs comerciais de notícias ficam fora.
@@ -59,11 +67,20 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
 
   ```
   python scripts/transform.py --strict
+  python scripts/transform.py --draft --check
   python -m pytest
   astraea validate-lexicon data/lexicon/*.json
   astraea validate-config config/*.json
   ruff check . && ruff format --check .
   ```
+
+  Enquanto durar a carga inicial, `--strict` **reprova de propósito** e só pelos
+  rascunhos (travas 3 e 6: campo sem carimbo, status de tribunal sem `checked_by:
+  human`); qualquer outra trava na saída dele é erro seu. `--draft --check` tem de
+  passar: valida relaxando só essas duas e confere que `static/data/` está em dia. Se
+  não estiver, `python scripts/transform.py --draft --execute`; se o léxico estiver
+  velho, `python scripts/build_lexicon.py --execute` antes. Rascunho não se "resolve"
+  preenchendo `checked_by`: quem carimba como `human` é a pessoa (regra 3).
 
 - **Línguas.** Dados e código em **inglês**: nomes de arquivo, chaves, valores de
   vocabulário fechado, *ids*, *slugs*, comandos, opções, nomes de módulo e de
