@@ -1,7 +1,8 @@
 """The data files of phase 1: countries (D1), sources (docs/02) and the i18n labels.
 
-These checks come before scripts/transform.py; when the validator exists, it takes them
-over and this file keeps only what is specific to the initial load.
+The eleven checks of the validator are tested in tests/test_transform.py; this file keeps
+what is specific to the initial load: the D1 universe, the shape of the sources and the
+coverage of the labels.
 """
 
 from __future__ import annotations
@@ -41,7 +42,7 @@ MEMBERS = frozenset(
 )
 OBSERVERS = frozenset({"PSE", "VAT"})
 NON_MEMBERS = frozenset({"XKX", "TWN"})
-COUNTRY_KEYS = {"id", "name", "un_status", "un_member_since"}
+COUNTRY_KEYS = {"id", "name", "un_status", "un_member_since", "situations"}
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -86,6 +87,7 @@ def test_countries_carry_only_the_fields_of_this_session(countries):
     # No penal law or treaty field before phase 2: absent, not null.
     for c in countries:
         assert set(c) == COUNTRY_KEYS, c["id"]
+        assert isinstance(c["situations"], list) and c["situations"] == sorted(c["situations"])
         assert set(c["name"]) == set(vocabularies.LOCALES), c["id"]
         assert all(isinstance(n, str) and n.strip() == n and n for n in c["name"].values())
 

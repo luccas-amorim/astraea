@@ -1,0 +1,1000 @@
+[
+  {
+    "id": "rohingya-myanmar",
+    "name": {
+      "en": "Rohingya (Myanmar)",
+      "pt-BR": "Rohingya (Mianmar)"
+    },
+    "countries": [
+      {
+        "id": "MMR",
+        "role": "territory"
+      },
+      {
+        "id": "GMB",
+        "role": "applicant"
+      },
+      {
+        "id": "MMR",
+        "role": "respondent"
+      }
+    ],
+    "period": {
+      "start": "2016-10",
+      "end": null,
+      "approximate": true
+    },
+    "statuses": [
+      {
+        "code": "accusation",
+        "by": "The Gambia, application instituting proceedings (ICJ)",
+        "date": "2019-11-11",
+        "url": "https://www.icj-cij.org/case/178",
+        "confidence": "A",
+        "checked_by": null
+      },
+      {
+        "code": "provisional_measures",
+        "by": "International Court of Justice",
+        "date": "2020-01-23",
+        "url": "https://www.icj-cij.org/case/178",
+        "confidence": "A",
+        "checked_by": null
+      }
+    ],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Rohingya",
+          "Rohingyas",
+          "Rakhine State",
+          "The Gambia v. Myanmar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Rohingya",
+          "Rohingyas",
+          "État de Rakhine",
+          "État d'Arakan",
+          "Gambie c. Myanmar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "rohinyá",
+          "rohinyás",
+          "rohingya",
+          "rohingyas",
+          "estado de Rakáin",
+          "estado de Rakhine",
+          "Gambia contra Myanmar",
+          "Gambia c. Myanmar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "rohingya",
+          "rohingyas",
+          "roingá",
+          "roingás",
+          "estado de Rakhine",
+          "estado de Arracão",
+          "Gâmbia v. Mianmar",
+          "Gâmbia contra Mianmar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "الروهينغا",
+          "للروهينغا",
+          "والروهينغا",
+          "بالروهينغا",
+          "روهينغا",
+          "الروهينجا",
+          "للروهينجا",
+          "والروهينجا",
+          "روهينجا",
+          "الروهينغيا",
+          "ولاية راخين",
+          "ولاية أراكان",
+          "غامبيا ضد ميانمار"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "gaza-2023",
+    "name": {
+      "en": "Gaza (2023–)",
+      "pt-BR": "Gaza (2023–)"
+    },
+    "countries": [
+      {
+        "id": "PSE",
+        "role": "territory"
+      },
+      {
+        "id": "ZAF",
+        "role": "applicant"
+      },
+      {
+        "id": "ISR",
+        "role": "respondent"
+      }
+    ],
+    "period": {
+      "start": "2023-10-07",
+      "end": null,
+      "approximate": false
+    },
+    "statuses": [
+      {
+        "code": "accusation",
+        "by": "South Africa, application instituting proceedings (ICJ)",
+        "date": "2023-12-29",
+        "url": "https://www.icj-cij.org/case/192",
+        "confidence": "A",
+        "checked_by": null
+      },
+      {
+        "code": "provisional_measures",
+        "by": "International Court of Justice",
+        "date": "2024-01-26",
+        "url": "https://www.icj-cij.org/case/192",
+        "confidence": "A",
+        "checked_by": null
+      },
+      {
+        "code": "investigation",
+        "by": "Independent International Commission of Inquiry on the Occupied Palestinian Territory, including East Jerusalem, and Israel (UN)",
+        "date": "2025-09-16",
+        "url": "https://www.ohchr.org/en/hr-bodies/hrc/co-israel/index",
+        "confidence": "A",
+        "checked_by": null
+      }
+    ],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Gaza",
+          "Gazan",
+          "Gazans",
+          "South Africa v. Israel"
+        ],
+        "exclusions": [
+          "Gaza Province"
+        ]
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Gaza",
+          "Gazaoui",
+          "Gazaouis",
+          "Gazaouie",
+          "Gazaouies",
+          "Afrique du Sud c. Israël"
+        ],
+        "exclusions": [
+          "province de Gaza"
+        ]
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "Gaza",
+          "gazatí",
+          "gazatíes",
+          "Sudáfrica contra Israel",
+          "Sudáfrica c. Israel"
+        ],
+        "exclusions": [
+          "provincia de Gaza"
+        ]
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "Gaza",
+          "África do Sul v. Israel",
+          "África do Sul contra Israel"
+        ],
+        "exclusions": [
+          "província de Gaza"
+        ]
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "غزة",
+          "بغزة",
+          "لغزة",
+          "وغزة",
+          "جنوب أفريقيا ضد إسرائيل"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "ukraine-2022",
+    "name": {
+      "en": "Ukraine (2022–)",
+      "pt-BR": "Ucrânia (2022–)"
+    },
+    "countries": [
+      {
+        "id": "UKR",
+        "role": "territory"
+      },
+      {
+        "id": "UKR",
+        "role": "applicant"
+      },
+      {
+        "id": "RUS",
+        "role": "respondent"
+      }
+    ],
+    "period": {
+      "start": "2022-02-24",
+      "end": null,
+      "approximate": false
+    },
+    "statuses": [
+      {
+        "code": "provisional_measures",
+        "by": "International Court of Justice",
+        "date": "2022-03-16",
+        "url": "https://www.icj-cij.org/case/182",
+        "confidence": "A",
+        "checked_by": null
+      }
+    ],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Ukraine v. Russian Federation",
+          "Ukraine v. Russia",
+          "Allegations of Genocide under the Convention",
+          "genocide … Ukraine",
+          "Ukraine … genocide",
+          "genocide … Ukrainians",
+          "genocidal … Ukraine",
+          "genocide … Donbas",
+          "Donbas … genocide"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Ukraine c. Fédération de Russie",
+          "Ukraine c. Russie",
+          "Allégations de génocide au titre de la convention",
+          "génocide … Ukraine",
+          "Ukraine … génocide",
+          "génocide … Ukrainiens",
+          "génocide … Donbass",
+          "Donbass … génocide"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "Ucrania contra Federación de Rusia",
+          "Ucrania c. Federación de Rusia",
+          "Ucrania contra Rusia",
+          "Alegaciones de genocidio en virtud de la Convención",
+          "genocidio … Ucrania",
+          "Ucrania … genocidio",
+          "genocidio … ucranianos",
+          "genocidio … Donbás",
+          "Donbás … genocidio"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "Ucrânia v. Federação Russa",
+          "Ucrânia v. Rússia",
+          "Ucrânia contra Rússia",
+          "Alegações de genocídio … Convenção",
+          "genocídio … Ucrânia",
+          "Ucrânia … genocídio",
+          "genocídio … ucranianos",
+          "genocídio … Donbas",
+          "Donbas … genocídio"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "أوكرانيا ضد الاتحاد الروسي",
+          "أوكرانيا ضد روسيا",
+          "إبادة جماعية … أوكرانيا",
+          "الإبادة الجماعية … أوكرانيا",
+          "أوكرانيا … إبادة جماعية",
+          "أوكرانيا … الإبادة الجماعية",
+          "إبادة جماعية … دونباس",
+          "الإبادة الجماعية … دونباس"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "darfur",
+    "name": {
+      "en": "Darfur (Sudan)",
+      "pt-BR": "Darfur (Sudão)"
+    },
+    "countries": [
+      {
+        "id": "SDN",
+        "role": "territory"
+      }
+    ],
+    "period": {
+      "start": "2003",
+      "end": null,
+      "approximate": true
+    },
+    "statuses": [
+      {
+        "code": "investigation",
+        "by": "International Criminal Court",
+        "date": "2005-06",
+        "url": "https://www.icc-cpi.int/darfur",
+        "confidence": "A",
+        "checked_by": null
+      },
+      {
+        "code": "accusation",
+        "by": "International Criminal Court, warrant of arrest",
+        "date": "2010-07-12",
+        "url": "https://www.icc-cpi.int/darfur",
+        "confidence": "A",
+        "checked_by": null
+      }
+    ],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Darfur",
+          "Darfuri",
+          "Darfuris",
+          "Janjaweed",
+          "Janjawid"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Darfour",
+          "Darfouri",
+          "Darfouris",
+          "Janjawid",
+          "Janjawids",
+          "Djandjawids"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "Darfur",
+          "darfurí",
+          "darfuríes",
+          "Janjaweed",
+          "yanyauid"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "Darfur",
+          "Janjaweed"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "دارفور",
+          "بدارفور",
+          "لدارفور",
+          "ودارفور",
+          "الجنجويد"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "tigray-ethiopia",
+    "name": {
+      "en": "Tigray (Ethiopia)",
+      "pt-BR": "Tigré (Etiópia)"
+    },
+    "countries": [
+      {
+        "id": "ETH",
+        "role": "territory"
+      }
+    ],
+    "period": {
+      "start": "2020-11",
+      "end": "2022-11",
+      "approximate": true
+    },
+    "statuses": [],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Tigray",
+          "Tigrayan",
+          "Tigrayans"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Tigray",
+          "région du Tigré",
+          "guerre du Tigré",
+          "Tigré … Éthiopie",
+          "Éthiopie … Tigré"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "Tigray",
+          "región de Tigré",
+          "guerra de Tigré",
+          "Tigré … Etiopía",
+          "Etiopía … Tigré"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "Tigray",
+          "região do Tigré",
+          "região de Tigré",
+          "guerra do Tigré",
+          "guerra de Tigré",
+          "Tigré … Etiópia",
+          "Etiópia … Tigré"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "تيغراي",
+          "بتيغراي",
+          "لتيغراي",
+          "وتيغراي",
+          "التيغراي",
+          "تيجراي"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "uyghurs-xinjiang",
+    "name": {
+      "en": "Uyghurs (Xinjiang, China)",
+      "pt-BR": "Uigures (Xinjiang, China)"
+    },
+    "countries": [
+      {
+        "id": "CHN",
+        "role": "territory"
+      }
+    ],
+    "period": {
+      "start": "2017",
+      "end": null,
+      "approximate": true
+    },
+    "statuses": [],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Uyghur",
+          "Uyghurs",
+          "Uighur",
+          "Uighurs",
+          "Xinjiang"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Ouïghour",
+          "Ouïghours",
+          "Ouïghoure",
+          "Ouïghoures",
+          "Ouïgour",
+          "Ouïgours",
+          "Xinjiang"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "uigur",
+          "uigures",
+          "Xinjiang",
+          "Sinkiang"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "uigur",
+          "uigure",
+          "uigures",
+          "Xinjiang"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "الأويغور",
+          "للأويغور",
+          "والأويغور",
+          "أويغور",
+          "الإيغور",
+          "للإيغور",
+          "والإيغور",
+          "إيغور",
+          "الويغور",
+          "شينجيانغ",
+          "شينجيانج"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "yazidis-sinjar",
+    "name": {
+      "en": "Yazidis (Sinjar, Iraq)",
+      "pt-BR": "Iazidis (Sinjar, Iraque)"
+    },
+    "countries": [
+      {
+        "id": "IRQ",
+        "role": "territory"
+      }
+    ],
+    "period": {
+      "start": "2014-08",
+      "end": null,
+      "approximate": true
+    },
+    "statuses": [],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Yazidi",
+          "Yazidis",
+          "Yezidi",
+          "Yezidis",
+          "Sinjar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Yézidi",
+          "Yézidis",
+          "Yézidie",
+          "Yézidies",
+          "Yazidi",
+          "Yazidis",
+          "Sinjar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "yazidí",
+          "yazidíes",
+          "yazidis",
+          "yezidí",
+          "yezidíes",
+          "yezidis",
+          "Sinyar",
+          "Sinjar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "yazidi",
+          "yazidis",
+          "iazidi",
+          "iazidis",
+          "yazidita",
+          "yaziditas",
+          "iazidita",
+          "iaziditas",
+          "Sinjar"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "الإيزيديين",
+          "للإيزيديين",
+          "والإيزيديين",
+          "الإيزيديون",
+          "الإيزيدية",
+          "الإيزيديات",
+          "إيزيدي",
+          "إيزيديين",
+          "اليزيديين",
+          "اليزيديون",
+          "سنجار",
+          "شنكال"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "rwanda-1994",
+    "name": {
+      "en": "Rwanda (1994)",
+      "pt-BR": "Ruanda (1994)"
+    },
+    "countries": [
+      {
+        "id": "RWA",
+        "role": "territory"
+      }
+    ],
+    "period": {
+      "start": "1994-04",
+      "end": "1994-07",
+      "approximate": true
+    },
+    "statuses": [],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Rwandan genocide",
+          "Rwanda genocide",
+          "genocide in Rwanda",
+          "genocide against the Tutsi",
+          "Tutsi",
+          "Tutsis",
+          "Interahamwe"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "génocide rwandais",
+          "génocide au Rwanda",
+          "génocide des Tutsi",
+          "génocide des Tutsis",
+          "génocide contre les Tutsi",
+          "Tutsi",
+          "Tutsis",
+          "Interahamwe"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "genocidio de Ruanda",
+          "genocidio en Ruanda",
+          "genocidio ruandés",
+          "genocidio contra los tutsis",
+          "tutsi",
+          "tutsis",
+          "Interahamwe"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "genocídio de Ruanda",
+          "genocídio em Ruanda",
+          "genocídio do Ruanda",
+          "genocídio no Ruanda",
+          "genocídio ruandês",
+          "genocídio contra os tutsis",
+          "tutsi",
+          "tutsis",
+          "Interahamwe"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "الإبادة الجماعية في رواندا",
+          "إبادة جماعية في رواندا",
+          "الإبادة الجماعية ضد التوتسي",
+          "الإبادة في رواندا",
+          "التوتسي",
+          "للتوتسي",
+          "والتوتسي",
+          "توتسي",
+          "إنتراهاموي"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "srebrenica-1995",
+    "name": {
+      "en": "Srebrenica (Bosnia and Herzegovina, 1995)",
+      "pt-BR": "Srebrenica (Bósnia e Herzegovina, 1995)"
+    },
+    "countries": [
+      {
+        "id": "BIH",
+        "role": "territory"
+      },
+      {
+        "id": "BIH",
+        "role": "applicant"
+      },
+      {
+        "id": "SRB",
+        "role": "respondent"
+      }
+    ],
+    "period": {
+      "start": "1995-07",
+      "end": "1995-07",
+      "approximate": true
+    },
+    "statuses": [
+      {
+        "code": "merits_decision",
+        "by": "International Court of Justice",
+        "date": "2007-02-26",
+        "url": "https://www.icj-cij.org/case/91",
+        "confidence": "A",
+        "outcome": "partial",
+        "checked_by": null
+      }
+    ],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Srebrenica",
+          "Bosnia and Herzegovina v. Serbia and Montenegro",
+          "Bosnian genocide"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Srebrenica",
+          "Bosnie-Herzégovine c. Serbie-et-Monténégro",
+          "génocide bosniaque"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "Srebrenica",
+          "Bosnia y Herzegovina contra Serbia y Montenegro",
+          "Bosnia y Herzegovina c. Serbia y Montenegro",
+          "genocidio bosnio"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "Srebrenica",
+          "Bósnia e Herzegovina v. Sérvia e Montenegro",
+          "Bósnia e Herzegovina contra Sérvia e Montenegro",
+          "genocídio bósnio"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "سربرنيتسا",
+          "سريبرينيتسا",
+          "سربرينيتسا",
+          "سربرنيتشا",
+          "سريبرينيتشا",
+          "سربرينيتشا",
+          "البوسنة والهرسك ضد صربيا والجبل الأسود"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  },
+  {
+    "id": "cambodia-1975",
+    "name": {
+      "en": "Cambodia (1975–1979)",
+      "pt-BR": "Camboja (1975–1979)"
+    },
+    "countries": [
+      {
+        "id": "KHM",
+        "role": "territory"
+      },
+      {
+        "id": "KHM",
+        "role": "forum"
+      }
+    ],
+    "period": {
+      "start": "1975-04-17",
+      "end": "1979-01-06",
+      "approximate": false
+    },
+    "statuses": [],
+    "terms": [
+      {
+        "lang": "en",
+        "forms": [
+          "Khmer Rouge",
+          "Democratic Kampuchea",
+          "Cambodian genocide"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "fr",
+        "forms": [
+          "Khmers rouges",
+          "Khmer rouge",
+          "Kampuchéa démocratique",
+          "génocide cambodgien"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "es",
+        "forms": [
+          "Jemeres Rojos",
+          "Jemer Rojo",
+          "Kampuchea Democrática",
+          "genocidio camboyano"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "pt",
+        "forms": [
+          "Khmer Vermelho",
+          "Khmers Vermelhos",
+          "Kampuchea Democrático",
+          "genocídio cambojano"
+        ],
+        "exclusions": []
+      },
+      {
+        "lang": "ar",
+        "forms": [
+          "الخمير الحمر",
+          "للخمير الحمر",
+          "والخمير الحمر",
+          "كمبوتشيا الديمقراطية",
+          "الإبادة الجماعية في كمبوديا"
+        ],
+        "exclusions": []
+      }
+    ],
+    "promotion": {
+      "level": "surface",
+      "trigger": null,
+      "since": null,
+      "where": null
+    }
+  }
+]
