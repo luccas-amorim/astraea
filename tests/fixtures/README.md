@@ -4,8 +4,8 @@ The tests run without network, against these files. They came from Alétheia (se
 `NOTICE`) and are **synthetic**: they imitate the documented format of each origin
 without having been recorded from it. Their content is in Portuguese, about the Carandiru
 massacre, because that was Alétheia's subject; for the engine tests the subject does not
-matter. Astraea's own fixtures (UN Treaty Collection, ICJ, ICC feeds) come with the
-adapters of phases 2 and 3, recorded from the real source.
+matter. Astraea's own fixtures come with the adapters of phases 2 and 3, recorded from
+the real source; the first ones are in `untc/`.
 
 Fixtures are stored byte for byte (`.gitattributes`: `-text`): one of the pages is in
 cp1252 on purpose, and line-ending conversion would break the tests that compare bytes.
@@ -19,3 +19,18 @@ cp1252 on purpose, and line-ending conversion would break the tests that compare
 | `gdelt/day.json` | DOC 2.0 `artlist` in JSON |
 | `lexicon-carandiru.json` | sample lexicon for the run and triage tests |
 | `lexicon-example.json` | minimal lexicon of another domain, for the format tests |
+| `untc/IV-1.en.xml`, `untc/XVIII-10.en.xml` | **recorded**: the per-treaty XML of the UN Treaty Collection (Genocide Convention, Rome Statute), downloaded by the engine on 2026-11-10, with the depositary's prose replaced by markers (see below) |
+
+## The UNTC fixtures
+
+They are the files the engine's client downloaded on 2026-11-10 (robots.txt read,
+`Crawl-delay: 2` kept), byte for byte, except that every paragraph of the declarations,
+reservations, objections, notifications and end notes, and the treaty note of the
+header, is replaced by a marker such as `[text of the depositary omitted in this
+fixture; refers to article IX]`. The participants table, the `Status` block, the dates
+and the table of withdrawals are untouched. The repository does not carry third-party
+text (AGENTS.md, rule 2), and the UN terms do not allow redistributing it.
+
+`scripts/trim_untc_fixtures.py --xml-dir DIR --execute` makes them from the downloaded
+files, and refuses to write if the adapter reads the fixture differently from the
+original. The sha256 of the originals is in `CHANGELOG.md` (phase 2, session 1).

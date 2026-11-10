@@ -19,7 +19,7 @@ def test_adapters_fulfil_the_contract():
             assert callable(getattr(cls, name))
         assert isinstance(cls.respects_robots, bool)
     assert isinstance(Rss("x", FEED, client=None), Source)
-    assert set(sources.TYPES) == {"rss", "gdelt", "curated_list"}
+    assert set(sources.TYPES) == {"rss", "gdelt", "curated_list", "listing"}
 
 
 def test_unknown_type_is_refused():
