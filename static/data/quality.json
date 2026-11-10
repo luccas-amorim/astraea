@@ -1,0 +1,245 @@
+{
+  "as_of": "2026-11-09",
+  "drafts": {
+    "fields": 13,
+    "records": 9,
+    "by_check": {
+      "3": 13,
+      "6": 4
+    },
+    "items": [
+      {
+        "check": 3,
+        "where": "countries[PSE].un_status",
+        "message": "asserted without stamp: no line of verification.json covers it"
+      },
+      {
+        "check": 3,
+        "where": "countries[TWN].un_status",
+        "message": "asserted without stamp: no line of verification.json covers it"
+      },
+      {
+        "check": 3,
+        "where": "countries[VAT].un_status",
+        "message": "asserted without stamp: no line of verification.json covers it"
+      },
+      {
+        "check": 3,
+        "where": "countries[XKX].un_status",
+        "message": "asserted without stamp: no line of verification.json covers it"
+      },
+      {
+        "check": 3,
+        "where": "situations[rohingya-myanmar].statuses[0]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "situations[rohingya-myanmar].statuses[1]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 6,
+        "where": "situations[rohingya-myanmar].statuses[1]",
+        "message": "provisional_measures with checked_by None: only a person records it"
+      },
+      {
+        "check": 3,
+        "where": "situations[gaza-2023].statuses[0]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "situations[gaza-2023].statuses[1]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 6,
+        "where": "situations[gaza-2023].statuses[1]",
+        "message": "provisional_measures with checked_by None: only a person records it"
+      },
+      {
+        "check": 3,
+        "where": "situations[gaza-2023].statuses[2]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "situations[ukraine-2022].statuses[0]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 6,
+        "where": "situations[ukraine-2022].statuses[0]",
+        "message": "provisional_measures with checked_by None: only a person records it"
+      },
+      {
+        "check": 3,
+        "where": "situations[darfur].statuses[0]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "situations[darfur].statuses[1]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "situations[srebrenica-1995].statuses[0]",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 6,
+        "where": "situations[srebrenica-1995].statuses[0]",
+        "message": "merits_decision with checked_by None: only a person records it"
+      }
+    ]
+  },
+  "countries": {
+    "total": 197,
+    "complete": 0,
+    "fields": {
+      "un_status": {
+        "stamped": 193,
+        "draft": 4,
+        "empty": 0
+      },
+      "penal_code": {
+        "stamped": 0,
+        "draft": 0,
+        "empty": 197
+      },
+      "domestic_genocide": {
+        "stamped": 0,
+        "draft": 0,
+        "empty": 197
+      },
+      "genocide_convention": {
+        "stamped": 0,
+        "draft": 0,
+        "empty": 197
+      },
+      "rome_statute": {
+        "stamped": 0,
+        "draft": 0,
+        "empty": 197
+      },
+      "max_penalty": {
+        "stamped": 0,
+        "draft": 0,
+        "empty": 197
+      },
+      "death_penalty": {
+        "stamped": 0,
+        "draft": 0,
+        "empty": 197
+      }
+    },
+    "names_missing": {
+      "en": [],
+      "pt-BR": []
+    },
+    "priority": [
+      "BIH",
+      "ISR",
+      "MMR",
+      "PSE",
+      "RUS",
+      "SDN",
+      "SRB",
+      "UKR"
+    ]
+  },
+  "situations": {
+    "total": 10,
+    "by_highest_status": {
+      "provisional_measures": 3,
+      "accusation": 1,
+      "none": 5,
+      "merits_decision": 1
+    },
+    "without_status": [
+      "tigray-ethiopia",
+      "uyghurs-xinjiang",
+      "yazidis-sinjar",
+      "rwanda-1994",
+      "cambodia-1975"
+    ],
+    "statuses": {
+      "total": 9,
+      "stamped": 0,
+      "draft": 9
+    },
+    "names_missing": {
+      "en": [],
+      "pt-BR": []
+    },
+    "terms_missing": {
+      "en": [],
+      "fr": [],
+      "es": [],
+      "pt": [],
+      "ar": []
+    },
+    "texts_missing": {
+      "description": {
+        "en": 10,
+        "pt-BR": 10
+      }
+    }
+  },
+  "sources": {
+    "total": 87,
+    "by_state": {
+      "active": 46,
+      "suspended": 10,
+      "discarded": 31
+    },
+    "robots_unchecked": [
+      "loc-glm",
+      "prevent-genocide",
+      "cornell-dpw",
+      "foreign-law-guide",
+      "eur-lex",
+      "coe",
+      "gdelt-bigquery",
+      "gdelt-ngrams",
+      "emm",
+      "afp",
+      "guardian-api",
+      "el-pais",
+      "bing-news",
+      "stl",
+      "hudoc",
+      "afchpr"
+    ],
+    "robots_expired": []
+  },
+  "lexicon": {
+    "en": {
+      "version": "en-2026-11-10-fecb2ae2",
+      "terms": 22,
+      "forms": 80
+    },
+    "fr": {
+      "version": "fr-2026-11-10-f9cdee73",
+      "terms": 22,
+      "forms": 93
+    },
+    "es": {
+      "version": "es-2026-11-10-feae6cea",
+      "terms": 22,
+      "forms": 101
+    },
+    "pt": {
+      "version": "pt-2026-11-10-24ff3d5c",
+      "terms": 22,
+      "forms": 105
+    },
+    "ar": {
+      "version": "ar-2026-11-10-7771c999",
+      "terms": 22,
+      "forms": 133
+    }
+  }
+}
