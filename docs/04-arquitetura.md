@@ -97,9 +97,9 @@ flowchart LR
 
 | Robô | Função | O que faz | Herança | Agendamento |
 |---|---|---|---|---|
-| **Tabelião** | 1 | lê o **XML por tratado** da UN Treaty Collection (IV.1 e XVIII.10, verificado em `02-fontes.md`) e grava `genocide_convention` e `rome_statute` de cada país, com data, tipo, reservas e retiradas; acusa país novo, retirada e reserva nova | adaptador `listing` (`astraea/sources/listing.py`, escrito na fase 2 à maneira do Argos: tabela que muda devagar; linha alterada volta a ser lida) e `scripts/load_treaties.py` | mensal |
+| **Tabelião** | 1 | lê o **XML por tratado** da UN Treaty Collection (IV.1 e XVIII.10, verificado em `02-fontes.md`) e grava `genocide_convention` e `rome_statute` de cada país, com data, tipo, reservas e retiradas; acusa país novo, retirada e reserva nova | adaptador `listing` (`astraea/sources/listing.py`, escrito na fase 2 à maneira do Argos: tabela que muda devagar; linha alterada volta a ser lida) e `scripts/load_treaties.py` | mensal, no `countries.yml` |
 | **Cartógrafo** | 1 | a sondagem mostrou que **não há base aberta viva** de códigos penais: na fase 1 o Cartógrafo só reconfere, todo mês, se Legislationline, SHERLOC, Library of Congress e WorldLII voltaram a responder, e reabre a fonte em `sources.json` quando sim; `penal_code` e `domestic_genocide` entram por carga humana | Cotejador do AtlasPen ("só pergunta") | mensal |
-| **Sentenciador** (nome a decidir, D15) | 1 | lê as quatro listas da base por trás do mapa do espelho do Cornell (`02-fontes.md`, 1.5) e grava `death_penalty` com `checked_by: robot` nas três categorias que correspondem às da Anistia; a quarta (*de facto*) fica vazia com `reason` (`03-modelo-de-dados.md`, "Como a pena de morte é preenchida"); o anexo anual da Anistia entra à mão e o robô não toca o que a pessoa carimbou | adaptador `listing`, formato `cornell_dpw_status`, e `scripts/load_death_penalty.py` | semanal (Cornell atualiza às quartas) |
+| **Sentenciador** (nome a decidir, D15) | 1 | lê as quatro listas da base por trás do mapa do espelho do Cornell (`02-fontes.md`, 1.5) e grava `death_penalty` com `checked_by: robot` nas três categorias que correspondem às da Anistia; a quarta (*de facto*) fica vazia com `reason` (`03-modelo-de-dados.md`, "Como a pena de morte é preenchida"); o anexo anual da Anistia entra à mão e o robô não toca o que a pessoa carimbou | adaptador `listing`, formato `cornell_dpw_status`, e `scripts/load_death_penalty.py` | mensal, no `countries.yml`, junto com o Tabelião (decidido em 10/11/2026; o porquê está em "Agendamentos") |
 | **Vigia das notícias** | 2 | `astraea run` com `config/news.json`: GDELT por língua (`sourcelang:` × termos) e por tema (`WB_2509_GENOCIDE`), a 1 requisição por 5 s; ReliefWeb por `appname`; ~15 *feeds* RSS (lista em `02-fontes.md`); lê a página do veículo para triar, **exceto nos domínios com *opt-out* de mineração de texto** (os de `data/sources.json` com `no_text_by_policy`, lidos pela chave `registry` da configuração; `astraea/engine/policy.py`), onde tria só pelo título e pela descrição do *feed*, com nível máximo 2 e `reason: "no_text_by_policy"`; grava nível ≥ 2 em `news/`, conta nível 0–1 no relatório | motor inteiro (do Alétheia) + adaptador `reliefweb` novo | semanal (diário na fase de calibração) |
 | **Escrivão** | 3 | adaptador `icj` (`listing` sobre página de caso e lista de *press releases*; PDF só como URL), `rss` do TPI (registros e notícias), IRMCT, KSC, RSCSL, Corte Africana, TRIAL e HUDOC, `listing` sobre as páginas de mandato da OHCHR; grava `procedural_step` e `press_release` em `decisions.json`; o que parece ordem ou sentença vai para pede-juízo (`needs-review.jsonl`) | motor + `listing` | semanal |
 | **Recenseador** | 2 e 3 | uma vez por mês confronta a lista de casos da CIJ e do TPI com o que o Escrivão viu, e a contagem do GDELT por língua com o que o Vigia gravou: defesa contra o falso negativo | Recenseador do AtlasPen | mensal |
@@ -116,7 +116,7 @@ Nenhum robô escreve em `situations.statuses`, em `promotion` ou em campo com
 | `ci.yml` | push e PR | 15 min | não | `transform --draft`, derivado sincronizado (`--draft --check`), `pytest`, validação de léxico (e de config, quando `config/` existir), `build_site.py` em simulação, `ruff`; enquanto houver rascunho, `--strict` é passo informativo que mostra a contagem e só reprova por outra causa (quando volta a ser a régua: `AGENTS.md`) |
 | `news.yml` | segunda 06:00 | 340 min | uma fonte por vez, `git pull --rebase` + push depois de cada uma (padrão do Alétheia) | `concurrency: news`, sem cancelar; entradas manuais `since` e `source` |
 | `courts.yml` | terça 06:00 | 120 min | idem | separado do de notícias para que a falha de um não cale o outro |
-| `countries.yml` | dia 1, 05:00 | 60 min | abre **PR**, nunca comita na `main` | o diff de ratificações é pequeno e legível; o PR é a revisão |
+| `countries.yml` | dia 1, 05:00; também à mão (`workflow_dispatch`) | 60 min | abre **PR** da branch `robot/countries`, nunca comita na `main` | as duas cargas (Tabelião e pena de morte) com `--execute` e, se `countries.json` mudou, `transform.py --draft --execute` e uma entrada no `CHANGELOG.md` com os sha256 (`scripts/countries_monthly.py`); roda a bateria antes de propor; mês sem novidade dá PR com commit vazio e os sha256 no corpo; carga que falha abre issue, e a outra segue; `concurrency: countries`, sem cancelar; o PR é a revisão |
 | `sources-check.yml` | sexta 02:00 | 15 min | não; abre issue | ensaio das fontes, como o `fontes.yml` do AtlasPen: na sexta se descobre que a fonte mudou, não na segunda |
 | `audit.yml` | manual (trimestral) | 30 min | abre PR com a planilha da amostra | |
 | `deploy.yml` | push em `main` tocando `static/`, `site/`, `data/`, `scripts/build_site.py`, `CITATION.cff` ou o próprio *workflow*; também à mão (`workflow_dispatch`) | 10 min | — | confere o derivado (`--draft --check`), gera `_site/` no *runner* com `build_site.py --execute` e publica com `upload-pages-artifact` + `deploy-pages`, como no AtlasPen; sem Astro na fase 1 |
@@ -142,6 +142,33 @@ GitHub App do AtlasPen fica para quando houver PR que precise disparar CI (commi
 rodada e inaceitável para o PR de países, que precisa passar na CI: na fase 1 o PR é
 aberto com um PAT de escopo mínimo guardado em *secret*, e a troca pelo App é
 melhoria registrada no roteiro).
+
+**O `countries.yml`, como ficou (fase 2, sessão 3, 10/11/2026).**
+
+- **O Cornell entra no mensal, e não num semanal próprio.** O plano dava semanal porque
+  o Cornell atualiza às quartas. Dois *workflows* escrevendo o mesmo
+  `data/countries.json` e o mesmo derivado (`static/data/countries.json`,
+  `quality.json`) abririam PRs que entram em conflito um com o outro sempre que os dois
+  estivessem abertos, e quem resolve conflito é o dono, que não programa; a base do
+  Cornell muda pouco (classificação de pena de morte muda poucas vezes por ano) e dá
+  sinais de atraso (`02-fontes.md`, 1.5), de modo que a leitura semanal acrescentaria
+  PRs sem acrescentar frescor real; e a conferência de verdade é o anexo anual da
+  Anistia. Para ler fora do dia 1 há o botão *Run workflow*.
+- **O *token*.** O *secret* `COUNTRIES_PR_TOKEN` é um *fine-grained personal access
+  token* limitado a este repositório, com *Contents*, *Pull requests* e *Issues* em
+  leitura e escrita: com ele o PR dispara a CI. Sem o *secret*, o *workflow* usa o
+  `GITHUB_TOKEN`, que só abre PR com a opção *Allow GitHub Actions to create and approve
+  pull requests* ligada, e o PR chega sem CI; por isso o próprio *workflow* roda a
+  bateria (`transform.py --draft --check`, `pytest`, `build_site.py`) antes de propor, e
+  PR que a CI reprovaria não é aberto.
+- **Uma branch só, reescrita a cada execução** a partir da `main`: PR não aceito é
+  atualizado, nunca duplicado. Conflito se resolve fechando o PR e rodando de novo.
+- **O PR mensal também é o que mantém o cron vivo**: o *merge* é atividade no
+  repositório, e o mês sem novidade também abre PR (commit vazio).
+- **Os testes não dependem do valor do dia.** Os testes das cargas comparam as
+  *fixtures* de 10/11/2026 com os registros como elas os leem; o `countries.json` do
+  repositório só precisa concordar com elas fora dos blocos lidos depois (`read_on` mais
+  novo) ou carimbados por pessoa. Sem isso, o primeiro PR com novidade viria vermelho.
 
 ## Onde o motor vive
 
@@ -287,6 +314,40 @@ em `site/templates/`; as datas usam os `formats` de `static/data/i18n/<locale>.j
 mesma função dos rótulos derivados. Nenhum texto de interface usa a palavra como rótulo
 de situação ou de país (regra 1); um teste confere isso nas duas línguas.
 
+**A tela de países (fase 2, sessão 3, 10/11/2026).** `/countries/` e
+`/countries/<ISO>/` (uma pasta com `index.html` por país, que o GitHub Pages e um
+servidor local servem igual) são montadas pelo `build_site.py` a partir de
+`static/data/countries.json` e de `quality.json`, nas duas línguas, com um *layout*
+comum às três telas (`site/templates/layout.html`).
+
+- **Filtros sem JavaScript, por divergência registrada.** O parágrafo acima dizia que o
+  JavaScript entraria com o primeiro filtro. Os três filtros da tabela (Convenção,
+  Estatuto, pena de morte) são CSS: um grupo de botões de rádio por campo, irmãos da
+  tabela, e uma regra por botão que esconde as linhas de outro valor; os grupos se
+  somam, e um contador CSS diz quantos países ficaram. Funciona sem JavaScript, se lê
+  pelo teclado, e sem CSS a tabela mostra os 197. Cada rótulo de filtro traz a contagem.
+- **Completude por campo**: a tabela de `quality.json` (carimbados, em rascunho,
+  vazios) para `un_status` e os seis blocos, e a contagem de países completos.
+- **Ficha**: os escalares carimbados por `verification.json` (nome, situação e data na
+  ONU) e os seis blocos, cada um com o seu estado (`completeness`), os valores com os
+  rótulos de `data/i18n/`, datas pelos `formats`, e o carimbo item por item (fonte,
+  `url`, data de leitura, confiança, quem conferiu; item ausente aparece como "falta").
+  Bloco vazio com `reason` mostra o motivo; bloco ainda inexistente diz "ainda não
+  carregado". As situações em que o país aparece vêm com o papel e o status mais alto,
+  apontando para a lista da página inicial (a tela `/situations/` é da fase 3).
+- **O `reason` na tela pt-BR.** O `reason` é dado, escrito em inglês como as chaves (D8),
+  e não tem versão por *locale*; traduzi-lo seria escrever texto nosso, e quem o escreve
+  (pessoa ou modelo) é a D4, pendente. A tela pt-BR o mostra como está, com `lang="en"` e
+  a marca "disponível só em inglês", a mesma regra de qualquer texto sem versão na
+  língua da página. Quando a D4 for decidida, uma versão em português entra como texto
+  localizado, sem mudar a tela.
+- **Regra 1 e D15 na tela.** Uma frase fixa no alto da tabela e de cada ficha diz que o
+  Astraea não afirma que país algum cometeu o crime; os testes conferem, em todas as
+  páginas e nas duas línguas, que a palavra só aparece como nome do crime ou nos rótulos
+  dos campos da Convenção e do direito interno, e que nenhum nome de robô aparece.
+- **O mapa coroplético ficou fora**: é a D13, pendente, e a tabela com filtros entrega a
+  mesma informação sem a decisão cartográfica.
+
 **Duas línguas desde o primeiro dia.** Toda rota existe em `/en/…` e em `/pt-br/…`,
 com o mesmo caminho depois do prefixo (`/en/countries/BRA`, `/pt-br/countries/BRA`): o
 caminho é identificador e não se traduz; o que muda é o texto. A raiz `/` é uma página
@@ -298,7 +359,7 @@ tabela abaixo são escritas sem o prefixo.
 | Tela | Rota | O que mostra | Dados |
 |---|---|---|---|
 | Início | `/en/`, `/pt-br/` | o que é o Astraea, três contadores (países com ratificação conferida, notícias nos últimos 30 dias, atos de tribunal no ano), as situações com status mais alto no último trimestre, "como citar" | `quality.json`, `situations.json` |
-| Leis penais do mundo | `/countries`, `/countries/<ISO>` | tabela com filtros (ratificou a Convenção? tipifica genocídio? pena de morte?), completude por campo, e a ficha do país com proveniência campo a campo; o mapa coroplético é SVG estático gerado no *build*, sem biblioteca | `countries.json` |
+| Leis penais do mundo | `/countries`, `/countries/<ISO>` | tabela com filtros (ratificou a Convenção? tipifica genocídio? pena de morte?), completude por campo, e a ficha do país com proveniência campo a campo (feitas na fase 2, sessão 3, com os filtros de Convenção, Estatuto e pena de morte; o de tipificação entra quando `domestic_genocide` tiver dado); o mapa coroplético, se a D13 o aprovar, é SVG estático gerado no *build*, sem biblioteca | `countries.json` |
 | Notícias | `/news` | últimos 90 dias, filtros por situação, língua, veículo, nível; gráfico de volume por semana e por língua; cada item com título original, língua, veículo, data, *link* e, se houver, tradução e resumo marcados | `news-recent.json`, `news-index.json` |
 | Decisões | `/decisions`, `/situations/<id>` | linha do tempo por situação com o status da taxonomia e o órgão; tabela de atos por tribunal; ficha da situação com os países, os status e os atos | `decisions.json`, `situations.json` |
 | Projeto | `/about/*` | metodologia, fontes (com confiança e termos), robôs, dados abertos, pessoas, como citar | `docs/` |

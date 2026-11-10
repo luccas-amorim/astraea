@@ -228,6 +228,9 @@ Taiwan, Saara Ocidental, Crimeia e Palestina viram decisão cartográfica, com
 reclamação garantida. A tabela com filtros entrega a mesma informação sem a
 disputa.
 
+**Enquanto pendente** (fase 2, sessão 3, 10/11/2026): a tela `/countries` saiu só com a
+tabela e os filtros, sem mapa.
+
 ## D14. Autoria e citação
 
 **Recomendo:** `CITATION.cff` com autoria pessoal (Luccas de Amorim) na fase 1, como

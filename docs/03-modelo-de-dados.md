@@ -258,6 +258,15 @@ confiança A e `checked_by: robot`:
 - **Leitura sem novidade não muda o arquivo.** Se os valores de um bloco são os mesmos,
   o bloco fica como estava, com o `read_on` antigo, para que o PR mensal mostre diff
   vazio. Bloco com `checked_by: human` nunca é tocado pelo robô.
+- **A leitura mensal** (`countries.yml`, desde a fase 2, sessão 3) roda as duas cargas,
+  a dos tratados e a da pena de morte, com `--execute`. Quando algum bloco muda, o PR do
+  robô traz também o derivado e uma entrada no `CHANGELOG.md` com o sha256 de cada
+  resposta lida: é esse registro que faz o novo `read_on` valer como carimbo `robot`
+  ("Confiança por registro"). Mês sem novidade não muda dado nem `CHANGELOG`; os sha256
+  ficam no corpo do PR e na mensagem do commit vazio. Gravar também uma linha
+  `confirmed` em `verification.json` a cada leitura sem novidade, para que o carimbo
+  diga a última leitura e não só a primeira, é escolha que continua aberta (fase 2,
+  sessão 1, "Escolhas a revisar"); não foi feita.
 - **Nomes.** O nome da UNTC casa letra por letra com `name.en` de `countries.json` ou
   está em `data/untc-names.json`, tabela feita à mão e conferida na tabela M49 da Divisão
   de Estatística da ONU (`unsd-m49`), que liga os nomes da ONU ao alfa-3. Nome que não
@@ -655,6 +664,7 @@ O contrato dos dados é em inglês e não se traduz. O que se traduz é o que se
 | **Nomes** de país e de situação | `name` por *locale* no registro | nome em inglês obrigatório; o de cada *locale* ativo, cobrado no relatório |
 | **Telas** | textos da interface em `site/i18n/<locale>.json` | uma versão por *locale* ativo; rotas iguais nas duas línguas (ver `04-arquitetura.md`) |
 | **Texto de terceiro** (título de notícia, nome do caso, título de código penal, `by` de status) | no registro, na língua original, com `language` | nunca traduzido no lugar; a tradução, se houver, vai para `title_translations` |
+| **Motivo de campo vazio** (`reason`) | no registro, em inglês, como dado (D8) | não tem versão por *locale*; a tela pt-BR o mostra como está, com `lang="en"` e a marca "disponível só em inglês" (`04-arquitetura.md`, "A tela de países"); uma versão em português, se vier, é texto nosso e segue a D4 |
 
 **Chave dos rótulos** (adotada em 09/11/2026, lista em `scripts/vocabularies.py`): o
 campo é rotulado pelo caminho dentro do registro, com ponto para bloco aninhado e sem

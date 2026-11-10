@@ -107,6 +107,11 @@ um valor sem rótulo em `pt-BR`.
    dono, à mão; o caminho está no `03` e **ainda não foi feita**.
 3. `countries.yml` mensal abrindo PR; tela `/countries` com tabela, filtros, completude e
    ficha com proveniência.
+   **Feito em 10/11/2026** (fase 2, sessão 3), com três escolhas registradas no `04`: o
+   Cornell entra no mesmo *workflow* mensal, e não num semanal próprio; os filtros são
+   CSS, sem JavaScript; o mapa coroplético fica fora até a D13. **Ainda não rodou no
+   GitHub**: a primeira execução depende do *push* e do *secret* `COUNTRIES_PR_TOKEN`
+   (passo a passo no `CHANGELOG.md`).
 4. Carga humana dos ~25 países das situações iniciais: `penal_code`,
    `domestic_genocide`, `max_penalty`, começando pelo Brasil (lido do AtlasPen).
 

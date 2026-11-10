@@ -3,6 +3,248 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-10 — Fase 2, sessão 3: `countries.yml` (leitura mensal por PR) e tela `/countries`
+
+Branch `fase2/countries`. Não havia resposta às "Escolhas a revisar" das sessões 3 e 4
+da fase 1 nem das sessões 1 e 2 da fase 2; elas continuam abertas, nas entradas
+daquelas sessões. **Nenhum dado mudou** nesta sessão: `data/` e `static/data/` estão
+como a sessão 2 os deixou.
+
+**O `countries.yml`** (`.github/workflows/countries.yml`), no dia 1 de cada mês às
+05:00 UTC (02:00 em Brasília) e também à mão:
+
+- Roda `scripts/countries_monthly.py --execute`, que chama as duas cargas
+  (`load_treaties.py` e `load_death_penalty.py`) com `--execute`; se
+  `data/countries.json` mudou, roda `transform.py --draft --execute` e acrescenta ao
+  `CHANGELOG.md` uma entrada "Leitura mensal dos países (robô)" com a saída das cargas:
+  os sha256, as linhas `new:`/`changed:`/`kept`/`left alone` e as contagens.
+- Roda a bateria da CI (`transform.py --draft --check`, `pytest`, `build_site.py`) e só
+  então abre o PR da branch `robot/countries` para a `main`, com o relatório no corpo.
+  **Nunca comita na `main`.** Se o PR do mês anterior ainda estiver aberto, ele é
+  atualizado, não duplicado.
+- **Mês sem novidade abre PR com commit vazio**: título "Leitura mensal dos países,
+  AAAA-MM-DD: sem novidade", diff vazio, e os sha256 no corpo e na mensagem do commit.
+- **Carga que falha abre issue, não PR**, com a saída e o que fazer, separado em três
+  casos: nome sem mapa, sentinela (a fonte respondeu outra coisa) e leitura (rede,
+  bloqueio). As duas cargas são independentes: se uma falha, a outra ainda dá o seu PR,
+  que avisa da falha. Validador que reprova os dados novos, ou bateria que falha, também
+  abre issue e nenhum PR.
+- Permissões: `contents`, `pull-requests` e `issues`, de escrita, e nada mais;
+  `concurrency: countries`, sem cancelar; `timeout-minutes: 60`, como no `04`. Versões
+  conferidas hoje nas páginas de *releases*: `actions/checkout` v7.0.1 e
+  `actions/setup-python` v7.1.0, as duas na linha `v7` que o `ci.yml` já usa. O PR e a
+  issue saem pelo `gh`, que já vem no *runner*: nenhuma *action* de terceiro recebe o
+  *token*. A issue usa sempre o `GITHUB_TOKEN`, para que um *token* pessoal vencido não
+  cale o aviso.
+- **O *workflow* não foi executado**: sem *push* não há como. O que dava para conferir
+  foi conferido: o *script* rodou pela rede, em simulação, e deu "sem novidade" com os
+  mesmos seis sha256 registrados nas sessões 1 e 2 (os dois XML da UNTC, 78.616 e
+  119.352 bytes, e as quatro listas do Cornell); e uma leitura de dezembro simulada no
+  próprio repositório (Japão movido para abolicionista numa cópia das listas) deixou a
+  bateria inteira verde, antes de ser desfeita com o git.
+
+**Decisão minha, como pedido: o Cornell entra no mensal**, e não num *workflow* semanal
+próprio, como o `04` previa. Três razões: (1) dois *workflows* escrevendo o mesmo
+`countries.json` e o mesmo derivado abririam PRs que entram em conflito um com o outro, e
+quem teria de resolver é você; (2) a classificação de pena de morte muda poucas vezes
+por ano, e a base do Cornell dá sinais de atraso (`02`, 1.5), então a leitura semanal
+traria mais PRs sem trazer dado mais novo; (3) a conferência de verdade é o anexo anual
+da Anistia. Quem quiser ler fora do dia 1 usa o botão *Run workflow*. Registrado no `04`.
+
+**Divergência do que você pediu, e por quê:** você pediu "diff vazio quando não houver
+novidade", e é o que acontece; mas **o mês com novidade traz, além dos dados, uma
+entrada no `CHANGELOG.md`**. O `03` diz que a leitura do robô só vale como carimbo
+`robot` com o sha256 da resposta registrado no `CHANGELOG`; sem a entrada, o PR mensal
+gravaria `read_on` novo sem o registro que o sustenta.
+
+**Correção que a leitura mensal exigia nos testes.** Os testes das duas cargas exigiam
+que as *fixtures* de 10/11 devolvessem exatamente o `countries.json` do repositório: o
+primeiro PR com novidade viria vermelho. Agora os testes da carga rodam sobre os
+registros como as *fixtures* os leem, e os de dados reais conferem que o repositório
+concorda com elas fora dos blocos lidos depois (`read_on` mais novo) ou carimbados por
+pessoa. Isso também deixa passar, sem mexer em teste, a sua carga do anexo da Anistia.
+A regra entrou no `AGENTS.md`.
+
+**A tela de países**, gerada pelo `build_site.py` no *build*, em `/en/` e `/pt-br/`:
+
+- `/countries/`: a frase da regra 1 ("O Astraea não diz se algum país cometeu o crime de
+  genocídio…"); a completude por campo (carimbados, em rascunho, vazios, para
+  `un_status` e os seis blocos, lida de `quality.json`) e "0 de 197 países com todos os
+  campos carimbados"; e a tabela dos 197 em ordem alfabética da língua, com situação na
+  ONU, Convenção, Estatuto, pena de morte e quantos dos 7 campos estão carimbados.
+- **Filtros sem JavaScript.** Três grupos (Convenção, Estatuto, pena de morte), cada
+  valor com a contagem ("parte (154)", "sem dado (2)"); escolher um valor em cada grupo
+  deixa os países que atendem aos três, e um contador diz quantos ficaram. É CSS puro
+  (botões de rádio e uma regra por botão); sem CSS, a tabela mostra os 197. O `04` dizia
+  que JavaScript entraria com o primeiro filtro: **divergência registrada lá**.
+- `/countries/<ISO>/`, as 197 fichas: nome, situação e data na ONU, e os seis blocos,
+  cada um com o seu estado (carimbado, rascunho, vazio), os valores com os rótulos de
+  `data/i18n/`, e **o carimbo item por item**: fonte, URL, data de leitura, confiança,
+  quem conferiu; item que falta aparece como "falta: ainda sem carimbo". Bloco vazio com
+  `reason` mostra o motivo; bloco que ainda não existe (`penal_code`,
+  `domestic_genocide`, `max_penalty`) diz "Ainda não carregado". Ao fim, as situações em
+  que o país aparece, com o papel e o status mais alto.
+- **O `reason` na tela pt-BR** (D4 pendente, não decidida): aparece em inglês, como está
+  no dado, com `lang="en"` e a marca "(disponível só em inglês)". Traduzi-lo seria
+  escrever texto nosso, e quem escreve texto nosso (pessoa ou modelo) é a D4. É a mesma
+  regra que o `04` já dava para qualquer texto sem versão na língua da página.
+- **Nenhum nome de robô** na tela (D15); "conferido por: robô" é o valor de
+  `checked_by`, não um nome.
+- **O mapa coroplético ficou fora**: é a D13, pendente. A tabela com filtros dá a mesma
+  informação sem a decisão cartográfica.
+- A página inicial ganhou o *link* "Os 197 países, campo a campo" e a nota dos países foi
+  atualizada (os tratados e a pena de morte já vêm das fontes). As três telas dividem um
+  *layout* (`site/templates/layout.html`) com a seção "Países" no cabeçalho.
+
+**Código:** `.github/workflows/countries.yml` e `scripts/countries_monthly.py` (novos);
+`scripts/build_site.py` reescrito em volta do *layout*; `site/templates/layout.html`,
+`countries.html` e `country.html` (novos), `home.html` virou só o conteúdo;
+`site/i18n/en.json` e `pt-BR.json` com os textos novos; `site/assets/style.css`.
+
+**Testes:** 346 passam (eram 297). Novos: `tests/test_countries_monthly.py` (22: mês sem
+novidade e com novidade, nome sem mapa, sentinela nas duas cargas, validador que
+reprova, simulação, o que cada falha quer dizer, a entrada do `CHANGELOG`, o limite do
+corpo do PR; do *workflow*, sem *push*: cron, limites, `concurrency`, permissões, as
+mesmas versões do `ci.yml`, que só empurra para `robot/countries`, que propõe só depois
+da bateria, que a issue não depende do *token* pessoal, e que todo `run` é *shell*
+válido pelo `bash -n`); `tests/test_build_site.py` (de 17 para 42: dois países inventados
+cobrem carimbado, rascunho, vazio com motivo, não carregado, nota só em português e
+título em língua original; filtros sem JavaScript; contagens; proveniência; as duas
+línguas; e, sobre os dados reais, as 197 fichas, as contagens dos filtros contra os
+dados, a completude contra `quality.json`, cada carimbo e cada motivo nas fichas, a
+palavra só como nome do crime ou nos rótulos da Convenção e do direito interno, em todas
+as páginas, e nenhum nome de robô).
+
+**Bateria:** 346 testes passam; `ruff check` e `ruff format --check` limpos; `astraea
+validate-lexicon data/lexicon/*.json` valida os cinco; `python scripts/transform.py
+--draft --check` passa; `python scripts/build_site.py` simula 406 arquivos (a página
+inicial, `/countries/` e as 197 fichas, em cada língua). **`--strict` reprova, de
+propósito, só pelos mesmos 9 status em rascunho** (travas 3 e 6). `config/` ainda não
+existe.
+
+**O que as mensagens novas dizem:**
+
+- No terminal, `--- outcome: pull request yes, issue no, data changed no`: o que o
+  *workflow* faria. Sem `--execute`, o *script* mostra o título e o corpo do PR (ou da
+  issue) e não grava nada.
+- No GitHub, **PR "Leitura mensal dos países, 2026-12-01: sem novidade"**: nada mudou nas
+  fontes. **PR "Leitura mensal dos países, 2026-12-01"** (sem o "sem novidade"): há
+  linhas `new:` ou `changed:` no corpo, e a aba *Files changed* mostra cada uma.
+- **Issue "Leitura mensal dos países falhou (2026-12-01): pena de morte"** (ou
+  "tratados", ou "validação"): o corpo começa por **Nome sem mapa**, **Sentinela** ou
+  **Leitura**, e diz o que fazer em cada caso.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **O Cornell no mensal** (acima). Se preferir o semanal, é um segundo *cron* no mesmo
+  *workflow*, que só faria sentido com a carga dos tratados desligada nele.
+- **Mês sem novidade abre PR** (com commit vazio). A alternativa é não abrir nada e
+  deixar o relatório só no resumo da execução, que o GitHub apaga em 90 dias; o PR
+  também mantém o *cron* vivo (60 dias sem atividade o desligam, `04`).
+- **O PR com novidade traz a entrada do `CHANGELOG`** (acima).
+- **`read_on` continua mudando só quando o valor muda**; a linha `confirmed` em
+  `verification.json` a cada leitura sem novidade, que a sessão 1 da fase 2 deixou para
+  esta, não foi feita, porque é escolha sua e ainda não tem resposta. É uma função no
+  `countries_monthly.py`.
+- **A tela mostra a fonte pelo `id`** (`untc`, `cornell-dpw`) e a URL, não pelo nome
+  longo: o nome está em `data/sources.json`, que não é derivado, e o site só lê o
+  derivado. Se quiser o nome, o `transform.py` pode publicar as fontes em
+  `static/data/` (o que a tela `/about` vai pedir de qualquer jeito).
+- **O título da citação** continua em português nas duas línguas (sessão 4 da fase 1).
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
+   O *push* também publica a tela de países: o `deploy.yml` roda sozinho, porque a
+   mudança toca `site/` e `scripts/build_site.py`.
+2. **Criar o *token* do PR mensal** (uma vez; recomendado, para que a CI rode no PR):
+   1. No GitHub, clique na sua foto (canto superior direito) → **Settings** →
+      **Developer settings** (último item do menu da esquerda) → **Personal access
+      tokens** → **Fine-grained tokens** → **Generate new token**. O GitHub pode pedir a
+      senha ou o código de dois fatores de novo: é esperado.
+   2. **Token name**: `astraea countries`. **Expiration**: o maior prazo que a página
+      oferecer; anote a data no seu calendário, porque o *token* vence.
+   3. **Repository access** → **Only select repositories** → `astraea`.
+   4. **Permissions** → **Repository permissions**: **Contents**, **Issues** e **Pull
+      requests**, cada um em **Read and write**. (*Metadata* fica em *Read-only* sozinho;
+      não mexa no resto.)
+   5. **Generate token** e copie o valor que começa com `github_pat_`. Ele só aparece
+      uma vez; não o cole em lugar nenhum além do passo seguinte.
+   6. No repositório: **Settings** → **Secrets and variables** → **Actions** → **New
+      repository secret**. **Name**: `COUNTRIES_PR_TOKEN`; **Secret**: cole o valor;
+      **Add secret**.
+
+   **Sem o *token*** também funciona, com uma diferença: o PR chega sem a CI rodar nele
+   (a bateria roda dentro do próprio *workflow*, antes de propor). Para isso, ligue em
+   **Settings → Actions → General → Workflow permissions** a opção **Allow GitHub
+   Actions to create and approve pull requests** e salve. Sem o *token* e sem essa
+   opção, a execução falha no passo do PR e abre uma issue dizendo isso.
+3. **Rodar a primeira vez, sem esperar o dia 1.** Aba **Actions** → **Countries** (na
+   lista da esquerda) → **Run workflow** → deixe *Branch: main* → **Run workflow**. O
+   botão só aparece depois do *push*. Leva uns 2 a 3 minutos. Bolinha verde: deu certo.
+4. **Ver o PR mensal.** Aba **Pull requests**. Deve haver um "Leitura mensal dos países,
+   AAAA-MM-DD: sem novidade" (as fontes não mudaram desde hoje).
+   - **Sem novidade:** não há o que conferir. Clique em **Merge pull request** →
+     **Confirm merge** (guarda a leitura no histórico e mantém o agendamento vivo), ou
+     **Close pull request**, se preferir não guardar.
+   - **Com novidade:** abra **Files changed** e leia as mudanças de
+     `data/countries.json`; cada uma corresponde a uma linha `new:` ou `changed:` do
+     corpo. Se quiser, abra o `url` do bloco na fonte. Espere a bolinha da CI ficar verde
+     (com o *token*) e clique em **Merge pull request**. Depois, no seu computador:
+
+     ```powershell
+     git pull
+     ```
+
+   - Se o PR disser **This branch has conflicts**, não tente resolver: clique em **Close
+     pull request** e rode o *workflow* de novo (passo 3). O robô relê as fontes a
+     partir da `main` de agora.
+   - O GitHub manda *e-mail* quando o PR ou a issue abrem, se você "assiste" ao
+     repositório (o dono assiste por padrão).
+5. **Quando ele abrir issue.** Aba **Issues**. O título diz qual carga falhou; o corpo
+   começa por um destes:
+   - **Nome sem mapa**: a fonte trouxe um nome de país novo ou mudado. Confira o nome na
+     tabela M49 da ONU, acrescente a linha em `data/untc-names.json` (tratados) ou
+     `data/cornell-names.json` (pena de morte), como as linhas que já estão lá, faça o
+     commit com `Closes #N` na mensagem (N é o número da issue) e rode o *workflow* de
+     novo. Se preferir, traga a issue para uma sessão.
+   - **Sentinela**: a fonte respondeu outra coisa (página de erro, arquivo pela metade,
+     formato novo). Abra a página da fonte no navegador. Se for instabilidade, rode de
+     novo outro dia; se a forma mudou, é trabalho de sessão.
+   - **Leitura**: a fonte não respondeu ou bloqueou. Rode de novo outro dia. Bloqueio
+     **não se contorna** (regra 7): se persistir, leve à próxima sessão.
+   - **Passo do workflow** com "Bad credentials" ou "401": o *token* venceu. Refaça o
+     passo 2 (gere outro e troque o valor do *secret* `COUNTRIES_PR_TOKEN` em **Update
+     secret**).
+
+   Resolvido, feche a issue: `Closes #N` no commit da correção, ou **Close issue** com um
+   comentário dizendo por quê.
+6. **Ver a tela antes do *push*** (opcional):
+
+   ```powershell
+   python scripts\build_site.py --execute
+   python -m http.server 8000 --directory _site
+   ```
+
+   Abra http://localhost:8000/pt-br/countries/ no navegador, experimente os filtros e
+   clique num país. Feche o servidor com Ctrl+C no PowerShell. O Windows pode perguntar,
+   numa janela do "Firewall do Windows Defender", se o Python pode usar a rede:
+   "Cancelar" basta, porque o endereço é local.
+7. **Ver o que o PR mensal diria, sem gravar nada** (lê as fontes pela internet, uns 40
+   segundos):
+
+   ```powershell
+   python scripts\countries_monthly.py
+   ```
+
+   Deve terminar com o título "… sem novidade" e `simulation: nothing was written`.
+
 ## 2026-11-10 — Fase 2, sessão 2: pena de morte (Cornell pelo `listing`; caminho da Anistia)
 
 Branch `fase2/pena-de-morte`. Não havia resposta às "Escolhas a revisar" das sessões 3 e

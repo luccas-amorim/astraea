@@ -75,3 +75,60 @@ footer { margin: 3rem auto 2rem; color: var(--muted); font-size: 0.9rem; }
 .root { text-align: center; padding-top: 4rem; }
 .languages { list-style: none; padding: 0; font-size: 1.25rem; }
 .languages li { margin: 0.5rem 0; }
+
+/* Header sections */
+.top .sections { flex: 1; }
+.top .sections a { margin-left: 0.5rem; }
+.top .sections [aria-current], .top .sections .current { font-weight: 600; }
+
+/* Countries: wide pages, tables, filters without JavaScript */
+.wrap.wide { max-width: 72rem; }
+.rule { border-left: 3px solid var(--accent); padding: 0.25rem 0.75rem; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+caption { text-align: left; color: var(--muted); font-size: 0.9rem; padding: 0.25rem 0; }
+.completeness td { font-variant-numeric: tabular-nums; }
+.countries .code { color: var(--muted); font-size: 0.8rem; }
+.countries td.empty { color: var(--muted); font-style: italic; }
+.countries td.done { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.list { counter-reset: shown; }
+.countries tbody tr { counter-increment: shown; }
+.shown .n::before { content: counter(shown); font-weight: 600; }
+
+.filter { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.filters { margin: 0.5rem 0 1rem; }
+.filters .group { margin: 0.5rem 0; }
+.filters .legend { font-weight: 600; margin: 0 0 0.25rem; font-size: 0.95rem; }
+.filters label {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  margin: 0 0.25rem 0.35rem 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Country record */
+.crumbs { margin: 1.5rem 0 0; }
+.block h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; }
+.state { font-size: 0.75rem; font-weight: 500; border-radius: 4px; padding: 0 6px; border: 1px solid var(--line); }
+.state.draft { color: var(--draft); background: var(--draft-bg); }
+.state.empty { color: var(--muted); }
+.fields, .provenance { display: grid; grid-template-columns: minmax(8rem, 14rem) 1fr; gap: 0.15rem 1rem; margin: 0.5rem 0; }
+.fields > div, .provenance > div { display: contents; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.provenance { font-size: 0.9rem; border-left: 3px solid var(--line); padding-left: 0.75rem; }
+h3.sub { font-size: 0.95rem; margin: 1rem 0 0.25rem; color: var(--muted); }
+.reason, .none { color: var(--muted); }
+.scalar-value { margin-bottom: 0.25rem; }
+.role { color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 40rem) {
+  .fields, .provenance { grid-template-columns: 1fr; }
+  dd { margin-bottom: 0.35rem; }
+}

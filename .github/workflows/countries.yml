@@ -1,0 +1,126 @@
+# Countries: the monthly reading of the treaties (UN Treaty Collection) and of the death
+# penalty (Cornell lists). Never commits to main: it opens a pull request, and the pull
+# request is the review (docs/04-arquitetura.md, "Agendamentos").
+#
+# - Both loads run with --execute; when data/countries.json changes, so do the derived
+#   data (transform.py --draft --execute) and a CHANGELOG.md entry with the sha256 of each
+#   response. scripts/countries_monthly.py does all of that and writes the texts below.
+# - A month without news gives a pull request with an empty commit: the body and the
+#   commit message carry the sha256, and data/ shows an empty diff.
+# - A load that fails (sentinel, name without a map, network) opens an issue, not a pull
+#   request; the other load still gives its pull request. A transform that fails, or a
+#   battery that fails, opens an issue and no pull request.
+# - The pull request always comes from the branch robot/countries, rewritten from main at
+#   each run: an unmerged pull request is updated, never duplicated.
+#
+# Token: the secret COUNTRIES_PR_TOKEN (a fine-grained personal access token limited to
+# this repository: Contents, Pull requests and Issues, read and write), so that the pull
+# request triggers the CI (a push or pull request made with GITHUB_TOKEN does not trigger
+# other workflows). Without the secret it falls back to GITHUB_TOKEN, which needs
+# Settings -> Actions -> General -> "Allow GitHub Actions to create and approve pull
+# requests"; the pull request then opens without CI, and the battery below is what ran.
+name: Countries
+
+on:
+  schedule:
+    - cron: "0 5 1 * *" # day 1, 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: countries
+  cancel-in-progress: false
+
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ secrets.COUNTRIES_PR_TOKEN || github.token }}
+      REPORT: ${{ runner.temp }}/report
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.COUNTRIES_PR_TOKEN || github.token }}
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Read the sources
+        id: read
+        run: python scripts/countries_monthly.py --execute --report-dir "$REPORT"
+
+      # The battery of the CI on what the pull request would carry: a pull request
+      # that the CI would fail is never opened.
+      - name: Battery
+        id: battery
+        if: steps.read.outputs.pr == 'yes'
+        run: |
+          python scripts/transform.py --draft --check
+          python -m pytest -q
+          python scripts/build_site.py --out "$RUNNER_TEMP/site"
+
+      - name: Open or update the pull request
+        id: pr
+        if: steps.read.outputs.pr == 'yes'
+        run: |
+          git config user.name "astraea-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C robot/countries
+          git add data/countries.json static/data CHANGELOG.md
+          git commit --allow-empty --file "$REPORT/commit-message.txt"
+          git push --force origin robot/countries
+          title="$(cat "$REPORT/pr-title.txt")"
+          number="$(gh pr list --head robot/countries --state open --json number --jq '.[0].number')"
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --title "$title" --body-file "$REPORT/pr-body.md"
+            echo "Pull request #$number updated" >> "$GITHUB_STEP_SUMMARY"
+          else
+            gh pr create --base main --head robot/countries --title "$title" \
+              --body-file "$REPORT/pr-body.md"
+            echo "Pull request opened: $title" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Always with GITHUB_TOKEN: an issue needs no CI, and an expired personal token
+      # (the usual reason for a failed checkout) must not silence the warning.
+      - name: Open an issue
+        if: failure() || steps.read.outputs.issue == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STEPS_FAILED: >-
+            ${{ steps.read.outcome == 'failure' || steps.battery.outcome == 'failure'
+            || steps.pr.outcome == 'failure' }}
+        run: |
+          title="Leitura mensal dos países falhou ($(date -u +%F)): passo do workflow"
+          : > "$RUNNER_TEMP/issue.md"
+          if [ -f "$REPORT/issue-body.md" ]; then
+            title="$(cat "$REPORT/issue-title.txt")"
+            cat "$REPORT/issue-body.md" >> "$RUNNER_TEMP/issue.md"
+          fi
+          if [ "$STEPS_FAILED" = "true" ]; then
+            {
+              echo
+              echo "### Passo do workflow"
+              echo
+              echo "A execução $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+              echo "falhou num passo (o checkout, a leitura, a bateria ou a abertura do PR). Nenhum"
+              echo "PR foi aberto ou atualizado, e nada foi gravado na \`main\`. Abra o link, clique"
+              echo "no passo com ✗ e leia a mensagem. Se o passo for o checkout ou a abertura do PR"
+              echo "com \"Bad credentials\" ou \"401\", o *token* \`COUNTRIES_PR_TOKEN\` venceu: gere outro"
+              echo "e troque o *secret*. Depois rode de novo em **Actions → Countries → Run"
+              echo "workflow** e feche esta issue."
+            } >> "$RUNNER_TEMP/issue.md"
+          fi
+          gh issue create --title "$title" --body-file "$RUNNER_TEMP/issue.md"
+          echo "Issue opened: $title" >> "$GITHUB_STEP_SUMMARY"

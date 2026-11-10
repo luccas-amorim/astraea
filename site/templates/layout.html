@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="$lang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$title</title>
+<meta name="description" content="$description">
+$alternates
+<link rel="stylesheet" href="${up}assets/style.css">
+$head_extra
+</head>
+<body>
+<a class="skip" href="#content">$skip_to_content</a>
+<header class="top">
+  <div class="wrap">
+    <p class="brand"><a href="${up}$route/">$site_name</a></p>
+    <nav class="sections" aria-label="$sections_label"><a href="${up}$route/countries/"$countries_current>$nav_countries</a></nav>
+    <nav class="languages-switch" aria-label="$language_switch">$language_links</nav>
+  </div>
+</header>
+<main id="content" class="$main_class">
+$content
+</main>
+<footer class="wrap">
+  <p>$footer_licence <a href="$repository">$footer_code</a></p>
+</footer>
+</body>
+</html>

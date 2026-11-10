@@ -1,8 +1,12 @@
 """The Tabelião's load (scripts/load_treaties.py) and the treaty blocks in data/.
 
-The load is pure (`plan`): tables in, records out. The real-data tests check that the
-fixtures, which parse as the files downloaded on 2026-11-10, give back exactly the
-countries.json in the repository, and that the counts agree with the Status block.
+The load is pure (`plan`): tables in, records out. The fixtures parse as the files
+downloaded on 2026-11-10; the load tests run on the records as those fixtures read them
+(`countries`), not on the repository, which the monthly reading (countries.yml) may have
+moved on since. The real-data tests check that the repository agrees with the fixtures
+except in the blocks read later or checked by a person, that every block is stamped or
+empty with a reason, and that the counts read from the fixtures agree with the Status
+block.
 """
 
 from __future__ import annotations
@@ -24,6 +28,7 @@ import vocabularies as voc  # noqa: E402
 from astraea.sources.listing import parse_untc_treaty  # noqa: E402
 
 READ_ON = "2026-11-10"
+BLOCKS = ("genocide_convention", "rome_statute")
 FIXTURES = ROOT / "tests" / "fixtures" / "untc"
 
 
@@ -37,8 +42,14 @@ def tables():
 
 
 @pytest.fixture(scope="module")
-def countries():
+def repository():
     return load("countries.json")
+
+
+@pytest.fixture(scope="module")
+def countries(repository, tables, names):
+    """The records as the fixtures read them: the repository with both blocks read again."""
+    return lt.plan(bare(repository), tables, names, READ_ON)[0]
 
 
 @pytest.fixture(scope="module")
@@ -59,16 +70,34 @@ def by_id(records):
     return {c["id"]: c for c in records}
 
 
+def later(block) -> bool:
+    """A block a later reading or a person wrote: it may differ from the fixtures."""
+    return isinstance(block, dict) and (
+        block.get("checked_by") == "human" or (block.get("read_on") or "") > READ_ON
+    )
+
+
 # ------------------------------------------------------------------ the load
 
 
-def test_the_fixtures_give_back_the_countries_in_the_repository(tables, countries, names):
+def test_the_fixtures_read_twice_change_nothing(tables, countries, names):
     new, report = lt.plan(countries, tables, names, READ_ON)
     assert report == []
     assert new == countries
     first, report = lt.plan(bare(countries), tables, names, READ_ON)
     assert first == countries
     assert len(report) == 2 * 197
+
+
+def test_the_repository_agrees_with_the_fixtures_but_for_later_readings(repository, countries):
+    assert [c["id"] for c in repository] == [c["id"] for c in countries]
+    for old, new in zip(repository, countries, strict=True):
+        assert {k: v for k, v in old.items() if k not in BLOCKS} == {
+            k: v for k, v in new.items() if k not in BLOCKS
+        }, old["id"]
+        for name in BLOCKS:
+            if old[name] != new[name]:
+                assert later(old[name]), (old["id"], name)
 
 
 def test_a_name_without_a_map_stops_the_load(tables, countries, names):
@@ -111,20 +140,18 @@ def test_a_change_is_reported_field_by_field(tables, countries, names):
     assert by_id(new)["HUN"]["rome_statute"]["read_on"] == "2026-12-01"
 
 
-def test_simulation_writes_nothing(tmp_path, capsys):
+def test_simulation_writes_nothing(tmp_path, capsys, countries):
     data = tmp_path / "data"
     data.mkdir()
-    for name in ("countries.json", "untc-names.json"):
-        (data / name).write_bytes((DATA / name).read_bytes())
-    countries = bare(load("countries.json"))
-    (data / "countries.json").write_text(lt.dumps(countries), encoding="utf-8", newline="\n")
+    (data / "untc-names.json").write_bytes((DATA / "untc-names.json").read_bytes())
+    (data / "countries.json").write_text(lt.dumps(bare(countries)), encoding="utf-8", newline="\n")
     before = (data / "countries.json").read_bytes()
     args = ["--xml-dir", str(FIXTURES), "--read-on", READ_ON, "--data", str(data)]
     assert lt.main(args) == 0
     assert (data / "countries.json").read_bytes() == before
     assert "would write" in capsys.readouterr().out
     assert lt.main([*args, "--execute"]) == 0
-    assert (data / "countries.json").read_bytes() == (DATA / "countries.json").read_bytes()
+    assert (data / "countries.json").read_text(encoding="utf-8") == lt.dumps(countries)
     assert lt.main(["--xml-dir", str(FIXTURES), "--data", str(data)]) == 2  # no --read-on
 
 
@@ -146,17 +173,22 @@ def test_a_failed_reading_writes_nothing(tmp_path, capsys):
 # ------------------------------------------------------------------ the real data
 
 
-def test_every_record_has_both_blocks_stamped_or_empty_with_a_reason(countries):
-    for c in countries:
-        for name in ("genocide_convention", "rome_statute"):
+def test_every_record_has_both_blocks_stamped_or_empty_with_a_reason(repository):
+    """In the repository as it is: a later reading moves read_on; a person may stamp."""
+    for c in repository:
+        for name in BLOCKS:
             block = c[name]
             if "participation" not in block:
                 assert set(block) == {"reason"} and block["reason"], (c["id"], name)
                 continue
+            assert all(block.get(k) for k in voc.STAMP_FIELDS), (c["id"], name)
+            assert block["read_on"] >= READ_ON, (c["id"], name)
+            if block["checked_by"] == "human":
+                continue  # a person's block: its own source and url (rule 3)
             assert {k: block[k] for k in voc.STAMP_FIELDS} == {
                 "url": block["url"],
                 "source": "untc",
-                "read_on": READ_ON,
+                "read_on": block["read_on"],
                 "confidence": "A",
                 "checked_by": "robot",
             }, (c["id"], name)
