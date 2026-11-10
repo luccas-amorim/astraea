@@ -98,6 +98,13 @@ um valor sem rótulo em `pt-BR`.
    *fixtures* são os XML de 10/11/2026 sem a prosa do depositário (regra 2).
 2. **Pena de morte:** adaptador `listing` sobre o espelho do Cornell; carga do anexo da
    Anistia 2024 à mão (status por país, com citação).
+   **Feito em 10/11/2026** (fase 2, sessão 2), a parte do robô: formato
+   `cornell_dpw_status` e `scripts/load_death_penalty.py`, com 130 países carimbados e 67
+   vazios com `reason`. Duas correções: a tabela não está no HTML do espelho, e sim numa
+   base em outro servidor, que a legenda do mapa consulta (`02-fontes.md`, 1.5); e só três
+   das quatro categorias do Cornell correspondem às da Anistia, então os 45 países *de
+   facto* esperam o anexo (`03-modelo-de-dados.md`). A carga do anexo da Anistia é do
+   dono, à mão; o caminho está no `03` e **ainda não foi feita**.
 3. `countries.yml` mensal abrindo PR; tela `/countries` com tabela, filtros, completude e
    ficha com proveniência.
 4. Carga humana dos ~25 países das situações iniciais: `penal_code`,
