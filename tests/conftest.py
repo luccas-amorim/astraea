@@ -13,7 +13,8 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 
 class Network:
-    """Fake transport: answers by exact URL (without query) from fixtures."""
+    """Fake transport: answers by exact URL from fixtures. A route registered with a query
+    answers only that query; one registered without, any query on that path."""
 
     def __init__(self) -> None:
         self.routes: dict[str, list[Response]] = {}
@@ -34,7 +35,7 @@ class Network:
 
     def __call__(self, req: Request, timeout: float) -> Response:
         self.requests.append(req)
-        url = req.url.split("?")[0]
+        url = req.url if req.url in self.routes else req.url.split("?")[0]
         if url not in self.routes:
             return Response(404, req.url, b"not found", {})
         queue = self.routes[url]

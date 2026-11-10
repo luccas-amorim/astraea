@@ -295,7 +295,7 @@ def read_tables(xml_dir: Path | None) -> tuple[dict[str, Table], list[str]]:
         else:
             listing = Listing(f"listing:untc-{treaty.chapter.lower()}", BASE + treaty.path,
                               "untc_treaty", client)  # fmt: skip
-            table, response = listing.read()
+            table, (response,) = listing.read()
             raw = response.body
         tables[treaty.block] = table
         lines.append(

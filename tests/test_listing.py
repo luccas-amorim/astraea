@@ -1,9 +1,12 @@
-"""The listing adapter and its first format, the per-treaty XML of the UNTC.
+"""The listing adapter and its formats: the per-treaty XML of the UNTC and the four
+death penalty lists of the Cornell Center.
 
 Everything runs without network: the two fixtures in tests/fixtures/untc/ are the files
 the engine downloaded on 2026-11-10, with the depositary's prose replaced by markers
-(scripts/trim_untc_fixtures.py; the sha256 of the originals is in CHANGELOG.md). The
-small XML files written here imitate the same structure for the failure cases.
+(scripts/trim_untc_fixtures.py; the sha256 of the originals is in CHANGELOG.md); the
+four in tests/fixtures/cornell/ are the API responses of the same day, byte for byte
+(names and ISO codes, no prose). The small files written here imitate the same
+structures for the failure cases.
 """
 
 from __future__ import annotations
@@ -16,12 +19,15 @@ from astraea import sources
 from astraea.engine.contract import Source
 from astraea.engine.http import Client
 from astraea.sources.listing import (
+    CORNELL_CATEGORIES,
     FORMATS,
+    PARTED_FORMATS,
     Listing,
     TableError,
     articles,
     clean,
     decode_xml,
+    parse_cornell_dpw_status,
     parse_untc_treaty,
     untc_date,
 )
@@ -130,6 +136,7 @@ def test_listing_fulfils_the_contract_and_is_built_from_a_configuration(network)
     with pytest.raises(ValueError, match="unknown listing format"):
         Listing("listing:x", URL, "csv", Client(30, transport=network))
     assert set(FORMATS) == {"untc_treaty"}
+    assert set(PARTED_FORMATS) == {"cornell_dpw_status"}
 
 
 def test_list_reads_the_table_once_obeying_robots(network, fixtures):
@@ -274,3 +281,113 @@ def test_articles_as_written():
     assert articles(["articles VIII and IX", "Ad article XII:"]) == ["VIII", "IX", "XII"]
     assert articles(["article 87 (1) of the Statute"]) == ["87"]
     assert articles(["The Government of IX"]) == []
+
+
+# ------------------------------------------------------------------ format: Cornell lists
+
+DPW = "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1"
+DPW_ROBOTS = "https://cornell-dpw.herokuapp.com/robots.txt"
+DPW_FILES = {
+    "Abolitionist": "abolitionist.json",
+    "Abolitionist For Ordinary Crimes": "abolitionist-for-ordinary-crimes.json",
+    "Abolitionist de facto": "abolitionist-de-facto.json",
+    "Retentionist": "retentionist.json",
+}
+
+
+def dpw_parts(fixtures, **override):
+    parts = {c: (fixtures / "cornell" / f).read_bytes() for c, f in DPW_FILES.items()}
+    return parts | {CORNELL_CATEGORIES[int(k[1:])]: v for k, v in override.items()}
+
+
+def test_the_four_cornell_lists_as_read_on_2026_11_10(fixtures):
+    table = parse_cornell_dpw_status(dpw_parts(fixtures))
+    assert table.meta["counts"] == {
+        "Abolitionist": 95,
+        "Abolitionist For Ordinary Crimes": 6,
+        "Abolitionist de facto": 45,
+        "Retentionist": 35,
+    }
+    assert table.sentinel == (
+        "4 lists (95 Abolitionist, 6 Abolitionist For Ordinary Crimes, 45 Abolitionist de "
+        "facto, 35 Retentionist); each one whole, no name in two"
+    )
+    assert len(table.rows) == 181
+    assert dict(table.row("Brazil").cells) == {
+        "category": "Abolitionist For Ordinary Crimes",
+        "iso_code": "BR",
+    }
+    assert table.row("Northern Cyprus").cells["iso_code"] is None
+    assert table.row("Kosovo").cells == {"category": "Abolitionist", "iso_code": "XK"}
+
+
+def test_the_cornell_sentinel_refuses_what_is_not_the_whole_table(fixtures):
+    parts = dpw_parts(fixtures)
+    with pytest.raises(TableError, match=r"did not come: missing \['Retentionist'\]"):
+        parse_cornell_dpw_status({k: v for k, v in parts.items() if k != "Retentionist"})
+    with pytest.raises(TableError, match="Retentionist: an empty list"):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c3=b"[]"))
+    with pytest.raises(TableError, match="not a JSON document"):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c0=b"<html>Application error</html>"))
+    with pytest.raises(TableError, match="not a JSON document"):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c0=parts["Abolitionist"][:1000]))
+    with pytest.raises(TableError, match="not a JSON list"):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c1=b'{"statusCode": 400}'))
+
+
+def test_a_cornell_item_of_unknown_shape_is_never_guessed(fixtures):
+    extra = b'[{"displayName": "Aland", "isoCode": "AX", "status": "x"}]'
+    with pytest.raises(TableError, match="unknown shape"):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c1=extra))
+    with pytest.raises(TableError, match="without a name"):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c1=b'[{"displayName": " ", "isoCode": null}]'))
+    with pytest.raises(TableError, match="isoCode of unknown shape"):
+        parse_cornell_dpw_status(
+            dpw_parts(fixtures, c1=b'[{"displayName": "Aland", "isoCode": "ALA"}]')
+        )
+
+
+def test_a_name_in_two_cornell_lists_stops_the_reading(fixtures):
+    twice = b'[{"displayName": "Brazil", "isoCode": "BR"}]'
+    with pytest.raises(
+        TableError,
+        match="'Brazil' is in 'Abolitionist For Ordinary Crimes' and again in 'Retentionist'",
+    ):
+        parse_cornell_dpw_status(dpw_parts(fixtures, c3=twice))
+
+
+def test_the_parted_listing_reads_the_four_lists_obeying_robots(network, fixtures):
+    network.answer(DPW_ROBOTS, "", status=404)
+    urls = PARTED_FORMATS["cornell_dpw_status"].urls(DPW)
+    assert urls["Abolitionist For Ordinary Crimes"] == (
+        DPW + "?lawStatus=Abolitionist%20For%20Ordinary%20Crimes"
+    )
+    for category, file in DPW_FILES.items():
+        network.answer(urls[category], fixtures / "cornell" / file)
+    listing = Listing(
+        "listing:cornell-dpw", DPW, "cornell_dpw_status", Client(10, transport=network)
+    )
+    assert listing.urls() == urls
+    table, responses = listing.read()
+    assert network.urls() == [DPW_ROBOTS, *urls.values()]
+    assert len(responses) == 4 and len(table.rows) == 181
+    refs = list(listing.list(date(2026, 1, 1)))
+    assert len(refs) == 181
+    doc = listing.fetch(next(r for r in refs if r.title == "Brazil"))
+    assert listing.sentinel(doc)
+    assert "category: Abolitionist For Ordinary Crimes" in doc.text
+
+
+def test_a_failed_part_stops_the_parted_listing(network, fixtures):
+    from astraea.engine.http import FetchError
+
+    network.answer(DPW_ROBOTS, "", status=404)
+    urls = PARTED_FORMATS["cornell_dpw_status"].urls(DPW)
+    for category, file in DPW_FILES.items():
+        if category != "Retentionist":
+            network.answer(urls[category], fixtures / "cornell" / file)
+    listing = Listing(
+        "listing:cornell-dpw", DPW, "cornell_dpw_status", Client(10, transport=network)
+    )
+    with pytest.raises(FetchError, match="HTTP 404"):
+        listing.read()
