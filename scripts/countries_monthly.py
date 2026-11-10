@@ -94,8 +94,9 @@ def count(output: str) -> dict[str, int]:
 
 
 def run_url() -> str:
-    server, repo, run = (os.environ.get(k) for k in ("GITHUB_SERVER_URL", "GITHUB_REPOSITORY",
-                                                     "GITHUB_RUN_ID"))  # fmt: skip
+    server, repo, run = (
+        os.environ.get(k) for k in ("GITHUB_SERVER_URL", "GITHUB_REPOSITORY", "GITHUB_RUN_ID")
+    )
     return f"{server}/{repo}/actions/runs/{run}" if server and repo and run else ""
 
 
