@@ -1,0 +1,213 @@
+{
+  "id": "astraea-fixed-en",
+  "version": "2026-11-10",
+  "description": "Fixed terms in English, maintained by hand. With the terms of data/situations.json they make data/lexicon/en.json (scripts/build_lexicon.py).",
+  "terms": [
+    {
+      "key": "genocide",
+      "forms": [
+        "genocide",
+        "genocides",
+        "genocidal"
+      ],
+      "exclusions": [
+        "cultural genocide",
+        "genocide route",
+        "genocide run",
+        "Genocide Organ"
+      ],
+      "categories": [
+        "qualification"
+      ],
+      "weight": 3.0,
+      "note": "Exclusions: cultural genocide is not in the 1948 Convention; the others are titles and jargon of games and fiction."
+    },
+    {
+      "key": "genocide-convention",
+      "forms": [
+        "Genocide Convention",
+        "Convention on the Prevention and Punishment of the Crime of Genocide",
+        "1948 Convention … genocide",
+        "Convention of 1948 … genocide"
+      ],
+      "categories": [
+        "instrument"
+      ],
+      "weight": 2.0
+    },
+    {
+      "key": "intent-to-destroy",
+      "forms": [
+        "intent to destroy",
+        "intention to destroy",
+        "genocidal intent",
+        "dolus specialis"
+      ],
+      "categories": [
+        "qualification"
+      ],
+      "weight": 2.0
+    },
+    {
+      "key": "icj",
+      "forms": [
+        "International Court of Justice",
+        "ICJ",
+        "World Court"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "icc",
+      "forms": [
+        "International Criminal Court",
+        "ICC Prosecutor",
+        "ICC judges",
+        "ICC arrest warrant",
+        "ICC Pre-Trial Chamber"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0,
+      "note": "The bare acronym ICC is left out: it is also the International Cricket Council, which fills the English-language news."
+    },
+    {
+      "key": "icty",
+      "forms": [
+        "International Criminal Tribunal for the former Yugoslavia",
+        "ICTY"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "ictr",
+      "forms": [
+        "International Criminal Tribunal for Rwanda",
+        "ICTR"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "irmct",
+      "forms": [
+        "International Residual Mechanism for Criminal Tribunals",
+        "Mechanism for International Criminal Tribunals",
+        "IRMCT"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "eccc",
+      "forms": [
+        "Extraordinary Chambers in the Courts of Cambodia",
+        "ECCC",
+        "Khmer Rouge tribunal"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "provisional-measures",
+      "forms": [
+        "provisional measures"
+      ],
+      "categories": [
+        "procedure"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "rome-statute",
+      "forms": [
+        "Rome Statute"
+      ],
+      "categories": [
+        "instrument"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "universal-jurisdiction",
+      "forms": [
+        "universal jurisdiction"
+      ],
+      "categories": [
+        "procedure"
+      ],
+      "weight": 1.0
+    }
+  ],
+  "context": {
+    "requires_any": [
+      "court",
+      "courts",
+      "tribunal",
+      "tribunals",
+      "judge",
+      "judges",
+      "judgment",
+      "judgement",
+      "ruling",
+      "ruled",
+      "court order",
+      "prosecutor",
+      "prosecutors",
+      "prosecution",
+      "indictment",
+      "indicted",
+      "charges",
+      "charged",
+      "arrest warrant",
+      "warrant",
+      "warrants",
+      "trial",
+      "convicted",
+      "conviction",
+      "acquitted",
+      "acquittal",
+      "sentenced",
+      "verdict",
+      "convention",
+      "treaty",
+      "statute",
+      "proceedings",
+      "jurisdiction",
+      "lawsuit",
+      "commission of inquiry",
+      "fact-finding mission",
+      "special rapporteur",
+      "resolution",
+      "parliament",
+      "recognise",
+      "recognises",
+      "recognised",
+      "recognize",
+      "recognizes",
+      "recognized",
+      "recognition",
+      "ICJ",
+      "ICC",
+      "ICTY",
+      "ICTR",
+      "IRMCT",
+      "ECCC",
+      "The Hague"
+    ],
+    "note": "Legal markers: without one of them in the text the item stays at level 1 (rhetorical use of the word)."
+  }
+}

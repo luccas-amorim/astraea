@@ -5,6 +5,7 @@
     astraea retriage --config ...
     astraea estimate --config ... [--since YYYY-MM-DD]
     astraea validate-lexicon data/lexicon/en.json
+    astraea validate-lexicon data/lexicon/*.json
     astraea validate-config config/news.json
 
 Exit codes: 0 nothing to read; 2 execution error or source down; 3 there are items that
@@ -15,6 +16,7 @@ the other.
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import logging
 import sys
@@ -96,15 +98,27 @@ def _estimate(args: argparse.Namespace) -> int:
     return runs.NOTHING
 
 
+def _expand(patterns: list[str]) -> list[str]:
+    """The files named, with `*` expanded here: PowerShell hands the pattern over as it is."""
+    files: list[str] = []
+    for pattern in patterns:
+        matches = sorted(glob.glob(pattern)) if glob.has_magic(pattern) else []
+        files += matches or [pattern]
+    return files
+
+
 def _validate_lexicon(args: argparse.Namespace) -> int:
-    try:
-        lex = lexicon.load(args.file)
-    except lexicon.LexiconError as error:
-        print(error, file=sys.stderr)
-        return runs.ERROR
-    forms = sum(len(t.forms) for t in lex.terms)
-    print(f"{lex.id} {lex.version}: valid, {len(lex.terms)} terms, {forms} forms")
-    return runs.NOTHING
+    code = runs.NOTHING
+    for file in _expand(args.file):
+        try:
+            lex = lexicon.load(file)
+        except lexicon.LexiconError as error:
+            print(f"{file}: {error}", file=sys.stderr)
+            code = runs.ERROR
+            continue
+        forms = sum(len(t.forms) for t in lex.terms)
+        print(f"{lex.id} {lex.version}: valid, {len(lex.terms)} terms, {forms} forms")
+    return code
 
 
 def _validate_config(args: argparse.Namespace) -> int:
@@ -147,8 +161,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--output", help="report name inside the directory (default estimate.md)")
     p.set_defaults(func=_estimate)
 
-    p = sub.add_parser("validate-lexicon", help="checks the format of a lexicon")
-    p.add_argument("file")
+    p = sub.add_parser("validate-lexicon", help="checks the format of one or more lexicons")
+    p.add_argument("file", nargs="+", help="a file, several, or a pattern such as dir/*.json")
     p.set_defaults(func=_validate_lexicon)
 
     p = sub.add_parser("validate-config", help="checks the configuration: sources, strata, levels")

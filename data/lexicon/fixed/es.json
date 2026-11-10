@@ -1,0 +1,212 @@
+{
+  "id": "astraea-fixed-es",
+  "version": "2026-11-10",
+  "description": "Fixed terms in Spanish, maintained by hand. With the terms of data/situations.json they make data/lexicon/es.json (scripts/build_lexicon.py).",
+  "terms": [
+    {
+      "key": "genocide",
+      "forms": [
+        "genocidio",
+        "genocidios",
+        "genocida",
+        "genocidas"
+      ],
+      "exclusions": [
+        "genocidio cultural"
+      ],
+      "categories": [
+        "qualification"
+      ],
+      "weight": 3.0
+    },
+    {
+      "key": "genocide-convention",
+      "forms": [
+        "Convención para la Prevención y la Sanción del Delito de Genocidio",
+        "Convención sobre el Genocidio",
+        "Convención contra el Genocidio",
+        "Convención de 1948 … genocidio"
+      ],
+      "categories": [
+        "instrument"
+      ],
+      "weight": 2.0
+    },
+    {
+      "key": "intent-to-destroy",
+      "forms": [
+        "intención de destruir",
+        "intención genocida",
+        "intencionalidad genocida",
+        "dolus specialis"
+      ],
+      "categories": [
+        "qualification"
+      ],
+      "weight": 2.0
+    },
+    {
+      "key": "icj",
+      "forms": [
+        "Corte Internacional de Justicia",
+        "Tribunal Internacional de Justicia",
+        "CIJ",
+        "TIJ"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "icc",
+      "forms": [
+        "Corte Penal Internacional",
+        "Tribunal Penal Internacional",
+        "CPI",
+        "TPI"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "icty",
+      "forms": [
+        "Tribunal Penal Internacional para la ex-Yugoslavia",
+        "Tribunal Penal Internacional para la antigua Yugoslavia",
+        "TPIY"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "ictr",
+      "forms": [
+        "Tribunal Penal Internacional para Ruanda",
+        "TPIR"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "irmct",
+      "forms": [
+        "Mecanismo Residual Internacional de los Tribunales Penales",
+        "Mecanismo Residual Internacional"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "eccc",
+      "forms": [
+        "Salas Extraordinarias de las Cortes de Camboya",
+        "Salas Extraordinarias de los Tribunales de Camboya",
+        "tribunal de los Jemeres Rojos"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "provisional-measures",
+      "forms": [
+        "medidas provisionales … Corte Internacional",
+        "medidas provisionales … CIJ",
+        "medidas provisionales … genocidio",
+        "medidas cautelares … Corte Internacional de Justicia",
+        "medidas cautelares … CIJ",
+        "Corte Internacional de Justicia … medidas provisionales",
+        "Corte Internacional de Justicia … medidas cautelares",
+        "CIJ … medidas provisionales",
+        "CIJ … medidas cautelares"
+      ],
+      "categories": [
+        "procedure"
+      ],
+      "weight": 1.0,
+      "note": "Tied to the Court: alone, the expression is everyday government and court vocabulary."
+    },
+    {
+      "key": "rome-statute",
+      "forms": [
+        "Estatuto de Roma"
+      ],
+      "categories": [
+        "instrument"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "universal-jurisdiction",
+      "forms": [
+        "jurisdicción universal",
+        "justicia universal"
+      ],
+      "categories": [
+        "procedure"
+      ],
+      "weight": 1.0
+    }
+  ],
+  "context": {
+    "requires_any": [
+      "tribunal",
+      "tribunales",
+      "corte",
+      "cortes",
+      "juez",
+      "jueza",
+      "jueces",
+      "sentencia",
+      "fallo",
+      "orden judicial",
+      "el fiscal",
+      "la fiscal",
+      "fiscalía",
+      "acusación",
+      "imputación",
+      "imputado",
+      "orden de arresto",
+      "orden de detención",
+      "juicio",
+      "condenado",
+      "condenada",
+      "absuelto",
+      "absolución",
+      "veredicto",
+      "convención",
+      "tratado",
+      "estatuto",
+      "jurisdicción",
+      "demanda",
+      "querella",
+      "comisión de investigación",
+      "misión de determinación de los hechos",
+      "relator especial",
+      "relatora especial",
+      "resolución",
+      "parlamento",
+      "reconoce",
+      "reconoció",
+      "reconocimiento",
+      "CIJ",
+      "TIJ",
+      "CPI",
+      "TPI",
+      "TPIY",
+      "TPIR",
+      "La Haya"
+    ],
+    "note": "Legal markers: without one of them in the text the item stays at level 1 (rhetorical use of the word)."
+  }
+}

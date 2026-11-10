@@ -1,0 +1,217 @@
+{
+  "id": "astraea-fixed-pt",
+  "version": "2026-11-10",
+  "description": "Fixed terms in Portuguese, maintained by hand. With the terms of data/situations.json they make data/lexicon/pt.json (scripts/build_lexicon.py).",
+  "terms": [
+    {
+      "key": "genocide",
+      "forms": [
+        "genocídio",
+        "genocídios",
+        "genocida",
+        "genocidas"
+      ],
+      "exclusions": [
+        "genocídio cultural"
+      ],
+      "categories": [
+        "qualification"
+      ],
+      "weight": 3.0
+    },
+    {
+      "key": "genocide-convention",
+      "forms": [
+        "Convenção para a Prevenção e a Repressão do Crime de Genocídio",
+        "Convenção para a Prevenção e Punição do Crime de Genocídio",
+        "Convenção sobre o Genocídio",
+        "Convenção do Genocídio",
+        "Convenção contra o Genocídio",
+        "Convenção de 1948 … genocídio"
+      ],
+      "categories": [
+        "instrument"
+      ],
+      "weight": 2.0
+    },
+    {
+      "key": "intent-to-destroy",
+      "forms": [
+        "intenção de destruir",
+        "intuito de destruir",
+        "intenção genocida",
+        "dolus specialis"
+      ],
+      "categories": [
+        "qualification"
+      ],
+      "weight": 2.0
+    },
+    {
+      "key": "icj",
+      "forms": [
+        "Corte Internacional de Justiça",
+        "Tribunal Internacional de Justiça",
+        "CIJ",
+        "TIJ"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "icc",
+      "forms": [
+        "Tribunal Penal Internacional",
+        "TPI"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0,
+      "note": "CPI is left out: in Brazil it is the parliamentary inquiry committee."
+    },
+    {
+      "key": "icty",
+      "forms": [
+        "Tribunal Penal Internacional para a ex-Iugoslávia",
+        "Tribunal Penal Internacional para a antiga Jugoslávia",
+        "TPII",
+        "TPIJ"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "ictr",
+      "forms": [
+        "Tribunal Penal Internacional para Ruanda",
+        "Tribunal Penal Internacional para o Ruanda",
+        "TPIR"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "irmct",
+      "forms": [
+        "Mecanismo Residual Internacional para Tribunais Penais",
+        "Mecanismo Internacional Residual para os Tribunais Penais",
+        "IRMCT"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "eccc",
+      "forms": [
+        "Câmaras Extraordinárias nos Tribunais do Camboja",
+        "Câmaras Extraordinárias das Cortes do Camboja",
+        "tribunal do Khmer Vermelho"
+      ],
+      "categories": [
+        "court"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "provisional-measures",
+      "forms": [
+        "medidas provisórias … Corte Internacional",
+        "medidas provisórias … Tribunal Internacional de Justiça",
+        "medidas provisórias … CIJ",
+        "medidas provisórias … genocídio",
+        "medidas cautelares … Corte Internacional de Justiça",
+        "medidas cautelares … CIJ",
+        "Corte Internacional de Justiça … medidas provisórias",
+        "Corte Internacional de Justiça … medidas cautelares",
+        "CIJ … medidas provisórias",
+        "CIJ … medidas cautelares"
+      ],
+      "categories": [
+        "procedure"
+      ],
+      "weight": 1.0,
+      "note": "Tied to the Court: in Brazil 'medida provisória' is the presidential decree with force of law and appears in the news every day."
+    },
+    {
+      "key": "rome-statute",
+      "forms": [
+        "Estatuto de Roma"
+      ],
+      "categories": [
+        "instrument"
+      ],
+      "weight": 1.0
+    },
+    {
+      "key": "universal-jurisdiction",
+      "forms": [
+        "jurisdição universal",
+        "competência universal"
+      ],
+      "categories": [
+        "procedure"
+      ],
+      "weight": 1.0
+    }
+  ],
+  "context": {
+    "requires_any": [
+      "tribunal",
+      "tribunais",
+      "corte",
+      "cortes",
+      "juiz",
+      "juíza",
+      "juízes",
+      "sentença",
+      "acórdão",
+      "julgamento",
+      "decisão judicial",
+      "ordem",
+      "procurador",
+      "procuradora",
+      "procuradoria",
+      "promotor",
+      "promotoria",
+      "denúncia",
+      "acusação",
+      "mandado",
+      "mandado de prisão",
+      "condenado",
+      "condenada",
+      "condenação",
+      "absolvido",
+      "absolvição",
+      "convenção",
+      "tratado",
+      "estatuto",
+      "jurisdição",
+      "ação judicial",
+      "comissão de inquérito",
+      "missão de apuração dos fatos",
+      "relator especial",
+      "relatora especial",
+      "resolução",
+      "parlamento",
+      "reconhece",
+      "reconheceu",
+      "reconhecimento",
+      "CIJ",
+      "TIJ",
+      "TPI",
+      "TPII",
+      "TPIR",
+      "Haia"
+    ],
+    "note": "Legal markers: without one of them in the text the item stays at level 1 (rhetorical use of the word)."
+  }
+}
