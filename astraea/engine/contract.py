@@ -42,6 +42,9 @@ class Document:
     # subjects. A term found here is what takes triage to level 3.
     # Every highlight must also be in `text`: triage counts terms in the text.
     highlights: dict[str, str] = field(default_factory=dict)
+    # Set when the text is not the page's by policy: `"no_text_by_policy"` means only the
+    # listing's title and description were read (astraea.engine.policy). Triage caps it.
+    policy: str | None = None
 
 
 @runtime_checkable

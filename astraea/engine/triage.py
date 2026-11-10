@@ -7,6 +7,11 @@
 | 1     | term present, required context absent                    | no_context      |
 | 2     | term and context, but the term is not in a highlight     | needs_review    |
 | 3     | term and context, and the term is in a source highlight  | accepted        |
+| 2     | level 2 or 3, but the page was not read by policy        | no_text_by_policy |
+
+The last line is new in Astraea: on a domain that reserves text and data mining only the
+listing's title and description are read (astraea.engine.policy), and an item that would
+be accepted on so little goes to a person instead. Levels 0 and 1 keep their reason.
 
 The cut does not delete: every level goes to the full report, with the reason and the
 excerpt that decided it. A false positive is acceptable; a false negative is not.
@@ -18,6 +23,7 @@ from dataclasses import dataclass, field
 
 from astraea.engine.contract import Document
 from astraea.engine.lexicon import Matcher
+from astraea.engine.policy import MAX_LEVEL, NO_TEXT
 from astraea.engine.text import fold
 
 EXCERPT_RADIUS = 160
@@ -52,6 +58,13 @@ def cut_excerpt(text: str, start: int, end: int, radius: int = EXCERPT_RADIUS) -
 
 
 def triage(doc: Document, matcher: Matcher) -> Result:
+    result = _triage(doc, matcher)
+    if doc.policy == NO_TEXT and result.level >= MAX_LEVEL:
+        result.level, result.reason = MAX_LEVEL, NO_TEXT
+    return result
+
+
+def _triage(doc: Document, matcher: Matcher) -> Result:
     text = doc.text
     folded = fold(text)
     valid, cancelled = matcher.occurrences(folded)

@@ -8,6 +8,7 @@ from astraea.engine import config
 def _base(**extra):
     return {
         "lexicon": "lexicon.json",
+        "registry": "sources.json",
         "sources": [{"type": "rss", "id": "rss:x", "url": "https://x/feed", "stratum": "press"}],
         **extra,
     }

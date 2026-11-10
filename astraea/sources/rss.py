@@ -58,6 +58,14 @@ def _text(node: ET.Element | None) -> str | None:
     return node.text.strip() if node is not None and node.text and node.text.strip() else None
 
 
+def _description(text: str | None) -> dict | None:
+    """Kept for the domains whose page is not fetched by policy (astraea.engine.policy).
+
+    Triage never decides on it otherwise: the text comes from the page.
+    """
+    return {"description": text} if text else None
+
+
 def read_feed(content: bytes, source: str) -> Iterator[Reference]:
     root = ET.fromstring(content)
     for item in root.iter("item"):  # RSS 2.0
@@ -70,6 +78,7 @@ def read_feed(content: bytes, source: str) -> Iterator[Reference]:
             url=link,
             title=_text(item.find("title")),
             published_at=_date(_text(item.find("pubDate"))),
+            data=_description(_text(item.find("description"))),
         )
     for entry in root.iter(f"{_ATOM}entry"):
         links = entry.findall(f"{_ATOM}link")
@@ -85,6 +94,7 @@ def read_feed(content: bytes, source: str) -> Iterator[Reference]:
             url=url,
             title=_text(entry.find(f"{_ATOM}title")),
             published_at=_date(published),
+            data=_description(_text(entry.find(f"{_ATOM}summary"))),
         )
 
 

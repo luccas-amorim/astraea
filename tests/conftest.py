@@ -64,8 +64,10 @@ def fixtures() -> Path:
 def cfg(tmp_path, fixtures):
     """Minimal configuration: one RSS feed and the sample lexicon."""
     shutil.copy(fixtures / "lexicon-carandiru.json", tmp_path / "lexicon.json")
+    shutil.copy(fixtures / "sources.json", tmp_path / "sources.json")
     data = {
         "lexicon": "lexicon.json",
+        "registry": "sources.json",
         "directory": "data",
         "since": "2026-09-01",
         "sources": [{"type": "rss", "id": "rss:paper", "url": FEED, "min_chars": 200}],

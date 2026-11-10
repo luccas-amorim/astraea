@@ -39,6 +39,13 @@ def _instances(cfg: config.Config, config_path: str, chosen: list[str] | None):
 
 def _run(args: argparse.Namespace) -> int:
     cfg = config.load(args.config)
+    if cfg.registry is None:
+        print(
+            f'{args.config}: "registry" is required (data/sources.json): without it the run '
+            "would fetch pages of domains that reserve text and data mining",
+            file=sys.stderr,
+        )
+        return runs.ERROR
     matcher = lexicon.Matcher(lexicon.load(cfg.lexicon))
     try:
         instances = _instances(cfg, args.config, args.source)
