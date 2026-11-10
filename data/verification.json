@@ -419,5 +419,39 @@
     "checked_by": "robot",
     "result": "confirmed",
     "method": "The 193 cards of the page were matched by a load script to the CLDR codes through the alpha-2 code of each flag, and the 193 names were compared one by one; the date is the admission date as the page gives it. Page hash in CHANGELOG.md, 2026-11-09."
+  },
+  {
+    "entity": "countries",
+    "records": [
+      "PSE",
+      "VAT"
+    ],
+    "fields": [
+      "un_status"
+    ],
+    "source": "un-non-member-states",
+    "url": "https://www.un.org/en/about-us/non-member-states",
+    "read_on": "2026-11-10",
+    "confidence": "A",
+    "checked_by": "robot",
+    "result": "confirmed",
+    "method": "Read by a load script with the engine client (robots.txt obeyed, Crawl-delay 10): the page lists the Holy See (VAT) and the State of Palestine (PSE) as non-member States with a standing invitation as observers. Page hash in CHANGELOG.md, 2026-11-10."
+  },
+  {
+    "entity": "countries",
+    "records": [
+      "TWN",
+      "XKX"
+    ],
+    "fields": [
+      "un_status"
+    ],
+    "source": "un-non-member-states",
+    "url": "https://www.un.org/en/about-us/non-member-states",
+    "read_on": "2026-11-10",
+    "confidence": "B",
+    "checked_by": "robot",
+    "result": "confirmed",
+    "method": "Inferred by absence: neither Kosovo nor Taiwan appears on this page or on the list of the 193 Member States read on 2026-11-09; the two lists are the UN's whole roll of States. Confidence B because no UN page names them. Page hash in CHANGELOG.md, 2026-11-10."
   }
 ]

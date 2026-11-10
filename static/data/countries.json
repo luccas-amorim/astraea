@@ -6945,14 +6945,21 @@
         "read_on": "2026-11-09",
         "confidence": "B",
         "checked_by": "robot"
+      },
+      "un_status": {
+        "url": "https://www.un.org/en/about-us/non-member-states",
+        "source": "un-non-member-states",
+        "read_on": "2026-11-10",
+        "confidence": "A",
+        "checked_by": "robot"
       }
     },
     "completeness": {
-      "stamped": 0,
-      "draft": 1,
+      "stamped": 1,
+      "draft": 0,
       "empty": 6,
       "fields": {
-        "un_status": "draft",
+        "un_status": "stamped",
         "penal_code": "empty",
         "domestic_genocide": "empty",
         "genocide_convention": "empty",
@@ -6961,7 +6968,7 @@
         "death_penalty": "empty"
       }
     },
-    "updated_at": "2026-11-09"
+    "updated_at": "2026-11-10"
   },
   {
     "id": "QAT",
@@ -8619,14 +8626,21 @@
         "read_on": "2026-11-09",
         "confidence": "B",
         "checked_by": "robot"
+      },
+      "un_status": {
+        "url": "https://www.un.org/en/about-us/non-member-states",
+        "source": "un-non-member-states",
+        "read_on": "2026-11-10",
+        "confidence": "B",
+        "checked_by": "robot"
       }
     },
     "completeness": {
-      "stamped": 0,
-      "draft": 1,
+      "stamped": 1,
+      "draft": 0,
       "empty": 6,
       "fields": {
-        "un_status": "draft",
+        "un_status": "stamped",
         "penal_code": "empty",
         "domestic_genocide": "empty",
         "genocide_convention": "empty",
@@ -8635,7 +8649,7 @@
         "death_penalty": "empty"
       }
     },
-    "updated_at": "2026-11-09"
+    "updated_at": "2026-11-10"
   },
   {
     "id": "TZA",
@@ -8943,14 +8957,21 @@
         "read_on": "2026-11-09",
         "confidence": "B",
         "checked_by": "robot"
+      },
+      "un_status": {
+        "url": "https://www.un.org/en/about-us/non-member-states",
+        "source": "un-non-member-states",
+        "read_on": "2026-11-10",
+        "confidence": "A",
+        "checked_by": "robot"
       }
     },
     "completeness": {
-      "stamped": 0,
-      "draft": 1,
+      "stamped": 1,
+      "draft": 0,
       "empty": 6,
       "fields": {
-        "un_status": "draft",
+        "un_status": "stamped",
         "penal_code": "empty",
         "domestic_genocide": "empty",
         "genocide_convention": "empty",
@@ -8959,7 +8980,7 @@
         "death_penalty": "empty"
       }
     },
-    "updated_at": "2026-11-09"
+    "updated_at": "2026-11-10"
   },
   {
     "id": "VCT",
@@ -9217,14 +9238,21 @@
         "read_on": "2026-11-09",
         "confidence": "B",
         "checked_by": "robot"
+      },
+      "un_status": {
+        "url": "https://www.un.org/en/about-us/non-member-states",
+        "source": "un-non-member-states",
+        "read_on": "2026-11-10",
+        "confidence": "B",
+        "checked_by": "robot"
       }
     },
     "completeness": {
-      "stamped": 0,
-      "draft": 1,
+      "stamped": 1,
+      "draft": 0,
       "empty": 6,
       "fields": {
-        "un_status": "draft",
+        "un_status": "stamped",
         "penal_code": "empty",
         "domestic_genocide": "empty",
         "genocide_convention": "empty",
@@ -9233,7 +9261,7 @@
         "death_penalty": "empty"
       }
     },
-    "updated_at": "2026-11-09"
+    "updated_at": "2026-11-10"
   },
   {
     "id": "YEM",

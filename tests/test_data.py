@@ -117,7 +117,7 @@ def test_sources_are_unique_and_inside_the_vocabularies(sources):
         for field in ("function", "confidence", "api", "state"):
             assert str(s[field]) in vocabularies.VOCABULARIES[field], (s["id"], field)
         assert s["reason"], s["id"]
-        assert s["robots_checked_on"] in (None, "2026-11-06", "2026-11-09"), s["id"]
+        assert s["robots_checked_on"] in (None, "2026-11-06", "2026-11-09", "2026-11-10"), s["id"]
         assert s["languages"] is None or all(re.fullmatch(r"[a-z]{2}", x) for x in s["languages"])
         assert isinstance(s["state_media"], bool) and isinstance(s["no_text_by_policy"], bool)
 
