@@ -167,7 +167,7 @@ def pr_body(read_on: str, loads: list[Load], changed: bool, transform_out: str) 
     parts = [
         f"Leitura mensal de {read_on} pelo `countries.yml`"
         + (f" ([execução]({url}))" if url else "")
-        + ". As duas cargas rodaram com `--execute`, pelo cliente HTTP do motor, com o "
+        + ". As duas cargas leram as fontes pelo cliente HTTP do motor, com o "
         "`User-Agent` do Astraea e o `robots.txt` obedecido.",
         "",
     ]
