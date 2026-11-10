@@ -22,6 +22,7 @@ data/
   lexicon/<lang>.json     o léxico por língua, gerado de situations.json + termos fixos
   verification.json       trilha: o que foi conferido, quando, por quem, com que resultado
   untc-names.json         nome da UN Treaty Collection → alfa-3, à mão, conferido na M49
+  cornell-names.json      nome das listas do Cornell → alfa-3, à mão, conferido na M49
   exceptions.json         achado já julgado, com motivo e data
   retired-ids.json        ids que já foram públicos e nunca voltam
   i18n/<locale>.json      rótulos de campos e de valores por língua (en, pt-BR)
@@ -262,6 +263,86 @@ confiança A e `checked_by: robot`:
   de Estatística da ONU (`unsd-m49`), que liga os nomes da ONU ao alfa-3. Nome que não
   casa interrompe a carga antes de gravar qualquer coisa. As Ilhas Cook, parte do
   Estatuto, estão na tabela com `id: null` e `reason`: ficam fora dos 197 da D1.
+
+**Como a pena de morte é preenchida** (fase 2, sessão 2, 10/11/2026). Duas fontes, dois
+caminhos, o mesmo bloco `death_penalty`:
+
+- **O robô lê o Cornell, com confiança B.** `scripts/load_death_penalty.py` lê, pelo
+  adaptador `listing` (formato `cornell_dpw_status`), as quatro listas que a base do
+  Cornell Center on the Death Penalty Worldwide publica, uma por categoria
+  (`https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=…`, a base
+  por trás do mapa do espelho `dpw.lawschool.cornell.edu`; `02-fontes.md`, 1.5), e grava
+  `status` com `source: cornell-dpw`, `url` da lista em que o país está, confiança B e
+  `checked_by: robot`.
+- **Correspondência das categorias.** O 03 define `status` pela classificação da
+  Anistia; o Cornell tem outra, de quatro categorias também, e só três correspondem:
+
+  | Cornell (`lawStatus`) | O que o Cornell publica | `status` (Anistia) | O robô grava? |
+  |---|---|---|---|
+  | `Abolitionist` | rótulo "Abolitionist"; sem definição publicada | `abolitionist_all_crimes` | sim |
+  | `Abolitionist For Ordinary Crimes` | rótulo "Abolitionist for common law crimes"; sem definição publicada | `abolitionist_ordinary_crimes` | sim |
+  | `Abolitionist de facto` | nenhuma execução em pelo menos dez anos | `abolitionist_in_practice` **ou** `retentionist` | **não**: vazio com `reason` |
+  | `Retentionist` | executou nos últimos dez anos | `retentionist` | sim |
+
+  As duas primeiras são categorias de lei e, pelo rótulo, fazem o mesmo corte nas duas
+  classificações. As duas últimas, não: o *de facto* do Cornell é só o critério dos dez
+  anos, e a Anistia, para "abolicionista na prática", pede também uma política ou
+  prática estabelecida de não executar, e chama de retencionista quem retém a pena para
+  crimes comuns sem essa prática (definições da Anistia como as conhecemos em
+  10/11/2026, **a conferir no próprio anexo** na primeira carga). O retencionista do
+  Cornell executou nos últimos dez anos e é, pelas duas definições, retencionista também
+  para a Anistia; o *de facto* do Cornell cobre dois valores da Anistia, e o robô não
+  escolhe entre eles. **Decisão do dono (10/11/2026):** os países *de facto* ficam vazios
+  com `reason`, que diz a categoria do Cornell e por que não foi gravada, até a carga da
+  Anistia; `abolitionist_in_practice` só entra por pessoa.
+- **Guerra e crimes excepcionais.** `abolitionist_ordinary_crimes` já diz que a lei
+  mantém a pena só para crimes excepcionais (militares, em tempo de guerra). Dizer qual é
+  a hipótese é `note`, texto nosso com `author` (D4); o robô não escreve `note`.
+- **País fora das listas** fica vazio com `reason` (22 dos 197 em 10/11/2026). Kosovo,
+  Taiwan e Palestina estão nas listas e são carimbados como os demais (nos tratados,
+  Kosovo e Taiwan ficam vazios porque não têm linha na UNTC).
+- **O que a carga nunca faz.** Não toca bloco com `checked_by: human` (o relatório diz
+  quando o Cornell lê outra coisa); não esvazia bloco carimbado de país que sumiu das
+  listas (o mantém e avisa: a ausência pode ser defeito da base, que está sendo
+  refeita); não muda o arquivo quando os valores não mudaram (o `read_on` antigo fica).
+- **Nomes.** `data/cornell-names.json`, mesma regra de `untc-names.json`: nome que não
+  é, letra por letra, o `name.en` de `countries.json` precisa de linha conferida na M49,
+  e nome sem linha interrompe a carga. Cada linha guarda também o `iso2` que a lista do
+  Cornell deu e que a M49 liga ao mesmo alfa-3; se a lista passar a dar outro código para
+  aquele nome, a carga para. **Os dois mapas ficam em arquivos separados**, com o código
+  comum em `scripts/country_names.py`: a mesma grafia pode querer dizer coisas diferentes
+  em duas fontes, e um apelido conferido para uma seria aceito em silêncio para a outra;
+  separados, cada linha diz para que fonte foi conferida, e tirar uma fonte não mexe na
+  outra.
+
+**Como a pessoa carrega o anexo da Anistia** (carga anual à mão, CC BY-NC-ND 4.0). A
+licença impede redistribuir ou derivar o PDF; não impede registrar a classificação de
+cada país com a citação. O que se grava, por país, é o bloco `death_penalty` inteiro, no
+lugar do que o robô escreveu:
+
+```json
+"death_penalty": {
+  "status": "abolitionist_in_practice",
+  "url": "<endereço, em amnesty.org, do documento lido (o PDF do relatório)>",
+  "source": "amnesty",
+  "read_on": "<AAAA-MM-DD, o dia em que a pessoa leu o anexo>",
+  "confidence": "B",
+  "checked_by": "human"
+}
+```
+
+- `status` é um dos quatro valores, como o anexo classifica o país. Quando o anexo diz em
+  que hipótese a pena sobrevive (guerra, código militar), isso vai em `note`, com as
+  palavras da pessoa e não as da Anistia:
+  `"note": {"pt-BR": {"text": "…", "author": "human"}}`.
+- O bloco da pessoa substitui o do robô por inteiro (não se misturam `source` nem
+  `reason`). Depois de editar, `python scripts/transform.py --draft --execute` regenera o
+  derivado; `static/data/` nunca se edita à mão.
+- **Como a carga do Cornell trata esse bloco:** não o toca, nunca. A cada leitura, o
+  relatório mostra `left alone (checked by a person): JAM.death_penalty` e, quando o
+  Cornell classifica o país de outro jeito, acrescenta `; Cornell reads 'Abolitionist de
+  facto', the block says 'abolitionist_in_practice'`. Essa linha é a lista de
+  divergências entre as duas fontes, para a pessoa olhar; não é erro.
 
 ## Entidade 2: situação (`situations.json`)
 

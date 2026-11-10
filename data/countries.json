@@ -35,6 +35,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -71,6 +79,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -111,6 +127,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -149,6 +173,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -185,6 +212,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -225,6 +260,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -261,6 +304,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -301,6 +352,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -337,6 +391,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -377,6 +439,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -413,6 +483,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -453,6 +531,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -489,6 +570,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -529,6 +618,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -567,6 +664,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -603,6 +703,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -643,6 +751,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -679,6 +795,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -719,6 +843,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -755,6 +882,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -797,6 +932,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -835,6 +978,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -871,6 +1017,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -911,6 +1065,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_ordinary_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist%20For%20Ordinary%20Crimes",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -948,6 +1110,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -987,6 +1152,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1023,6 +1191,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1063,6 +1239,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1099,6 +1283,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1139,6 +1331,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1175,6 +1375,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1215,6 +1423,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_ordinary_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist%20For%20Ordinary%20Crimes",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1251,6 +1467,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -1293,6 +1517,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1330,6 +1562,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -1369,6 +1604,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1407,6 +1645,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1443,6 +1684,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1483,6 +1732,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1521,6 +1773,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1557,6 +1812,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1597,6 +1860,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1633,6 +1899,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1673,6 +1947,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1709,6 +1991,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1749,6 +2039,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1787,6 +2085,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1823,6 +2124,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1863,6 +2172,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -1901,6 +2218,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -1937,6 +2257,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -1977,6 +2305,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2015,6 +2351,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -2051,6 +2390,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2091,6 +2438,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2128,6 +2483,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": [
       "tigray-ethiopia"
@@ -2169,6 +2527,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2205,6 +2571,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2245,6 +2619,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2283,6 +2665,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -2319,6 +2704,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2359,6 +2752,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2395,6 +2796,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2435,6 +2844,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -2471,6 +2883,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2510,6 +2930,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": [
       "rohingya-myanmar"
@@ -2551,6 +2974,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2587,6 +3018,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2627,6 +3066,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2664,6 +3111,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -2703,6 +3153,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -2741,6 +3194,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -2777,6 +3233,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2817,6 +3281,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2853,6 +3325,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2893,6 +3373,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -2929,6 +3417,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -2969,6 +3465,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -3005,6 +3509,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -3045,6 +3557,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -3081,6 +3601,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -3123,6 +3651,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -3159,6 +3695,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_ordinary_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist%20For%20Ordinary%20Crimes",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -3201,6 +3745,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -3239,6 +3791,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3275,6 +3830,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -3315,6 +3878,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -3351,6 +3922,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_ordinary_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist%20For%20Ordinary%20Crimes",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -3391,6 +3970,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3429,6 +4011,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -3465,6 +4055,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -3507,6 +4105,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3544,6 +4145,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -3583,6 +4187,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3619,6 +4226,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -3659,6 +4274,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3696,6 +4314,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -3735,6 +4356,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3772,6 +4396,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -3811,6 +4438,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3848,6 +4478,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -3887,6 +4520,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3925,6 +4561,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -3961,6 +4600,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4001,6 +4648,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4037,6 +4692,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4077,6 +4740,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4115,6 +4781,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4151,6 +4820,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4191,6 +4868,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4229,6 +4914,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4265,6 +4953,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4305,6 +5001,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4341,6 +5040,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4381,6 +5088,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4419,6 +5129,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4455,6 +5168,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -4497,6 +5218,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4533,6 +5262,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4573,6 +5310,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4610,6 +5355,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -4649,6 +5397,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4687,6 +5438,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4723,6 +5477,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4763,6 +5525,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4801,6 +5571,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -4837,6 +5610,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4877,6 +5658,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4913,6 +5702,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -4953,6 +5750,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -4989,6 +5794,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5029,6 +5842,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -5065,6 +5881,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5105,6 +5929,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5141,6 +5973,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5181,6 +6021,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5217,6 +6065,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_ordinary_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist%20For%20Ordinary%20Crimes",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5257,6 +6113,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5294,6 +6158,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -5333,6 +6200,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -5369,6 +6239,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5409,6 +6287,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5445,6 +6331,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5485,6 +6379,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5521,6 +6423,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -5563,6 +6473,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5599,6 +6517,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5639,6 +6565,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": [
       "ukraine-2022"
     ]
@@ -5677,6 +6606,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -5719,6 +6656,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5755,6 +6700,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -5797,6 +6750,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5833,6 +6794,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5873,6 +6842,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5909,6 +6886,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -5949,6 +6934,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_ordinary_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist%20For%20Ordinary%20Crimes",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -5986,6 +6979,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -6025,6 +7021,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -6061,6 +7065,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -6103,6 +7115,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -6140,6 +7160,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -6179,6 +7202,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6215,6 +7241,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -6255,6 +7289,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -6291,6 +7333,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -6331,6 +7381,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6369,6 +7422,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6405,6 +7461,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -6445,6 +7509,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -6481,6 +7553,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -6521,6 +7601,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -6559,6 +7647,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6595,6 +7686,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -6635,6 +7734,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -6672,6 +7779,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -6711,6 +7821,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6749,6 +7862,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6785,6 +7901,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -6825,6 +7949,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6840,6 +7967,14 @@
     },
     "rome_statute": {
       "reason": "No entry of its own in the UNTC participants tables: the depositary lists China only, and the China entry is that of the People's Republic of China. Left empty rather than read as non-participation (no field by analogy)."
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
     },
     "situations": []
   },
@@ -6879,6 +8014,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6917,6 +8055,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -6953,6 +8094,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -6995,6 +8144,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -7031,6 +8188,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -7071,6 +8236,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -7108,6 +8281,9 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
     },
     "situations": []
   },
@@ -7147,6 +8323,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -7183,6 +8362,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -7223,6 +8410,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -7259,6 +8454,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []
@@ -7299,6 +8502,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Not in any of the four lists of the Cornell Center on the Death Penalty Worldwide at the reading that created this block. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -7314,6 +8520,14 @@
     },
     "rome_statute": {
       "reason": "Not a UN Member State nor observer, and no entry in the UNTC participants tables. Left empty rather than read as non-participation (no field by analogy)."
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
     },
     "situations": []
   },
@@ -7353,6 +8567,14 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "status": "retentionist",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Retentionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
+      "checked_by": "robot"
+    },
     "situations": []
   },
   {
@@ -7389,6 +8611,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": [
@@ -7431,6 +8661,9 @@
       "confidence": "A",
       "checked_by": "robot"
     },
+    "death_penalty": {
+      "reason": "Cornell lists it as abolitionist de facto (no execution in at least ten years); Amnesty's abolitionist in practice also asks for a policy or established practice of not executing, so the two do not coincide. Waits for the Amnesty annex, loaded by hand."
+    },
     "situations": []
   },
   {
@@ -7467,6 +8700,14 @@
       "source": "untc",
       "read_on": "2026-11-10",
       "confidence": "A",
+      "checked_by": "robot"
+    },
+    "death_penalty": {
+      "status": "abolitionist_all_crimes",
+      "url": "https://cornell-dpw.herokuapp.com/api/countries/by-law-status/1?lawStatus=Abolitionist",
+      "source": "cornell-dpw",
+      "read_on": "2026-11-10",
+      "confidence": "B",
       "checked_by": "robot"
     },
     "situations": []

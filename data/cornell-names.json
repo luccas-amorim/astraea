@@ -1,0 +1,146 @@
+{
+  "description": "Names of the Cornell Center on the Death Penalty Worldwide lists (the database API behind dpw.lawschool.cornell.edu) that are not, letter for letter, the English name of a record of countries.json, with the ISO 3166-1 alpha-3 code each one stands for. Kept by hand and checked against the UN Statistics Division M49 table: `iso2` is the code the Cornell list gives, `m49` the name of the M49 row with that alpha-2 code, and `id` the alpha-3 code of that row. The load also checks that the Cornell list still gives the same `iso2`. A Cornell name that is neither here nor a name of countries.json stops the load (scripts/load_death_penalty.py): it is never guessed. Separate from untc-names.json on purpose (docs/03-modelo-de-dados.md).",
+  "source": "unsd-m49",
+  "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+  "read_on": "2026-11-10",
+  "names": [
+    {
+      "cornell": "Antigua and Barbuda",
+      "m49": "Antigua and Barbuda",
+      "iso2": "AG",
+      "id": "ATG"
+    },
+    {
+      "cornell": "Bosnia and Herzegovina",
+      "m49": "Bosnia and Herzegovina",
+      "iso2": "BA",
+      "id": "BIH"
+    },
+    {
+      "cornell": "Czech Republic",
+      "m49": "Czechia",
+      "iso2": "CZ",
+      "id": "CZE"
+    },
+    {
+      "cornell": "Democratic Republic of the Congo",
+      "m49": "Democratic Republic of the Congo",
+      "iso2": "CD",
+      "id": "COD"
+    },
+    {
+      "cornell": "East Timor",
+      "m49": "Timor-Leste",
+      "iso2": "TL",
+      "id": "TLS"
+    },
+    {
+      "cornell": "Eswatini (former Swaziland)",
+      "m49": "Eswatini",
+      "iso2": "SZ",
+      "id": "SWZ"
+    },
+    {
+      "cornell": "Falkland Islands (Malvinas)",
+      "m49": "Falkland Islands (Malvinas)",
+      "iso2": "FK",
+      "id": null,
+      "reason": "Outside the 197 of D1: a territory, not a UN Member State nor observer (M49 lists it as a country or area, FLK)."
+    },
+    {
+      "cornell": "French Southern and Antartic Lands",
+      "m49": "French Southern Territories",
+      "iso2": "TF",
+      "id": null,
+      "reason": "Outside the 197 of D1: a territory, not a UN Member State nor observer (M49 lists it as a country or area, ATF)."
+    },
+    {
+      "cornell": "Greenland",
+      "m49": "Greenland",
+      "iso2": "GL",
+      "id": null,
+      "reason": "Outside the 197 of D1: a territory, not a UN Member State nor observer (M49 lists it as a country or area, GRL)."
+    },
+    {
+      "cornell": "Ivory Coast",
+      "m49": "Côte d’Ivoire",
+      "iso2": "CI",
+      "id": "CIV"
+    },
+    {
+      "cornell": "Macedonia",
+      "m49": "North Macedonia",
+      "iso2": "MK",
+      "id": "MKD"
+    },
+    {
+      "cornell": "Myanmar",
+      "m49": "Myanmar",
+      "iso2": "MM",
+      "id": "MMR"
+    },
+    {
+      "cornell": "New Caledonia",
+      "m49": "New Caledonia",
+      "iso2": "NC",
+      "id": null,
+      "reason": "Outside the 197 of D1: a territory, not a UN Member State nor observer (M49 lists it as a country or area, NCL)."
+    },
+    {
+      "cornell": "Northern Cyprus",
+      "m49": null,
+      "iso2": null,
+      "id": null,
+      "reason": "Outside the 197 of D1 and absent from the M49 table; the Cornell list gives it no ISO code."
+    },
+    {
+      "cornell": "Puerto rico",
+      "m49": "Puerto Rico",
+      "iso2": "PR",
+      "id": null,
+      "reason": "Outside the 197 of D1: a territory, not a UN Member State nor observer (M49 lists it as a country or area, PRI)."
+    },
+    {
+      "cornell": "Russian Federation",
+      "m49": "Russian Federation",
+      "iso2": "RU",
+      "id": "RUS"
+    },
+    {
+      "cornell": "Saint Kitts and Nevis",
+      "m49": "Saint Kitts and Nevis",
+      "iso2": "KN",
+      "id": "KNA"
+    },
+    {
+      "cornell": "Saint Lucia",
+      "m49": "Saint Lucia",
+      "iso2": "LC",
+      "id": "LCA"
+    },
+    {
+      "cornell": "Saint Vincent and the Grenadines",
+      "m49": "Saint Vincent and the Grenadines",
+      "iso2": "VC",
+      "id": "VCT"
+    },
+    {
+      "cornell": "Trinidad and Tobago",
+      "m49": "Trinidad and Tobago",
+      "iso2": "TT",
+      "id": "TTO"
+    },
+    {
+      "cornell": "Turkey",
+      "m49": "Türkiye",
+      "iso2": "TR",
+      "id": "TUR"
+    },
+    {
+      "cornell": "United States of America",
+      "m49": "United States of America",
+      "iso2": "US",
+      "id": "USA"
+    }
+  ]
+}
