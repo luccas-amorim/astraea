@@ -288,7 +288,10 @@ def test_it_never_commits_to_main(workflow):
 
 
 def test_it_reads_with_execute_and_proposes_only_after_the_battery(workflow):
-    assert 'python scripts/countries_monthly.py --execute --report-dir "$REPORT"' in workflow
+    assert (
+        'python scripts/countries_monthly.py --execute --report-dir "$RUNNER_TEMP/report"'
+        in workflow
+    )
     battery = workflow.index("name: Battery")
     assert workflow.index("python -m pytest") > battery
     assert workflow.index("name: Open or update the pull request") > battery
@@ -297,6 +300,19 @@ def test_it_reads_with_execute_and_proposes_only_after_the_battery(workflow):
     # the issue never depends on the personal token, which may have expired
     issue = workflow[workflow.index("name: Open an issue") :]
     assert "GH_TOKEN: ${{ github.token }}" in issue
+
+
+def test_the_job_env_uses_only_the_contexts_github_allows_there(workflow):
+    """GitHub refuses the whole file when jobs.<id>.env uses a context it does not have
+    there: `runner` is one ("Unrecognized named-value: 'runner'", 10/11/2026). Allowed:
+    github, needs, strategy, matrix, vars, secrets, inputs (docs.github.com, "Context
+    availability")."""
+    allowed = {"github", "needs", "strategy", "matrix", "vars", "secrets", "inputs"}
+    block = re.search(r"\n    env:\n((?:      .+\n)+)", workflow).group(1)
+    used = set(re.findall(r"\b([a-z_]+)\.[a-zA-Z_]", " ".join(re.findall(r"\$\{\{(.*?)\}\}",
+                                                                          block))))  # fmt: skip
+    assert used and used <= allowed, used - allowed
+    assert "runner." not in re.sub(r"\n\s*#.*", "", workflow).split("steps:")[0]
 
 
 @pytest.mark.skipif(shutil.which("bash") is None, reason="no bash to check the syntax")
