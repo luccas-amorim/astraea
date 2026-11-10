@@ -263,6 +263,20 @@ def test_check_3_a_stamped_block_passes(data):
     assert problems(data) == []
 
 
+def test_treaty_dates_are_always_full_dates(data):
+    rome = {"participation": "party", "signature": "2000-02-07", "bound_since": "2002-06", **STAMP}
+    country(data, rome_statute=rome)
+    found = [p for p in problems(data) if p.check == transform.STRUCTURE]
+    assert [p.where for p in found] == ["countries[AAA].rome_statute.bound_since"]
+    country(data, rome_statute={**rome, "bound_since": "2002-06-20", "withdrawal": "2027-06-18"})
+    assert problems(data) == []
+
+
+def test_participation_is_a_closed_vocabulary(data):
+    country(data, genocide_convention={"participation": "observer", **STAMP})
+    assert [p.check for p in problems(data)] == [2]
+
+
 def test_check_3_a_block_that_asserts_nothing_needs_no_stamp(data):
     country(data, penal_code={"exists": None, "reason": "not read yet"})
     assert problems(data) == []
