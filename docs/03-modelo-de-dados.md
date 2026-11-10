@@ -220,7 +220,10 @@ deles é uma linha de `verification.json` (seção "Trilha de conferência", adi
 cobre o campo e o registro. Sem linha que o cubra, o campo é rascunho: reprova em
 `--strict` (trava 3) e é contado em `--draft`. Em 10/11/2026 os 197 nomes e o
 `un_status` e a data dos 193 membros estão carimbados; o `un_status` de Palestina,
-Santa Sé, Kosovo e Taiwan não, porque a página lida só lista os membros.
+Santa Sé, Kosovo e Taiwan foi carimbado na sessão 4 pela página de Estados não membros
+da ONU (`un-non-member-states`): Santa Sé e Palestina com confiança A, porque a página
+os lista; Kosovo e Taiwan com confiança B, porque o carimbo vem da ausência nas duas
+listas da ONU, que juntas são o rol inteiro de Estados.
 
 ## Entidade 2: situação (`situations.json`)
 

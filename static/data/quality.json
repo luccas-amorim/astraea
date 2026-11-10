@@ -1,33 +1,13 @@
 {
-  "as_of": "2026-11-09",
+  "as_of": "2026-11-10",
   "drafts": {
-    "fields": 13,
-    "records": 9,
+    "fields": 9,
+    "records": 5,
     "by_check": {
-      "3": 13,
+      "3": 9,
       "6": 4
     },
     "items": [
-      {
-        "check": 3,
-        "where": "countries[PSE].un_status",
-        "message": "asserted without stamp: no line of verification.json covers it"
-      },
-      {
-        "check": 3,
-        "where": "countries[TWN].un_status",
-        "message": "asserted without stamp: no line of verification.json covers it"
-      },
-      {
-        "check": 3,
-        "where": "countries[VAT].un_status",
-        "message": "asserted without stamp: no line of verification.json covers it"
-      },
-      {
-        "check": 3,
-        "where": "countries[XKX].un_status",
-        "message": "asserted without stamp: no line of verification.json covers it"
-      },
       {
         "check": 3,
         "where": "situations[rohingya-myanmar].statuses[0]",
@@ -100,8 +80,8 @@
     "complete": 0,
     "fields": {
       "un_status": {
-        "stamped": 193,
-        "draft": 4,
+        "stamped": 197,
+        "draft": 0,
         "empty": 0
       },
       "penal_code": {
@@ -189,9 +169,9 @@
     }
   },
   "sources": {
-    "total": 87,
+    "total": 88,
     "by_state": {
-      "active": 46,
+      "active": 47,
       "suspended": 10,
       "discarded": 31
     },

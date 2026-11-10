@@ -71,12 +71,16 @@ inglês, com telas em `en` e `pt-BR`.
    `03-modelo-de-dados.md`; `scripts/build_lexicon.py`; `scripts/build_site.py`;
    `ci.yml`; `deploy.yml` com uma página inicial mínima em `/en/` e `/pt-br/` lendo
    `quality.json`. **Feito em 10/11/2026** (sessão 3): `transform.py`,
-   `build_lexicon.py` e `static/data/` gerado. Ficam para a sessão 4 `build_site.py`,
-   `ci.yml` e `deploy.yml`. Enquanto houver rascunho, a CI valida com `--draft` e
-   compara o derivado com `--draft --check`; `--strict` volta a ser a régua quando os
-   status tiverem carimbo de pessoa.
+   `build_lexicon.py` e `static/data/` gerado. **Completado em 10/11/2026** (sessão 4):
+   `build_site.py` (página inicial em `/en/` e `/pt-br/`, saída em `_site/`), `ci.yml`
+   e `deploy.yml`. Enquanto houver rascunho, a CI valida com `--draft` e compara o
+   derivado com `--draft --check`; `--strict` roda como passo informativo e volta a ser
+   a régua quando os status tiverem carimbo de pessoa (regra no `AGENTS.md`).
 5. Política de robô em código: `User-Agent` próprio, `Crawl-delay`, lista de domínios
-   com `no_text_by_policy`.
+   com `no_text_by_policy`. **Feito em 10/11/2026** (sessão 4): o cliente HTTP guarda o
+   `Crawl-delay` de cada host; a rodada lê de `data/sources.json` os domínios com
+   `no_text_by_policy` e, neles, tria só pelo título e pela descrição da listagem, com
+   nível máximo 2 (`astraea/engine/policy.py`).
 
 **Pronto quando:** `ci.yml` verde; o site publica a página inicial nas duas línguas
 com "197 países, 0 conferidos" / "197 countries, 0 checked"; `transform --strict`
@@ -264,7 +268,7 @@ python -m pytest
 ```
 
 Durante a carga inicial o modo é `--draft`: ele aceita o campo ainda sem carimbo e
-diz quantos são ("13 fields in draft, in 9 records"). `python scripts\transform.py
+diz quantos são ("9 fields in draft, in 5 records"). `python scripts\transform.py
 --strict` mostra a lista do que falta carimbar e termina com "strict: FAILED"; isso
 é esperado até os status das situações serem conferidos por você.
 

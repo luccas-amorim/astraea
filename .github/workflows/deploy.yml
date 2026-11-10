@@ -1,0 +1,66 @@
+# Publishes the site on GitHub Pages. Builds it on the runner from static/data/ and site/
+# and commits nothing. Requires Settings -> Pages -> Source: GitHub Actions.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "static/**"
+      - "site/**"
+      - "data/**"
+      - "scripts/build_site.py"
+      - "CITATION.cff"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+
+      - id: pages
+        uses: actions/configure-pages@v6
+
+      # The validator reads the lexicon with the engine; no runtime dependency to fetch.
+      - name: Install
+        run: pip install -e .
+
+      # Never publish a derived file out of step with data/: the CI checks the same.
+      - name: Derived data in sync
+        run: python scripts/transform.py --draft --check
+
+      - name: Build the site
+        run: >-
+          python scripts/build_site.py --execute --out _site
+          --base-url "${{ steps.pages.outputs.base_url }}/"
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -30,3 +30,10 @@ Este produto inclui dados de terceiros:
   Usada em data/countries.json para conferir os 193 membros e registrar a data de
   admissão (un_member_since). Só fatos (quem é membro e desde quando), com a fonte
   citada; nenhum texto da página é reproduzido.
+
+  Nações Unidas — lista dos Estados não membros com convite permanente como observadores
+  https://www.un.org/en/about-us/non-member-states (lida em 2026-11-10)
+  Termos de uso: https://www.un.org/en/about-us/terms-of-use
+  Usada em data/verification.json para conferir o un_status de Santa Sé e Palestina
+  (observadores) e, por ausência nesta lista e na de membros, de Kosovo e Taiwan. Só
+  fatos, com a fonte citada; nenhum texto da página é reproduzido.

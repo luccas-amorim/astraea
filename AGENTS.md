@@ -16,15 +16,18 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 Em 10/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
 `astraea/cli.py`), as licenças e os dados da fase 1: `data/countries.json` (197 registros,
 só `id`, `name`, `un_status`, `un_member_since`, `situations`), `data/situations.json`
-(as dez da D6; nove status, todos sem carimbo de pessoa), `data/sources.json` (87
+(as dez da D6; nove status, todos sem carimbo de pessoa), `data/sources.json` (88
 fontes), `data/verification.json` (a trilha que carimba os campos escalares),
 `data/lexicon/` (termos fixos em `fixed/` e o léxico gerado em cinco línguas; o árabe é
 rascunho), `data/retired-ids.json` e `data/i18n/`. `scripts/vocabularies.py` é a lista
 única dos vocabulários fechados e das chaves de rótulo; `scripts/build_lexicon.py` gera o
-léxico; `scripts/transform.py` valida com as onze travas e gera `static/data/`. 210
-testes. Não há site nem *workflows*. O `06-roteiro.md` diz a ordem; a fase 1 segue pela
-sessão 4 (`build_site.py`, `ci.yml`, `deploy.yml`, página inicial, política de robô em
-código). Antes de escrever código, leia o `00-inventario.md` e o
+léxico; `scripts/transform.py` valida com as onze travas e gera `static/data/`;
+`scripts/build_site.py` gera a página inicial em `/en/` e `/pt-br/` (modelos e textos em
+`site/`, saída em `_site/`, fora do git). `.github/workflows/ci.yml` roda a bateria em
+todo *push* e PR; `deploy.yml` publica no GitHub Pages. O motor honra o `Crawl-delay` por
+host e não baixa página de domínio com `no_text_by_policy` (`astraea/engine/policy.py`).
+238 testes. A fase 1 está feita; o `06-roteiro.md` diz a ordem, e a fase 2 começa pelo
+Tabelião. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
@@ -70,6 +73,7 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
   python scripts/transform.py --draft --check
   python -m pytest
   astraea validate-lexicon data/lexicon/*.json
+  python scripts/build_site.py
   astraea validate-config config/*.json
   ruff check . && ruff format --check .
   ```
@@ -81,6 +85,19 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
   não estiver, `python scripts/transform.py --draft --execute`; se o léxico estiver
   velho, `python scripts/build_lexicon.py --execute` antes. Rascunho não se "resolve"
   preenchendo `checked_by`: quem carimba como `human` é a pessoa (regra 3).
+
+- **Quando o `--strict` volta a ser a régua da CI.** Hoje o `ci.yml` roda
+  `--draft` e `--draft --check` como travas e o `--strict` como passo informativo (mostra
+  a contagem de rascunhos e só reprova por outra causa). No dia em que
+  `static/data/quality.json` tiver `drafts.fields` igual a zero (os nove status com
+  carimbo `human` da pessoa), o mesmo commit troca, no `ci.yml`, `--draft` por
+  `--strict` nos dois passos de trava e apaga o passo informativo; o `deploy.yml` passa
+  a conferir com `--strict --check`. Rascunho novo depois disso entra por PR que já
+  passe no `--strict`, ou com a volta do passo informativo registrada no
+  `CHANGELOG.md`.
+- **Configuração de rodada** (`config/*.json`, quando existir) leva `"registry":
+  "../data/sources.json"`: é dali que a rodada lê os domínios com `no_text_by_policy`, e
+  `astraea run` recusa configuração sem ela.
 
 - **Línguas.** Dados e código em **inglês**: nomes de arquivo, chaves, valores de
   vocabulário fechado, *ids*, *slugs*, comandos, opções, nomes de módulo e de

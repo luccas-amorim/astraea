@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$site_name</title>
+$alternates
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  // Takes the reader to the version of the browser's language; the links stay for
+  // whoever reads without JavaScript.
+  (function () {
+    var l = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+    location.replace(/^pt\b/i.test(l) ? "$route_pt" : "$route_en");
+  })();
+</script>
+</head>
+<body>
+<main class="wrap root">
+  <h1>$site_name</h1>
+  <ul class="languages">
+$links
+  </ul>
+</main>
+</body>
+</html>

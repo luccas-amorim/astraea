@@ -1,0 +1,5 @@
+[
+  {"id": "paper", "url": "https://jornal.exemplo.br", "no_text_by_policy": false},
+  {"id": "reserved", "url": "https://www.reservado.exemplo", "no_text_by_policy": true},
+  {"id": "no-url", "url": null, "no_text_by_policy": true}
+]

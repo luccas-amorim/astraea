@@ -9,6 +9,11 @@ Two safety rules this module enforces on its own:
   before becoming text: `api_key=`, `token=` and the like come out as `<redacted>`. The
   run report is committed to a public repository; a failure after the retries would
   otherwise take the whole key into the git history.
+- **The `Crawl-delay` of each host is honoured.** The per-minute limit is the source's;
+  the `Crawl-delay` that a host's robots.txt declares for `User-agent: *` (or for
+  Astraea) is the host's, and it is kept between two requests to that host, robots.txt
+  included. The larger of the two wins. (Divergence from Alétheia, whose client read
+  robots.txt only for `Disallow`: docs/02-fontes.md, 2.2, asks for 10 s on un.org.)
 - **Transient failures are retried, including a truncated response.** `IncompleteRead`,
   `RemoteDisconnected` and `BadStatusLine` inherit from `http.client.HTTPException`, not
   from `OSError`; without this `except`, a connection closed by the server would become a
@@ -135,6 +140,7 @@ class Client:
         self._clock = clock or (lambda: time.monotonic())
         self._last: float | None = None
         self._robots: dict[str, urllib.robotparser.RobotFileParser | None] = {}
+        self._host_last: dict[str, float] = {}  # origin -> time of the last request
 
     def _wait(self) -> None:
         if self._last is not None:
@@ -143,9 +149,31 @@ class Client:
                 self._sleep(delay)
         self._last = self._clock()
 
-    def _allowed(self, url: str) -> bool:
+    @staticmethod
+    def _origin(url: str) -> str:
         parts = urllib.parse.urlsplit(url)
-        origin = f"{parts.scheme}://{parts.netloc}"
+        return f"{parts.scheme}://{parts.netloc}"
+
+    def crawl_delay(self, url: str) -> float:
+        """Seconds the host asks between requests (robots.txt), 0 when it asks nothing."""
+        rules = self._robots.get(self._origin(url))
+        if rules is None:
+            return 0.0
+        delay = rules.crawl_delay(self.headers["User-Agent"])
+        return float(delay) if delay else 0.0
+
+    def _wait_host(self, url: str) -> None:
+        origin = self._origin(url)
+        delay = self.crawl_delay(url)
+        last = self._host_last.get(origin)
+        if delay and last is not None:
+            remaining = delay - (self._clock() - last)
+            if remaining > 0:
+                self._sleep(remaining)
+        self._host_last[origin] = self._clock()
+
+    def _allowed(self, url: str) -> bool:
+        origin = self._origin(url)
         if origin not in self._robots:
             # A network failure here rises as FetchError and is not cached: the next
             # request to the same origin tries to read robots.txt again.
@@ -161,6 +189,7 @@ class Client:
         hides its robots.txt does not get the benefit of the doubt.
         """
         response = self._send(Request("GET", f"{origin}/robots.txt", headers=dict(self.headers)))
+        self._host_last[origin] = self._clock()
         rules = urllib.robotparser.RobotFileParser()
         if response.status in (401, 403):
             rules.disallow_all = True
@@ -212,7 +241,11 @@ class Client:
         if json_body is not None:
             body = json.dumps(json_body, ensure_ascii=False).encode("utf-8")
             all_headers.setdefault("Content-Type", "application/json")
+        if self.respects_robots:
+            self._wait_host(url)
         response = self._send(Request(method, url, body, all_headers))
+        if self.respects_robots:  # counted from the end of the request, retries included
+            self._host_last[self._origin(url)] = self._clock()
         if response.status == 403 and any(m in response.body for m in _COUNTRY_MARKS):
             raise BlockedByCountry(
                 f"{method} {redact(url)}: the origin blocks access from this country; "

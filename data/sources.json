@@ -41,6 +41,26 @@
     "reason": "Official list of the 193 Member States with date of admission; read on 2026-11-09 to check data/countries.json (un_status, un_member_since)."
   },
   {
+    "id": "un-non-member-states",
+    "name": "United Nations — Non-Member States",
+    "url": "https://www.un.org/en/about-us/non-member-states",
+    "function": 1,
+    "confidence": "A",
+    "license": "UN terms of use: personal, non-commercial; no redistribution or derivatives without permission",
+    "terms_url": "https://www.un.org/en/about-us/terms-of-use",
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": 6,
+    "languages": [
+      "en"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Official list of the non-member States with a standing invitation as observers (Holy See, State of Palestine); read on 2026-11-10 to check data/countries.json (un_status of the four non-members)."
+  },
+  {
     "id": "cldr",
     "name": "Unicode CLDR (cldr-json 49.0.0)",
     "url": "https://github.com/unicode-org/cldr-json",

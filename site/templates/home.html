@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="$lang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$site_name — $tagline</title>
+<meta name="description" content="$tagline">
+$alternates
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip" href="#content">$skip_to_content</a>
+<header class="top">
+  <div class="wrap">
+    <p class="brand"><a href="./">$site_name</a></p>
+    <nav aria-label="$language_switch">$language_links</nav>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <h1>$site_name</h1>
+  <p class="tagline">$tagline</p>
+
+  <section aria-labelledby="about">
+    <h2 id="about">$about_title</h2>
+    $about
+  </section>
+
+  <section aria-labelledby="countries">
+    <h2 id="countries">$countries_title</h2>
+    <p class="counter" data-total="$countries_total" data-checked="$countries_checked">$countries_counter</p>
+    <p class="note">$countries_note</p>
+  </section>
+
+  <section aria-labelledby="situations">
+    <h2 id="situations">$situations_title</h2>
+    <p class="note">$situations_intro</p>
+    <ul class="situations">
+$situations
+    </ul>
+  </section>
+
+  <section aria-labelledby="drafts">
+    <h2 id="drafts">$drafts_title</h2>
+    <p class="counter" data-fields="$drafts_fields" data-records="$drafts_records">$drafts_counter</p>
+    <p class="note">$drafts_note <a href="../static/data/quality.json">$quality_link</a></p>
+  </section>
+
+  <section aria-labelledby="cite">
+    <h2 id="cite">$cite_title</h2>
+    <p>$cite_intro</p>
+    <blockquote class="citation">$citation</blockquote>
+    <p><a href="../CITATION.cff">$cite_file</a></p>
+  </section>
+
+  <section aria-labelledby="data">
+    <h2 id="data">$data_title</h2>
+    <p>$data_intro</p>
+    <ul class="files">
+$data_files
+    </ul>
+    <p class="note">$as_of</p>
+  </section>
+</main>
+<footer class="wrap">
+  <p>$footer_licence <a href="$repository">$footer_code</a></p>
+</footer>
+</body>
+</html>

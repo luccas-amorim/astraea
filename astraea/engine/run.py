@@ -25,6 +25,7 @@ from astraea.engine.config import Config
 from astraea.engine.contract import Document, Reference, Source
 from astraea.engine.http import BlockedByRobots, redact
 from astraea.engine.lexicon import Matcher
+from astraea.engine.policy import Policy, metadata_document
 from astraea.engine.triage import Result, triage
 
 log = logging.getLogger(__name__)
@@ -157,6 +158,7 @@ def process_source(
     memory: state.State,
     since: date,
     run: Run,
+    policy: Policy | None = None,
 ) -> None:
     run.since[source.id] = since.isoformat()
     references: list[Reference] = []
@@ -184,6 +186,12 @@ def process_source(
         source.id, len(references), len(memory.pending), len(new), since,
     )  # fmt: skip
     for ref in new:
+        if policy is not None and policy.no_text(ref.url):
+            # Text-and-data-mining opt-out: the page is never fetched (docs/02, 2.2).
+            doc = metadata_document(ref)
+            run.lines.append(triaged_line(doc, matcher, None))
+            memory.resolve(ref.source_id, doc.text_hash)
+            continue
         try:
             doc = source.fetch(ref)
         except BlockedByRobots as error:
@@ -226,8 +234,12 @@ def run(
     use_state: bool = True,
     today: date | None = None,
     now: datetime | None = None,
+    policy: Policy | None = None,
 ) -> Run:
+    """`policy` defaults to the one read from the configuration's `registry`."""
     today = today or (now.date() if now else date.today())
+    if policy is None and config.registry is not None:
+        policy = Policy.from_registry(config.registry)
     result = new_run(matcher, "run", now)
     corpus = Corpus(config.corpus, store=config.store_text)
     for source in sources:
@@ -239,7 +251,7 @@ def run(
             start = memory.last_run - timedelta(days=margin)
         if start is None:
             start = config.since or today - timedelta(days=7)
-        process_source(source, matcher, corpus, memory, start, result)
+        process_source(source, matcher, corpus, memory, start, result, policy)
         if use_state:
             # Seen, pending and progress are always written; the date only advances when
             # the listing finished entirely, so the next window covers what was missing.

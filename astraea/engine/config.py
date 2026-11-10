@@ -2,6 +2,7 @@
 
     {
       "lexicon": "data/lexicon/en.json",
+      "registry": "data/sources.json",
       "directory": ".",
       "since": "2026-11-01",
       "margin_days": 7,
@@ -16,6 +17,10 @@
 
 Relative paths are resolved from the configuration file. `state/`, `corpus/`, `runs/`, the
 catalogue and the observations live in `directory`.
+
+`registry` is `data/sources.json`: the run reads from it the domains with
+`no_text_by_policy`, whose pages are never fetched (astraea.engine.policy). It is required
+by `validate()` and by `astraea run`.
 
 `stratum` is required for the estimate to make sense: capture-recapture only compares
 channels that look at the same population. `validate()` refuses a stratum outside the list.
@@ -49,6 +54,8 @@ class Config:
     # {"resolve": true, "rate_limit_per_minute": 15}: look up in the Wayback the reference
     # copy of items that came from other channels.
     archive: dict | None = None
+    # data/sources.json: where the text-and-data-mining opt-outs are read from.
+    registry: Path | None = None
 
     @property
     def catalog_csv(self) -> Path | None:
@@ -100,6 +107,11 @@ def validate(data: dict) -> list[str]:
         return ["the root must be an object"]
     if not data.get("lexicon"):
         problems.append("lexicon: required")
+    if not data.get("registry"):
+        problems.append(
+            "registry: required: the path to data/sources.json, where the domains with "
+            "no_text_by_policy are listed (docs/02-fontes.md, 2.2)"
+        )
     sources = data.get("sources") or []
     if not sources:
         problems.append("sources: no source configured")
@@ -160,4 +172,5 @@ def load(path: str | Path) -> Config:
         catalog=data.get("catalog"),
         observations=data.get("observations"),
         archive=data.get("archive"),
+        registry=(base / data["registry"]).resolve() if data.get("registry") else None,
     )
