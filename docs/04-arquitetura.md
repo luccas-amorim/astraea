@@ -98,7 +98,7 @@ flowchart LR
 | Robô | Função | O que faz | Herança | Agendamento |
 |---|---|---|---|---|
 | **Tabelião** | 1 | lê o **XML por tratado** da UN Treaty Collection (IV.1 e XVIII.10, verificado em `02-fontes.md`) e grava `genocide_convention` e `rome_statute` de cada país, com data, tipo, reservas e retiradas; acusa país novo, retirada e reserva nova | adaptador `listing` (`astraea/sources/listing.py`, escrito na fase 2 à maneira do Argos: tabela que muda devagar; linha alterada volta a ser lida) e `scripts/load_treaties.py` | mensal, no `countries.yml` |
-| **Cartógrafo** | 1 | a sondagem mostrou que **não há base aberta viva** de códigos penais: na fase 1 o Cartógrafo só reconfere, todo mês, se Legislationline, SHERLOC, Library of Congress e WorldLII voltaram a responder, e reabre a fonte em `sources.json` quando sim; `penal_code` e `domestic_genocide` entram por carga humana | Cotejador do AtlasPen ("só pergunta") | mensal |
+| **Cartógrafo** | 1 | a sondagem mostrou que **não há base aberta viva** de códigos penais: na fase 1 o Cartógrafo só reconfere, todo mês, se Legislationline, SHERLOC, Library of Congress e WorldLII voltaram a responder, e reabre a fonte em `sources.json` quando sim; `penal_code` e `domestic_genocide` entram por carga humana. Escrito na fase 2, sessão 8 (11/11/2026): `scripts/recheck_sources.py`, uma página por fonte, sem ler conteúdo (adiante, "O Cartógrafo, como ficou") | Cotejador do AtlasPen ("só pergunta") | mensal, no `countries.yml` |
 | **Sentenciador** (nome a decidir, D15) | 1 | lê as quatro listas da base por trás do mapa do espelho do Cornell (`02-fontes.md`, 1.5) e grava `death_penalty` com `checked_by: robot` nas três categorias que correspondem às da Anistia; a quarta (*de facto*) fica vazia com `reason` (`03-modelo-de-dados.md`, "Como a pena de morte é preenchida"); o anexo anual da Anistia entra à mão e o robô não toca o que a pessoa carimbou | adaptador `listing`, formato `cornell_dpw_status`, e `scripts/load_death_penalty.py` | mensal, no `countries.yml`, junto com o Tabelião (decidido em 10/11/2026; o porquê está em "Agendamentos") |
 | **Vigia das notícias** | 2 | `astraea run` com `config/news.json`: GDELT por língua (`sourcelang:` × termos) e por tema (`WB_2509_GENOCIDE`), a 1 requisição por 5 s; ReliefWeb por `appname`; ~15 *feeds* RSS (lista em `02-fontes.md`); lê a página do veículo para triar, **exceto nos domínios com *opt-out* de mineração de texto** (os de `data/sources.json` com `no_text_by_policy`, lidos pela chave `registry` da configuração; `astraea/engine/policy.py`), onde tria só pelo título e pela descrição do *feed*, com nível máximo 2 e `reason: "no_text_by_policy"`; grava nível ≥ 2 em `news/`, conta nível 0–1 no relatório | motor inteiro (do Alétheia) + adaptador `reliefweb` novo | semanal (diário na fase de calibração) |
 | **Escrivão** | 3 | adaptador `icj` (`listing` sobre página de caso e lista de *press releases*; PDF só como URL), `rss` do TPI (registros e notícias), IRMCT, KSC, RSCSL, Corte Africana, TRIAL e HUDOC, `listing` sobre as páginas de mandato da OHCHR; grava `procedural_step` e `press_release` em `decisions.json`; o que parece ordem ou sentença vai para pede-juízo (`needs-review.jsonl`) | motor + `listing` | semanal |
@@ -116,7 +116,7 @@ Nenhum robô escreve em `situations.statuses`, em `promotion` ou em campo com
 | `ci.yml` | push e PR | 15 min | não | `transform --draft`, derivado sincronizado (`--draft --check`), `pytest`, validação de léxico (e de config, quando `config/` existir), `build_site.py` em simulação, `ruff`; enquanto houver rascunho, `--strict` é passo informativo que mostra a contagem e só reprova por outra causa (quando volta a ser a régua: `AGENTS.md`) |
 | `news.yml` | segunda 06:00 | 340 min | uma fonte por vez, `git pull --rebase` + push depois de cada uma (padrão do Alétheia) | `concurrency: news`, sem cancelar; entradas manuais `since` e `source` |
 | `courts.yml` | terça 06:00 | 120 min | idem | separado do de notícias para que a falha de um não cale o outro |
-| `countries.yml` | dia 1, 05:00; também à mão (`workflow_dispatch`) | 60 min | abre **PR** da branch `robot/countries`, nunca comita na `main` | as duas cargas (Tabelião e pena de morte) com `--execute` e, se `countries.json` mudou, `transform.py --draft --execute` e uma entrada no `CHANGELOG.md` com os sha256 (`scripts/countries_monthly.py`); roda a bateria antes de propor; mês sem novidade dá PR com commit vazio e os sha256 no corpo; carga que falha abre issue, e a outra segue; `concurrency: countries`, sem cancelar; o PR é a revisão |
+| `countries.yml` | dia 1, 05:00; também à mão (`workflow_dispatch`) | 60 min | abre **PR** da branch `robot/countries`, nunca comita na `main` | as duas cargas (Tabelião e pena de morte) e o Cartógrafo com `--execute` e, se `countries.json` ou `sources.json` mudou, `transform.py --draft --execute` e uma entrada no `CHANGELOG.md` com os sha256 (`scripts/countries_monthly.py`); roda a bateria antes de propor; mês sem novidade dá PR com commit vazio e os sha256 no corpo; carga que falha abre issue, e a outra segue; `concurrency: countries`, sem cancelar; o PR é a revisão |
 | `sources-check.yml` | sexta 02:00 | 15 min | não; abre issue | ensaio das fontes, como o `fontes.yml` do AtlasPen: na sexta se descobre que a fonte mudou, não na segunda |
 | `audit.yml` | manual (trimestral) | 30 min | abre PR com a planilha da amostra | |
 | `deploy.yml` | push em `main` tocando `static/`, `site/`, `data/`, `scripts/build_site.py`, `CITATION.cff` ou o próprio *workflow*; também à mão (`workflow_dispatch`) | 10 min | — | confere o derivado (`--draft --check`), gera `_site/` no *runner* com `build_site.py --execute` e publica com `upload-pages-artifact` + `deploy-pages`, como no AtlasPen; sem Astro na fase 1 |
@@ -169,6 +169,33 @@ melhoria registrada no roteiro).
   *fixtures* de 10/11/2026 com os registros como elas os leem; o `countries.json` do
   repositório só precisa concordar com elas fora dos blocos lidos depois (`read_on` mais
   novo) ou carimbados por pessoa. Sem isso, o primeiro PR com novidade viria vermelho.
+
+**O Cartógrafo, como ficou (fase 2, sessão 8, 11/11/2026).**
+
+- **Entra no `countries.yml`, e não num *workflow* próprio.** O que ele muda
+  (`data/sources.json`) também muda o derivado `static/data/quality.json`, o mesmo que o PR
+  de países regenera; dois *workflows* abririam PRs em conflito, pelo mesmo motivo que pôs
+  o Cornell no mensal. É mensal como as duas cargas, e roda depois delas, pelo
+  `scripts/countries_monthly.py`.
+- **Uma página por fonte, sem ler conteúdo** (`scripts/recheck_sources.py`, a tabela
+  `PROBES`): a coleção de códigos penais do Legislationline, a página da base do SHERLOC,
+  a API JSON da coleção Global Legal Monitor da Library of Congress e a página inicial do
+  WorldLII. "Responde" quer dizer HTTP 2xx, no mesmo *host* (redirecionar para outro site
+  não conta: é o que o Legislationline faz desde 06/11), com a marca que prova que é aquela
+  página e sem página de desafio; desafio não se contorna.
+- **Reabrir** é `state: active`, `robots_checked_on` do dia e um `reason` que diz que foi o
+  robô e que só uma página respondeu; o sha256 da resposta vai para o `CHANGELOG.md`. O PR
+  mensal é a revisão.
+- **O SHERLOC é perguntado e nunca reaberto pelo robô**: foi suspenso pelo conteúdo (as
+  buscas por genocídio não devolviam lei), não por não responder, e uma página não decide
+  isso. Contar as leis por crime pede o *endpoint* da busca, que não foi procurado.
+- **Fonte descartada por pessoa fica como está**, e fonte ativa nunca é suspensa pelo robô:
+  o relatório diz quando ela parou de responder.
+- **Robô de IA vetado pelo nome**: o robô do Astraea não é modelo e lê o que o
+  `robots.txt` lhe permite; quando o arquivo veda agentes de IA pelo nome, o relatório e o
+  `reason` dizem, porque nenhuma sessão que seja modelo lê aquele portal (`AGENTS.md`).
+- **Sozinho, não abre PR** quando as duas cargas falham, a menos que tenha reaberto uma
+  fonte: fonte que não responde é o resultado de quase todo mês, não falha.
 
 ## Onde o motor vive
 

@@ -1,0 +1,37 @@
+{
+  "about": "Synthetic responses for scripts/recheck_sources.py (tests/fixtures/README.md, 'The Cartógrafo fixture'): the four sources as the probe of 2026-11-06 and the session of 2026-11-11 saw them, none of them reopenable.",
+  "responses": {
+    "https://www.legislationline.org/robots.txt": {
+      "status": 404,
+      "url": "https://odihr.osce.org/odihr/legal-opinions-and-comments/robots.txt",
+      "body": "<html><head><title>404 Not Found</title></head><body><h1>Not Found</h1></body></html>"
+    },
+    "https://www.legislationline.org/documents/section/criminal-codes": {
+      "status": 404,
+      "url": "https://odihr.osce.org/odihr/legal-opinions-and-comments/",
+      "body": "<html><head><link rel=\"canonical\" href=\"https://odihr.osce.org/\"></head><body>Page not found</body></html>"
+    },
+    "https://sherloc.unodc.org/robots.txt": {
+      "status": 404,
+      "body": "<html><body>Not found</body></html>"
+    },
+    "https://sherloc.unodc.org/cld/en/v3/sherloc/legdb/": {
+      "status": 200,
+      "headers": {"Content-Type": "text/html;charset=utf-8"},
+      "body": "<html><head><title>Database of Legislation</title></head><body><ul><li>Genocide (underlying acts)</li><li>Genocide (contextual elements)</li></ul></body></html>"
+    },
+    "https://www.loc.gov/robots.txt": {
+      "status": 403,
+      "body": "<html><head><title>Just a moment...</title></head><body>challenge-platform</body></html>"
+    },
+    "http://www.worldlii.org/robots.txt": {
+      "status": 200,
+      "headers": {"Content-Type": "text/plain; charset=utf-8"},
+      "body": "User-agent: *\nContent-Signal: search=yes,ai-train=no,use=reference\nAllow: /\n\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: anthropic-ai\nDisallow: /\n\nUser-agent: GPTBot\nDisallow: /\n"
+    },
+    "http://www.worldlii.org/": {
+      "status": 403,
+      "body": "<html><head><title>Attention Required! | Cloudflare</title></head><body><h1>Sorry, you have been blocked</h1></body></html>"
+    }
+  }
+}

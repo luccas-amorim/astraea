@@ -60,6 +60,18 @@ def test_robots_that_disallows_blocks_without_requesting(network):
     assert "https://a.br/private/doc" not in network.urls()
 
 
+def test_the_robots_txt_read_is_there_to_ask(network):
+    network.answer("https://a.br/robots.txt", "User-agent: ClaudeBot\nDisallow: /\n")
+    network.answer("https://a.br/x", "ok")
+    client = _client(network)
+    assert client.robots("https://a.br/x") is None  # not read yet
+    client.request("https://a.br/x")
+    rules = client.robots("https://a.br/y")
+    assert rules.can_fetch(USER_AGENT, "https://a.br/x")
+    assert not rules.can_fetch("ClaudeBot", "https://a.br/x")
+    assert client.robots("https://b.br/x") is None  # another origin
+
+
 def test_robots_403_disallows_everything(network):
     network.answer("https://a.br/robots.txt", "", status=403)
     with pytest.raises(BlockedByRobots):

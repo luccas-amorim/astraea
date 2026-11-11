@@ -547,7 +547,9 @@ Leitura adotada na carga de 09/11/2026 (fase 1, sessão 2):
   (JSON). Assim `function` continua um número só.
 - `state` vale para todas: `active` quer dizer que a fonte pode ser citada e usada como o
   `02-fontes.md` decidiu, inclusive só à mão (CICV, N-Lex, Corte IDH); `suspended` é o
-  que espera reconferência ou gesto humano (ReliefWeb sem `appname`, LoC, WorldLII);
+  que espera reconferência ou gesto humano (ReliefWeb sem `appname`, LoC, WorldLII; as
+  quatro bases de lei penal, o Cartógrafo reconfere todo mês e reabre quando respondem,
+  exceto o SHERLOC, suspenso pelo conteúdo);
   `discarded`, o que ficou fora por termos, `robots.txt`, custo ou irrelevância.
 - `reason` existe em **toda** entrada e diz o veredito em uma frase, em inglês, como
   dado. Não é texto localizado: a página de fontes, quando existir, decide se o traduz

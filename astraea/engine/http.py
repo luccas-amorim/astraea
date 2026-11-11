@@ -172,6 +172,11 @@ class Client:
                 self._sleep(remaining)
         self._host_last[origin] = self._clock()
 
+    def robots(self, url: str) -> urllib.robotparser.RobotFileParser | None:
+        """The robots.txt of the url's origin as the client read it, or None when the
+        origin has none (404 and the like) or the client has not read it yet."""
+        return self._robots.get(self._origin(url))
+
     def _allowed(self, url: str) -> bool:
         origin = self._origin(url)
         if origin not in self._robots:

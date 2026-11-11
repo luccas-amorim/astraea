@@ -20,6 +20,7 @@ cp1252 on purpose, and line-ending conversion would break the tests that compare
 | `lexicon-carandiru.json` | sample lexicon for the run and triage tests |
 | `lexicon-example.json` | minimal lexicon of another domain, for the format tests |
 | `untc/IV-1.en.xml`, `untc/XVIII-10.en.xml` | **recorded**: the per-treaty XML of the UN Treaty Collection (Genocide Convention, Rome Statute), downloaded by the engine on 2026-11-10, with the depositary's prose replaced by markers (see below) |
+| `cartographer/responses.json` | **synthetic**: the responses of the four sources the Cartógrafo asks (see below) |
 | `cornell/*.json` | **recorded**: the four death penalty lists of the Cornell Center on the Death Penalty Worldwide (one per category), downloaded by the engine on 2026-11-10, byte for byte (see below) |
 
 ## The UNTC fixtures
@@ -54,3 +55,17 @@ nothing had to be cut. The file names are the ones `scripts/load_death_penalty.p
 | `retentionist.json` | `Retentionist` |
 
 Their sha256 is in `CHANGELOG.md` (phase 2, session 2).
+
+## The Cartógrafo fixture
+
+`cartographer/responses.json` is **synthetic**: one short response per URL that
+`scripts/recheck_sources.py` asks (each robots.txt and each page), imitating what the probe
+of 2026-11-06 and the session of 2026-11-11 saw, so that no source is reopenable:
+Legislationline redirects to the ODIHR site and answers 404; SHERLOC answers 200 (it is
+suspended for its content, not for answering); loc.gov answers its own robots.txt with a
+403 challenge; WorldLII names AI agents in its robots.txt and answers 403 "Sorry, you have
+been blocked". It was not recorded: the session that wrote it is a language model, and
+WorldLII disallows AI agents by name; the pages of the others are not needed beyond their
+status and a mark. Each test changes its own copy (a page that answers again, a redirect,
+a challenge served with 200). A URL that is not in the file fails as a connection that did
+not answer.

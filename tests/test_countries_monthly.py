@@ -25,6 +25,7 @@ import countries_monthly as cm  # noqa: E402
 
 UNTC = ROOT / "tests" / "fixtures" / "untc"
 CORNELL = ROOT / "tests" / "fixtures" / "cornell"
+RESPONSES = ROOT / "tests" / "fixtures" / "cartographer" / "responses.json"
 WORKFLOW = ROOT / ".github" / "workflows" / "countries.yml"
 READ_ON = "2026-12-01"
 
@@ -39,6 +40,7 @@ def repo(tmp_path, monkeypatch):
     shutil.copy(ROOT / "CHANGELOG.md", tmp_path / "CHANGELOG.md")
     shutil.copytree(UNTC, tmp_path / "untc")
     shutil.copytree(CORNELL, tmp_path / "cornell")
+    shutil.copy(RESPONSES, tmp_path / "responses.json")
     return tmp_path
 
 
@@ -49,6 +51,7 @@ def run(repo: Path, *extra: str) -> int:
             "--changelog", str(repo / "CHANGELOG.md"),
             "--xml-dir", str(repo / "untc"),
             "--json-dir", str(repo / "cornell"),
+            "--responses", str(repo / "responses.json"),
             "--read-on", READ_ON,
             *extra,
         ]
@@ -181,6 +184,72 @@ def test_data_the_validator_refuses_opens_an_issue_and_no_pull_request(repo):
     assert (repo / "CHANGELOG.md").read_bytes() == changelog  # nothing proposed
 
 
+def suspend_and_answer_legislationline(repo: Path) -> None:
+    """Legislationline suspended (whatever the repository says today) and answering."""
+    path = repo / "data" / "sources.json"
+    sources = json.loads(path.read_text(encoding="utf-8"))
+    for s in sources:
+        if s["id"] == "legislationline":
+            s["state"] = "suspended"
+    path.write_text(cm.transform.dumps(sources), encoding="utf-8", newline="\n")
+    responses = json.loads((repo / "responses.json").read_text(encoding="utf-8"))
+    responses["responses"]["https://www.legislationline.org/documents/section/criminal-codes"] = {
+        "status": 200,
+        "body": "<html><title>Criminal codes</title></html>",
+    }
+    (repo / "responses.json").write_text(json.dumps(responses), encoding="utf-8")
+
+
+def test_a_reopened_source_carries_sources_json_and_the_derived(repo):
+    suspend_and_answer_legislationline(repo)
+    countries = (repo / "data/countries.json").read_bytes()
+    assert execute(repo) == 0
+    assert (repo / "data/countries.json").read_bytes() == countries
+    sources = json.loads((repo / "data/sources.json").read_text(encoding="utf-8"))
+    assert next(s for s in sources if s["id"] == "legislationline")["state"] == "active"
+    quality = json.loads((repo / "static/data/quality.json").read_text(encoding="utf-8"))
+    assert quality["sources"]["by_state"]["active"] >= 1
+
+    texts = report(repo)
+    assert texts["pr-title.txt"] == f"Leitura mensal dos países, {READ_ON}\n"
+    body = texts["pr-body.md"]
+    assert "Há novidade: 0 blocos novos ou mudados e 1 fonte reaberta." in body
+    assert "### Fontes da lei penal (Cartógrafo) (`sources.json`)" in body
+    assert "changed: legislationline.state: 'suspended' -> 'active'" in body
+    # the sha256 of the reopened page joins the six of the loads
+    assert len(re.findall(r"sha256 [0-9a-f]{64}", texts["commit-message.txt"])) == 7
+    changelog = (repo / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "`recheck_sources.py --execute` (o Cartógrafo)" in changelog
+    assert changelog.index("changed: legislationline.state") > changelog.index(f"## {READ_ON}")
+
+
+def test_the_cartographer_alone_gives_no_pull_request_when_both_loads_fail(repo):
+    xml = repo / "untc" / "IV-1.en.xml"
+    xml.write_bytes(xml.read_bytes()[:5000])
+    (repo / "cornell" / "retentionist.json").write_bytes(b"<html>Application error</html>")
+    assert execute(repo) == 0
+    assert set(report(repo)) == {"issue-title.txt", "issue-body.md"}
+    # but a source it reopened is news, and gets its pull request
+    suspend_and_answer_legislationline(repo)
+    shutil.rmtree(repo / "report")
+    assert execute(repo) == 0
+    texts = report(repo)
+    assert {"pr-title.txt", "issue-title.txt"} <= set(texts)
+    assert "Há novidade: 0 blocos novos ou mudados e 1 fonte reaberta." in texts["pr-body.md"]
+
+
+def test_a_failure_of_the_cartographer_opens_an_issue_and_the_loads_their_pull_request(repo):
+    path = repo / "data" / "sources.json"
+    sources = [s for s in json.loads(path.read_text(encoding="utf-8")) if s["id"] != "sherloc"]
+    path.write_text(cm.transform.dumps(sources), encoding="utf-8", newline="\n")
+    assert execute(repo) == 0
+    texts = report(repo)
+    assert texts["issue-title.txt"].endswith(": fontes da lei penal (cartógrafo)\n")
+    assert "**Cartógrafo.**" in texts["issue-body.md"]
+    assert "FAIL not in " in texts["issue-body.md"]
+    assert texts["pr-title.txt"].endswith("sem novidade\n")
+
+
 def test_simulation_writes_nothing(repo, capsys):
     move_japan(repo)
     before = {p: p.read_bytes() for p in repo.rglob("*") if p.is_file()}
@@ -292,6 +361,8 @@ def test_it_reads_with_execute_and_proposes_only_after_the_battery(workflow):
         'python scripts/countries_monthly.py --execute --report-dir "$RUNNER_TEMP/report"'
         in workflow
     )
+    # what the Cartógrafo writes goes into the pull request with the rest
+    assert "git add data/countries.json data/sources.json static/data CHANGELOG.md" in workflow
     battery = workflow.index("name: Battery")
     assert workflow.index("python -m pytest") > battery
     assert workflow.index("name: Open or update the pull request") > battery
