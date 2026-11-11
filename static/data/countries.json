@@ -4780,10 +4780,10 @@
     "un_status": "member",
     "un_member_since": "1945-11-13",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws; the former Parliament domain (ethiopar.net) is a parked domain. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws; the former Parliament domain (ethiopar.net) is a parked domain. Awaits a reading at an official source. On 2026-11-11 (session 9) the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 for the third time and is not tried again."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws; the former Parliament domain (ethiopar.net) is a parked domain. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws; the former Parliament domain (ethiopar.net) is a parked domain. Awaits a reading at an official source. On 2026-11-11 (session 9) the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 for the third time and is not tried again."
     },
     "genocide_convention": {
       "participation": "party",
@@ -6878,10 +6878,10 @@
     "un_status": "member",
     "un_member_since": "1945-12-21",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer; the Federal Supreme Court (iraqfsc.iq) disallows every path in its robots.txt. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer; the Federal Supreme Court (iraqfsc.iq) disallows every path in its robots.txt. Awaits a reading at an official source. On 2026-11-11 (session 9) the Ministry of Justice (moj.gov.iq) did not answer for the third time and is not tried again."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer; the Federal Supreme Court (iraqfsc.iq) disallows every path in its robots.txt. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer; the Federal Supreme Court (iraqfsc.iq) disallows every path in its robots.txt. Awaits a reading at an official source. On 2026-11-11 (session 9) the Ministry of Justice (moj.gov.iq) did not answer for the third time and is not tried again."
     },
     "genocide_convention": {
       "participation": "party",
@@ -7054,10 +7054,21 @@
     "un_status": "member",
     "un_member_since": "1949-05-11",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Knesset site (main.knesset.gov.il) answered the engine's client with a non-standard HTTP 247 page that only runs a JavaScript challenge, and on the second attempt the Knesset file server (fs.knesset.gov.il) answered the same way; gov.il answers its robots.txt with HTTP 403, read as 'disallow everything'; not circumvented (AGENTS.md, rule 7). Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "חוק העונשין, התשל\"ז-1977",
+      "enacted_year": 1977,
+      "consolidated_on": null,
+      "official_url": "https://knesset.gov.il/Odata/ParliamentInfo.svc/KNS_IsraelLaw(2000479)?$format=json",
+      "alternative_url": null,
+      "language": "he",
+      "url": "https://knesset.gov.il/Odata/ParliamentInfo.svc/KNS_IsraelLaw(2000479)?$format=json",
+      "source": "knesset-odata",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Knesset site (main.knesset.gov.il) answered the engine's client with a non-standard HTTP 247 page that only runs a JavaScript challenge, and on the second attempt the Knesset file server (fs.knesset.gov.il) answered the same way; gov.il answers its robots.txt with HTTP 403, read as 'disallow everything'; not circumvented (AGENTS.md, rule 7). Awaits a reading at an official source."
+      "reason": "Not loaded on 2026-11-11: the Knesset's open data service (knesset.gov.il/Odata, no robots.txt) lists the Law on the Prevention and Punishment of the Crime of Genocide, 5710-1950 (חוק בדבר מניעתו וענישתו של הפשע השמדת עם, התש\"י-1950), published on 1950-04-07, with no later publication, as in force; the service gives the title and the dates, not the text, and lists no document for it. The text was not read: the Knesset site (main.knesset.gov.il) and its file server (fs.knesset.gov.il) answered the engine's client on 2026-11-10 and 2026-11-11 with a non-standard HTTP 247 page that only runs a JavaScript challenge, and gov.il answers its robots.txt with HTTP 403; not circumvented (AGENTS.md, rule 7). The provision, the definition and the penalty are not recorded from the title. Awaits a reading of the text at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -7123,11 +7134,11 @@
     },
     "completeness": {
       "stamped": 4,
-      "draft": 0,
-      "empty": 3,
+      "draft": 1,
+      "empty": 2,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
+        "penal_code": "draft",
         "domestic_genocide": "empty",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
@@ -7135,7 +7146,7 @@
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "ITA",
@@ -13462,10 +13473,30 @@
     "un_status": "member",
     "un_member_since": "2000-11-01",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). The National Assembly (parlament.gov.rs) publishes the bills, not the law as adopted; the Ministry of Justice (mpravde.gov.rs) closed the TLS connection; the publisher of the Official Gazette (slglasnik.com), read with the intermediate certificate taken from the address its own certificate declares, sells the Gazette and points to the same Legal Information System for the texts. Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "Krivični zakonik (Službeni glasnik RS br. 85/2005)",
+      "enacted_year": 2005,
+      "consolidated_on": null,
+      "official_url": "https://www.tuzilastvorz.org.rs/public/files/pages/2024-10/KRIVI%C4%8CNI%20ZAKONIK.pdf",
+      "alternative_url": null,
+      "language": "sr",
+      "url": "https://www.tuzilastvorz.org.rs/public/files/pages/2024-10/KRIVI%C4%8CNI%20ZAKONIK.pdf",
+      "source": "tuzilastvorz",
+      "read_on": "2026-11-11",
+      "confidence": "B",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). The National Assembly (parlament.gov.rs) publishes the bills, not the law as adopted; the Ministry of Justice (mpravde.gov.rs) closed the TLS connection; the publisher of the Official Gazette (slglasnik.com), read with the intermediate certificate taken from the address its own certificate declares, sells the Gazette and points to the same Legal Information System for the texts. Awaits a reading at an official source."
+      "status": "criminalized",
+      "instrument": "Krivični zakonik",
+      "provision": "član 370.",
+      "year": 2005,
+      "follows_convention_definition": "yes",
+      "url": "https://www.tuzilastvorz.org.rs/public/files/pages/2024-10/KRIVI%C4%8CNI%20ZAKONIK.pdf",
+      "source": "tuzilastvorz",
+      "read_on": "2026-11-11",
+      "confidence": "B",
+      "checked_by": null
     },
     "genocide_convention": {
       "participation": "party",
@@ -13494,6 +13525,16 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "max_penalty": {
+      "type": "life",
+      "years": null,
+      "applies_to_genocide": "yes",
+      "url": "https://www.tuzilastvorz.org.rs/public/files/pages/2024-10/KRIVI%C4%8CNI%20ZAKONIK.pdf",
+      "source": "tuzilastvorz",
+      "read_on": "2026-11-11",
+      "confidence": "B",
+      "checked_by": null
     },
     "death_penalty": {
       "status": "abolitionist_all_crimes",
@@ -13531,19 +13572,19 @@
     },
     "completeness": {
       "stamped": 4,
-      "draft": 0,
-      "empty": 3,
+      "draft": 3,
+      "empty": 0,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
-        "domestic_genocide": "empty",
+        "penal_code": "draft",
+        "domestic_genocide": "draft",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
-        "max_penalty": "empty",
+        "max_penalty": "draft",
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "SSD",
@@ -15250,10 +15291,10 @@
     "un_status": "member",
     "un_member_since": "1961-12-14",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no; the Law Reform Commission (lrct.go.tz), the Office of the Attorney General (oag.go.tz) and the National Prosecutions Service (nps.go.tz) answer, but publish no laws. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no; the Law Reform Commission (lrct.go.tz), the Office of the Attorney General (oag.go.tz) and the National Prosecutions Service (nps.go.tz) answer, but publish no laws. Awaits a reading at an official source. On 2026-11-11 (session 9) the Ministry of Constitutional and Legal Affairs (sheria.go.tz) answers, and its publications are speeches, budgets, forms and regulations, not the Penal Code."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no; the Law Reform Commission (lrct.go.tz), the Office of the Attorney General (oag.go.tz) and the National Prosecutions Service (nps.go.tz) answer, but publish no laws. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no; the Law Reform Commission (lrct.go.tz), the Office of the Attorney General (oag.go.tz) and the National Prosecutions Service (nps.go.tz) answer, but publish no laws. Awaits a reading at an official source. On 2026-11-11 (session 9) the Ministry of Constitutional and Legal Affairs (sheria.go.tz) answers, and its publications are speeches, budgets, forms and regulations, not the Penal Code."
     },
     "genocide_convention": {
       "participation": "party",

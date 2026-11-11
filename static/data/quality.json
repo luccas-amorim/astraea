@@ -1,10 +1,10 @@
 {
   "as_of": "2026-11-11",
   "drafts": {
-    "fields": 42,
-    "records": 18,
+    "fields": 46,
+    "records": 20,
     "by_check": {
-      "3": 42,
+      "3": 46,
       "6": 4
     },
     "items": [
@@ -110,6 +110,11 @@
       },
       {
         "check": 3,
+        "where": "countries[ISR].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
         "where": "countries[NLD].domestic_genocide",
         "message": "asserted without stamp: missing checked_by"
       },
@@ -161,6 +166,21 @@
       {
         "check": 3,
         "where": "countries[SDN].max_penalty",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[SRB].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[SRB].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[SRB].max_penalty",
         "message": "asserted without stamp: missing checked_by"
       },
       {
@@ -251,13 +271,13 @@
       },
       "penal_code": {
         "stamped": 0,
-        "draft": 11,
-        "empty": 186
+        "draft": 13,
+        "empty": 184
       },
       "domestic_genocide": {
         "stamped": 0,
-        "draft": 11,
-        "empty": 186
+        "draft": 12,
+        "empty": 185
       },
       "genocide_convention": {
         "stamped": 195,
@@ -271,8 +291,8 @@
       },
       "max_penalty": {
         "stamped": 0,
-        "draft": 11,
-        "empty": 186
+        "draft": 12,
+        "empty": 185
       },
       "death_penalty": {
         "stamped": 130,
@@ -334,9 +354,9 @@
     }
   },
   "sources": {
-    "total": 103,
+    "total": 105,
     "by_state": {
-      "active": 62,
+      "active": 64,
       "suspended": 10,
       "discarded": 31
     },
