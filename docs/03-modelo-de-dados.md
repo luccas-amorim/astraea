@@ -387,8 +387,8 @@ país, na ordem da lista de 24 países aprovada pelo dono (`06-roteiro.md`, fase
   (em inglês, como dado), dizendo o que impediu a leitura (portal que veda robôs, que não
   responde, certificado que não se verifica, texto só por JavaScript). `max_penalty` sem
   leitura fica ausente ("ainda não carregado"). Nada se preenche por analogia.
-- **Lei lida que não traz o crime** (Gâmbia, 11/11/2026): o `penal_code` entra, e o
-  `domestic_genocide` fica vazio com `reason`. `status: no` diria que nenhuma lei do país
+- **Lei lida que não traz o crime** (Gâmbia e China, 11/11/2026): o `penal_code` entra, e
+  o `domestic_genocide` fica vazio com `reason`. `status: no` diria que nenhuma lei do país
   tipifica o crime, e a leitura de uma lei não sustenta isso. `max_penalty` fica ausente.
 - **`robots.txt` que veda agentes de IA pelo nome**, ou `Content-Signal: ai-input=no`:
   uma sessão que é modelo de linguagem não lê o portal, mesmo que o `User-Agent` do
