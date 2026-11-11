@@ -2838,10 +2838,21 @@
     "un_status": "member",
     "un_member_since": "1945-10-24",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots in its robots.txt; the Supreme People's Court Gazette (gongbao.court.gov.cn) answered with a web application firewall redirect (HTTP 302, CWAP-waf), not circumvented; npc.gov.cn answers over http, its Criminal Law page only points to an English translation 'for reference only', and the consolidated text in the Gazette of the NPC Standing Committee (2021 special issue, a PDF of about 20 MB) was cut by the server twice, after some 14 MB. Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "中华人民共和国刑法",
+      "enacted_year": 1979,
+      "consolidated_on": null,
+      "official_url": "http://www.npc.gov.cn/wxzlhgb/c27214/gb2021/202104/P020230313538043179978.pdf",
+      "alternative_url": null,
+      "language": "zh",
+      "url": "http://www.npc.gov.cn/wxzlhgb/c27214/gb2021/202104/P020230313538043179978.pdf",
+      "source": "npc-gazette",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots in its robots.txt; the Supreme People's Court Gazette (gongbao.court.gov.cn) answered with a web application firewall redirect (HTTP 302, CWAP-waf), not circumvented; npc.gov.cn answers over http, its Criminal Law page only points to an English translation 'for reference only', and the consolidated text in the Gazette of the NPC Standing Committee (2021 special issue, a PDF of about 20 MB) was cut by the server twice, after some 14 MB. Awaits a reading at an official source."
+      "reason": "Not loaded on 2026-11-11: the Criminal Law of the People's Republic of China, in the text amended up to Amendment XI of 2020-12-26 (2021 special issue of the Gazette of the NPC Standing Committee, npc.gov.cn), has no offence of the kind article II of the 1948 Convention defines; amendments after Amendment XI were not read, and no other statute on it was located at an official source; 'no' is not recorded without a reading of the rest of the statute book. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -2907,11 +2918,11 @@
     },
     "completeness": {
       "stamped": 4,
-      "draft": 0,
-      "empty": 3,
+      "draft": 1,
+      "empty": 2,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
+        "penal_code": "draft",
         "domestic_genocide": "empty",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
@@ -2919,7 +2930,7 @@
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "CIV",
@@ -4769,10 +4780,10 @@
     "un_status": "member",
     "un_member_since": "1945-11-13",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws; the former Parliament domain (ethiopar.net) is a parked domain. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503 both days, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws; the former Parliament domain (ethiopar.net) is a parked domain. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -7713,10 +7724,10 @@
     "un_status": "member",
     "un_member_since": "1955-12-14",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page (a web application firewall), also for its robots.txt, and reset other connections; not circumvented (AGENTS.md, rule 7); the Senate (senate.gov.kh) reset the connection and national-assembly.org.kh does not resolve in DNS. The Extraordinary Chambers (eccc.gov.kh) publish their own law, limited to crimes committed from 1975 to 1979, not the Criminal Code of 2009. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page on each attempt (a web application firewall), also for its robots.txt, and reset other connections; not circumvented (AGENTS.md, rule 7); the Senate (senate.gov.kh) reset the connection and national-assembly.org.kh does not resolve in DNS. The Extraordinary Chambers (eccc.gov.kh) publish their own law, limited to crimes committed from 1975 to 1979, not the Criminal Code of 2009. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page (a web application firewall), also for its robots.txt, and reset other connections; not circumvented (AGENTS.md, rule 7); the Senate (senate.gov.kh) reset the connection and national-assembly.org.kh does not resolve in DNS. The Extraordinary Chambers (eccc.gov.kh) publish their own law, limited to crimes committed from 1975 to 1979, not the Criminal Code of 2009. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page on each attempt (a web application firewall), also for its robots.txt, and reset other connections; not circumvented (AGENTS.md, rule 7); the Senate (senate.gov.kh) reset the connection and national-assembly.org.kh does not resolve in DNS. The Extraordinary Chambers (eccc.gov.kh) publish their own law, limited to crimes committed from 1975 to 1979, not the Criminal Code of 2009. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -9820,10 +9831,10 @@
     "un_status": "member",
     "un_member_since": "1948-04-19",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client (https and http); oag.gov.mm does not resolve in DNS; the Union Parliament site (pyidaungsu.hluttaw.mm) serves a JavaScript application with no text; the Union Supreme Court (unionsupremecourt.gov.mm) publishes twelve laws, the Code of Criminal Procedure among them, but not the Penal Code. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client (https and http); oag.gov.mm does not resolve in DNS; the Union Parliament site (pyidaungsu.hluttaw.mm) serves a JavaScript application with no text; the Union Supreme Court (unionsupremecourt.gov.mm) publishes twelve laws, the Code of Criminal Procedure among them, but not the Penal Code. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client (https and http); oag.gov.mm does not resolve in DNS; the Union Parliament site (pyidaungsu.hluttaw.mm) serves a JavaScript application with no text; the Union Supreme Court (unionsupremecourt.gov.mm) publishes twelve laws, the Code of Criminal Procedure among them, but not the Penal Code. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client (https and http); oag.gov.mm does not resolve in DNS; the Union Parliament site (pyidaungsu.hluttaw.mm) serves a JavaScript application with no text; the Union Supreme Court (unionsupremecourt.gov.mm) publishes twelve laws, the Code of Criminal Procedure among them, but not the Penal Code. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -15403,10 +15414,10 @@
     "un_status": "member",
     "un_member_since": "1945-10-24",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): zakon.rada.gov.ua, data.rada.gov.ua and rada.gov.ua did not answer the engine's client (connection timeout); the Ministry of Justice (minjust.gov.ua) only links to rada.gov.ua, and the Supreme Court (supreme.court.gov.ua) lists the amending laws, not the text of the Criminal Code; ovu.com.ua no longer hosts the Official Gazette of Ukraine, and the robots.txt of golos.com.ua disallows AI agents by name. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): zakon.rada.gov.ua, data.rada.gov.ua and rada.gov.ua did not answer the engine's client (connection timeout); the Ministry of Justice (minjust.gov.ua) only links to rada.gov.ua, and the Supreme Court (supreme.court.gov.ua) lists the amending laws, not the text of the Criminal Code; ovu.com.ua no longer hosts the Official Gazette of Ukraine, and the robots.txt of golos.com.ua disallows AI agents by name. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): zakon.rada.gov.ua, data.rada.gov.ua and rada.gov.ua did not answer the engine's client (connection timeout); the Ministry of Justice (minjust.gov.ua) only links to rada.gov.ua, and the Supreme Court (supreme.court.gov.ua) lists the amending laws, not the text of the Criminal Code; ovu.com.ua no longer hosts the Official Gazette of Ukraine, and the robots.txt of golos.com.ua disallows AI agents by name. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): zakon.rada.gov.ua, data.rada.gov.ua and rada.gov.ua did not answer the engine's client (connection timeout); the Ministry of Justice (minjust.gov.ua) only links to rada.gov.ua, and the Supreme Court (supreme.court.gov.ua) lists the amending laws, not the text of the Criminal Code; ovu.com.ua no longer hosts the Official Gazette of Ukraine, and the robots.txt of golos.com.ua disallows AI agents by name. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
