@@ -203,7 +203,51 @@ A seção "Municipal laws" da Wikipedia serviu só de índice de partida (regra 
   de `planalto` e `atlaspen`.
 - **Certificados que não se verificam** (Países Baixos, Gâmbia) podem ser do caminho de
   rede do dono, não do site (a sondagem de 06/11 já tinha visto um *proxy* corporativo).
-  Repetir de outra rede antes de concluir; nunca desligar a verificação.
+  Repetir de outra rede antes de concluir; nunca desligar a verificação. **Resolvido em
+  11/11 (1.7): nos dois casos o defeito era do site ou do Windows, não da rede.**
+
+### 1.7 O que a segunda tentativa de 11/11/2026 encontrou (fase 2, sessão 5)
+
+Os 18 vazios da 1.6, de novo, da máquina do dono, pelo cliente do motor, com o
+`robots.txt` obedecido e a verificação de certificado ligada; sha256 no `CHANGELOG.md`.
+
+| País | Portal tentado | O que aconteceu | Resultado |
+|---|---|---|---|
+| Sudão | `moj.gov.sd/sudanlaws` | é um leitor de *e-book* (Kotobee); os capítulos são páginas estáticas em `/sudanlaws/epub/EPUB/xhtml/`, que o próprio leitor carrega; `robots.txt` 404; livro de 01/08/2017 | rascunho (`moj-sd`) |
+| Ruanda | `minijust.gov.rw/official-gazette` | o Diário Oficial em PDF, trilíngue; a Lei 68/2018 está no número especial de 27/09/2018 | rascunho (`minijust-rw`) |
+| Bósnia | `sudbih.gov.ba` (Tribunal da BiH) | o Ministério (`mpr.gov.ba`) continua sem responder; o Tribunal republica o Diário Oficial (o Código de 2003 e as alterações até 61/04) | rascunho (`sudbih`) |
+| Gâmbia | `moj.gov.gm` | o certificado `*.gov.gm` não cobre `www.moj.gov.gm`, e o servidor não envia o intermediário; lido em `moj.gov.gm` com o intermediário RapidSSL do endereço AIA do próprio certificado, verificado contra as raízes da Mozilla | `penal_code` em rascunho (`moj-gm`); o crime não está na lei lida |
+| Países Baixos | `wetten.overheid.nl` | o certificado se verifica contra as raízes da Mozilla (faltava a raiz certSIGN no repositório do Windows que o Python consulta); o `robots.txt` **veda agentes de IA pelo nome** (`ClaudeBot`, `anthropic-ai`, `ChatGPT-User` e outros) | vazio: espera a leitura do dono |
+| Bélgica | `ejustice.just.fgov.be` | agora responde; o `robots.txt` veda os caminhos das leis (`/eli/`, `/loi/`, `/wet/`, `/cgi_loi/`) | vazio |
+| França | `legifrance.gouv.fr` | o próprio `robots.txt` responde 403 (o motor lê como "veda tudo") | vazio |
+| Etiópia | `justice.gov.et` | o Ministério publica o Código Penal (Proclamação 414) só em PDF amárico, com camada de texto em codificação de fonte antiga, que não se extrai; `fsc.gov.et` 503; `hopr.gov.et` sem índice de leis | vazio |
+| Tanzânia | `parliament.go.tz`, `nalis.sheria.go.tz`, `tanzlii.org` | o Parlamento só publica as leis aprovadas; o NaLIS não tem leis; o TanzLII (do Judiciário) desafia o cliente (Cloudflare) e declara `ai-input=no` | vazio |
+| Sérvia | `pravno-informacioni-sistem.rs` | aplicação JavaScript, também no endereço ELI que o `robots.txt` permite; o texto vem de APIs listadas num arquivo de configuração em base64, não chamadas | vazio; escolha do dono |
+| Síria | `moj.gov.sy` | responde, mas não publica o Código Penal; o Parlamento continua sem DNS | vazio |
+| Iraque | `parliament.iq`, `moj.gov.iq` | o `robots.txt` do Parlamento veda tudo; o Ministério não responde | vazio |
+| Camboja | `moj.gov.kh` | derruba a conexão (em 10/11, "Request Rejected") | vazio |
+| Israel | `main.knesset.gov.il` | o mesmo HTTP 247, que só roda um desafio JavaScript | vazio; não se contorna |
+| Ucrânia | `zakon.rada.gov.ua`, `data.rada.gov.ua`, `rada.gov.ua` | nenhum responde | vazio |
+| Mianmar | `mlis.gov.mm`, `pyidaungsu.hluttaw.mm` | o primeiro não responde (https nem http); o Parlamento é aplicação JavaScript | vazio |
+| China | `npc.gov.cn` | sem mudança | vazio |
+| Palestina | `www.moj.pna.ps` | HTTP 400 "URL with hostname … is not allowed", que não vem do site; o Muqtafi segue sem responder | vazio |
+
+- **Robô de IA vetado pelo nome é veto à sessão.** O `User-Agent` do Astraea passa no
+  `robots.txt` holandês, mas quem lê na carga humana é um modelo de linguagem, e o
+  arquivo veda pelo nome os agentes de IA, inclusive os que buscam a pedido de usuário
+  (`ChatGPT-User`, `MistralAI-User`). O mesmo vale para `Content-Signal: ai-input=no`
+  (TanzLII). A sessão não lê; o país espera a leitura do dono. Conferido nos portais já
+  lidos (Gesetze im Internet, InfoLEG, bdlaws, kremlin.ru, justice.gov.za, e os quatro de
+  hoje): nenhum veda agente de IA pelo nome.
+- **Cadeia incompleta se completa, não se ignora.** Na Gâmbia, o intermediário veio do
+  endereço AIA que o próprio certificado declara e foi verificado contra as raízes da
+  Mozilla (`openssl verify`) antes de entrar; no holandês, bastaram as raízes da Mozilla.
+  A verificação de nome e de cadeia ficou ligada nos dois. O cliente do motor não muda:
+  as duas leituras usaram um transporte com outro arquivo de raízes, fora do repositório.
+  É escolha a revisar pelo dono (`CHANGELOG.md`).
+- **Lei lida sem o crime não é `no`.** A lei penal nova da Gâmbia não traz o crime; `no`
+  afirmaria que nenhuma lei do país o traz, o que a leitura de uma lei não sustenta. O
+  `domestic_genocide` fica vazio com `reason`.
 
 ## Função 2: notícias
 

@@ -121,6 +121,13 @@ um valor sem rótulo em `pt-BR`.
    Bangladesh, Tanzânia, Síria). Brasil, Alemanha, Argentina, Bangladesh e Rússia têm os
    três blocos em rascunho, e a África do Sul dois; os outros 18 estão vazios com `reason`
    (`02-fontes.md`, 1.6). O carimbo é do dono, por `scripts/stamp.py`.
+   **Continuada em 11/11/2026** (fase 2, sessão 5): segunda tentativa nos 18 vazios. Sudão,
+   Ruanda e Bósnia ganharam os três blocos em rascunho, e a Gâmbia o `penal_code` (a lei
+   lida não tem o crime); a Alemanha ganhou o `enacted_year`. Os 14 restantes têm o motivo
+   de 11/11 (`02-fontes.md`, 1.7); dois deles, Países Baixos e Bélgica, esperam a leitura
+   do dono, porque o `robots.txt` veda a leitura por modelo ou por robô. O que falta são
+   portais que não respondem, que vedam robôs ou que desafiam o cliente: a próxima sessão
+   só avança com outra rede, com leitura do dono ou com fonte oficial nova.
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira

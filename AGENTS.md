@@ -13,7 +13,7 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 
 ## Estado do projeto
 
-Em 10/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
+Em 11/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
 `astraea/cli.py`), as licenças, os dados da fase 1, o Tabelião e a pena de morte:
 `data/countries.json` (197 registros com `id`, `name`, `un_status`, `un_member_since`,
 `situations`, os blocos `genocide_convention` e `rome_statute`, carimbados pelo robô ou
@@ -21,7 +21,7 @@ vazios com `reason` em Taiwan e Kosovo, e `death_penalty`, carimbado pelo robô 
 do Cornell em 130 países e vazio com `reason` em 67; e, nos 24 países da carga humana,
 `penal_code`, `domestic_genocide` e `max_penalty`, em rascunho à espera do carimbo do dono
 ou vazios com `reason`), `data/situations.json` (as dez da D6; nove status, todos sem carimbo de
-pessoa), `data/sources.json` (96 fontes), `data/untc-names.json` e
+pessoa), `data/sources.json` (100 fontes), `data/untc-names.json` e
 `data/cornell-names.json` (nome da UNTC e do Cornell → alfa-3, um arquivo por fonte),
 `data/verification.json` (a trilha que carimba os campos escalares),
 `data/lexicon/` (termos fixos em `fixed/` e o léxico gerado em cinco línguas; o árabe é
@@ -43,9 +43,10 @@ formatos são o XML por tratado da UNTC, que `scripts/load_treaties.py` grava em
 padrão). `scripts/stamp.py` lista os blocos prontos para carimbo e grava `checked_by:
 human` só no que o dono indicar. 372 testes. A fase 1 e os itens 1 a 3 da fase 2 estão
 feitos (o anexo da Anistia espera a carga à mão do dono; o `countries.yml` rodou no GitHub
-em 10/11/2026); o item 4, a carga humana dos 24 países, começou na sessão 4 da fase 2 (seis
-países lidos, dezoito vazios com `reason`), e a próxima sessão a continua pela lista do
-`06-roteiro.md`. Antes de escrever código, leia o `00-inventario.md` e o
+em 10/11/2026); o item 4, a carga humana dos 24 países, começou na sessão 4 da fase 2 e
+seguiu na sessão 5 (dez países com leitura, catorze vazios com `reason` de 11/11/2026;
+`02-fontes.md`, 1.7); o que falta depende de outra rede, da leitura do dono ou de fonte
+oficial nova. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
@@ -111,7 +112,12 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
   Portal que veda robôs, desafia o cliente ou não responde deixa o bloco vazio com
   `reason`; não se contorna (regra 7). A única leitura fora do cliente do motor foi a do
   Planalto, no navegador embutido, e está registrada como escolha a revisar
-  (`02-fontes.md`, 1.6).
+  (`02-fontes.md`, 1.6). Portal cujo `robots.txt` veda agentes de IA pelo nome
+  (`ClaudeBot`, `anthropic-ai`, `ChatGPT-User`…) ou declara `Content-Signal:
+  ai-input=no` não é lido por sessão que é modelo, mesmo que o `User-Agent` do Astraea
+  passe: fica para a leitura do dono. Certificado com cadeia incompleta se completa pelo
+  endereço AIA do próprio certificado, verificado contra as raízes da Mozilla; a
+  verificação nunca se desliga (`02-fontes.md`, 1.7).
 - **Quando o `--strict` volta a ser a régua da CI.** Hoje o `ci.yml` roda
   `--draft` e `--draft --check` como travas e o `--strict` como passo informativo (mostra
   a contagem de rascunhos e só reprova por outra causa). No dia em que
