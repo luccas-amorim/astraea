@@ -1,27 +1,32 @@
 """The monthly reading of the countries (.github/workflows/countries.yml) and its report.
 
-Runs the two loads (scripts/load_treaties.py and scripts/load_death_penalty.py), then, if
-data/countries.json changed, scripts/transform.py --draft --execute and a CHANGELOG.md
-entry with the sha256 of each response (docs/03, "Confiança por registro": a robot
+Runs the two loads (scripts/load_treaties.py and scripts/load_death_penalty.py) and the
+Cartógrafo (scripts/recheck_sources.py, which asks whether the penal-law databases that
+were down answer again), then, if data/countries.json or data/sources.json changed,
+scripts/transform.py --draft --execute and a CHANGELOG.md entry with the sha256 of each
+response (docs/03, "Confiança por registro": a robot
 stamp needs the hash registered in the CHANGELOG). It never opens the pull request
 itself: it says what the pull request (or the issue) must contain, and the workflow
 opens it with `gh`.
 
     python scripts/countries_monthly.py
-        runs both loads in simulation (reads the sources over the network) and prints
-        the pull request or the issue the monthly run would open; writes nothing
+        runs the three readings in simulation (reads the sources over the network) and
+        prints the pull request or the issue the monthly run would open; writes nothing
     python scripts/countries_monthly.py --execute --report-dir DIR
-        runs both loads with --execute and, when countries.json changed, the transform
+        runs the three readings with --execute and, when countries.json or sources.json
+        changed, the transform
         and the CHANGELOG entry; writes into DIR the texts the workflow uses:
         pr-title.txt, pr-body.md and commit-message.txt (when a pull request is due),
         issue-title.txt and issue-body.md (when a load or the transform failed)
-    --xml-dir DIR --json-dir DIR --read-on YYYY-MM-DD
+    --xml-dir DIR --json-dir DIR --responses FILE --read-on YYYY-MM-DD
         read the saved files instead of the network (the test fixtures)
     --data DIR --changelog FILE
         other source directory and changelog (tests)
 
-The two loads are independent: one that fails opens an issue and writes nothing, and the
-other still gives its pull request. A month without news gives a pull request with an
+The readings are independent: one that fails opens an issue and writes nothing, and the
+others still give their pull request. The Cartógrafo alone does not: when both loads fail,
+there is a pull request only if it reopened a source (a source that does not answer is
+its usual result, not a failure). A month without news gives a pull request with an
 empty commit (data/ and static/data/ unchanged), whose body carries the sha256 of the
 responses; a month with news adds the changed blocks, the derived data and the CHANGELOG
 entry. When the transform fails, nothing is proposed: an issue only.
@@ -50,6 +55,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import load_death_penalty  # noqa: E402
 import load_treaties  # noqa: E402
+import recheck_sources  # noqa: E402
 import transform  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -122,6 +128,13 @@ HINTS = {
         "ele **não se contorna** (regra 7 do `AGENTS.md`): fica registrado aqui e vai para a "
         "próxima sessão."
     ),
+    "cartographer": (
+        "**Cartógrafo.** A releitura das fontes da lei penal parou antes de perguntar a "
+        "todas: uma fonte que ele conhece sumiu de `data/sources.json`, ou houve um erro "
+        "inesperado (a saída abaixo diz qual). Fonte que não responde **não** é falha: é o "
+        "resultado de quase todo mês. Se alguém tirou a fonte de `sources.json`, a próxima "
+        "sessão decide se o Cartógrafo deixa de perguntar por ela."
+    ),
     "sentinel": (
         "**Sentinela.** A fonte respondeu, mas não com a tabela que o robô conhece: arquivo "
         "incompleto, contagem que não fecha, página de erro ou de manutenção, formato novo. "
@@ -133,7 +146,10 @@ HINTS = {
 
 
 def kind(load: Load) -> str:
-    """What failed: the name map, the network, or the table itself (sentinel or format)."""
+    """What failed: the name map, the network, the table itself (sentinel or format), or
+    the Cartógrafo."""
+    if load.key == "sources":
+        return "cartographer"
     if NAME.search(load.output):
         return "name"
     if NETWORK.search(load.output):
@@ -167,16 +183,21 @@ def pr_body(read_on: str, loads: list[Load], changed: bool, transform_out: str) 
     parts = [
         f"Leitura mensal de {read_on} pelo `countries.yml`"
         + (f" ([execução]({url}))" if url else "")
-        + ". As duas cargas leram as fontes pelo cliente HTTP do motor, com o "
-        "`User-Agent` do Astraea e o `robots.txt` obedecido.",
+        + ". As duas cargas e o Cartógrafo leram as fontes pelo cliente HTTP do motor, "
+        "com o `User-Agent` do Astraea e o `robots.txt` obedecido.",
         "",
     ]
     if changed:
-        blocks = sum(ld.counts["new"] + ld.counts["changed"] for ld in loads if not ld.failed)
+        ok = [ld for ld in loads if not ld.failed]
+        blocks = sum(ld.counts["new"] + ld.counts["changed"] for ld in ok if ld.key != "sources")
+        reopened = sum(ld.counts["changed"] for ld in ok if ld.key == "sources")
         what = "bloco novo ou mudado" if blocks == 1 else "blocos novos ou mudados"
+        news = f"{blocks} {what}"
+        if reopened:
+            news += " e 1 fonte reaberta" if reopened == 1 else f" e {reopened} fontes reabertas"
         parts += [
-            f"**Há novidade: {blocks} {what}.** O PR traz "
-            "`data/countries.json`, o derivado (`static/data/`, gerado por `transform.py "
+            f"**Há novidade: {news}.** O PR traz o que mudou em `data/countries.json` e "
+            "`data/sources.json`, o derivado (`static/data/`, gerado por `transform.py "
             "--draft --execute`) e a entrada do `CHANGELOG.md` com os sha256.",
         ]
     else:
@@ -202,8 +223,11 @@ def pr_body(read_on: str, loads: list[Load], changed: bool, transform_out: str) 
     parts += ["", "### O que fazer", ""]
     if changed:
         parts += [
-            "1. Abra a aba **Files changed** e leia as mudanças de `data/countries.json`: "
-            "cada uma corresponde a uma linha `new:` ou `changed:` acima.",
+            "1. Abra a aba **Files changed** e leia as mudanças de `data/countries.json` e "
+            "de `data/sources.json`: cada uma corresponde a uma linha `new:` ou `changed:` "
+            "acima. Uma fonte reaberta pelo Cartógrafo (`state` de `suspended` para "
+            "`active`) só quer dizer que a página respondeu; se o `reason` disser que o "
+            "`robots.txt` veda agentes de IA, nenhuma sessão que seja modelo a lê.",
             "2. Se quiser, confira a mudança na página da fonte (o `url` do bloco).",
             "3. Espere a CI ficar verde e clique em **Merge pull request**.",
         ]
@@ -223,9 +247,9 @@ def pr_body(read_on: str, loads: list[Load], changed: bool, transform_out: str) 
 
 def commit_message(read_on: str, loads: list[Load], changed: bool) -> str:
     head = (
-        f"Lê tratados e pena de morte (leitura mensal de {read_on})"
+        f"Lê tratados, pena de morte e fontes da lei penal (leitura mensal de {read_on})"
         if changed
-        else f"Leitura mensal de {read_on}: tratados e pena de morte sem novidade"
+        else f"Leitura mensal de {read_on}: tratados, pena de morte e fontes sem novidade"
     )
     lines = [head, ""]
     for load in loads:
@@ -294,7 +318,8 @@ def changelog_entry(read_on: str, loads: list[Load]) -> str:
         f"## {read_on} — Leitura mensal dos países (robô, `countries.yml`)",
         "",
         "Leitura automática, não sessão: `load_treaties.py --execute`, "
-        "`load_death_penalty.py --execute` e `transform.py --draft --execute`, pelo cliente "
+        "`load_death_penalty.py --execute`, `recheck_sources.py --execute` (o Cartógrafo) e "
+        "`transform.py --draft --execute`, pelo cliente "
         "HTTP do motor, com o `User-Agent` do Astraea e o `robots.txt` obedecido"
         + (f" ([execução]({url}))" if url else "")
         + ". As linhas `new:` e `changed:` são o dado que mudou; os sha256 são das respostas "
@@ -339,13 +364,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--report-dir", help="where to write the texts of the PR and the issue")
     parser.add_argument("--xml-dir", help="read the UNTC files from here (with --read-on)")
     parser.add_argument("--json-dir", help="read the Cornell files from here (with --read-on)")
+    parser.add_argument("--responses", help="the Cartógrafo's recorded responses (--read-on)")
     parser.add_argument("--read-on", help="date of the reading, YYYY-MM-DD")
     parser.add_argument("--data", help="source directory (default: data/)")
     parser.add_argument("--changelog", help="changelog file (default: CHANGELOG.md)")
     args = parser.parse_args(argv)
 
-    if (args.xml_dir or args.json_dir) and not args.read_on:
-        print("--xml-dir and --json-dir need --read-on", file=sys.stderr)
+    if (args.xml_dir or args.json_dir or args.responses) and not args.read_on:
+        print("--xml-dir, --json-dir and --responses need --read-on", file=sys.stderr)
         return 2
     read_on = args.read_on or date.today().isoformat()
     if not transform.is_full_date(read_on):
@@ -354,6 +380,7 @@ def main(argv: list[str] | None = None) -> int:
     data = Path(args.data) if args.data else ROOT / "data"
     changelog = Path(args.changelog) if args.changelog else ROOT / "CHANGELOG.md"
     countries = data / "countries.json"
+    sources = data / "sources.json"
     if not countries.is_file():
         print(f"{transform.show(countries)}: not found", file=sys.stderr)
         return 2
@@ -364,21 +391,30 @@ def main(argv: list[str] | None = None) -> int:
     loads = [
         Load("treaties", "Tratados", "untc", load_treaties.NAMES_FILE),
         Load("death_penalty", "Pena de morte", "cornell-dpw", load_death_penalty.NAMES_FILE),
+        Load("sources", "Fontes da lei penal (Cartógrafo)", "sources.json", ""),
     ]
     extra = {
         "treaties": ["--xml-dir", args.xml_dir] if args.xml_dir else [],
         "death_penalty": ["--json-dir", args.json_dir] if args.json_dir else [],
+        "sources": ["--responses", args.responses] if args.responses else [],
     }
-    mains = {"treaties": load_treaties.main, "death_penalty": load_death_penalty.main}
+    mains = {
+        "treaties": load_treaties.main,
+        "death_penalty": load_death_penalty.main,
+        "sources": recheck_sources.main,
+    }
 
-    before = countries.read_bytes()
+    def written() -> tuple[bytes, bytes]:
+        return countries.read_bytes(), sources.read_bytes()
+
+    before = written()
     for load in loads:
         load.code, load.output = _call(mains[load.key], [*common, *extra[load.key]])
         load.counts = count(load.output)
         print(f"--- {load.key} (exit {load.code})")
         print(load.output, end="")
     if args.execute:
-        changed = countries.read_bytes() != before
+        changed = written() != before
     else:
         changed = any("would write:" in ld.output for ld in loads if not ld.failed)
 
@@ -393,7 +429,10 @@ def main(argv: list[str] | None = None) -> int:
         print("--- transform: not run in simulation (it would validate the data as it is)")
 
     failed = [ld for ld in loads if ld.failed]
-    pr_due = not transform_failed and len(failed) < len(loads)
+    # The Cartógrafo alone gives no pull request: one of the two loads has to have read,
+    # or a source has to have been reopened.
+    loads_read = any(not ld.failed for ld in loads if ld.key != "sources")
+    pr_due = not transform_failed and (loads_read or changed)
     issue_due = bool(failed) or transform_failed
     texts: dict[str, str] = {}
     if pr_due:

@@ -1,10 +1,12 @@
 # Countries: the monthly reading of the treaties (UN Treaty Collection) and of the death
-# penalty (Cornell lists). Never commits to main: it opens a pull request, and the pull
-# request is the review (docs/04-arquitetura.md, "Agendamentos").
+# penalty (Cornell lists), and the Cartógrafo (scripts/recheck_sources.py: do the penal-law
+# databases that were down answer again?). Never commits to main: it opens a pull request,
+# and the pull request is the review (docs/04-arquitetura.md, "Agendamentos").
 #
-# - Both loads run with --execute; when data/countries.json changes, so do the derived
-#   data (transform.py --draft --execute) and a CHANGELOG.md entry with the sha256 of each
-#   response. scripts/countries_monthly.py does all of that and writes the texts below.
+# - The three readings run with --execute; when data/countries.json or data/sources.json
+#   changes, so do the derived data (transform.py --draft --execute) and a CHANGELOG.md
+#   entry with the sha256 of each response. scripts/countries_monthly.py does all of that
+#   and writes the texts below.
 # - A month without news gives a pull request with an empty commit: the body and the
 #   commit message carry the sha256, and data/ shows an empty diff.
 # - A load that fails (sentinel, name without a map, network) opens an issue, not a pull
@@ -77,7 +79,7 @@ jobs:
           git config user.name "astraea-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C robot/countries
-          git add data/countries.json static/data CHANGELOG.md
+          git add data/countries.json data/sources.json static/data CHANGELOG.md
           git commit --allow-empty --file "$RUNNER_TEMP/report/commit-message.txt"
           git push --force origin robot/countries
           title="$(cat "$RUNNER_TEMP/report/pr-title.txt")"
