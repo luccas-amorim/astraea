@@ -3,6 +3,297 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-10 — Fase 2, sessão 4: carga humana da lei penal (Brasil primeiro) e `scripts/stamp.py`
+
+Branch `fase2/carga-humana`. Não havia resposta às "Escolhas a revisar" das sessões 3 e 4
+da fase 1 nem das sessões 1 a 3 da fase 2; elas continuam abertas, nas entradas daquelas
+sessões. O `countries.yml` rodou no GitHub nesta data: o PR #1 ("sem novidade", commit
+vazio do robô, com os mesmos seis sha256 da sessão 3) foi aceito por você.
+
+**A lista, aprovada por você** (24 países, nesta ordem; `06-roteiro.md`, fase 2, item 4):
+Brasil; os 8 da prioridade do `quality.json` (Mianmar, Palestina, Israel, Ucrânia, Rússia,
+Sudão, Bósnia e Herzegovina, Sérvia); os outros 7 com elo em `situations.json` (Gâmbia,
+África do Sul, Etiópia, China, Iraque, Ruanda, Camboja); e 8 de foro ou base de
+jurisdição, que **não ganharam elo** em `situations.json` (Alemanha, França, Bélgica,
+Países Baixos, Argentina, Bangladesh, Tanzânia, Síria).
+
+**Dado novo.** Todos os blocos foram lidos por esta sessão, que é um modelo de linguagem:
+são rascunho, com `checked_by: null`, até o seu carimbo. Nenhuma `note`, porque a D4 está
+pendente.
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | Fonte |
+|---|---|---|---|---|
+| Brasil | Código Penal (DL 2.848/1940) | Lei 2.889/1956, art. 1º | 40 anos | `planalto` |
+| Alemanha | Strafgesetzbuch | VStGB, § 6 (2002) | perpétua | `gesetze-im-internet` |
+| Argentina | Código Penal (Ley 11.179, 1921) | Ley 26.200, art. 8º (2007) | perpétua | `infoleg` |
+| Bangladesh | Penal Code, 1860 | ICT Act 1973, s. 3(2)(c) | morte | `bdlaws` |
+| Rússia | УК РФ (1996) | ст. 357 | morte | `kremlin-acts` |
+| África do Sul | vazio com `reason` (sem código) | Act 27 of 2002, s. 4(1) e Schedule 1 | perpétua | `justice-gov-za` |
+| os outros 18 | vazio com `reason` | vazio com `reason` | ausente | — |
+
+O motivo de cada um dos 18 está no `reason` do bloco e na tabela do `02-fontes.md`, 1.6:
+
+- portal que veda robôs: França, China, Iraque;
+- portal que desafia o cliente: Israel, Camboja;
+- portal que derruba a conexão ou não responde: Bélgica, Ucrânia, Mianmar, Bósnia;
+- certificado que não se verifica: Países Baixos, Gâmbia;
+- texto só por JavaScript: Sérvia;
+- endereço que não resolve no DNS: Síria;
+- portal que responde, mas a lei não foi alcançada nesta sessão: Sudão, Etiópia,
+  Ruanda, Tanzânia;
+- nenhum portal oficial localizado: Palestina.
+
+**Nada foi preenchido por analogia.** A seção "Municipal laws" da Wikipedia só serviu
+de índice (regra 4).
+
+**Fontes novas em `sources.json`** (96 fontes, eram 89). Todas são `function: 1` e
+`active`, com `robots_checked_on: 2026-11-10`:
+
+- `planalto` (A) e `atlaspen` (B);
+- `gesetze-im-internet`, `infoleg`, `bdlaws`, `justice-gov-za` e `kremlin-acts` (A).
+
+O `reason` de cada uma diz como foi lida.
+
+**Leituras desta sessão.** Todas pelo cliente HTTP do motor, com o `User-Agent` do Astraea
+e o `robots.txt` obedecido (tamanho em bytes, sha256):
+
+- `gesetze-im-internet.de/stgb/` 110.504, `b31c355407e9bd1738b27b1f02bcd929e4e8e7b27b450463b1e2ca23944d5b1b`;
+  `/stgb/__38.html` 3.589, `f35dd1e71a2cd41b405a1dee541cb3fcc1eaaf09a79fb091fa4f7ee32ffca88c`;
+  `/vstgb/` 9.311, `293a2f7e301c32898b11d197b741d1de44d175d6b1e2db0ce41179167ea2a43d`;
+  `/vstgb/__6.html` 4.742, `d6f13b7d1ab5258c0f957511ed70c963dea9309d90675503bcce07b7e3d0c3fb`.
+- InfoLEG: Código Penal (`…/16546/texact.htm`) 334.120,
+  `52575de7c849442282f2a8ff00a7464adb2a20a0c7d84d3f74ce50215bdfaa28`; Ley 26.200
+  (`…/123921/norma.htm`) 30.979, `9c697e6a6273894e4aa13d7e72ab3222131ba881d54af33431362b65b9902e59`.
+- bdlaws: Penal Code (`act-11.html`) 883.512,
+  `ff0a0b22b9594e8f22743556a2f078d850b2534e8578609009f15e306bfc1156`; ICT Act
+  (`act-435.html`) 105.276, `4cffab3741d31c5f11042f1b554c379e3cc73758af60814f1d9f4fecef3ba1dc`;
+  s. 3 (`section-12479.html`) 68.382, `12495e6f502e7be1a07acf100720f7b84185c6cc1944269a9c6d135696e320b7`;
+  s. 20 (`section-12496.html`) 50.830, `a1f45e283c099edc91b4facc1589abfafc21f6537f92dc4d1d21b51342f5d082`.
+- justice.gov.za: Act 27 of 2002 (PDF) 330.356,
+  `91b5dfd0273a33f2684cc5537980d2db94f992f5644efeb8700ab939644c87cd`.
+- kremlin.ru: УК РФ (`/acts/bank/9555`) 64.833,
+  `493c2868d8019a93b830296f4eeca335bd92ceec9926483b04867dbafdf44689`; página 54 (ст. 357)
+  62.428, `da21f8c10d65239eba2216186fb7319c66e09a3683e3565809746c2172474588`.
+- As sondagens que deram motivo de vazio ficaram registradas na máquina da sessão e não
+  entram no repositório: as páginas iniciais de `npc.gov.cn`, `minijust.gov.rw`,
+  `moj.gov.sd`, `hopr.gov.et` e `parliament.go.tz`, a resposta 247 do Knesset, o "Request
+  Rejected" de `moj.gov.kh` e a página JavaScript do sistema sérvio. O mesmo vale para a
+  página da Wikipedia (748.000 bytes,
+  `56b45951c7750c421fc29e2f56f2ea4adaabaf0bb076d44a98ea2599405933e8`).
+
+**O Planalto e o AtlasPen, as duas exceções:**
+
+- **O Planalto derruba toda conexão do cliente do motor e do `curl`**, inclusive a do
+  `robots.txt`. No navegador, as páginas abrem e o `robots.txt` responde 404. Li as
+  quatro leis no **navegador embutido do aplicativo**, sem desafio a vencer, e calculei
+  ali o sha256 de cada resposta:
+  - Código Penal compilado: 683.589 bytes, `Last-Modified` 09/10/2026,
+    `3265a4fd6148a14e6705999f774c3c9dbe0b24fcfc8fe7b61fc201037486975a`;
+  - Lei 2.889: 8.736 bytes, `94d07eeb2b781a8a001053b267d52a75188d0d1d507e0435793efb682cf45e9d`;
+  - Lei 8.072: 50.432 bytes, `c7d90b50295fb937e7f8af0020c3a7a792f2e25634f0b780b88fd466ce1d14b8`;
+  - Lei 13.964: 219.503 bytes, `1ac60916f16f037f60148905eff630cc5ab7e11f6af26b684e55ca4360bd22b0`.
+
+  **Divergência do que o `AGENTS.md` pede ao robô, e por quê:** você pediu a leitura do
+  Planalto, e a carga humana é leitura de pessoa; o robô do Astraea continua sem ler o
+  Planalto. É a primeira escolha a revisar, adiante.
+- **O AtlasPen veda todos os robôs** (`robots.txt`: `User-agent: *`, `Disallow: /`).
+  Não li o site. Li `data/crimes.json` no seu repositório local
+  (`luccas-amorim/atlaspen`, commit `4258a18`, 914.957 bytes, sha256
+  `9cd852db6b184ff1c28d1c95f091d29db2fd1248bd0725366545a41c569ccdca`): os registros 551 a
+  557 e 1462 a 1476 são os da Lei 2.889. O `alternative_url` do Brasil aponta para o
+  arquivo publicado, `https://atlaspen.com.br/data/crimes.json`, como no exemplo do `03`.
+
+**Brasil: o que conferir, campo a campo, e onde.** Abra cada endereço no seu navegador.
+
+- `penal_code` (abra https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm):
+  - `exists: yes`, `enacted_year: 1940` e `language: pt`.
+  - `title`: "Código Penal (Decreto-Lei nº 2.848, de 7 de dezembro de 1940)", como no
+    cabeçalho da página.
+  - `consolidated_on: 2026-10-09`: **o Planalto não data a compilação**. O valor é o
+    `Last-Modified` da página. A alteração mais recente que a página cita é a Lei 15.425,
+    de 2026 (art. 282). Se preferir `null`, diga.
+  - `official_url`: a própria página; `alternative_url`: o AtlasPen.
+- `domestic_genocide` (abra https://www.planalto.gov.br/ccivil_03/leis/l2889.htm):
+  - `status: criminalized`, `provision: art. 1º`, `year: 1956`.
+  - `instrument`: "Lei nº 2.889, de 1º de outubro de 1956".
+  - `follows_convention_definition: yes`. O art. 1º traz os quatro grupos (nacional,
+    étnico, racial, religioso), "como tal", e as cinco condutas (a–e) do art. II da
+    Convenção. Os arts. 2º, 3º e 5º cobrem associação, incitação e tentativa.
+  - Hediondez, para a nota, se quiser: Lei 8.072/1990, art. 1º, parágrafo único, I, com
+    a redação da Lei 13.964/2019 (https://www.planalto.gov.br/ccivil_03/leis/l8072.htm).
+- `max_penalty` (a mesma página do Código Penal, art. 75):
+  - `type: years`, `years: 40`. O art. 75 diz: "O tempo de cumprimento das penas
+    privativas de liberdade não pode ser superior a 40 (quarenta) anos", com a redação
+    da Lei 13.964/2019.
+  - `applies_to_genocide: yes`. O art. 75 vale para toda pena privativa de liberdade. A
+    pena mais alta do genocídio é a do art. 1º, a, que remete ao art. 121, § 2º (12 a 30
+    anos); o art. 4º da Lei 2.889 a agrava de um terço quando o autor é governante ou
+    funcionário público, o que dá 40 anos, o mesmo limite.
+- **Notas que eu proporia.** Não estão no dado: são texto nosso (D4). Grave só se
+  aprovar, com as suas palavras se preferir, e com `author: "human"`:
+  - `domestic_genocide`: "Pena por remissão aos tipos do Código Penal (art. 1º, a–e);
+    hediondo pelo art. 1º, parágrafo único, I, da Lei 8.072/1990. Registro detalhado no
+    AtlasPen."
+  - `max_penalty`: "Art. 75 do Código Penal, com a redação da Lei 13.964/2019."
+
+**Os outros cinco: o que conferir.**
+
+- **Alemanha**: `enacted_year` ficou `null`, porque a página lida não dá a data de 1871.
+  O § 6 do VStGB tem os cinco atos e os quatro grupos, com pena perpétua (*lebenslange
+  Freiheitsstrafe*). O § 38 do StGB dá 15 anos como máximo da pena temporária.
+- **Argentina**: a Ley 26.200 tipifica por remissão ao art. 6º do Estatuto de Roma, que
+  repete o art. II da Convenção; gravei `criminalized` e `follows: yes`. `year: 2007` é
+  o da promulgação (sancionada em 13/12/2006, *promulgada de hecho* em 05/01/2007). Pena:
+  5 a 25 anos, ou perpétua se houver morte. O `03` pede, nesses casos, a hipótese em
+  `note`.
+- **Bangladesh**: o ICT Act diz "a national, ethnic, racial or religious group, **such
+  as**", e não "as such". O grupo político saiu pela emenda de 2026 (Act XIII of 2026,
+  com efeito retroativo a 06/01/2009). Por isso `follows: unknown`. Pena: morte, s. 20(2)
+  ("sentence of death or such other punishment"). Bangladesh é retencionista; a trava 10
+  não pede nota.
+- **Rússia**: a ст. 357 acrescenta o deslocamento forçado ("насильственного переселения")
+  e não fala em dano mental. É mais larga num ponto e mais estreita noutro: `follows:
+  unknown`. Pena: 12 a 20 anos, perpétua ou morte. Gravei `death`; a moratória (o Cornell
+  lista a Rússia como *de facto*) é hipótese para `note`. O texto é o consolidado do
+  kremlin.ru ("в редакции" até a lei de 04/08/2026); `consolidated_on` ficou `null`.
+- **África do Sul**: não há código penal (*common law* e leis esparsas). `exists: no`
+  pediria uma nota nossa, então o bloco ficou vazio com `reason`. A lei de 2002 copia as
+  cinco condutas e os quatro grupos, com pena até prisão perpétua, s. 4(1).
+
+**Código:**
+
+- **`scripts/stamp.py` (novo).** Vale a pena, como eu tinha dito: são 17 blocos hoje e
+  cerca de 70 nos 24 países.
+  - Sem argumentos, lista os blocos prontos para carimbo.
+  - Com `--field BRA.penal_code` (ou `--field BRA`, todos os prontos do país), `--by "Seu
+    Nome"` e `--execute`, grava `checked_by: "human"` e o dia da sua leitura em `read_on`
+    (`--read-on`, hoje por padrão).
+  - Não muda valor. Recusa bloco vazio, incompleto ou já carimbado, e um recusado impede
+    os outros.
+  - **Divergência do que você pediu:** o nome não vai para o dado (regra 8: nome de
+    pessoa só em `decisions.json`). Vai para a mensagem do commit que o *script* sugere,
+    e o autor do commit já diz quem foi.
+- **`tests/test_stamp.py`** (15): a lista, a simulação, só o bloco indicado, o país
+  inteiro, sete recusas, um recusado impede os outros, `--by` e data. E, numa cópia dos
+  dados, carimbar o Brasil deixa o `--strict` sem nada a dizer dele.
+- **`tests/test_penal_law.py`** (10):
+  - a lista de 24, com o Brasil primeiro;
+  - blocos só onde a carga chegou;
+  - cada bloco preparado, carimbado por pessoa ou vazio com motivo, nunca do robô;
+  - a confiança é a da fonte;
+  - vocabulário, nota só de pessoa e trava 10;
+  - os valores do Brasil e a ficha `/countries/BRA/` com os três blocos e a fonte, nas
+    duas línguas.
+- `test_data.py` e `test_transform.py` passaram a aceitar os blocos de lei penal
+  preparados.
+
+**Bateria:**
+
+- 372 testes passam; `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa.
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 26 campos em 11 registros.**
+  São os mesmos 9 status das situações e os 17 blocos de lei penal que esperam o seu
+  carimbo (travas 3 e 6).
+- `config/` ainda não existe.
+
+**O que as mensagens novas dizem** (saem em inglês):
+
+- `17 blocks ready to be stamped (checked_by empty, the rest of the stamp in place):`,
+  seguida da lista com os valores, o endereço lido, a fonte e a data: o que espera você.
+- `-> checked_by: human, read_on: 2026-11-12` e `would stamp: 3 blocks`: o que o
+  `--execute` faria.
+- `stamped: 3 blocks` e as três linhas `next`: gravado; falta regenerar o derivado e
+  comitar.
+- `FAIL BRA.max_penalty: already checked by human`, `… asserts nothing (empty, with a
+  reason)`, `… lacks url; prepare it first`, sempre com `nothing was written`: o bloco
+  não está pronto, e nada foi gravado, nem os outros que você indicou.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **A leitura do Planalto no navegador embutido** (acima). As alternativas são ler o
+  texto oficial na Câmara (`camara.leg.br/legin`) ou deixar o Brasil só com o que você
+  ler.
+- **`consolidated_on` do Brasil é o `Last-Modified`** da página compilada.
+- **`read_on` passa a ser o dia da sua leitura** quando você carimba. O dia da leitura
+  desta sessão fica no histórico do git.
+- **`follows_convention_definition: unknown`** para Bangladesh e Rússia, e **`yes` com
+  `criminalized`** para a remissão argentina ao Estatuto.
+- **`max_penalty: death` na Rússia**, apesar da moratória.
+- **África do Sul com `penal_code` vazio**, e não `exists: no`, até haver a nota.
+- **A lista dos 24 está fixada em `tests/test_penal_law.py`.** País fora dela que
+  receber bloco de lei penal reprova o teste até a lista crescer, por decisão sua.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `17 blocks ready to be stamped`. Se algum acento vier trocado por
+   `?`, é só a janela do PowerShell: o arquivo está certo.
+2. **Conferir o Brasil** com a lista "Brasil: o que conferir", acima: abra cada endereço
+   no navegador e compare valor por valor. Se algum valor estiver errado, **não
+   carimbe**: me diga na próxima sessão, ou corrija antes no `data\countries.json`.
+3. **Carimbar o que conferiu.** Primeiro em simulação (troque o nome e, se não for hoje,
+   a data):
+
+   ```powershell
+   python scripts\stamp.py --field BRA --by "Luccas de Amorim" --read-on 2026-11-11
+   ```
+
+   Se estiver tudo como você leu, rode o mesmo comando com `--execute` no fim:
+
+   ```powershell
+   python scripts\stamp.py --field BRA --by "Luccas de Amorim" --read-on 2026-11-11 --execute
+   ```
+
+   Para carimbar um bloco só, use `--field BRA.max_penalty`. `--field` pode se repetir.
+4. **Regenerar o derivado e comitar**, como o *script* mostra ao terminar:
+
+   ```powershell
+   python scripts\transform.py --draft --execute
+   ```
+
+   ```powershell
+   git add data\countries.json static\data
+   ```
+
+   ```powershell
+   git commit -m "Carimba BRA (conferido por Luccas de Amorim em 2026-11-11)"
+   ```
+
+   O `git add` pode mostrar o aviso "LF will be replaced by CRLF". É só aviso: o
+   `.gitattributes` grava com LF.
+5. **Uma nota, se quiser** (D4). Abra `data\countries.json`, procure `"BRA"` e, dentro
+   do bloco, logo depois de `"follows_convention_definition": "yes",`, acrescente a linha
+   `"note": {"pt-BR": {"text": "o seu texto", "author": "human"}},`. Depois, repita o
+   passo 4. Se o `transform.py` reclamar de vírgula, a linha está fora do lugar; desfaça
+   com `git checkout data\countries.json`.
+6. **Ver a ficha** (opcional):
+
+   ```powershell
+   python scripts\build_site.py --execute
+   ```
+
+   ```powershell
+   python -m http.server 8000 --directory _site
+   ```
+
+   Abra http://localhost:8000/pt-br/countries/BRA/. Os três blocos aparecem como
+   "rascunho" até o carimbo, e como "carimbado" depois. Feche o servidor com Ctrl+C. O
+   "Firewall do Windows Defender" pode perguntar se o Python pode usar a rede: "Cancelar"
+   basta.
+7. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-10 — Fase 2, sessão 3: `countries.yml` (leitura mensal por PR) e tela `/countries`
 
 Branch `fase2/countries`. Não havia resposta às "Escolhas a revisar" das sessões 3 e 4

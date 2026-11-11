@@ -109,11 +109,18 @@ um valor sem rótulo em `pt-BR`.
    ficha com proveniência.
    **Feito em 10/11/2026** (fase 2, sessão 3), com três escolhas registradas no `04`: o
    Cornell entra no mesmo *workflow* mensal, e não num semanal próprio; os filtros são
-   CSS, sem JavaScript; o mapa coroplético fica fora até a D13. **Ainda não rodou no
-   GitHub**: a primeira execução depende do *push* e do *secret* `COUNTRIES_PR_TOKEN`
-   (passo a passo no `CHANGELOG.md`).
+   CSS, sem JavaScript; o mapa coroplético fica fora até a D13. **Rodou no GitHub em
+   10/11/2026**: o PR #1 ("sem novidade", commit vazio do robô) foi aceito pelo dono.
 4. Carga humana dos ~25 países das situações iniciais: `penal_code`,
    `domestic_genocide`, `max_penalty`, começando pelo Brasil (lido do AtlasPen).
+   **Começada em 10/11/2026** (fase 2, sessão 4). Lista aprovada pelo dono, 24 países, nesta
+   ordem: Brasil; os 8 da prioridade do `quality.json` (Mianmar, Palestina, Israel,
+   Ucrânia, Rússia, Sudão, Bósnia, Sérvia); os outros 7 com elo em `situations.json`
+   (Gâmbia, África do Sul, Etiópia, China, Iraque, Ruanda, Camboja); e 8 de foro ou base
+   de jurisdição, sem elo (Alemanha, França, Bélgica, Países Baixos, Argentina,
+   Bangladesh, Tanzânia, Síria). Brasil, Alemanha, Argentina, Bangladesh e Rússia têm os
+   três blocos em rascunho, e a África do Sul dois; os outros 18 estão vazios com `reason`
+   (`02-fontes.md`, 1.6). O carimbo é do dono, por `scripts/stamp.py`.
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira
