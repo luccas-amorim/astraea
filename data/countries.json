@@ -1636,7 +1636,7 @@
       "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not loaded on 2026-11-11: the Criminal Law of the People's Republic of China, in the text amended up to Amendment XI of 2020-12-26 (2021 special issue of the Gazette of the NPC Standing Committee, npc.gov.cn), has no offence of the kind article II of the 1948 Convention defines; amendments after Amendment XI were not read, and no other statute on it was located at an official source; 'no' is not recorded without a reading of the rest of the statute book. Awaits a reading at an official source."
+      "reason": "Not loaded on 2026-11-11: the Criminal Law of the People's Republic of China, in the text amended up to Amendment XI of 2020-12-26 (2021 special issue of the Gazette of the NPC Standing Committee, npc.gov.cn), has no offence of the kind article II of the 1948 Convention defines; Amendment XII of 2023-12-29 (Gazette 2024 No. 1, pp. 91-92, in force since 2024-03-01) amends articles 165, 166, 169, 387, 390, 391 and 393 and adds no such offence, and the Gazette issues from 2024 No. 2 to 2026 No. 5 carry no later amendment of the Criminal Law; no other statute on it was located at an official source; 'no' is not recorded without a reading of the rest of the statute book. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -3838,10 +3838,10 @@
     "un_status": "member",
     "un_member_since": "1945-12-21",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer; the Federal Supreme Court (iraqfsc.iq) disallows every path in its robots.txt. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the High Judicial Council (hjc.iq) answers its robots.txt with HTTP 403, read as 'disallow everything'; the Ministry of Justice (moj.gov.iq) did not answer; the Federal Supreme Court (iraqfsc.iq) disallows every path in its robots.txt. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -7465,10 +7465,10 @@
     "un_status": "member",
     "un_member_since": "2000-11-01",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). The National Assembly (parlament.gov.rs) publishes the bills, not the law as adopted; the Ministry of Justice (mpravde.gov.rs) closed the TLS connection. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). The National Assembly (parlament.gov.rs) publishes the bills, not the law as adopted; the Ministry of Justice (mpravde.gov.rs) closed the TLS connection; the publisher of the Official Gazette (slglasnik.com), read with the intermediate certificate taken from the address its own certificate declares, sells the Gazette and points to the same Legal Information System for the texts. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). The National Assembly (parlament.gov.rs) publishes the bills, not the law as adopted; the Ministry of Justice (mpravde.gov.rs) closed the TLS connection. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). The National Assembly (parlament.gov.rs) publishes the bills, not the law as adopted; the Ministry of Justice (mpravde.gov.rs) closed the TLS connection; the publisher of the Official Gazette (slglasnik.com), read with the intermediate certificate taken from the address its own certificate declares, sells the Gazette and points to the same Legal Information System for the texts. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -8424,10 +8424,10 @@
     "un_status": "member",
     "un_member_since": "1961-12-14",
     "penal_code": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no; the Law Reform Commission (lrct.go.tz), the Office of the Attorney General (oag.go.tz) and the National Prosecutions Service (nps.go.tz) answer, but publish no laws. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (two attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11 (three attempts that day): the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no; the Law Reform Commission (lrct.go.tz), the Office of the Attorney General (oag.go.tz) and the National Prosecutions Service (nps.go.tz) answer, but publish no laws. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
