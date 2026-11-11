@@ -134,6 +134,12 @@ um valor sem rótulo em `pt-BR`.
    internationale misdrijven, pelo Diário Oficial, que não veda agentes de IA). Os outros
    têm o motivo renovado (`02-fontes.md`, 1.8). Nos já lidos, a sessão conferiu as
    alterações posteriores: nenhum valor mudou.
+   **Quarta volta em 11/11/2026** (fase 2, sessão 7): a China ganhou o `penal_code` em
+   rascunho (a Lei Penal no Boletim do Comitê Permanente da APN, texto de 2020), sem o crime
+   de genocídio (`domestic_genocide` vazio com `reason`, como na Gâmbia). Ucrânia, Mianmar e
+   Camboja, mais uma tentativa, sem leitura; a França espera a decisão do dono sobre a LEGI.
+   Nos já lidos, nenhuma fonte oficial nova sobre Ruanda, Sudão ou Gâmbia
+   (`02-fontes.md`, 1.9).
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira

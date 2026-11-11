@@ -3,6 +3,167 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-11 — Fase 2, sessão 7: quarta volta da carga humana (a China pelo Boletim da APN)
+
+Branch `fase2/carga-humana-4`, a partir da `main`. **Não havia resposta às "Escolhas a
+revisar"** das sessões 4 a 6, nem bloco carimbado (nenhum `checked_by: human` em
+`countries.json`), nem leitura sua do *Wetboek van Strafrecht*, nem aprovação para baixar a
+LEGI: o passo de aplicá-las ficou vazio, não houve o commit próprio que o pedido previa, e
+a França não foi tentada. As escolhas continuam abertas: o Diário holandês sem veto, a
+Bélgica pelo texto da Câmara, o veto a agentes de IA, a cadeia da Gâmbia, as APIs da
+Sérvia, os `follows_convention_definition: unknown`, o `consolidated_on` e o *download* da
+LEGI (nas entradas daquelas sessões).
+
+**O que mudou no dado.** O bloco lido é rascunho, com `checked_by: null`, até o seu
+carimbo. Nenhuma `note` (D4 pendente).
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | Fonte |
+|---|---|---|---|---|
+| China | 中华人民共和国刑法 (texto de 2020) | vazio com `reason` (o crime não está na lei) | ausente | `npc-gazette` |
+| Ucrânia, Mianmar, Camboja | motivo renovado (três tentativas no dia) | idem | ausente | — |
+| Etiópia | motivo renovado (`ethiopar.net` estacionado) | idem | ausente | — |
+| os outros 7 vazios | sem mudança | sem mudança | ausente | — |
+| os 12 já lidos | sem mudança | sem mudança | sem mudança | — |
+
+Agora são **treze países com leitura** (os doze da sessão 6, mais a China, só com o
+`penal_code`) e **onze vazios**. O motivo de cada um está no `reason` do bloco e nas
+tabelas do `02-fontes.md`, 1.7 a 1.9.
+
+**Fonte nova em `sources.json`** (103 fontes, eram 102): `npc-gazette`, o Boletim do Comitê
+Permanente da Assembleia Popular Nacional, `function: 1`, `A`, `active`,
+`robots_checked_on: 2026-11-11`.
+
+**Leituras desta sessão.** Todas pelo cliente HTTP do motor, com o `User-Agent` do Astraea,
+o `robots.txt` obedecido (e lido à procura de agentes de IA vetados pelo nome; nenhum dos
+lidos hoje os veta) e a verificação de certificado ligada, com as raízes da Mozilla
+(tamanho em bytes, sha256):
+
+- China: o `robots.txt` do `npc.gov.cn` (por http) 40,
+  `fcccf55444d06a90bbe0d38e34f5bb200ed0e7a193f1c1f126415143ea4e8189`; o Boletim de 2021
+  (`npc.gov.cn/wxzlhgb/c27214/gb2021/202104/P020230313538043179978.pdf`, `Last-Modified`
+  24/03/2023) **inteiro**, 19.937.723,
+  `2252a75f5549dbd9f902f74c9b9943adfde33729f600c62f3e8c24ea204a5456`. Veio em onze pedidos
+  de 2 MB com o cabeçalho `Range`; o servidor respondeu 206 a cada um, e o tamanho total
+  que ele declarou bate com o arquivo montado.
+- Camboja: o `robots.txt` e a página inicial do `moj.gov.kh` são a mesma página "Request
+  Rejected" (266 bytes cada); não se contorna.
+- Ucrânia (`zakon.rada.gov.ua`) e Mianmar (`mlis.gov.mm`): uma tentativa cada, sem
+  resposta (tempo esgotado na conexão).
+- Etiópia: `ethiopar.net` 2.963,
+  `9dc2900bcff3911cb126966f933197811756c5bb42be63155aeaf0b786ae7123`, página de domínio
+  estacionado.
+- Ruanda: a página do Diário Oficial 28.746,
+  `312b3e2c99b6e444a6167e33c8751559e1da4efb42dec196545f376c626fd705`; a pasta de 2024 29.437,
+  `fe785883f297eeb69f4f2ec21bb2b00e30062cbccfc91712d120d4f7bad4ac19`; e as vinte pastas de
+  mês de 2023 e 2024 (março a dezembro de cada ano).
+- Sudão: o índice do livro de leis, 36.988,
+  `52dccbcfe581206715265f22c03b6de3f76cf1854af1207cbed58efa008f7bf0`, o mesmo da sessão 5.
+- Gâmbia: a ficha do projeto na Assembleia (`assembly.gm/bills/362`), 130.396 bytes, como na
+  sessão 6; o sha256 muda a cada leitura (a página tem partes dinâmicas), e o texto sobre a
+  tramitação é o mesmo.
+- As demais sondagens (as pastas de mês de Ruanda, uma por uma, e a busca na web, só como
+  índice) ficaram na máquina da sessão e não entram no repositório.
+
+**O que conferir, país a país.** Abra cada endereço no seu navegador.
+
+- **China** (abra
+  http://www.npc.gov.cn/wxzlhgb/c27214/gb2021/202104/P020230313538043179978.pdf; o texto de
+  2020 vai da p. 1 à 116 do Boletim, e o de 1997, sem as emendas, começa na p. 117):
+  - `penal_code`: título "中华人民共和国刑法", `language: zh`. `enacted_year: 1979`: o
+    cabeçalho diz "1979年7月1日第五届全国人民代表大会第二次会议通过", e logo depois
+    "1997年3月14日第八届全国人民代表大会第五次会议修订". Gravei 1979, o ano da aprovação,
+    como na Alemanha (1871); se preferir 1997, o da revisão geral, diga.
+    `consolidated_on: null`: o Boletim chama o texto de "2020年修正文本" e o dá como emendado
+    até a Emenda XI, aprovada em 26/12/2020; é a data de uma alteração, não da compilação
+    (o critério da Alemanha e da Rússia). O número saiu em 15/03/2021. **Alterações
+    posteriores à Emenda XI não foram procuradas**: confira se houve alguma (lembro de uma
+    Emenda XII, de dezembro de 2023, mas não li fonte dela).
+  - `domestic_genocide`: vazio com `reason`. No texto de 2020 não há "灭绝种族" nem
+    "种族灭绝", nem outro tipo com os grupos e os atos do art. II da Convenção. `no`
+    afirmaria que nenhuma lei chinesa traz o crime, e a leitura de uma lei não sustenta isso
+    (`03-modelo-de-dados.md`, como na Gâmbia).
+  - `official_url` e `url` são o endereço `http://`: o `https://` do `npc.gov.cn` falha no
+    *handshake* (sessão 6).
+- **Ruanda**: a alteração de dezembro de 2023 continua sem fonte oficial. Pelo nome dos
+  arquivos, nenhuma lei que mude a Lei 68/2018 está nas pastas do Diário de março a
+  dezembro de 2023 e de 2024; **não há pastas de janeiro e fevereiro** no portal, e o
+  número que a traria pode estar lá. O bloco (`life`, art. 92 na redação da Lei 69/2019)
+  continua.
+- **Sudão**: nada novo no portal; a Lei 12 de 2020 continua por conferir.
+- **Gâmbia**: a Assembleia continua sem a data de entrada em vigor.
+
+**Código:** nenhum *script* novo no repositório. O leitor da sessão (o `Client` do motor,
+com um transporte que aponta as raízes da Mozilla do Git for Windows, guarda a parte
+recebida de uma resposta cortada e pede o resto por `Range`) ficou na pasta temporária da
+sessão.
+
+**Bateria:**
+
+- 372 testes passam; `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa.
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 42 campos em 18 registros**
+  (eram 41 em 17). São os 9 status das situações e 33 blocos de lei penal que esperam o
+  seu carimbo (travas 3 e 6).
+- `config/` ainda não existe.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **O Boletim chinês por partes** (`Range`), depois de o servidor cortar o arquivo inteiro
+  duas vezes. Não é desafio a vencer nem bloqueio: cada parte passou pelo `robots.txt` e
+  pelo limite do cliente. Se achar que é contornar, eu esvazio o bloco.
+- **`enacted_year: 1979`** na China, e não 1997.
+- **A busca na web como índice** para achar fonte oficial nova: só apontou cópias da WIPO,
+  do NATLEX, de ONGs e de editoras, que não entraram; o único portal oficial que ela
+  sugeriu (`ethiopar.net`) está estacionado.
+- As escolhas das sessões 4 a 6 continuam abertas, e a LEGI espera o seu sim.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `33 blocks ready to be stamped`. Se algum acento, letra árabe ou
+   chinesa vier trocado por `?`, é só a janela do PowerShell: o arquivo está certo.
+2. **Conferir e carimbar**, como nas sessões anteriores: a lista "o que conferir", acima;
+   depois, por país, primeiro em simulação e depois com `--execute` no fim:
+
+   ```powershell
+   python scripts\stamp.py --field CHN.penal_code --by "Luccas de Amorim" --read-on 2026-11-12
+   ```
+
+   Troque `CHN.penal_code` pelos países das sessões anteriores, e a data pelo dia da sua
+   leitura. Se um valor estiver errado, **não carimbe**: diga na próxima sessão.
+3. **Regenerar o derivado e comitar**, como o *script* mostra ao terminar:
+
+   ```powershell
+   python scripts\transform.py --draft --execute
+   ```
+
+   ```powershell
+   git add data\countries.json static\data
+   ```
+
+   ```powershell
+   git commit -m "Carimba CHN (conferido por Luccas de Amorim em 2026-11-12)"
+   ```
+
+   O `git add` pode mostrar o aviso "LF will be replaced by CRLF". É só aviso.
+4. **Responder às escolhas**, na próxima sessão, numa linha cada: as desta entrada e as das
+   sessões 4 a 6. A França só avança com o seu sim à LEGI (1,2 GB), e os Países Baixos, com
+   a sua leitura do *Wetboek van Strafrecht* no `wetten.overheid.nl` (endereço, título, ano
+   e a data "geldend van … t/m …").
+5. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-11 — Fase 2, sessão 6: terceira volta da carga humana (fonte oficial nova)
 
 Branch `fase2/carga-humana-3`, a partir da `main`. **Não havia resposta às "Escolhas a

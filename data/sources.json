@@ -2137,5 +2137,25 @@
     "no_text_by_policy": false,
     "state": "active",
     "reason": "Parliamentary documents as PDF (the text adopted in plenary and submitted to royal assent), read by hand through the engine's client (robots.txt read, Crawl-delay 5). The law as published in the Moniteur belge is at ejustice.just.fgov.be, whose robots.txt disallows the paths of the laws; its errata were not read."
+  },
+  {
+    "id": "npc-gazette",
+    "name": "Gazette of the Standing Committee of the National People's Congress (People's Republic of China)",
+    "url": "http://www.npc.gov.cn/",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official publication of the NPC Standing Committee; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "zh"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "The Gazette as PDF (the 2021 special issue carries the Criminal Law in the 2020 text, amended up to Amendment XI), read by hand through the engine's client over http (the https handshake fails), in byte ranges because the server cut the whole download after some 14 MB; robots.txt read (only YisouSpider is disallowed). The National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots."
   }
 ]

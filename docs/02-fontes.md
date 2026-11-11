@@ -298,6 +298,41 @@ Nos já lidos, a conferência das alterações (item 2 do pedido da sessão):
   lido é o que a Câmara aprovou e submeteu à sanção, idêntico, segundo a própria Câmara, ao
   da segunda leitura; as erratas do *Moniteur* não foram lidas. Escolha a revisar.
 
+### 1.9 O que a quarta volta de 11/11/2026 encontrou (fase 2, sessão 7)
+
+Da máquina do dono, pelo cliente do motor, com o `robots.txt` obedecido (e lido à procura
+de agentes de IA vetados pelo nome) e a verificação de certificado ligada, com as raízes
+da Mozilla; sha256 no `CHANGELOG.md`. Não havia resposta do dono às escolhas a revisar
+nem aprovação para baixar a LEGI; a França não foi tentada.
+
+| País | Portal | O que aconteceu | Resultado |
+|---|---|---|---|
+| China | `npc.gov.cn` (Boletim do Comitê Permanente, número especial de 2021) | o PDF (19.937.723 bytes) veio inteiro em onze pedidos de 2 MB por `Range`, cada um pelo cliente do motor; um deles voltou cortado e o seguinte retomou do último byte recebido. A Lei Penal está no texto de 2020, emendada até a Emenda XI (26/12/2020), e não traz o crime de genocídio | `penal_code` em rascunho (`npc-gazette`); `domestic_genocide` vazio com `reason`, como na Gâmbia |
+| Ucrânia | `zakon.rada.gov.ua` | não respondeu (uma tentativa) | vazio |
+| Mianmar | `mlis.gov.mm` | não respondeu (uma tentativa) | vazio |
+| Camboja | `moj.gov.kh` | "Request Rejected" (WAF), também no `robots.txt` | vazio; não se contorna |
+| Etiópia | `ethiopar.net` (domínio antigo do Parlamento, apontado pelo NATLEX) | domínio estacionado | vazio |
+
+Os outros vazios (Israel, Iraque, Palestina, Síria, Sérvia, Tanzânia, o `penal_code`
+holandês) não tiveram fonte oficial nova: a busca na web, só como índice (regra 4), deu
+cópias da WIPO, do NATLEX, de ONGs e de editoras, que não entram.
+
+Nos já lidos, só o que a fonte oficial diz:
+
+- **Ruanda.** As pastas do Diário Oficial no portal do Ministério, de março a dezembro de
+  2023 e de março a dezembro de 2024 (não há pastas de janeiro e fevereiro), não têm, pelo
+  nome dos arquivos, nenhuma lei que altere a Lei 68/2018. A alteração de dezembro de 2023
+  continua sem fonte oficial.
+- **Sudão.** O índice do livro de leis tem o mesmo sha256 da sessão 5: nenhuma alteração
+  posterior a 2017 no portal.
+- **Gâmbia.** A ficha da Assembleia continua "Assented", sem data de entrada em vigor. O
+  site do Ministério não foi lido de novo: a cadeia pelo AIA é escolha que espera o dono.
+
+- **Pedido por partes não contorna nada.** O servidor chinês cortou o arquivo inteiro
+  perto dos 14 MB nas duas tentativas da sessão 6. O cabeçalho `Range` é HTTP comum, e o
+  servidor respondeu 206 a cada parte; cada parte passou pelo `robots.txt` e pelo limite do
+  cliente. É escolha a revisar pelo dono (`CHANGELOG.md`).
+
 ## Função 2: notícias
 
 ### 2.1 Resumo
