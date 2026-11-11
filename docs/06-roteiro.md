@@ -140,10 +140,21 @@ um valor sem rótulo em `pt-BR`.
    Camboja, mais uma tentativa, sem leitura; a França espera a decisão do dono sobre a LEGI.
    Nos já lidos, nenhuma fonte oficial nova sobre Ruanda, Sudão ou Gâmbia
    (`02-fontes.md`, 1.9).
+   **Quinta volta em 11/11/2026** (fase 2, sessão 8): sem resposta do dono às escolhas,
+   nem carimbo, nem leitura holandesa, nem sim à LEGI. Na China, a Emenda XII (29/12/2023)
+   foi lida no Boletim da APN e não traz o crime; os Boletins seguintes não trazem emenda
+   nova. Sérvia, Iraque e Tanzânia tiveram portal oficial novo, sem leitura; os outros
+   vazios, nenhum (`02-fontes.md`, 1.10). Continuam treze países com leitura e onze vazios.
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira
 reconferência de Legislationline e SHERLOC está agendada no Arquivista.
+**Em 11/11/2026** (fase 2, sessão 8) a reconferência ficou com o Cartógrafo, como o `04`
+já previa, e não com o Arquivista: `scripts/recheck_sources.py`, mensal, dentro do
+`countries.yml` (a primeira vez no dia 1 de dezembro, se a `main` com ele estiver no
+GitHub até lá), para Legislationline, SHERLOC,
+Library of Congress e WorldLII. O que falta do "Pronto quando" é do dono: o carimbo da
+ficha do Brasil.
 
 ### Fase 3 — Função 3 (4 sessões, ~3 semanas)
 

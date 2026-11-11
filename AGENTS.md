@@ -41,11 +41,14 @@ formatos são o XML por tratado da UNTC, que `scripts/load_treaties.py` grava em
 `countries.json`, e as quatro listas de pena de morte do Cornell, que
 `scripts/load_death_penalty.py` grava em `death_penalty` (os dois em simulação por
 padrão). `scripts/stamp.py` lista os blocos prontos para carimbo e grava `checked_by:
-human` só no que o dono indicar. 372 testes. A fase 1 e os itens 1 a 3 da fase 2 estão
+human` só no que o dono indicar. O Cartógrafo (`scripts/recheck_sources.py`, dentro do
+`countries.yml`) pergunta todo mês se Legislationline, SHERLOC, Library of Congress e
+WorldLII voltaram a responder e reabre a fonte em `sources.json` quando sim (o SHERLOC só é
+reconferido). 390 testes. A fase 1 e os itens 1 a 3 da fase 2 estão
 feitos (o anexo da Anistia espera a carga à mão do dono; o `countries.yml` rodou no GitHub
 em 10/11/2026); o item 4, a carga humana dos 24 países, começou na sessão 4 da fase 2 e
-seguiu nas sessões 5 a 7 (treze países com leitura, onze vazios com `reason` de 11/11/2026;
-`02-fontes.md`, 1.7 a 1.9); o que falta depende de outra rede, da leitura do dono ou de
+seguiu nas sessões 5 a 8 (treze países com leitura, onze vazios com `reason` de 11/11/2026;
+`02-fontes.md`, 1.7 a 1.10); o que falta depende de outra rede, da leitura do dono ou de
 fonte oficial nova. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de

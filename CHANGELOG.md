@@ -3,6 +3,189 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-11 — Fase 2, sessão 8: a Emenda XII chinesa, sobras da carga humana e o Cartógrafo
+
+Branch `fase2/carga-humana-5`, a partir da `main`. **Não havia resposta às "Escolhas a
+revisar"** das sessões 4 a 7, nem bloco carimbado (nenhum `checked_by: human` em
+`countries.json` nem em `situations.json`), nem leitura sua do *Wetboek van Strafrecht*,
+nem aprovação para baixar a LEGI: o commit próprio das respostas não existiu, a França não
+foi tentada e o `penal_code` holandês continua vazio. As escolhas continuam abertas
+(adiante, "Escolhas a revisar").
+
+**O que mudou no dado.** Só motivos (`reason`) de blocos vazios; nenhum valor lido mudou,
+nenhum bloco novo. Nenhuma `note` (D4 pendente); todo bloco lido continua com
+`checked_by: null`.
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | O que mudou |
+|---|---|---|---|---|
+| China | sem mudança | vazio, motivo renovado | ausente | a Emenda XII foi lida, e os Boletins seguintes |
+| Sérvia | vazio, motivo renovado | idem | ausente | `slglasnik.com` |
+| Iraque | vazio, motivo renovado | idem | ausente | `iraqfsc.iq` |
+| Tanzânia | vazio, motivo renovado | idem | ausente | `lrct.go.tz`, `oag.go.tz`, `nps.go.tz` |
+| os outros 20 | sem mudança | sem mudança | sem mudança | — |
+
+Continuam **treze países com leitura** e **onze vazios** (`02-fontes.md`, 1.10). Nenhuma
+fonte nova em `sources.json` (103): `slglasnik.com` não entrou, porque não serviu de fonte
+de nenhum valor.
+
+**Leituras desta sessão.** Pelo cliente HTTP do motor, com o `User-Agent` do Astraea, o
+`robots.txt` obedecido (e lido à procura de agentes de IA vetados pelo nome) e a
+verificação de certificado ligada, com as raízes da Mozilla (tamanho em bytes, sha256):
+
+- China, `npc.gov.cn` por http (o `robots.txt` não veda agentes de IA): a página inicial
+  87.258, `f8c9c414f99abc3ecabe16a5768bb79a532c6fdf8fb850ed06b6e28f91bbf12f` (a mesma da
+  sessão 6); o índice dos Boletins (`/wxzlhgb/`) 28.800,
+  `2f77bab02dc2a356e141f372c4684bcc4de8cb8980d712f09f3933a4388619d9`; e os Boletins
+  inteiros, cada um num pedido só:
+  - 2023, nº 7 (`/wxzlhgb/c27214/gb2023/202401/P020240119638254850042.pdf`) 11.674.391, `b618b0adff1517242b1601219fa580133099dc8d1654e1fda05d31f4c123492a`;
+  - 2024, nº 1 (a Emenda XII) (`/wxzlhgb/c27214/gb2024/202402/P020240202330064224451.pdf`) 7.282.049, `d0da712ffcf356fe0c1477043fe1e459a8a695e5cbd8928abb437275f056d574`;
+  - 2024, nº 2 (`/wxzlhgb/c27214/gb2024/202404/P020240416569776251733.pdf`) 7.805.735, `795c819b4acf181126a5cc5afa9da5c0787ee495fa6db6ae81fe86ee6d6ae223`;
+  - 2024, nº 3 (`/wxzlhgb/c27214/gb2024/202406/P020240627409249429110.pdf`) 6.347.402, `4de1426faa6aa99c6c46756ef3ccb7ccd7bbc3ce0fbc75567e8b553c59f5410b`;
+  - 2024, nº 4 (`/npc/c2/c30834/202412/P020241223578514715967.pdf`) 6.196.458, `a81c91dfd704a302fc04c77639f96cc6de4a8bb0f6fa2c241a13b12203b9503d`;
+  - 2024, nº 5 (`/wxzlhgb/c27214/gb2024/202410/P020241009528032576966.pdf`) 11.985.567, `37710ed379cd2d96c047b47b8762ce778a51664ea9f082b639bc4d18f9efcf62`;
+  - 2024, nº 6 (`/npc/c2/c30834/202411/P020241129590892653506.pdf`) 7.316.473, `bd9ef5034a77823622f38316189488694b187b1577513369ece658f5541652fd`;
+  - 2025, nº 1 (`/npc/c2/c30834/202501/P020250121307945950324.pdf`) 6.795.719, `eac6dda3419b5296f10785b85a0ec340148ba2cad668f2c642c73a94c5e901e3`;
+  - 2025, nº 2 (`/npc/c2/c30834/202504/P020250407512079913904.pdf`) 7.392.466, `56a1672a962477fae64123fc15a7590f3f10bf4b280355e173fa459df1c7303a`;
+  - 2025, nº 3 (`/npc/c2/c30834/202505/P020250527348067244443.pdf`) 13.169.780, `f5f5c56f59d8781f7dfd17312406f7691db033576ef6b38ef94bd3c4d140a6e7`;
+  - 2025, nº 4 (`/npc/c2/c30834/202508/P020250813598641030534.pdf`) 13.126.708, `c6b24218e474fb68ebcc81503d859b9dee74a76f28a373f4878708bc3acd3d71`;
+  - 2025, nº 5 (`/npc/c2/c30834/202510/P020251015315268637401.pdf`) 13.701.325, `98728e8dede0d85ef1774546ead90af246ca1b392bf1ca72b9d939f181da26bb`;
+  - 2025, nº 6 (`/npc/c2/c30834/202512/P020251211552547072359.pdf`) 15.268.182, `f6f708efed63788ade9dd2a6df38089c8de7670b99e347099a08e0e8a6175888`;
+  - 2026, nº 1 (`/npc/c2/c30834/202602/P020260211598705782373.pdf`) 13.560.312, `2c83b993c415300accca8143ba3743f1413255af79a57d5cf4160f6eb1076007`;
+  - 2026, nº 2 (`/npc/c2/c30834/202604/P020260417341841579800.pdf`) 32.710.416, `d3db3844f43dbb0f8881b5187eaa6be0c23c0fd74d4b0c48d48582e28417debf`;
+  - 2026, número especial do Código Ambiental (`/npc/c2/c30834/202604/P020260417343768024693.pdf`) 12.145.520, `8cc5278f615371c0ab490de442e307a33664bd2ec409e001622ee6c24c5369a4`;
+  - 2026, nº 3 (`/npc/c2/c30834/202605/P020260526519256899719.pdf`) 12.442.987, `14ab2b119b2473100aeee6254eef61582de27ffde7eb58fb448c2408a0bb88d7`;
+  - 2026, nº 4 (`/npc/c2/c30834/202608/P020260804592193326881.pdf`) 12.576.314, `66c3819890620afebbebe6f3de7d5c45ba01ce558af846de07732e5e6d813e7b`;
+  - 2026, nº 5 (`/npc/c2/c30834/202610/P020261009423157467813.pdf`) 2.631.877, `08ffada735f281eb10972746d01bae9e63a6f1e675ab8629faf093bddfac7b7d`.
+- Sérvia: `slglasnik.com` 157.180,
+  `30a7c5df8fc381d1d6237748c6e11c77f30a572b06e4b22941065a2690223267`, e a página do Diário
+  (`/sluzbena-glasila/sluzbeni-glasnik`) 151.610,
+  `55d5d2f64536b368c637115f2f46e477ebf184e430f88a6db4c85d4a5a4e10c8`. O intermediário
+  "Sectigo Public Server Authentication CA DV R36" veio do endereço AIA do certificado do
+  site (`crt.sectigo.com`, baixado com `curl`, 1.616 bytes em DER, conferido com `openssl verify` contra as
+  raízes da Mozilla), sha256
+  `8c54c334b66ba4e426772af4a3f9136c19a1aec729fdb28c535c07a5a4ef22e0`.
+- Tanzânia: `lrct.go.tz` 75.933,
+  `3f5dcec770d1d280d04ec0d95325ae30ec4e80cdaa27857db3e79c1d504a760f`; `oag.go.tz` 121.300,
+  `60247e45b601b4459cf8394cecf56ddb3209c8219c86eefdefe01c6df9501557`; `nps.go.tz` 86.380,
+  `a7a8dabba35e52fa0407b9b85096882e3c13a17b9a9bb5cda62c42587c518158`.
+- Iraque: o `robots.txt` do `iraqfsc.iq` veda tudo; nada além dele foi pedido.
+- Mianmar e Camboja: `oag.gov.mm`, `national-assembly.org.kh` e `pmo.gov.kh` não resolvem
+  no DNS. Os dois primeiros já constavam como sem DNS: foram tentados de novo por descuido.
+- As quatro bases do Cartógrafo: o `robots.txt` do WorldLII 2.676,
+  `3073d1e371afb3271c7666148766fedc5145f7d8440f7114062db79b7bd58add` (veda `ClaudeBot`,
+  `Claude-Web`, `anthropic-ai`, `GPTBot` e outros pelo nome: a página não foi aberta); a
+  página da base do SHERLOC 520.471,
+  `676ef76607d3124ea4040057d364f501d6fa07599a008b2b2b92aa1a7612b791`; o Legislationline
+  (404 depois de redirecionar para a ODIHR) e a Library of Congress (o próprio
+  `robots.txt` bloqueado) não deram página.
+
+**O que conferir, país a país.**
+
+- **China** (abra
+  http://www.npc.gov.cn/wxzlhgb/c27214/gb2024/202402/P020240202330064224451.pdf, p. 91 e
+  92 do Boletim, na numeração impressa):
+  - A Emenda XII ("中华人民共和国刑法修正案（十二）"), aprovada em 29/12/2023 pelo Comitê
+    Permanente (Ordem Presidencial nº 18), **em vigor desde 01/03/2024**. Tem oito itens:
+    muda os arts. 165, 166 e 169 (gestores de empresas, com um parágrafo novo para as
+    empresas privadas) e 387, 390, 391 e 393 (suborno); o item 8 é a vigência. **Não traz
+    o crime de genocídio**, nem mexe em artigo que o tocasse.
+  - O `penal_code` não mudou: título, `enacted_year: 1979`, `language: zh` e
+    `consolidated_on: null` valem igual. O `url` continua o Boletim de 2021, com o texto de
+    2020; o texto vigente é esse mais a Emenda XII, e o bloco não afirma consolidação.
+  - O `reason` do `domestic_genocide` passou a dizer que a Emenda XII foi lida e que os
+    Boletins de 2024 nº 2 a 2026 nº 5 não trazem emenda posterior. Os números de 2025 nº 1 e 2026 nº 1 e 2 citam a Lei Penal só nos relatórios sobre os projetos de deputados ("关于修改刑法的议案"), que não são lei. A busca foi pelo texto extraído dos PDFs (`pdftotext`), por "刑法修正案（十三）", "（十四）" e "修改《中华人民共和国刑法》的决定"; se quiser conferir, o índice de cada ano está em http://www.npc.gov.cn/wxzlhgb/.
+- **Sérvia, Iraque, Tanzânia**: nada a conferir no valor; os motivos dizem o que foi
+  tentado.
+
+**Código: o Cartógrafo.** Sem decisão sua pendente: ele **cabe no `countries.yml`**, porque
+o que muda (`data/sources.json`) também muda o `static/data/quality.json`, o derivado do PR
+de países; um *workflow* próprio abriria PRs em conflito, o mesmo motivo que pôs o Cornell
+no mensal (`04-arquitetura.md`, "O Cartógrafo, como ficou").
+
+- `scripts/recheck_sources.py`: pergunta uma página de cada base (Legislationline, SHERLOC,
+  Library of Congress, WorldLII), pelo cliente do motor; reabre a fonte (`state: active`,
+  `robots_checked_on` do dia, `reason` novo) quando ela responde no mesmo *host*, com a marca
+  da página e sem desafio; o SHERLOC só é reconferido; fonte descartada fica como está, e
+  ativa nunca é suspensa pelo robô. Simulação por padrão, `--execute` para valer, `--only`
+  para perguntar a uma só, `--responses` para ler as respostas gravadas (testes).
+- `scripts/countries_monthly.py` o roda depois das duas cargas; o PR leva
+  `data/sources.json` quando muda; o Cartógrafo sozinho não abre PR quando as duas cargas
+  falham, a menos que tenha reaberto uma fonte; falha dele abre issue com explicação
+  própria. `countries.yml`: o `git add` inclui `data/sources.json`.
+- `astraea/engine/http.py`: `Client.robots()`, o `robots.txt` lido, para a conta dos
+  agentes de IA.
+- Testes: `tests/test_recheck_sources.py` (14), três novos em
+  `tests/test_countries_monthly.py`, um em `tests/test_http.py`. A *fixture*
+  (`tests/fixtures/cartographer/responses.json`) é **sintética**: a sessão é modelo, e o
+  WorldLII veda agentes de IA. Os testes leem o `sources.json` do repositório com as quatro
+  fontes postas de volta em `suspended`, para não fixar o valor do dia.
+- Em simulação, de verdade, nas três que não vedam agentes de IA: as três seguem fora
+  (Legislationline 404 pela ODIHR; SHERLOC responde, mas não é reaberto; Library of
+  Congress bloqueia o `robots.txt`); nada a gravar. A primeira execução de verdade, com o
+  WorldLII, é a do `countries.yml` no dia 1 de dezembro, se a `main` estiver no GitHub.
+
+**Bateria:**
+
+- 390 testes passam (eram 372); `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa.
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 42 campos em 18 registros**,
+  como na sessão 7 (46 achados: 42 da trava 3 e 4 da trava 6). São os 9 status das
+  situações e 33 blocos de lei penal que esperam o seu carimbo.
+- `config/` ainda não existe.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **O SHERLOC fora da reabertura automática.** O pedido diz "reabre quando volta a
+  responder"; o SHERLOC nunca deixou de responder no navegador, e foi suspenso pelo
+  conteúdo. Se preferir que ele reabra quando responder 200, é uma linha (`reopens`).
+- **A *fixture* sintética**, e não gravada, pelo veto do WorldLII a agentes de IA.
+- **A cadeia da Sérvia pelo AIA**, como na Gâmbia, agora regra do `AGENTS.md`.
+- As escolhas das sessões 4 a 7 continuam abertas: o Boletim chinês por partes
+  (`Range`), o `enacted_year: 1979` da China, o Diário holandês sem veto, a Bélgica pelo
+  texto da Câmara e o `year: 2024`, o veto a agentes de IA, a cadeia da Gâmbia, as APIs da
+  Sérvia, os `follows_convention_definition: unknown` (Sudão, Bósnia), o título inglês de
+  Ruanda, o `consolidated_on: null` (Alemanha, Rússia), a busca na web como índice e o
+  *download* da LEGI.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `33 blocks ready to be stamped`, como na sessão 7. Se algum acento,
+   letra árabe ou chinesa vier trocado por `?`, é só a janela do PowerShell.
+2. **Conferir e carimbar**, como nas sessões anteriores, por país, primeiro em simulação e
+   depois com `--execute` no fim:
+
+   ```powershell
+   python scripts\stamp.py --field BRA --by "Luccas de Amorim" --read-on 2026-11-12
+   ```
+
+   A ficha do Brasil carimbada é o que falta do "Pronto quando" da fase 2.
+3. **Ver o Cartógrafo em simulação** (pergunta às quatro bases e não grava nada):
+
+   ```powershell
+   python scripts\recheck_sources.py
+   ```
+
+   Deve terminar com `4 sources asked, 0 reopened` e `up to date: data/sources.json`. O
+   WorldLII pode demorar uns minutos se não responder: o cliente tenta três vezes.
+4. **Responder às escolhas**, na próxima sessão, numa linha cada. A França só avança com o
+   seu sim à LEGI (1,2 GB), e os Países Baixos com a sua leitura do *Wetboek van
+   Strafrecht* no `wetten.overheid.nl` (endereço, título, ano e a data "geldend van … t/m
+   …").
+5. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-11 — Fase 2, sessão 7: quarta volta da carga humana (a China pelo Boletim da APN)
 
 Branch `fase2/carga-humana-4`, a partir da `main`. **Não havia resposta às "Escolhas a

@@ -333,6 +333,42 @@ Nos já lidos, só o que a fonte oficial diz:
   servidor respondeu 206 a cada parte; cada parte passou pelo `robots.txt` e pelo limite do
   cliente. É escolha a revisar pelo dono (`CHANGELOG.md`).
 
+### 1.10 O que a quinta volta de 11/11/2026 encontrou (fase 2, sessão 8)
+
+Da máquina do dono, pelo cliente do motor, com o `robots.txt` obedecido (e lido à procura
+de agentes de IA vetados pelo nome) e a verificação de certificado ligada, com as raízes
+da Mozilla; sha256 no `CHANGELOG.md`. Não havia resposta do dono às escolhas a revisar,
+nem bloco carimbado, nem leitura do *Wetboek van Strafrecht*, nem aprovação para baixar a
+LEGI: a França não foi tentada. Ucrânia (`zakon.rada.gov.ua`), Mianmar (`mlis.gov.mm`) e
+Camboja (`moj.gov.kh`), que não responderam três vezes, não foram tentados de novo.
+
+| País | Portal novo | O que aconteceu | Resultado |
+|---|---|---|---|
+| China | `npc.gov.cn`, Boletim do Comitê Permanente, 2024, nº 1 | a Emenda XII à Lei Penal (29/12/2023, em vigor desde 01/03/2024), p. 91–92: muda os arts. 165, 166, 169, 387, 390, 391 e 393 (deveres de gestores de empresas e suborno); não traz o crime de genocídio | `penal_code` sem mudança; `domestic_genocide` vazio, motivo renovado |
+| China | `npc.gov.cn`, os Boletins de 2024 nº 2 a 2026 nº 5 (com o número especial do Código Ambiental de 2026) | cada número inteiro, num pedido só (o servidor não cortou nenhum); em nenhum há Emenda XIII nem decisão que mude a Lei Penal: só os relatórios sobre os projetos de deputados que pedem mudanças ("关于修改刑法的议案"), que não são lei | idem |
+| Sérvia | `slglasnik.com` (a editora estatal do Diário Oficial) | o servidor não envia o intermediário Sectigo; completado pelo endereço AIA do próprio certificado e verificado contra as raízes da Mozilla; o `robots.txt` não veda agentes de IA; o site **vende** o Diário e aponta, para os textos, o mesmo sistema JavaScript de antes | vazio |
+| Iraque | `iraqfsc.iq` (Supremo Tribunal Federal) | o `robots.txt` veda tudo, a todos | vazio |
+| Tanzânia | `lrct.go.tz`, `oag.go.tz`, `nps.go.tz` (Comissão de Reforma Legal, Procuradoria-Geral, Ministério Público) | respondem; nenhum publica leis | vazio |
+| Mianmar, Camboja | `oag.gov.mm`, `national-assembly.org.kh`, `pmo.gov.kh` | não resolvem no DNS (os dois primeiros já não resolviam: foram tentados de novo por descuido) | vazio |
+
+Israel, Palestina, Síria, Etiópia e o `penal_code` holandês não tiveram fonte oficial nova.
+
+As quatro bases da 1.1 que o Cartógrafo passa a reconferir todo mês (`04-arquitetura.md`),
+como a sessão as viu hoje:
+
+- **Legislationline**: o `robots.txt` e a coleção de códigos penais redirecionam para o
+  site da ODIHR e respondem 404. Fora do ar, como em 06/11.
+- **SHERLOC**: `robots.txt` 404; a página da base responde 200 e traz a taxonomia
+  ("Genocide (underlying acts)"). A busca é feita no navegador, e o *endpoint* que conta as
+  leis por crime não foi procurado.
+- **Library of Congress**: o `robots.txt` responde com bloqueio (lido como "veda tudo").
+- **WorldLII**: o `robots.txt` responde e veda pelo nome `ClaudeBot`, `Claude-Web`,
+  `anthropic-ai` e outros robôs de IA, com `Content-Signal: ai-train=no`; para o
+  *crawler* genérico, `Allow: /`. A sessão não abriu a página; o robô, no GitHub, abre.
+- **Robô de IA vetado não impede o Cartógrafo**, que não é modelo e se identifica como
+  Astraea: impede a sessão. Se o WorldLII for reaberto, o `reason` diz que nenhuma sessão
+  que seja modelo o lê.
+
 ## Função 2: notícias
 
 ### 2.1 Resumo
@@ -535,6 +571,11 @@ Tudo abaixo vem da página oficial citada, salvo onde marcado "imprensa".
 5. **Reconferência periódica é parte do sistema:** Legislationline (em
    reconstrução), SHERLOC (taxonomia vazia), EMM (site novo), Library of Congress e
    WorldLII (bloqueio talvez do ambiente) ganham `state: suspended` em `sources.json` com
-   data de reconferência, e o Arquivista as reabre.
+   data de reconferência, e o Arquivista as reabre. **Em 11/11/2026 (fase 2, sessão 8):**
+   as quatro da função 1 (Legislationline, SHERLOC, Library of Congress, WorldLII) são
+   reconferidas todo mês pelo Cartógrafo, no `countries.yml`, que reabre a fonte quando ela
+   volta a responder (o SHERLOC só é reconferido: foi suspenso pelo conteúdo; ver o
+   `04-arquitetura.md`, "O Cartógrafo, como ficou"); a EMM é da função 2 e continua com o
+   Arquivista.
 
 <!-- Verificação concluída em 06/11/2026 com as três sondagens. -->
