@@ -1037,6 +1037,32 @@
     },
     "un_status": "member",
     "un_member_since": "1945-10-24",
+    "penal_code": {
+      "exists": "yes",
+      "title": "Código Penal (Decreto-Lei nº 2.848, de 7 de dezembro de 1940)",
+      "enacted_year": 1940,
+      "consolidated_on": "2026-10-09",
+      "official_url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm",
+      "alternative_url": "https://atlaspen.com.br/data/crimes.json",
+      "language": "pt",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm",
+      "source": "planalto",
+      "read_on": "2026-11-10",
+      "confidence": "A",
+      "checked_by": null
+    },
+    "domestic_genocide": {
+      "status": "criminalized",
+      "instrument": "Lei nº 2.889, de 1º de outubro de 1956",
+      "provision": "art. 1º",
+      "year": 1956,
+      "follows_convention_definition": "yes",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm",
+      "source": "planalto",
+      "read_on": "2026-11-10",
+      "confidence": "A",
+      "checked_by": null
+    },
     "genocide_convention": {
       "participation": "party",
       "signature": "1948-12-11",
@@ -1064,6 +1090,16 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "max_penalty": {
+      "type": "years",
+      "years": 40,
+      "applies_to_genocide": "yes",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm",
+      "source": "planalto",
+      "read_on": "2026-11-10",
+      "confidence": "A",
+      "checked_by": null
     },
     "death_penalty": {
       "status": "abolitionist_ordinary_crimes",

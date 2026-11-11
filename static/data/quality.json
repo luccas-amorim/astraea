@@ -1,13 +1,28 @@
 {
   "as_of": "2026-11-10",
   "drafts": {
-    "fields": 9,
-    "records": 5,
+    "fields": 12,
+    "records": 6,
     "by_check": {
-      "3": 9,
+      "3": 12,
       "6": 4
     },
     "items": [
+      {
+        "check": 3,
+        "where": "countries[BRA].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BRA].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BRA].max_penalty",
+        "message": "asserted without stamp: missing checked_by"
+      },
       {
         "check": 3,
         "where": "situations[rohingya-myanmar].statuses[0]",
@@ -86,13 +101,13 @@
       },
       "penal_code": {
         "stamped": 0,
-        "draft": 0,
-        "empty": 197
+        "draft": 1,
+        "empty": 196
       },
       "domestic_genocide": {
         "stamped": 0,
-        "draft": 0,
-        "empty": 197
+        "draft": 1,
+        "empty": 196
       },
       "genocide_convention": {
         "stamped": 195,
@@ -106,8 +121,8 @@
       },
       "max_penalty": {
         "stamped": 0,
-        "draft": 0,
-        "empty": 197
+        "draft": 1,
+        "empty": 196
       },
       "death_penalty": {
         "stamped": 130,
@@ -169,9 +184,9 @@
     }
   },
   "sources": {
-    "total": 89,
+    "total": 91,
     "by_state": {
-      "active": 48,
+      "active": 50,
       "suspended": 10,
       "discarded": 31
     },
