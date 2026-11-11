@@ -249,6 +249,55 @@ Os 18 vazios da 1.6, de novo, da máquina do dono, pelo cliente do motor, com o
   afirmaria que nenhuma lei do país o traz, o que a leitura de uma lei não sustenta. O
   `domestic_genocide` fica vazio com `reason`.
 
+### 1.8 O que a terceira volta de 11/11/2026 encontrou (fase 2, sessão 6)
+
+Os 14 vazios da 1.7, da máquina do dono, pelo cliente do motor, com o `robots.txt`
+obedecido (e lido à procura de agentes de IA vetados pelo nome) e a verificação de
+certificado ligada, com as raízes da Mozilla; sha256 no `CHANGELOG.md`. Ucrânia, Mianmar
+e Camboja foram tentados de novo; nos outros, a sessão procurou gazeta, parlamento ou
+tribunal que ainda não tivesse sido tentado. A busca na web serviu só de índice
+(regra 4); cópias da WIPO, da ILO, de universidades e de editoras não entram.
+
+| País | Portal novo ou tentado de novo | O que aconteceu | Resultado |
+|---|---|---|---|
+| Países Baixos | `zoek.officielebekendmakingen.nl` (Staatsblad) | o `robots.txt` do Diário Oficial **não veda agentes de IA** (só o *AhrefsBot*) e veda as páginas de resultado de busca; a Wet internationale misdrijven está no Stb. 2003, 270, como promulgada | `domestic_genocide` e `max_penalty` em rascunho (`officielebekendmakingen`); `penal_code` vazio, porque o Código consolidado só está no `wetten.overheid.nl` |
+| Bélgica | `lachambre.be` (documentos parlamentares) | lê (`Crawl-delay: 5`); o novo Código Penal (leis de 29/02/2024, Livros I e II, em vigor desde 08/04/2026) está no texto aprovado em plenário e submetido à sanção; a lei de 16/03/2026 (DOC 56 1160) muda vários artigos, mas não o 36 nem o 82 | os três blocos em rascunho (`lachambre`) |
+| China | `npc.gov.cn` (por http; o https falha no *handshake*) | o `robots.txt` só veda o *YisouSpider*; a página da Lei Penal é só um invólucro que aponta para a tradução inglesa "só para referência"; o Boletim do Supremo Tribunal Popular (`gongbao.court.gov.cn`) responde com um WAF (302, `CWAP-waf`); o Boletim do Comitê Permanente da APN de 2021 traz a Lei consolidada até a Emenda XI, num PDF de uns 20 MB que o servidor cortou duas vezes, perto dos 14 MB | vazio |
+| Ucrânia | `zakon.rada.gov.ua`, `minjust.gov.ua`, `supreme.court.gov.ua`, `ovu.com.ua`, `golos.com.ua` | a Rada continua sem responder; o Ministério só aponta para a Rada; o Supremo lista as leis que alteram o Código, não o texto; `ovu.com.ua` virou site de notícias; o `robots.txt` do `golos.com.ua` veda `ClaudeBot` pelo nome | vazio |
+| Mianmar | `mlis.gov.mm`, `unionsupremecourt.gov.mm` | o MLIS continua sem responder; o Supremo publica doze leis (o Código de Processo Penal entre elas), não o Código Penal | vazio |
+| Camboja | `moj.gov.kh`, `senate.gov.kh`, `eccc.gov.kh` | o Ministério responde "Request Rejected" (WAF), até ao `robots.txt`; o Senado derruba a conexão; a ECCC só publica a sua própria lei, limitada aos crimes de 1975 a 1979 | vazio; não se contorna |
+| França | `echanges.dila.gouv.fr/OPENDATA/LEGI/` | a DILA publica a base LEGI (a do Légifrance) em dados abertos, `robots.txt` 404, mas só como um arquivo de 1,2 GB e incrementos diários | vazio; o *download* é escolha do dono |
+| Sérvia | `parlament.gov.rs`, `mpravde.gov.rs`, `slglasnik.com` | a Assembleia publica os projetos (*predlozi zakona*), não a lei aprovada; o Ministério fecha a conexão TLS; o certificado da editora do Diário não se verificou (a cadeia pelo AIA não foi tentada) | vazio; as APIs continuam escolha do dono |
+| Israel | `fs.knesset.gov.il`, `gov.il` | o servidor de arquivos do Knesset também passou a responder com o desafio HTTP 247; o `robots.txt` do `gov.il` responde 403 | vazio |
+| Iraque | `hjc.iq`, `moj.gov.iq` | o `robots.txt` do Conselho Judiciário responde 403; o Ministério não responde | vazio |
+| Palestina | `plc.ps`, `courts.gov.ps`, `dft.gov.ps` | o Conselho Legislativo é página de hospedagem suspensa; os tribunais não respondem; `dft.gov.ps` não resolve | vazio |
+| Etiópia | `hopr.gov.et`, `fsc.gov.et` | sem índice de leis; o Supremo responde 503 | vazio |
+| Síria | `pministry.gov.sy` | não responde | vazio |
+| Tanzânia | `judiciary.go.tz`, `agctz.go.tz` | nada novo | vazio |
+
+Nos já lidos, a conferência das alterações (item 2 do pedido da sessão):
+
+- **Bósnia.** A Procuradoria da BiH (`tuzilastvobih.gov.ba`) publica uma consolidação
+  "não oficial" até o SG 47/23. O art. 171 não mudou (continua sem "como tal"); o
+  *dugotrajni zatvor* passou para o art. 42b, de 21 a 45 anos. O teto do bloco (45 anos)
+  continua; o bloco não mudou.
+- **Ruanda.** A Lei 69/2019 (no portal do Ministério) deu nova redação ao art. 92:
+  perpétua que não se atenua, e o art. 54 quando o autor era criança. O bloco (`life`)
+  continua. A alteração de dezembro de 2023, que a imprensa noticia, não está nas pastas de
+  novembro e dezembro de 2023 do Diário no portal.
+- **Sudão.** O portal só tem o livro de 2017; nenhuma alteração posterior foi achada nele.
+- **Gâmbia.** A Assembleia Nacional registra o projeto como "Assented" (terceira leitura em
+  28/03/2025); não dá a data de entrada em vigor.
+
+- **Portal sem veto, do mesmo governo que veda.** O `robots.txt` do Diário Oficial
+  holandês não veda agentes de IA; o da base consolidada (`wetten.overheid.nl`), mantida
+  pelo mesmo órgão (KOOP), veda. A sessão leu o Diário e não a base. A regra do `AGENTS.md`
+  é por portal; ler o Diário é **escolha a revisar pelo dono** (`CHANGELOG.md`).
+- **Texto aprovado pelo parlamento, não o publicado.** Na Bélgica, a lei como publicada no
+  *Moniteur belge* está no `ejustice.just.fgov.be`, que veda os caminhos das leis. O texto
+  lido é o que a Câmara aprovou e submeteu à sanção, idêntico, segundo a própria Câmara, ao
+  da segunda leitura; as erratas do *Moniteur* não foram lidas. Escolha a revisar.
+
 ## Função 2: notícias
 
 ### 2.1 Resumo

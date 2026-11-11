@@ -3,6 +3,214 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-11 — Fase 2, sessão 6: terceira volta da carga humana (fonte oficial nova)
+
+Branch `fase2/carga-humana-3`, a partir da `main`. **Não havia resposta às "Escolhas a
+revisar"** das sessões 4 e 5, nem bloco carimbado, nem leitura sua dos Países Baixos ou da
+Bélgica depois do *merge* da sessão 5: o passo de aplicá-las ficou vazio, e as escolhas
+continuam abertas (o veto a agentes de IA, a cadeia da Gâmbia, as APIs da Sérvia, os
+`follows_convention_definition: unknown` e o `consolidated_on`, nas entradas daquelas
+sessões). Por isso não houve o commit próprio que o pedido previa.
+
+**O que mudou no dado.** Os blocos lidos são rascunho, com `checked_by: null`, até o seu
+carimbo. Nenhuma `note` (D4 pendente).
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | Fonte |
+|---|---|---|---|---|
+| Bélgica | Code pénal (leis de 29/02/2024) | art. 82 (Livro II) | perpétua | `lachambre` |
+| Países Baixos | vazio, motivo novo | Wet internationale misdrijven, art. 3 | perpétua | `officielebekendmakingen` |
+| os outros 12 vazios | motivo renovado | motivo renovado | ausente | — |
+| os 10 já lidos | sem mudança | sem mudança | sem mudança | — |
+
+Agora são **doze países com leitura** (os dez da sessão 5, mais Bélgica e Países Baixos;
+este, sem o `penal_code`) e **doze vazios**. O motivo de cada um está no `reason` do bloco e
+na tabela nova do `02-fontes.md`, 1.8.
+
+**Fontes novas em `sources.json`** (102 fontes, eram 100), `function: 1`, `A`, `active`,
+`robots_checked_on: 2026-11-11`:
+
+- `officielebekendmakingen`: o Diário Oficial dos Países Baixos (Staatsblad);
+- `lachambre`: os documentos parlamentares da Câmara belga.
+
+**Leituras desta sessão.** Todas pelo cliente HTTP do motor, com o `User-Agent` do Astraea,
+o `robots.txt` obedecido e a verificação de certificado ligada, com as raízes da Mozilla
+(tamanho em bytes, sha256):
+
+- Países Baixos: o `robots.txt` do Diário 196,
+  `614ef8ef354c576b6047d8da327a0fbee8d97504c6d598c5bee4cbe00af23006`; o Stb. 2003, 270
+  (`zoek.officielebekendmakingen.nl/stb-2003-270.html`) 70.248,
+  `a035a513263e45f0ef0ac85429f3421210fa71687215a3741aae1b5fa6d13ab4`.
+- Bélgica, Câmara:
+  - fichas dos dossiês 55K3374 (Livro I) 71.079,
+    `bc38e7c55ae176c723a85d3ddddd1a7ddfe3f537aab15a6f344e0a00ea615b84`; 55K3518 (Livro II)
+    73.289, `4b2e4d2d2c64258f939647d52ef8c287fe81b446f9914226de4c5f2ca190e897`; 56K1160 (a
+    lei de 2026) 61.001, `8f2b2db4bb4f9709ca10359318bd30d4215c094254ff6216ede0d16cdbb22d6d`;
+  - Livro I, texto da segunda leitura (`55K3374010.pdf`) 737.058,
+    `890f1f006fc629030b91b33ac1974eff670d526c847f8655e03bee25c899dc1b`, e o do plenário
+    (`55K3374012.pdf`, "identique") 78.966,
+    `082d36eff370cea1ff6317717b475465882fb75e3d7f2a7b7fe37e7e3a4e6c0c`;
+  - Livro II, segunda leitura (`55K3518011.pdf`) 2.855.429,
+    `af7fce545f537ab8ddbb3977af685c886acf3a9ad2cae0ca1b553d67f674127b`, e plenário
+    (`55K3518013.pdf`, "identique") 77.544,
+    `56b127631f716645ba475b187b0e1b837fa5a2a2c63c6b162efc3c13d6bf6c83`;
+  - lei de 16/03/2026, segunda leitura (`56K1160010.pdf`) 386.413,
+    `cd461d17189cd52781dd135eb7836223638695f8f6b7569bcf50700718a1deb7`, e plenário
+    (`56K1160011.pdf`, "identique") 75.399,
+    `d4b6142ca6b4d64ea4ed3d13f591c5aba3afc80980e62c57217c2520bfba50fb`.
+- Bósnia, consolidação da Procuradoria (`tuzilastvobih.gov.ba/…/Krivicni_zakon_BiH_-_konsolidacija_2023_47_23.pdf`)
+  1.170.343, `48534d08870d980df3e236ed5a3249944885db1f5af9bc5a14df4f00db660464`.
+- Ruanda, Lei 69/2019 (`minijust.gov.rw/…/Offences_and_penalties_in_general_2019.pdf`)
+  5.417.261, `6593f81d44906735e970c62acb176255b861bceea44585292ab9fe3c9d9f3772`; as pastas
+  de 2023 do Diário: o ano 29.026,
+  `82516bb9fff035b92ded0f613c55a25f17aa67f27cf230f14025377819997934`; novembro 26.402,
+  `08879c4b90d7d3eec0fcd71654e11ee1267acced58a26eef4091ee864616c8ff`; dezembro 28.893,
+  `ac2310fa606d074a336772ebdad8a25411a30fc31a50885463bd83de8f7c58e8`.
+- Gâmbia, a ficha do projeto na Assembleia (`assembly.gm/bills/362`) 130.396,
+  `b8ff696b713980086a3e588edd9ea7f6d5bc22fd3b6137da6803ea8910a1c88d`.
+- Mianmar, as duas páginas de leis do Supremo (`unionsupremecourt.gov.mm/laws`) 46.445,
+  `4b066e861d0a8eac34e3def0c73626e003f18c8b0956253ad80503650c183376`, e 46.285,
+  `4839e6d8ce82e6f8b75ba242ae19adfb246f5db7399623357e4098e6ee09cbab`.
+- Ucrânia, a página de legislação do Supremo 2.476.820,
+  `105a61c55363d4884616b3200aaf65cfdf142b674f80bb43bcf524e8af7821ec`.
+- França, a lista da LEGI na DILA 1.322,
+  `3cd65fe8296f4e32f545cc1ff76d7455421b8f02a7760dbea1a997582574d41f`.
+- China: a página inicial do NPC por http 87.258,
+  `f8c9c414f99abc3ecabe16a5768bb79a532c6fdf8fb850ed06b6e28f91bbf12f`, e a página da Lei Penal
+  (só um invólucro) 4.458,
+  `332b749936fb2e90473740a198a7e1857a7bc544b004f608a76ec797bdc2bc09`. O Boletim de 2021
+  (`npc.gov.cn/wxzlhgb/c27214/gb2021/202104/P020230313538043179978.pdf`, uns 20 MB) veio
+  cortado nas duas tentativas (14.075.754 e 14.661.834 bytes); sem arquivo inteiro, não há
+  leitura. Fica para a próxima sessão tentar de novo, talvez noutro horário.
+- As demais sondagens (páginas iniciais, `robots.txt`, o "Request Rejected" do Camboja, a
+  ECCC, os portais que não responderam) ficaram na máquina da sessão e não entram no
+  repositório.
+
+**O que conferir, país a país.** Abra cada endereço no seu navegador.
+
+- **Bélgica** (abra https://www.lachambre.be/FLWB/PDF/55/3518/55K3518011.pdf, p. 9 e 10, e
+  https://www.lachambre.be/FLWB/PDF/55/3374/55K3374010.pdf, art. 36):
+  - `penal_code`: "Code pénal (lois du 29 février 2024 introduisant le livre Ier et le livre
+    II du Code pénal)", `enacted_year: 2024`, `language: fr`, `consolidated_on: null`. A
+    ficha da Câmara dá as duas leis como de 29/02/2024, publicadas no *Moniteur* de
+    08/04/2024 (nº 075). **Entrada em vigor**: o art. 119 do Livro II diz "deux ans après
+    le jour de sa publication"; a lei de 16/03/2026 (*Moniteur* de 25/03/2026) fixa 08/04/2026
+    para os seus arts. 1 a 124. O `official_url` é o texto da Câmara, não o *Moniteur*
+    (adiante, "Escolhas").
+  - `domestic_genocide`: art. 82, `year: 2024`, `follows: yes`: "un groupe national,
+    ethnique, racial ou religieux comme tel", os cinco atos (1º a 5º), "en temps de paix ou
+    en temps de guerre", com remissão expressa à Convenção de 1948.
+  - `max_penalty: life`: art. 82, "puni d'une peine de niveau 8"; art. 36 do Livro I, "La
+    peine de niveau 8 est constituée de l'emprisonnement à perpétuité" (ou tratamento
+    privativo de liberdade de 18 a 20 anos). A lei de 2026 não muda os arts. 36 e 82, e
+    revoga só os arts. 3 a 35 e 3 a 118 das duas leis (as alterações a outras leis), não o
+    art. 2, que é o Código. **As erratas do *Moniteur*** (28/05/2025 e 19/09/2025 no Livro I;
+    03/09/2025 no Livro II) **não foram lidas**.
+- **Países Baixos** (abra https://zoek.officielebekendmakingen.nl/stb-2003-270.html):
+  - `domestic_genocide`: "Wet van 19 juni 2003, houdende regels met betrekking tot ernstige
+    schendingen van het internationaal humanitair recht (Wet internationale misdrijven)",
+    `artikel 3`, `year: 2003`, `follows: yes`: "een nationale, etnische of godsdienstige
+    groep, dan wel een groep behorend tot een bepaald ras", "als zodanig", os cinco atos
+    (a–e). O art. 22 deixa a entrada em vigor para decreto real, que não foi lido.
+  - `max_penalty: life`: "levenslange gevangenisstraf of tijdelijke van ten hoogste dertig
+    jaren of geldboete van de zesde categorie".
+  - **O texto lido é o de 2003.** O `robots.txt` do Diário veda as páginas de resultado de
+    busca; alterações posteriores da lei não foram procuradas. A página aponta para a
+    versão consolidada no `wetten.overheid.nl`, que esta sessão não lê.
+  - `penal_code`: vazio. Se você ler o *Wetboek van Strafrecht* no `wetten.overheid.nl`
+    (adiante, "Para você"), eu preparo o bloco.
+- **Bósnia** (a conferência que a sessão 5 deixou): na consolidação da Procuradoria até o
+  SG 47/23, marcada "PREČIŠĆENI, NEZVANIČNI TEKST", o art. 171 é o mesmo de 2003, e o
+  *dugotrajni zatvor* está no art. 42b, "u trajanju od 21 do 45 godina" (era o art. 42(2),
+  de 20 a 45). O valor do bloco (45 anos) continua; o bloco não mudou. Na sessão 5, eu
+  citei o art. 42(2): ao carimbar, a referência atual é o 42b.
+- **Ruanda**: a Lei 69/2019, de 08/11/2019 (Diário especial de 29/11/2019), deu nova
+  redação ao art. 92: "life imprisonment that cannot be mitigated by any circumstances",
+  e, se o autor era criança, o art. 54. O bloco (`life`) continua. **A alteração de
+  dezembro de 2023**, que a imprensa ruandesa noticia, não foi achada nas pastas de
+  novembro e dezembro de 2023 do Diário; confira se ela mexe nos arts. 91 e 92.
+- **Sudão**: o portal só tem o livro de 2017; a Lei 12 de 2020, que fontes secundárias
+  citam, não está nele. Confira se ela mexe nos arts. 27 e 187.
+- **Gâmbia**: a Assembleia registra o *Criminal Offences Bill* como "Assented", com a
+  terceira leitura em 28/03/2025; a linha "Assented" tem a data de 16/07/2026, que parece
+  ser a da atualização da página. A data de entrada em vigor continua sem fonte.
+
+**Código:** nenhum *script* novo no repositório. O leitor da sessão (o `Client` do motor,
+com um transporte que aponta as raízes da Mozilla do Git for Windows, e um aviso quando o
+`robots.txt` nomeia agentes de IA) ficou na pasta temporária da sessão.
+
+**Bateria:**
+
+- 372 testes passam; `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa.
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 41 campos em 17 registros**
+  (eram 36 em 15). São os 9 status das situações e 32 blocos de lei penal que esperam o
+  seu carimbo (travas 3 e 6).
+- `config/` ainda não existe.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **Ler o Diário Oficial holandês**, cujo `robots.txt` não veda agentes de IA, quando o
+  outro portal do mesmo órgão (`wetten.overheid.nl`) veda. A regra do `AGENTS.md` é por
+  portal. Se você entender que o veto vale para o governo inteiro, eu esvazio os dois blocos
+  dos Países Baixos.
+- **Bélgica pelo texto aprovado na Câmara**, e não pelo *Moniteur belge* (que veda os
+  caminhos das leis): mesmo texto, segundo a Câmara, mas sem as erratas.
+- **`year: 2024` na Bélgica**: o ano do novo Código, embora o genocídio estivesse no art.
+  136bis do código antigo desde 2003.
+- **A consolidação "não oficial" da Procuradoria da BiH** serviu só para conferir; o bloco
+  continua apontando o texto de 2003, no Tribunal.
+- **A França pela LEGI** (1,2 GB): se quiser, eu baixo o arquivo inteiro na próxima sessão,
+  pelo cliente do motor, e leio só o Code pénal e o art. 211-1.
+- As escolhas das sessões 4 e 5 continuam abertas.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `32 blocks ready to be stamped`. Se algum acento ou letra
+   árabe vier trocado por `?`, é só a janela do PowerShell: o arquivo está certo.
+2. **Conferir e carimbar**, como nas sessões 4 e 5: a lista "o que conferir", acima; depois,
+   por país, primeiro em simulação e depois com `--execute` no fim:
+
+   ```powershell
+   python scripts\stamp.py --field BEL --by "Luccas de Amorim" --read-on 2026-11-12
+   ```
+
+   Troque `BEL` por `NLD`, ou pelos países das sessões anteriores, e a data pelo dia da sua
+   leitura. Se um valor estiver errado, **não carimbe**: diga na próxima sessão.
+3. **Regenerar o derivado e comitar**, como o *script* mostra ao terminar:
+
+   ```powershell
+   python scripts\transform.py --draft --execute
+   ```
+
+   ```powershell
+   git add data\countries.json static\data
+   ```
+
+   ```powershell
+   git commit -m "Carimba BEL (conferido por Luccas de Amorim em 2026-11-12)"
+   ```
+
+   O `git add` pode mostrar o aviso "LF will be replaced by CRLF". É só aviso.
+4. **O Código Penal holandês, se quiser ler você.** No navegador, abra
+   https://wetten.overheid.nl e procure "Wetboek van Strafrecht". Anote o endereço, o
+   título, o ano e a data da versão consolidada ("geldend van … t/m …"), e me passe na
+   próxima sessão. Diga também se a Wet internationale misdrijven, na mesma base, tem
+   alguma alteração no art. 3.
+5. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-11 — Fase 2, sessão 5: segunda tentativa nos 18 vazios da carga humana
 
 Branch `fase2/carga-humana-2`, a partir da `main` (que você já tinha enviado ao GitHub).

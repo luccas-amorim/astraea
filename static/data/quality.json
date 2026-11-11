@@ -1,10 +1,10 @@
 {
   "as_of": "2026-11-11",
   "drafts": {
-    "fields": 36,
-    "records": 15,
+    "fields": 41,
+    "records": 17,
     "by_check": {
-      "3": 36,
+      "3": 41,
       "6": 4
     },
     "items": [
@@ -21,6 +21,21 @@
       {
         "check": 3,
         "where": "countries[ARG].max_penalty",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BEL].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BEL].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BEL].max_penalty",
         "message": "asserted without stamp: missing checked_by"
       },
       {
@@ -86,6 +101,16 @@
       {
         "check": 3,
         "where": "countries[GMB].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[NLD].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[NLD].max_penalty",
         "message": "asserted without stamp: missing checked_by"
       },
       {
@@ -221,13 +246,13 @@
       },
       "penal_code": {
         "stamped": 0,
-        "draft": 9,
-        "empty": 188
+        "draft": 10,
+        "empty": 187
       },
       "domestic_genocide": {
         "stamped": 0,
-        "draft": 9,
-        "empty": 188
+        "draft": 11,
+        "empty": 186
       },
       "genocide_convention": {
         "stamped": 195,
@@ -241,8 +266,8 @@
       },
       "max_penalty": {
         "stamped": 0,
-        "draft": 9,
-        "empty": 188
+        "draft": 11,
+        "empty": 186
       },
       "death_penalty": {
         "stamped": 130,
@@ -304,9 +329,9 @@
     }
   },
   "sources": {
-    "total": 100,
+    "total": 102,
     "by_state": {
-      "active": 59,
+      "active": 61,
       "suspended": 10,
       "discarded": 31
     },

@@ -2096,5 +2096,46 @@
     "no_text_by_policy": false,
     "state": "active",
     "reason": "Acts as PDF, read by hand through the engine's client (robots.txt read). The certificate (*.gov.gm) does not cover www.moj.gov.gm and the server omits the intermediate: read at moj.gov.gm with the RapidSSL intermediate from the certificate's own AIA address, verified against the Mozilla roots."
+  },
+  {
+    "id": "officielebekendmakingen",
+    "name": "Officiële bekendmakingen (Staatsblad, Kingdom of the Netherlands)",
+    "url": "https://zoek.officielebekendmakingen.nl/",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official publications of the Kingdom of the Netherlands; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "nl"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "The official gazette, with each act as enacted (Staatsblad), read by hand through the engine's client; its robots.txt names no AI agent (only AhrefsBot) and disallows the search results, so later amendments were not searched. The consolidated laws are at wetten.overheid.nl, whose robots.txt disallows AI agents by name: not read by a session that is a language model."
+  },
+  {
+    "id": "lachambre",
+    "name": "Chambre des représentants de Belgique / Belgische Kamer van volksvertegenwoordigers — documents parlementaires",
+    "url": "https://www.lachambre.be/",
+    "function": 1,
+    "confidence": "A",
+    "license": "Parliamentary documents of the Belgian Chamber of Representatives; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "fr",
+      "nl"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Parliamentary documents as PDF (the text adopted in plenary and submitted to royal assent), read by hand through the engine's client (robots.txt read, Crawl-delay 5). The law as published in the Moniteur belge is at ejustice.just.fgov.be, whose robots.txt disallows the paths of the laws; its errata were not read."
   }
 ]

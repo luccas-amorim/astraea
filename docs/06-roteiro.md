@@ -128,6 +128,12 @@ um valor sem rótulo em `pt-BR`.
    do dono, porque o `robots.txt` veda a leitura por modelo ou por robô. O que falta são
    portais que não respondem, que vedam robôs ou que desafiam o cliente: a próxima sessão
    só avança com outra rede, com leitura do dono ou com fonte oficial nova.
+   **Terceira volta em 11/11/2026** (fase 2, sessão 6): fonte oficial nova para os 14
+   vazios. A Bélgica ganhou os três blocos em rascunho (o novo Código Penal, pelo texto que
+   a Câmara aprovou), e os Países Baixos o `domestic_genocide` e o `max_penalty` (a Wet
+   internationale misdrijven, pelo Diário Oficial, que não veda agentes de IA). Os outros
+   têm o motivo renovado (`02-fontes.md`, 1.8). Nos já lidos, a sessão conferiu as
+   alterações posteriores: nenhum valor mudou.
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira
