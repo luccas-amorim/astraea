@@ -3,6 +3,205 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-11 — Fase 2, sessão 9: a Sérvia pela Procuradoria, Israel pelo Knesset e o *endpoint* do SHERLOC
+
+Branch `fase2/carga-humana-6`, a partir da `main`. **Não havia resposta às "Escolhas a
+revisar"** das sessões 4 a 8, nem bloco carimbado (nenhum `checked_by: human` em
+`countries.json`, `situations.json` ou `verification.json`), nem leitura sua do *Wetboek
+van Strafrecht*, nem aprovação para baixar a LEGI: o commit próprio das respostas não
+existiu, a França não foi tentada e o `penal_code` holandês continua vazio.
+
+**O `countries.yml` com o Cartógrafo ainda não rodou**, e não por *push*, *token* ou
+falha: o *cron* é `0 5 1 * *` (dia 1, 05:00 UTC) e hoje é 11/11. A `main` com o Cartógrafo
+já está no GitHub (`origin/main` em `84fc107`; CI e Deploy desse *push* estavam na fila
+quando a sessão olhou). A primeira execução é a de **01/12/2026**; se quiser antes, é o
+botão "Run workflow" do *workflow* Countries (ele aceita `workflow_dispatch`). O
+*workflow* não foi tocado. De passagem: o CI do PR #1 do robô (10/11) aparece como falho,
+mas **sem nenhum *job*** ("workflow file issue"), e o CI do *merge* na `main` passou; vale
+olhar no PR de dezembro se o *check* vem vermelho do mesmo jeito.
+
+**O que mudou no dado.** Os blocos lidos são rascunho, com `checked_by: null`, até o seu
+carimbo. Nenhuma `note` (D4 pendente).
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | Fonte |
+|---|---|---|---|---|
+| Sérvia | Krivični zakonik (SG 85/2005) | art. 370 | perpétua | `tuzilastvorz` (B) |
+| Israel | חוק העונשין, התשל"ז-1977 | vazio, motivo novo (a lei de 1950 existe e está em vigor; o texto não foi lido) | ausente | `knesset-odata` |
+| Iraque, Etiópia, Tanzânia | motivo renovado | idem | ausente | — |
+| os outros 19 | sem mudança | sem mudança | sem mudança | — |
+
+Agora são **quinze países com leitura** e **nove vazios** (Camboja, Etiópia, França,
+Iraque, Mianmar, Palestina, Síria, Tanzânia, Ucrânia; `02-fontes.md`, 1.11).
+
+**Fontes novas em `sources.json`** (105, eram 103), `function: 1`, `active`,
+`robots_checked_on: 2026-11-11`: `tuzilastvorz`, a página de leis da Procuradoria para
+Crimes de Guerra da Sérvia, confiança **B**; `knesset-odata`, o serviço de dados abertos do
+Knesset, confiança A.
+
+**Leituras desta sessão.** Pelo cliente HTTP do motor, com o `User-Agent` do Astraea, o
+`robots.txt` obedecido (e lido à procura de agentes de IA vetados pelo nome; nenhum dos
+lidos hoje os veta) e a verificação de certificado ligada, com as raízes da Mozilla
+(tamanho em bytes, sha256):
+
+- Sérvia, Procuradoria (`tuzilastvorz.org.rs`): o `robots.txt` 1.706,
+  `2a787f20489a257692bad5f16ae5ceb28876cd38d8d9cde9c84a2d3835e30bab`; a página inicial
+  81.319, `b69c2d5516521a3d527d6ca72dc899348442980260f13dfd2fc921f93e6e1855`; a página
+  "Закони" 45.317, `a933df0429309328a75977a6f5ff66450aed212dce649dd03e541af52fd7a4d1`; o
+  Código Penal (`/public/files/pages/2024-10/KRIVIČNI ZAKONIK.pdf`) 870.154,
+  `d785a9125e3fa4477d5d60e2df14195d60037cabc12ccf679354145c8f6d79ef`.
+- Sérvia, Assembleia: o `robots.txt` 649,
+  `5815f6e53c8dba8572276fd9cbc35e022d4b98931b83e90f806b9f5018d38625`; a lei de 2026
+  (`/upload/archive/files/lat/pdf/zakoni/14_saziv/2043-26-lat..pdf`) 53.898,
+  `56e7a4d8eb1054c9d007484606256eed48b469d692b2ee90ba2c1b817a475e30`.
+- Israel, Knesset (`knesset.gov.il/Odata/ParliamentInfo.svc`, `robots.txt` 404): o
+  documento do serviço 3.662,
+  `406c30cb3ad80c55952eccba30b0c0436b1d07cc914a63496d0b38696371f6ba`; a Lei Penal,
+  `KNS_IsraelLaw(2000479)`, 628,
+  `31759526e83f4a0e4b2ba3e4b53fdafdb0249572862f11f858258bce8d447d00`; a lei de 1950,
+  `KNS_IsraelLaw(2000108)`, 747,
+  `7c49c4a40d658291efa58d23bce6bcf35fb54abf23ceb05eb8f986ac87819f82`; os documentos da lei
+  de 1950 (`KNS_DocumentIsraelLaw`, nenhum) 111,
+  `e92538597cdfb4c97cd21dce0daff9fe3d864bfbf6ab3d222b4c5b4f3dc64538`; as duas buscas por
+  nome que acharam os dois registros, 750 e 631 bytes.
+- Tanzânia, Ministério (`sheria.go.tz`, `robots.txt` 404): a página inicial 154.235,
+  `f953c7b9a462f7a30c965d1df61189f8dc54ff6d7b32412378e45bddd49d17cc`; as publicações
+  53.063, `437ff4dab5257d011b969c72424c4628b3f2669bccbe0012cae44ff294136dbf`.
+- Sem resposta: `moj.gov.iq` (terceira vez), `fsc.gov.et` (HTTP 503, terceira vez),
+  `rjt.gov.rs` (conexão recusada), `lab.pna.ps` (tempo esgotado). Os dois primeiros não se
+  tentam mais.
+- SHERLOC (`robots.txt` 404): a página da base 520.471,
+  `676ef76607d3124ea4040057d364f501d6fa07599a008b2b2b92aa1a7612b791` (a mesma da sessão 8);
+  a página da busca 246.138,
+  `659e47485a5ea2492baf9a99de7831bafa81444cb8d03535b1ea732744333fa8`; os *scripts*
+  `waxs-ng.js` 32.111, `e7c5056f024b1df004f783e3336c31b5c26d8a4ddcbd495cd392d669626ac024`, e
+  `legislation-db-controller.js` 25.591,
+  `4e23b28b6ffb9d137539313584a33b8d4e9f57af80c7848bab1847a9a36ad655`; o `data.json` sem
+  filtro 1.656.730, `67b82beb4cd0db509ae102c8a1cfb8bb1fc4c6eb9631b30057834c9dd43c8870`; com
+  o filtro do elemento de intenção 9.144,
+  `d03d3906a6749ded86d28910768642540bc606f1e3d797b1bc5234ed9c513001`; com o ato "Killing
+  members of the group" 8.964,
+  `90cd25df2a9fa4cf5bc64e6dbb1c411e30287224a3925d615ccd7ba40ddf94df`; com o tipo "Sexual
+  and gender-based crimes…" 8.973,
+  `d45923320a75f0c2c3afafa1919f906954d9ca761748b2925eb9a8a7e707d0cf`.
+
+**O que conferir, país a país.**
+
+- **Sérvia** (abra
+  https://www.tuzilastvorz.org.rs/public/files/pages/2024-10/KRIVI%C4%8CNI%20ZAKONIK.pdf):
+  - `penal_code`: "Krivični zakonik (Službeni glasnik RS br. 85/2005)", `enacted_year:
+    2005` (o *ukaz* de promulgação diz que a Assembleia o aprovou em 29/09/2005),
+    `language: sr`, `consolidated_on: null` (o PDF lista os números do Diário até o
+    35/2019 e não data a compilação).
+  - `domestic_genocide`: art. 370, `year: 2005`, `follows: yes`: "nacionalnu, etničku,
+    rasnu ili versku grupu kao takvu", os cinco atos. Dois pontos para o seu juízo: o
+    terceiro ato diz "životne uslove koji dovode do potpunog ili delimičnog istrebljenja"
+    (condições que *levam* ao extermínio, não "calculadas para"), e o artigo pune quem
+    *ordena* e quem *executa*. Se achar que isso não é o art. II, troque para `unknown`
+    antes de carimbar.
+  - `max_penalty: life`: "kazniće se zatvorom najmanje pet godina ili doživotnim
+    zatvorom"; a perpétua (art. 44a) entrou com a alteração 35/2019.
+  - **O texto não é oficial**: sem diacríticos (o PDF escreve "kaznie", "odreeno") e com as
+    marcas "Tekst pre izmene" de base comercial; **a alteração 94/2024 não está nele** e
+    não foi lida. A lei de 2026 (na pasta `zakoni` da Assembleia) muda só os arts. 55a e
+    348 a 348g, e não o 370 nem o 44a; o número do Diário dela (63/2026) só aparece em
+    fonte secundária. Por isso a confiança B (adiante, "Escolhas").
+- **Israel** (abra
+  https://knesset.gov.il/Odata/ParliamentInfo.svc/KNS_IsraelLaw(2000479)?$format=json):
+  - `penal_code`: "חוק העונשין, התשל"ז-1977", `enacted_year: 1977` (publicada em
+    04/08/1977, em vigor desde 02/04/1978), `language: he`, `consolidated_on: null` (a
+    "LatestPublicationDate", 30/06/2026, é a da última alteração publicada, não a de uma
+    compilação). O registro dá título e datas, não o texto.
+  - `domestic_genocide`: vazio. O registro `KNS_IsraelLaw(2000108)` dá "חוק בדבר מניעתו
+    וענישתו של הפשע השמדת עם, התש"י-1950", publicada em 07/04/1950, sem publicação
+    posterior, "תקף" (em vigor); não dá o artigo, a definição nem a pena, e o Knesset não
+    lista documento dela. Se quiser que o bloco entre pelo título (`criminalized`,
+    `provision: null`, `follows: unknown`), diga.
+- **Iraque, Etiópia, Tanzânia**: nada a conferir no valor; os motivos dizem o que foi
+  tentado.
+
+**SHERLOC: o *endpoint* e a proposta para o Cartógrafo (nada gravado).** A busca da
+página chama
+`GET https://sherloc.unodc.org/cld/v3/sherloc/legdb/data.json?lng=en&criteria=<JSON>`; a
+resposta tem `found` (o total de entradas), `results` e `facetFields`. **Conta, sim, as
+leis por crime**, mas o genocídio não é tipo de crime ali: é subtaxonomia dos crimes
+sexuais e de gênero ligados a conflito, com dois campos. Hoje os três filtros deram
+`found: 0`, e a base inteira, 14.392. A proposta, se você aprovar:
+
+- trocar a sonda do SHERLOC no `PROBES` pela pergunta ao `data.json` com o filtro
+  `legislation.crimeTypes.sgbc-crsvCrimeType.genocideContextualElements.element_s` =
+  "Intent to destroy, in whole or in part, a national, ethnical, racial or religious
+  group, as such" (o elemento que toda lei de genocídio marcada teria);
+- "responde" passa a ser JSON 2xx com a chave `found`; o relatório diz o número
+  ("SHERLOC: 0 laws tagged with the genocide intent element");
+- `reopens=False` continua: com `found > 0`, o PR mensal diz quantas e você decide se
+  reabre (a alternativa é reabrir sozinho quando `found > 0`; não recomendo, porque uma
+  contagem não diz de que países nem se a marcação está certa);
+- um campo novo no `Probe` (`count`, a chave a contar) e dois testes com respostas
+  gravadas: a desta sessão (0) e um caso sintético com 3.
+
+Não mudei o `PROBES`: o pedido manda parar e perguntar.
+
+**Código:** nenhum *script* novo no repositório. O leitor da sessão (o `Client` do motor
+com um transporte que aponta as raízes da Mozilla do Git for Windows) e o *script* que
+gravou os blocos ficaram na pasta temporária da sessão.
+
+**Bateria:**
+
+- 390 testes passam; `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa.
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 46 campos em 20 registros**
+  (eram 42 em 18; 50 achados: 46 da trava 3 e 4 da trava 6). São os 9 status das
+  situações e 37 blocos de lei penal que esperam o seu carimbo.
+- `config/` ainda não existe.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **A Sérvia por consolidação não oficial em site oficial**, com confiança B. Se preferir
+  esperar o texto oficial (o Sistema de Informação Jurídica, por API, é outra escolha
+  sua), eu esvazio os três blocos.
+- **Israel só pelo registro do Knesset**: o `penal_code` por metadados oficiais; o
+  genocídio, não pelo título.
+- **A sonda de conteúdo do SHERLOC** (acima).
+- As escolhas das sessões 4 a 8 continuam abertas: o SHERLOC fora da reabertura
+  automática, a *fixture* sintética do Cartógrafo, o Boletim chinês por `Range`, o
+  `enacted_year: 1979` da China, o Diário holandês sem veto, a Bélgica pelo texto da
+  Câmara e o `year: 2024`, o veto a agentes de IA, as cadeias pelo AIA (Gâmbia e Sérvia),
+  as APIs da Sérvia, os `follows_convention_definition: unknown` (Sudão, Bósnia), o título
+  inglês de Ruanda, o `consolidated_on: null` (Alemanha, Rússia), a busca na web como
+  índice e o *download* da LEGI.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `37 blocks ready to be stamped`. Se alguma letra hebraica, árabe ou
+   chinesa vier trocada por `?`, é só a janela do PowerShell.
+2. **Conferir e carimbar**, por país, primeiro em simulação e depois com `--execute` no
+   fim:
+
+   ```powershell
+   python scripts\stamp.py --field SRB --by "Luccas de Amorim" --read-on 2026-11-12
+   ```
+
+   Troque `SRB` por `ISR.penal_code` ou pelos países das sessões anteriores. Se um valor
+   estiver errado, **não carimbe**: diga na próxima sessão.
+3. **Responder às escolhas**, numa linha cada (a do SHERLOC é "sim" ou "não" à sonda). A
+   França só avança com o seu sim à LEGI (1,2 GB), e os Países Baixos com a sua leitura do
+   *Wetboek van Strafrecht* no `wetten.overheid.nl` (endereço, título, ano e a data
+   "geldend van … t/m …").
+4. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-11 — Fase 2, sessão 8: a Emenda XII chinesa, sobras da carga humana e o Cartógrafo
 
 Branch `fase2/carga-humana-5`, a partir da `main`. **Não havia resposta às "Escolhas a

@@ -370,7 +370,9 @@ país, na ordem da lista de 24 países aprovada pelo dono (`06-roteiro.md`, fase
   **O nome não entra no dado**: vai na mensagem do commit que o *script* sugere, e o
   autor do commit já diz quem foi (regra 8: nome de pessoa só em `decisions.json`).
 - **`confidence` é a da fonte**, como em `sources.json`: `A` para portal oficial
-  (Planalto, Gesetze im Internet, InfoLEG…), `B` para o AtlasPen.
+  (Planalto, Gesetze im Internet, InfoLEG…), `B` para o AtlasPen e para consolidação não
+  oficial publicada em site oficial (a do Código Penal sérvio na Procuradoria para Crimes
+  de Guerra, 11/11/2026).
 - **`consolidated_on`** é a data que a fonte dá para a versão do texto; quando a fonte não
   dá, fica `null`. A exceção desta sessão é o Brasil: o Planalto não data a compilação, e
   o valor gravado é o `Last-Modified` da página compilada (09/10/2026), a conferir pelo
