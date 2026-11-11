@@ -585,6 +585,107 @@
     "reason": "Catalogue of Brazilian criminal offences checked against the Planalto compiled texts, published as /data/crimes.json; robots.txt is 'Disallow: /' for every user agent, so it is read from the project's own git repository (github.com/luccas-amorim/atlaspen), never from the site. Points to the detailed record of Brazilian law (docs/04, Promotion)."
   },
   {
+    "id": "gesetze-im-internet",
+    "name": "Gesetze im Internet (Bundesministerium der Justiz)",
+    "url": "https://www.gesetze-im-internet.de",
+    "function": 1,
+    "confidence": "A",
+    "license": "Federal laws are official works without copyright (UrhG, § 5); terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "de"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Current texts of German federal law, read by hand through the engine's client (robots.txt read, no Crawl-delay); the site marks its table of contents as unofficial ('Nichtamtliches Inhaltsverzeichnis')."
+  },
+  {
+    "id": "infoleg",
+    "name": "InfoLEG — Información Legislativa (Ministerio de Justicia de la Nación)",
+    "url": "https://servicios.infoleg.gob.ar",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official texts of Argentine law; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "es"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Argentine national legislation with updated texts ('texto actualizado'), read by hand through the engine's client; robots.txt 404."
+  },
+  {
+    "id": "bdlaws",
+    "name": "Laws of Bangladesh (Legislative and Parliamentary Affairs Division)",
+    "url": "http://bdlaws.minlaw.gov.bd",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official texts of Bangladeshi law; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "en",
+      "bn"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Laws of Bangladesh with the amendments noted section by section, read by hand through the engine's client (robots.txt read); pages are served in UTF-16."
+  },
+  {
+    "id": "justice-gov-za",
+    "name": "Department of Justice and Constitutional Development (South Africa)",
+    "url": "https://www.justice.gov.za/legislation/acts/",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official texts of South African law; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "en"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Acts of Parliament as PDF, read by hand through the engine's client (robots.txt read)."
+  },
+  {
+    "id": "kremlin-acts",
+    "name": "Президент России — Банк документов (kremlin.ru)",
+    "url": "http://www.kremlin.ru/acts/bank",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official acts are not objects of copyright (Civil Code of the Russian Federation, art. 1259(6)); terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-10",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "ru"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Texts of federal laws with the list of amending laws ('В редакции'), paged, read by hand through the engine's client (robots.txt read); the official portal pravo.gov.ru did not answer it on 2026-11-10."
+  },
+  {
     "id": "gdelt-doc",
     "name": "GDELT DOC 2.0 API",
     "url": "https://api.gdeltproject.org/api/v2/doc/doc",
