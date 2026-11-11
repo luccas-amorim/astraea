@@ -3,6 +3,229 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-11 — Fase 2, sessão 5: segunda tentativa nos 18 vazios da carga humana
+
+Branch `fase2/carga-humana-2`, a partir da `main` (que você já tinha enviado ao GitHub).
+Não havia resposta às "Escolhas a revisar" das sessões anteriores nem bloco carimbado
+depois do *merge* da sessão 4: o passo de aplicá-las ficou vazio, e as escolhas continuam
+abertas nas entradas daquelas sessões.
+
+**O que mudou no dado.** Os blocos lidos são rascunho, com `checked_by: null`, até o seu
+carimbo. Nenhuma `note` (D4 pendente).
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | Fonte |
+|---|---|---|---|---|
+| Sudão | القانون الجنائي لسنة 1991 | art. 187 (Lei 15/2009) | morte | `moj-sd` |
+| Ruanda | Law N°68/2018 | art. 91 | perpétua | `minijust-rw` |
+| Bósnia e Herzegovina | Krivični zakon BiH (SG 3/03) | član 171. | 45 anos | `sudbih` |
+| Gâmbia | Criminal Offences Act 2025 | vazio com `reason` (o crime não está na lei) | ausente | `moj-gm` |
+| Alemanha | `enacted_year: 1871` (era `null`) | — | — | `gesetze-im-internet` |
+| os outros 14 | vazio, motivo de 11/11 | vazio, motivo de 11/11 | ausente | — |
+
+Agora são **dez países com leitura** (Brasil, Alemanha, Argentina, Bangladesh, Rússia,
+África do Sul, Sudão, Ruanda, Bósnia, Gâmbia) e **catorze vazios**. O motivo de cada um
+está no `reason` do bloco e na tabela nova do `02-fontes.md`, 1.7:
+
+- veda a leitura por modelo ou por robô: Países Baixos (veda agentes de IA pelo nome),
+  Bélgica, França, Iraque, China;
+- desafia o cliente: Israel, Tanzânia (TanzLII);
+- não responde: Ucrânia, Mianmar, Camboja;
+- só JavaScript: Sérvia;
+- texto que não se extrai: Etiópia (PDF amárico com fonte antiga);
+- responde, mas não publica o código: Síria;
+- sem portal oficial alcançado: Palestina.
+
+**Os dois casos de certificado** (item 2 do pedido) **não eram da sua rede:**
+
+- **Países Baixos.** A cadeia é válida (Logius → certSIGN Web CA G2 → certSIGN ROOT CA
+  G2). O `openssl` a verifica com as raízes da Mozilla; o Python não, porque a raiz
+  certSIGN não estava no repositório do Windows que ele consulta. Com as raízes da Mozilla
+  e a verificação ligada, o portal respondeu. **Mas o `robots.txt` veda pelo nome os
+  agentes de IA**: `ClaudeBot`, `Claude-Web`, `anthropic-ai`, `ChatGPT-User`,
+  `MistralAI-User`, `rag-kennisbank` e outros. Quem lê na carga humana é um modelo; não li
+  nenhuma lei holandesa. O país espera a sua leitura (adiante, "Para você").
+- **Gâmbia.** O certificado do site é `*.gov.gm`, que não cobre `www.moj.gov.gm` (dois
+  níveis), e o servidor não envia o intermediário RapidSSL. Baixei o intermediário do
+  endereço que o próprio certificado declara (AIA, `cacerts.rapidssl.com`), conferi com
+  `openssl verify` que ele sobe até a raiz DigiCert Global Root G2 da Mozilla e li
+  `moj.gov.gm`, sem `www`, com a verificação de nome e de cadeia ligada.
+- O cliente do motor não mudou: as duas leituras usaram, num *script* fora do
+  repositório, o mesmo `Client` com um transporte que aponta outro arquivo de raízes.
+
+**Fontes novas em `sources.json`** (100 fontes, eram 96). Todas `function: 1`, `A`,
+`active`, `robots_checked_on: 2026-11-11`:
+
+- `moj-sd`: Ministério da Justiça do Sudão, leis em *e-book*;
+- `minijust-rw`: Diário Oficial de Ruanda;
+- `sudbih`: Tribunal da Bósnia e Herzegovina, lista de leis penais;
+- `moj-gm`: Ministério da Justiça da Gâmbia.
+
+**Leituras desta sessão.** Todas pelo cliente HTTP do motor, com o `User-Agent` do Astraea
+e o `robots.txt` obedecido (tamanho em bytes, sha256):
+
+- Sudão, `moj.gov.sd/sudanlaws/epub/EPUB/xhtml/s53c19.html` (o Código Penal) 230.553,
+  `ae0541b579d8322aec3db2a66e307f1d22d2d91f7539b4afd149db2e13ad53ba`; o índice do livro,
+  `…/xhtml/contents.html` 36.988,
+  `52dccbcfe581206715265f22c03b6de3f76cf1854af1207cbed58efa008f7bf0`.
+- Ruanda, Diário Oficial especial de 27/09/2018 (`…/Special_of_27.09.2018.pdf`)
+  2.307.767, `ea590264dac93a2ed21e5a4a070290c74783e654178c15db0d3fe669b9686ad9`.
+- Bósnia, `sudbih.gov.ba/Content/Read/krivicno-pravo` 109.140,
+  `9369a8eedcf9baaec42e9620b90ef5df77f7e587352e00ff18344ca97d18992d`; o Código, SG 3/03
+  (`/Content/Open/3335…`) 690.363,
+  `5d161c5b1a66fb22b3bbb18e7aa4b7d44214713fea1232399be8b905436d4de1`.
+- Gâmbia, *Criminal Offences Act 2025* (PDF) 745.821,
+  `e74b0064b7f5d63cf1c2e09748c940135e6afc87e24b34738e2c845f709125c8`.
+- Alemanha, `gesetze-im-internet.de/stgb/BJNR001270871.html` 1.100.667,
+  `e07660f5893a8f0e8036e29a38fdd8cbc8fc8ca6002b1ceb26a6c46a4e51f818`.
+- Etiópia, o PDF amárico (`justice.gov.et/…/414-Criminal-Code-New-Amharic.pdf`)
+  1.486.760, `b97ed7b148f3d7fe2c85556628fcdde46d9b497f47abb8cb0a108d29b12d9a26`: baixado,
+  mas sem texto legível; não sustenta nenhum valor.
+- Países Baixos, só o `robots.txt` 5.918,
+  `523a97e74fd63d9a0b104882ade1a44e3732b5e35e14d1ae4825b5efe548d9a1`.
+- As demais sondagens (páginas iniciais, `robots.txt`, buscas nos sites, a configuração da
+  aplicação sérvia) ficaram na máquina da sessão e não entram no repositório.
+
+**O que conferir, país a país.** Abra cada endereço no seu navegador.
+
+- **Sudão** (abra https://moj.gov.sd/sudanlaws/epub/EPUB/xhtml/s53c19.html; o leitor em
+  https://moj.gov.sd/sudanlaws/ mostra o mesmo livro):
+  - `penal_code`: título "القانون الجنائي لسنة 1991", `enacted_year: 1991`, `language: ar`.
+    `consolidated_on: null`: o livro tem `Last-Modified` de 01/08/2017 e não data a
+    versão; a lei de alteração mais recente que as notas citam é a 21 de 2015 (nota 22).
+    **Alteração posterior a 2017 não está neste texto**: confira se os arts. 27 e 187
+    mudaram.
+  - `domestic_genocide`: `provision: المادة 187`, `year: 2009`. O Título 18 entrou pela Lei
+    15 de 2009 (nota 23). `follows: unknown`: o artigo tem os quatro grupos, "بصفتها تلك"
+    (*as such*) e os cinco atos, mas **acrescenta um elemento de contexto**, "في سياق سلوك
+    منهجي واسع موجه ضد تلك الجماعة" (no contexto de conduta sistemática e ampla dirigida
+    contra o grupo), que a Convenção não exige. Pode ser `narrower`; a decisão é sua.
+  - `max_penalty: death`: "يعاقب بالإعدام أو بالسجن المؤبد أو بأي عقوبة أقل" (morte,
+    perpétua ou pena menor). O Sudão é retencionista; a trava 10 não pede nota.
+- **Ruanda** (abra https://www.minijust.gov.rw/official-gazette, pasta de 2018, número
+  especial de 27/09/2018):
+  - `penal_code`: o Diário é trilíngue; gravei o título da coluna inglesa, "Law N°68/2018
+    of 30/08/2018 determining offences and penalties in general", com `language: en`. Se
+    preferir o kinyarwanda ("Itegeko N°68/2018 ryo ku wa 30/08/2018 riteganya ibyaha
+    n'ibihano muri rusange", `rw`), diga. `enacted_year: 2018`. Alterações posteriores
+    da lei não foram procuradas.
+  - `domestic_genocide`: art. 91, `year: 2018`, `follows: yes` (grupo "national, ethnic,
+    racial or religious … as such", os cinco atos, "in time of peace or in time of war").
+    O art. 93 pune conspiração, planejamento, incitação, tentativa e cumplicidade.
+  - `max_penalty: life`: art. 92, "life imprisonment that cannot be mitigated by any
+    circumstances".
+- **Bósnia e Herzegovina** (abra https://www.sudbih.gov.ba/Content/Read/krivicno-pravo e o
+  primeiro PDF, "Krivični zakon BiH - Službeni glasnik BiH br. 3/03"):
+  - `penal_code`: `enacted_year: 2003` (imposto pela Decisão 101/03 do Alto Representante;
+    em vigor em 01/03/2003), `language: bs`. **O texto lido é o original de 2003.** A
+    página do Tribunal lista as alterações só até o SG 61/04; as posteriores não estão
+    ali, e os arts. 42 e 171 podem ter mudado. A extração do PDF perde os diacríticos; o
+    título vem da lista do Tribunal.
+  - `domestic_genocide`: `član 171.`, `follows: unknown`. Tem os quatro grupos e os cinco
+    atos, mas **não tem o "como tal"** (*as such*) da Convenção.
+  - `max_penalty: years, 45`: o art. 171 comina "kaznom zatvora najmanje deset godina ili
+    kaznom dugotrajnog zatvora", e o art. 42(2) põe o *dugotrajni zatvor* entre 20 e 45
+    anos.
+- **Gâmbia** (abra https://moj.gov.gm/ e procure "Criminal Offences Act 2025"):
+  - `penal_code`: "Criminal Offences Act 2025", `enacted_year: 2025`. O site a chama de
+    "Assent Copy … Passed 28th March 2025", mas o PDF deixa em branco a data de sanção
+    ("[ ]") e não diz quando entra em vigor; a s. 344 revoga o *Criminal Code*, Cap.
+    10.01. **Confirme que a lei está em vigor**; se não estiver, o código vigente é o Cap.
+    10.01, e o bloco muda.
+  - `domestic_genocide`: vazio com `reason`. A lei não traz o crime, e `no` afirmaria que
+    nenhuma lei gambiana o traz (`03-modelo-de-dados.md`).
+- **Alemanha**: `enacted_year: 1871`, do "Ausfertigungsdatum: 15.05.1871" no cabeçalho da
+  página completa do StGB; o `url` do bloco passou a ser essa página, com `read_on:
+  2026-11-11`. `consolidated_on` continua `null`: a página diz "zuletzt geändert durch
+  Art. 1 G v. 20.3.2026", que é a data de uma alteração. Se quiser `2026-03-20` ali (e o
+  mesmo critério na Rússia, "в редакции" de 04/08/2026), diga.
+
+**Código:**
+
+- `tests/test_data.py`: `robots_checked_on` é uma data completa a partir de 06/11/2026, e
+  não mais uma lista dos dias já lidos (que toda leitura nova quebrava; "teste não fixa o
+  valor do dia").
+- Nenhum *script* novo no repositório. O leitor auxiliar (o `Client` do motor, mais o
+  transporte com outro arquivo de raízes) ficou na pasta temporária da sessão.
+
+**Bateria:**
+
+- 372 testes passam; `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa.
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 36 campos em 15 registros**
+  (eram 26 em 11). São os 9 status das situações e 27 blocos de lei penal que esperam o
+  seu carimbo (travas 3 e 6).
+- `config/` ainda não existe.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **Veto a agentes de IA vale para a sessão.** Li o `robots.txt` holandês como veto a esta
+  sessão, embora o `User-Agent` do Astraea passe; o mesmo para o `ai-input=no` do TanzLII.
+  Virou regra no `AGENTS.md` e no `03`. Se discordar, diga.
+- **Os dois certificados**: raízes da Mozilla e intermediário pelo AIA, com a verificação
+  ligada. A alternativa é deixar a Gâmbia vazia até o site corrigir a cadeia.
+- **O Sudão foi lido nos arquivos do leitor de *e-book***, como o navegador os carrega, e
+  não na tela do leitor. É o mesmo critério da base do Cornell (a página pede a lista a
+  outro endereço, e o robô lê o endereço).
+- **A Sérvia não foi lida pelas APIs** que a aplicação lista num arquivo em base64. Se
+  achar que é o mesmo caso do Sudão e do Cornell, eu as chamo na próxima sessão.
+- **`follows_convention_definition: unknown`** no Sudão (elemento de contexto a mais) e na
+  Bósnia (sem "como tal").
+- **Título de Ruanda em inglês.**
+- **`penal_code` da Gâmbia** com a data de sanção em branco no PDF.
+- **`consolidated_on: null`** quando a fonte dá só a data da última alteração (Alemanha,
+  Rússia).
+- As escolhas das sessões anteriores continuam abertas.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `27 blocks ready to be stamped`. Se algum acento ou letra árabe vier
+   trocado por `?`, é só a janela do PowerShell: o arquivo está certo.
+2. **Conferir e carimbar** como na sessão 4: a lista "o que conferir", acima; depois, por
+   país, primeiro em simulação e depois com `--execute` no fim:
+
+   ```powershell
+   python scripts\stamp.py --field RWA --by "Luccas de Amorim" --read-on 2026-11-12
+   ```
+
+   Troque `RWA` por `SDN`, `BIH`, `GMB.penal_code` ou `DEU.penal_code`, e a data pelo dia
+   da sua leitura. Se um valor estiver errado, **não carimbe**: diga na próxima sessão.
+3. **Regenerar o derivado e comitar**, como o *script* mostra ao terminar:
+
+   ```powershell
+   python scripts\transform.py --draft --execute
+   ```
+
+   ```powershell
+   git add data\countries.json static\data
+   ```
+
+   ```powershell
+   git commit -m "Carimba RWA (conferido por Luccas de Amorim em 2026-11-12)"
+   ```
+
+   O `git add` pode mostrar o aviso "LF will be replaced by CRLF". É só aviso.
+4. **Países Baixos e Bélgica, se quiser ler você.** Os dois vedam esta sessão (o holandês,
+   por veto a IA; o belga, por veto a robôs). No navegador, abra
+   https://wetten.overheid.nl e procure "Wet internationale misdrijven" (o
+   artigo do genocídio) e "Wetboek van Strafrecht"; na Bélgica, https://www.ejustice.just.fgov.be e o
+   Código Penal. Anote, para cada lei, o endereço, o título, o artigo, o ano e a pena
+   máxima, e me passe na próxima sessão: eu preparo os blocos com o que você leu, e você
+   carimba.
+5. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
 ## 2026-11-10 — Fase 2, sessão 4: carga humana da lei penal (Brasil primeiro) e `scripts/stamp.py`
 
 Branch `fase2/carga-humana`. Não havia resposta às "Escolhas a revisar" das sessões 3 e 4
