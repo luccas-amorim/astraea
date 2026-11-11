@@ -52,6 +52,9 @@ COUNTRY_KEYS = {
     "death_penalty",
     "situations",
 }
+# The penal law blocks come by the human load (phase 2, session 4), country by country:
+# a record may carry them or not, but nothing else (tests/test_penal_law.py).
+PENAL_LAW_KEYS = {"penal_code", "domestic_genocide", "max_penalty"}
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -95,9 +98,10 @@ def test_un_status_and_admission_date_follow_d1(countries):
 def test_countries_carry_only_the_fields_of_this_session(countries):
     # The treaty blocks came in phase 2, session 1 (tests/test_load_treaties.py), and
     # death_penalty in session 2 (tests/test_load_death_penalty.py); the penal law
-    # blocks are still absent, not null.
+    # blocks, in session 4, only where the human load reached (absent, not null, elsewhere).
     for c in countries:
-        assert set(c) == COUNTRY_KEYS, c["id"]
+        assert COUNTRY_KEYS <= set(c) <= COUNTRY_KEYS | PENAL_LAW_KEYS, c["id"]
+        assert all(c[k] is not None for k in set(c) & PENAL_LAW_KEYS), c["id"]
         assert isinstance(c["situations"], list) and c["situations"] == sorted(c["situations"])
         assert set(c["name"]) == set(vocabularies.LOCALES), c["id"]
         assert all(isinstance(n, str) and n.strip() == n and n for n in c["name"].values())

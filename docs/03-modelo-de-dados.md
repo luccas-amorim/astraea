@@ -353,6 +353,44 @@ lugar do que o robô escreveu:
   facto', the block says 'abolitionist_in_practice'`. Essa linha é a lista de
   divergências entre as duas fontes, para a pessoa olhar; não é erro.
 
+**Como a carga humana preenche a lei penal** (fase 2, sessão 4, 10/11/2026). `penal_code`,
+`domestic_genocide` e `max_penalty` não têm robô (`02-fontes.md`, 1.2): entram país a
+país, na ordem da lista de 24 países aprovada pelo dono (`06-roteiro.md`, fase 2, item 4).
+
+- **Quem lê e quem carimba.** Uma sessão lê a fonte oficial e **prepara** o bloco com
+  `url` (a página lida), `source`, `read_on` (o dia da leitura) e `confidence`, e deixa
+  `checked_by: null`. O bloco preparado é rascunho: passa no `--draft`, reprova no
+  `--strict` (trava 3) e aparece na ficha como "rascunho". Quem confere na fonte e
+  carimba `checked_by: "human"` é o dono, com `scripts/stamp.py` (regra 3); o robô nunca
+  escreve estes blocos.
+- **`scripts/stamp.py`** lista os blocos prontos (dado afirmado, os quatro itens do
+  carimbo, `checked_by` vazio) e, com `--field BRA.penal_code` (ou `--field BRA`, todos os
+  prontos do país), `--by "Nome"` e `--execute`, grava `checked_by: "human"` e o dia da
+  leitura da pessoa em `read_on` (`--read-on`, hoje por padrão). Não muda valor nenhum.
+  **O nome não entra no dado**: vai na mensagem do commit que o *script* sugere, e o
+  autor do commit já diz quem foi (regra 8: nome de pessoa só em `decisions.json`).
+- **`confidence` é a da fonte**, como em `sources.json`: `A` para portal oficial
+  (Planalto, Gesetze im Internet, InfoLEG…), `B` para o AtlasPen.
+- **`consolidated_on`** é a data que a fonte dá para a versão do texto; quando a fonte não
+  dá, fica `null`. A exceção desta sessão é o Brasil: o Planalto não data a compilação, e
+  o valor gravado é o `Last-Modified` da página compilada (09/10/2026), a conferir pelo
+  dono.
+- **`max_penalty`** é a pena mais alta que a lei permite aplicar ao genocídio: `years` com
+  o limite em anos, `life` para prisão perpétua, `death` quando a lei a comina, mesmo com
+  moratória (a moratória é hipótese, e vai em `note`, D4). `years` só existe com `type:
+  years`.
+- **`follows_convention_definition`** compara os grupos e os atos da lei com o art. II da
+  Convenção. Remissão expressa ao art. 6º do Estatuto de Roma, que repete o art. II, é
+  `yes`; lei que acrescenta um ato e omite outro (Rússia) ou troca "as such" por "such as"
+  (Bangladesh) fica `unknown`, e a pessoa decide ao carimbar.
+- **País sem leitura** fica com `penal_code` e `domestic_genocide` vazios com `reason`
+  (em inglês, como dado), dizendo o que impediu a leitura (portal que veda robôs, que não
+  responde, certificado que não se verifica, texto só por JavaScript). `max_penalty` sem
+  leitura fica ausente ("ainda não carregado"). Nada se preenche por analogia.
+- **`note` é texto nosso** (D4 pendente): só com as palavras do dono, `author: "human"`.
+  A trava 10 (retencionista com pena máxima que não é a morte) pede essa nota; nenhum dos
+  países carregados nesta sessão caiu nela.
+
 ## Entidade 2: situação (`situations.json`)
 
 | Campo | Tipo | Por que existe |

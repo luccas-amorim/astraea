@@ -18,8 +18,10 @@ Em 10/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/s
 `data/countries.json` (197 registros com `id`, `name`, `un_status`, `un_member_since`,
 `situations`, os blocos `genocide_convention` e `rome_statute`, carimbados pelo robô ou
 vazios com `reason` em Taiwan e Kosovo, e `death_penalty`, carimbado pelo robô a partir
-do Cornell em 130 países e vazio com `reason` em 67), `data/situations.json` (as dez da D6; nove status, todos sem carimbo de
-pessoa), `data/sources.json` (89 fontes), `data/untc-names.json` e
+do Cornell em 130 países e vazio com `reason` em 67; e, nos 24 países da carga humana,
+`penal_code`, `domestic_genocide` e `max_penalty`, em rascunho à espera do carimbo do dono
+ou vazios com `reason`), `data/situations.json` (as dez da D6; nove status, todos sem carimbo de
+pessoa), `data/sources.json` (96 fontes), `data/untc-names.json` e
 `data/cornell-names.json` (nome da UNTC e do Cornell → alfa-3, um arquivo por fonte),
 `data/verification.json` (a trilha que carimba os campos escalares),
 `data/lexicon/` (termos fixos em `fixed/` e o léxico gerado em cinco línguas; o árabe é
@@ -38,10 +40,12 @@ O adaptador `listing` (`astraea/sources/listing.py`) lê tabela que muda devagar
 formatos são o XML por tratado da UNTC, que `scripts/load_treaties.py` grava em
 `countries.json`, e as quatro listas de pena de morte do Cornell, que
 `scripts/load_death_penalty.py` grava em `death_penalty` (os dois em simulação por
-padrão). 346 testes. A fase 1 e os itens 1 a 3 da fase 2 estão feitos (o anexo da
-Anistia espera a carga à mão do dono; o `countries.yml` ainda não rodou no GitHub); o
-`06-roteiro.md` diz a ordem, e a próxima sessão é a carga humana dos ~25 países (item 4),
-começando pelo Brasil. Antes de escrever código, leia o `00-inventario.md` e o
+padrão). `scripts/stamp.py` lista os blocos prontos para carimbo e grava `checked_by:
+human` só no que o dono indicar. 372 testes. A fase 1 e os itens 1 a 3 da fase 2 estão
+feitos (o anexo da Anistia espera a carga à mão do dono; o `countries.yml` rodou no GitHub
+em 10/11/2026); o item 4, a carga humana dos 24 países, começou na sessão 4 da fase 2 (seis
+países lidos, dezoito vazios com `reason`), e a próxima sessão a continua pela lista do
+`06-roteiro.md`. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de
 origem no `NOTICE`, traduzido para inglês e livre para divergir. O Alétheia não é
@@ -100,6 +104,14 @@ dependência; correção que valha a pena trazer de lá é portada à mão e reg
   velho, `python scripts/build_lexicon.py --execute` antes. Rascunho não se "resolve"
   preenchendo `checked_by`: quem carimba como `human` é a pessoa (regra 3).
 
+- **Carga humana (lei penal).** A sessão lê e prepara o bloco com `url`, `source`,
+  `read_on` e `confidence`, e deixa `checked_by: null`; quem carimba é o dono, com
+  `scripts/stamp.py`. Modelo de linguagem não escreve `note` nem decide o valor que a
+  fonte não dá: o que fica em dúvida vai para a lista "o que conferir" do `CHANGELOG.md`.
+  Portal que veda robôs, desafia o cliente ou não responde deixa o bloco vazio com
+  `reason`; não se contorna (regra 7). A única leitura fora do cliente do motor foi a do
+  Planalto, no navegador embutido, e está registrada como escolha a revisar
+  (`02-fontes.md`, 1.6).
 - **Quando o `--strict` volta a ser a régua da CI.** Hoje o `ci.yml` roda
   `--draft` e `--draft --check` como travas e o `--strict` como passo informativo (mostra
   a contagem de rascunhos e só reprova por outra causa). No dia em que

@@ -9,6 +9,7 @@ validator over the real data/ of the repository.
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -694,7 +695,16 @@ def test_the_real_data_passes_draft_and_strict_stops_only_at_the_expected_drafts
         observer_or_non_member = problem.where in {
             f"countries[{c}].un_status" for c in ("PSE", "VAT", "XKX", "TWN")
         }
-        assert unstamped_status or observer_or_non_member, str(problem)
+        # A penal law block of the human load (phase 2, session 4) read and prepared, with
+        # url, source, read_on and confidence, waiting only for the owner's checked_by.
+        waiting_for_the_owner = (
+            problem.check == 3
+            and re.fullmatch(
+                r"countries\[[A-Z]{3}\]\.(penal_code|domestic_genocide|max_penalty)", problem.where
+            )
+            and problem.message == "asserted without stamp: missing checked_by"
+        )
+        assert unstamped_status or observer_or_non_member or waiting_for_the_owner, str(problem)
 
 
 def test_the_committed_static_data_is_up_to_date(capsys):

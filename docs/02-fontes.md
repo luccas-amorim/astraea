@@ -164,6 +164,47 @@ Astraea e o `robots.txt` obedecido; os sha256 estão no `CHANGELOG.md`.
   que a classificação pode estar atrasada em alguns países. A confiança fica B, e a
   carga anual da Anistia é a conferência.
 
+### 1.6 O que a carga humana de 10/11/2026 encontrou (fase 2, sessão 4: lei penal)
+
+Leituras dos portais oficiais dos 24 países da carga humana, da máquina do dono, pelo
+cliente do motor (o `robots.txt` obedecido), salvo o Planalto; sha256 no `CHANGELOG.md`.
+A seção "Municipal laws" da Wikipedia serviu só de índice de partida (regra 4).
+
+| País | Portal | O que aconteceu | Resultado |
+|---|---|---|---|
+| Brasil | `planalto.gov.br` | **derruba toda conexão do cliente do motor e do `curl`** (o próprio `robots.txt`); no navegador, as páginas e um `robots.txt` 404 | lido à mão no navegador embutido (`planalto`), mais o AtlasPen (`atlaspen`) |
+| Brasil | `atlaspen.com.br` | `robots.txt` com `Disallow: /` para todos | lido no repositório do próprio projeto, nunca no site |
+| Alemanha | `gesetze-im-internet.de` | lê | rascunho (`gesetze-im-internet`) |
+| Argentina | `servicios.infoleg.gob.ar` | lê; `robots.txt` 404 | rascunho (`infoleg`) |
+| Bangladesh | `bdlaws.minlaw.gov.bd` | lê; páginas em UTF-16 | rascunho (`bdlaws`) |
+| África do Sul | `justice.gov.za` (PDF da lei) | lê; o endereço em `gov.za` deu 404 | rascunho (`justice-gov-za`); país sem código penal |
+| Rússia | `kremlin.ru/acts/bank` | lê, texto consolidado em 54 páginas; `pravo.gov.ru` não respondeu | rascunho (`kremlin-acts`) |
+| França | `legifrance.gouv.fr` | `robots.txt` veda as páginas dos códigos | vazio com `reason` |
+| China | `flk.npc.gov.cn` | `robots.txt` veda; `npc.gov.cn` lê, mas o texto do Código não foi localizado | vazio |
+| Iraque | `iraqld.hjc.iq` | `robots.txt` veda | vazio |
+| Israel | `main.knesset.gov.il` | HTTP 247 sem conteúdo (desafio de robô) | vazio; não se contorna |
+| Camboja | `moj.gov.kh` | página "Request Rejected" (WAF) | vazio |
+| Bélgica | `ejustice.just.fgov.be` | derruba a conexão | vazio |
+| Países Baixos | `wetten.overheid.nl` | certificado autoassinado na cadeia, da rede do dono | vazio |
+| Gâmbia | `moj.gov.gm` | certificado que não se verifica | vazio |
+| Sérvia | `pravno-informacioni-sistem.rs` | aplicação JavaScript, sem texto | vazio |
+| Ucrânia, Mianmar, Bósnia | `zakon.rada.gov.ua`, `mlis.gov.mm`, `mpr.gov.ba` | não responderam | vazio |
+| Síria | `parliament.gov.sy` | não resolve no DNS | vazio |
+| Sudão, Etiópia, Ruanda, Tanzânia | `moj.gov.sd`, `hopr.gov.et`, `minijust.gov.rw`, `parliament.go.tz` | respondem, mas a lei não foi alcançada nesta sessão | vazio, a continuar |
+| Palestina | — | nenhum portal oficial localizado; o Muqtafi (Birzeit, acadêmico) não respondeu | vazio |
+
+- **O Planalto e o robô.** O AtlasPen já registrava que o Planalto serve página de
+  bloqueio a robôs. O Astraea **não o lê por robô**; a leitura desta sessão foi feita no
+  navegador embutido do aplicativo, sem desafio a vencer (nenhum CAPTCHA, `robots.txt`
+  404), com o sha256 de cada resposta calculado no próprio navegador. É a leitura de
+  pessoa que a carga humana pressupõe, e é **escolha a revisar pelo dono** (`CHANGELOG.md`).
+- **Fonte por portal.** Cada portal oficial lido é uma entrada própria em `sources.json`
+  (uma por canal, como as demais), com `robots_checked_on` da leitura; cinco novas, além
+  de `planalto` e `atlaspen`.
+- **Certificados que não se verificam** (Países Baixos, Gâmbia) podem ser do caminho de
+  rede do dono, não do site (a sondagem de 06/11 já tinha visto um *proxy* corporativo).
+  Repetir de outra rede antes de concluir; nunca desligar a verificação.
+
 ## Função 2: notícias
 
 ### 2.1 Resumo
