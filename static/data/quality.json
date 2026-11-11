@@ -1,10 +1,10 @@
 {
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-11",
   "drafts": {
-    "fields": 26,
-    "records": 11,
+    "fields": 36,
+    "records": 15,
     "by_check": {
-      "3": 26,
+      "3": 36,
       "6": 4
     },
     "items": [
@@ -40,6 +40,21 @@
       },
       {
         "check": 3,
+        "where": "countries[BIH].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BIH].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[BIH].max_penalty",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
         "where": "countries[BRA].penal_code",
         "message": "asserted without stamp: missing checked_by"
       },
@@ -70,6 +85,11 @@
       },
       {
         "check": 3,
+        "where": "countries[GMB].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
         "where": "countries[RUS].penal_code",
         "message": "asserted without stamp: missing checked_by"
       },
@@ -81,6 +101,36 @@
       {
         "check": 3,
         "where": "countries[RUS].max_penalty",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[RWA].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[RWA].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[RWA].max_penalty",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[SDN].penal_code",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[SDN].domestic_genocide",
+        "message": "asserted without stamp: missing checked_by"
+      },
+      {
+        "check": 3,
+        "where": "countries[SDN].max_penalty",
         "message": "asserted without stamp: missing checked_by"
       },
       {
@@ -171,13 +221,13 @@
       },
       "penal_code": {
         "stamped": 0,
-        "draft": 5,
-        "empty": 192
+        "draft": 9,
+        "empty": 188
       },
       "domestic_genocide": {
         "stamped": 0,
-        "draft": 6,
-        "empty": 191
+        "draft": 9,
+        "empty": 188
       },
       "genocide_convention": {
         "stamped": 195,
@@ -191,8 +241,8 @@
       },
       "max_penalty": {
         "stamped": 0,
-        "draft": 6,
-        "empty": 191
+        "draft": 9,
+        "empty": 188
       },
       "death_penalty": {
         "stamped": 130,
@@ -254,9 +304,9 @@
     }
   },
   "sources": {
-    "total": 96,
+    "total": 100,
     "by_state": {
-      "active": 55,
+      "active": 59,
       "suspended": 10,
       "discarded": 31
     },

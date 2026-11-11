@@ -1037,10 +1037,10 @@
     "un_status": "member",
     "un_member_since": "1945-12-27",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Belgian Official Journal (ejustice.just.fgov.be) reset every connection of the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Belgian Official Journal (ejustice.just.fgov.be) reset every connection on 2026-11-10; on 2026-11-11 it answered, and its robots.txt disallows the paths of the laws (/eli/, /loi/, /wet/, /cgi_loi/). Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Belgian Official Journal (ejustice.just.fgov.be) reset every connection of the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Belgian Official Journal (ejustice.just.fgov.be) reset every connection on 2026-11-10; on 2026-11-11 it answered, and its robots.txt disallows the paths of the laws (/eli/, /loi/, /wet/, /cgi_loi/). Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -1657,10 +1657,30 @@
     "un_status": "member",
     "un_member_since": "1992-05-22",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice site (mpr.gov.ba) did not answer the engine's client. Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "Krivični zakon Bosne i Hercegovine (Službeni glasnik BiH br. 3/03)",
+      "enacted_year": 2003,
+      "consolidated_on": null,
+      "official_url": "https://www.sudbih.gov.ba/Content/Open/3335?n=01_krivicni_zakon_3_03_-_bos.pdf",
+      "alternative_url": null,
+      "language": "bs",
+      "url": "https://www.sudbih.gov.ba/Content/Open/3335?n=01_krivicni_zakon_3_03_-_bos.pdf",
+      "source": "sudbih",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice site (mpr.gov.ba) did not answer the engine's client. Awaits a reading at an official source."
+      "status": "criminalized",
+      "instrument": "Krivični zakon Bosne i Hercegovine",
+      "provision": "član 171.",
+      "year": 2003,
+      "follows_convention_definition": "unknown",
+      "url": "https://www.sudbih.gov.ba/Content/Open/3335?n=01_krivicni_zakon_3_03_-_bos.pdf",
+      "source": "sudbih",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "genocide_convention": {
       "participation": "party",
@@ -1689,6 +1709,16 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "max_penalty": {
+      "type": "years",
+      "years": 45,
+      "applies_to_genocide": "yes",
+      "url": "https://www.sudbih.gov.ba/Content/Open/3335?n=01_krivicni_zakon_3_03_-_bos.pdf",
+      "source": "sudbih",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "death_penalty": {
       "status": "abolitionist_all_crimes",
@@ -1726,19 +1756,19 @@
     },
     "completeness": {
       "stamped": 4,
-      "draft": 0,
-      "empty": 3,
+      "draft": 3,
+      "empty": 0,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
-        "domestic_genocide": "empty",
+        "penal_code": "draft",
+        "domestic_genocide": "draft",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
-        "max_penalty": "empty",
+        "max_penalty": "draft",
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "BLR",
@@ -2778,10 +2808,10 @@
     "un_status": "member",
     "un_member_since": "1945-10-24",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots in its robots.txt; npc.gov.cn answered, but the Criminal Law text was not located on it. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots in its robots.txt; npc.gov.cn answered, but the Criminal Law text was not located on it. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots in its robots.txt; npc.gov.cn answered, but the Criminal Law text was not located on it. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the National Database of Laws and Regulations (flk.npc.gov.cn) disallows robots in its robots.txt; npc.gov.cn answered, but the Criminal Law text was not located on it. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -3766,14 +3796,14 @@
     "penal_code": {
       "exists": "yes",
       "title": "Strafgesetzbuch (StGB)",
-      "enacted_year": null,
+      "enacted_year": 1871,
       "consolidated_on": null,
       "official_url": "https://www.gesetze-im-internet.de/stgb/",
       "alternative_url": null,
       "language": "de",
-      "url": "https://www.gesetze-im-internet.de/stgb/",
+      "url": "https://www.gesetze-im-internet.de/stgb/BJNR001270871.html",
       "source": "gesetze-im-internet",
-      "read_on": "2026-11-10",
+      "read_on": "2026-11-11",
       "confidence": "A",
       "checked_by": null
     },
@@ -3873,7 +3903,7 @@
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "DJI",
@@ -4709,10 +4739,10 @@
     "un_status": "member",
     "un_member_since": "1945-11-13",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the House of Peoples' Representatives site (hopr.gov.et) answered, but no index of laws was found on it. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the House of Peoples' Representatives site (hopr.gov.et) answered, but no index of laws was found on it. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Ministry of Justice (justice.gov.et) publishes the Criminal Code (Proclamation No. 414) only as an Amharic PDF whose text layer uses a legacy font encoding that does not extract, and no English text was found there; the Federal Supreme Court site (fsc.gov.et) answered HTTP 503, and the House of Peoples' Representatives site (hopr.gov.et) has no index of laws. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -4964,10 +4994,10 @@
     "un_status": "member",
     "un_member_since": "1945-10-24",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: Légifrance (legifrance.gouv.fr) disallows the code pages in its robots.txt. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: Légifrance (legifrance.gouv.fr) disallowed the code pages in its robots.txt on 2026-11-10, and on 2026-11-11 answered the robots.txt itself with HTTP 403, which the engine reads as 'disallow everything'. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: Légifrance (legifrance.gouv.fr) disallows the code pages in its robots.txt. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: Légifrance (legifrance.gouv.fr) disallowed the code pages in its robots.txt on 2026-11-10, and on 2026-11-11 answered the robots.txt itself with HTTP 403, which the engine reads as 'disallow everything'. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -5548,10 +5578,21 @@
     "un_status": "member",
     "un_member_since": "1965-09-21",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice site (moj.gov.gm) presents a certificate that could not be verified. Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "Criminal Offences Act 2025",
+      "enacted_year": 2025,
+      "consolidated_on": null,
+      "official_url": "https://moj.gov.gm/wp-content/uploads/2025/07/Assent-Copy-Criminal-Offences-Act-2025-Passed-28th-March-2025.pdf",
+      "alternative_url": null,
+      "language": "en",
+      "url": "https://moj.gov.gm/wp-content/uploads/2025/07/Assent-Copy-Criminal-Offences-Act-2025-Passed-28th-March-2025.pdf",
+      "source": "moj-gm",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice site (moj.gov.gm) presents a certificate that could not be verified. Awaits a reading at an official source."
+      "reason": "Not loaded on 2026-11-11: the Criminal Offences Act 2025 (assent copy at moj.gov.gm), which repeals the Criminal Code, Cap. 10.01, has no offence of the kind article II of the 1948 Convention defines, and no other statute on it was located at an official source; 'no' is not recorded without a reading of the rest of the statute book. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -5612,11 +5653,11 @@
     },
     "completeness": {
       "stamped": 3,
-      "draft": 0,
-      "empty": 4,
+      "draft": 1,
+      "empty": 3,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
+        "penal_code": "draft",
         "domestic_genocide": "empty",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
@@ -5624,7 +5665,7 @@
         "death_penalty": "empty"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "GNB",
@@ -6796,10 +6837,10 @@
     "un_status": "member",
     "un_member_since": "1945-12-21",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the Ministry of Justice (moj.gov.iq) did not answer. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Iraqi Legal Database (iraqld.hjc.iq) disallows robots in its robots.txt, and so does the Council of Representatives (parliament.iq) for every path; the Ministry of Justice (moj.gov.iq) did not answer. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -6972,10 +7013,10 @@
     "un_status": "member",
     "un_member_since": "1949-05-11",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Knesset site (main.knesset.gov.il) answered the engine's client with a non-standard HTTP 247 page and no content; not circumvented (AGENTS.md, rule 7). Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Knesset site (main.knesset.gov.il) answered the engine's client with a non-standard HTTP 247 page that only runs a JavaScript challenge; not circumvented (AGENTS.md, rule 7). The Knesset file server (fs.knesset.gov.il) answers, but without the site there is no index to the laws. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Knesset site (main.knesset.gov.il) answered the engine's client with a non-standard HTTP 247 page and no content; not circumvented (AGENTS.md, rule 7). Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Knesset site (main.knesset.gov.il) answered the engine's client with a non-standard HTTP 247 page that only runs a JavaScript challenge; not circumvented (AGENTS.md, rule 7). The Knesset file server (fs.knesset.gov.il) answers, but without the site there is no index to the laws. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -7642,10 +7683,10 @@
     "un_status": "member",
     "un_member_since": "1955-12-14",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page on 2026-11-10 and reset the connection on 2026-11-11; the Criminal Code was not located at another official source. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Ministry of Justice site (moj.gov.kh) answered with a 'Request Rejected' page on 2026-11-10 and reset the connection on 2026-11-11; the Criminal Code was not located at another official source. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -9749,10 +9790,10 @@
     "un_status": "member",
     "un_member_since": "1948-04-19",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client (https and http); oag.gov.mm does not resolve in DNS; the Union Parliament site (pyidaungsu.hluttaw.mm) serves a JavaScript application with no text. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Myanmar Law Information System (mlis.gov.mm) did not answer the engine's client (https and http); oag.gov.mm does not resolve in DNS; the Union Parliament site (pyidaungsu.hluttaw.mm) serves a JavaScript application with no text. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -10745,10 +10786,10 @@
     "un_status": "member",
     "un_member_since": "1945-12-10",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: wetten.overheid.nl presented, from the owner's network, a certificate chain with a self-signed certificate that could not be verified. Awaits a reading at an official source."
+      "reason": "Not read: on 2026-11-11 the certificate of wetten.overheid.nl verified against the Mozilla roots (the failure of 2026-11-10 was the certSIGN root missing from the Windows store, not the owner's network), but its robots.txt disallows AI and LLM agents by name (ClaudeBot, anthropic-ai, ChatGPT-User and others), and a session that is a language model does not read it. Awaits the owner's reading."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: wetten.overheid.nl presented, from the owner's network, a certificate chain with a self-signed certificate that could not be verified. Awaits a reading at an official source."
+      "reason": "Not read: on 2026-11-11 the certificate of wetten.overheid.nl verified against the Mozilla roots (the failure of 2026-11-10 was the certSIGN root missing from the Windows store, not the owner's network), but its robots.txt disallows AI and LLM agents by name (ClaudeBot, anthropic-ai, ChatGPT-User and others), and a session that is a language model does not read it. Awaits the owner's reading."
     },
     "genocide_convention": {
       "participation": "party",
@@ -12080,10 +12121,10 @@
     "un_status": "observer",
     "un_member_since": null,
     "penal_code": {
-      "reason": "Not read on 2026-11-10: no official legislation portal was located; the Birzeit Muqtafi database (academic, not official) did not answer the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: no official legislation portal was read; the request to the Ministry of Justice host (www.moj.pna.ps) came back as HTTP 400 'URL with hostname is not allowed', not from the site; the Birzeit Muqtafi database (academic, not official) did not answer. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: no official legislation portal was located; the Birzeit Muqtafi database (academic, not official) did not answer the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: no official legislation portal was read; the request to the Ministry of Justice host (www.moj.pna.ps) came back as HTTP 400 'URL with hostname is not allowed', not from the site; the Birzeit Muqtafi database (academic, not official) did not answer. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -12450,10 +12491,30 @@
     "un_status": "member",
     "un_member_since": "1962-09-18",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice official gazette (minijust.gov.rw/official-gazette) answered, but the gazette with the law was not reached. Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "Law N°68/2018 of 30/08/2018 determining offences and penalties in general",
+      "enacted_year": 2018,
+      "consolidated_on": null,
+      "official_url": "https://www.minijust.gov.rw/fileadmin/user_upload/Minijust/Official_gazettes_2/____________2018_Official_Gazettes/Special_of_27.09.2018.pdf",
+      "alternative_url": null,
+      "language": "en",
+      "url": "https://www.minijust.gov.rw/fileadmin/user_upload/Minijust/Official_gazettes_2/____________2018_Official_Gazettes/Special_of_27.09.2018.pdf",
+      "source": "minijust-rw",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice official gazette (minijust.gov.rw/official-gazette) answered, but the gazette with the law was not reached. Awaits a reading at an official source."
+      "status": "criminalized",
+      "instrument": "Law N°68/2018 of 30/08/2018 determining offences and penalties in general",
+      "provision": "art. 91",
+      "year": 2018,
+      "follows_convention_definition": "yes",
+      "url": "https://www.minijust.gov.rw/fileadmin/user_upload/Minijust/Official_gazettes_2/____________2018_Official_Gazettes/Special_of_27.09.2018.pdf",
+      "source": "minijust-rw",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "genocide_convention": {
       "participation": "party",
@@ -12482,6 +12543,16 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "max_penalty": {
+      "type": "life",
+      "years": null,
+      "applies_to_genocide": "yes",
+      "url": "https://www.minijust.gov.rw/fileadmin/user_upload/Minijust/Official_gazettes_2/____________2018_Official_Gazettes/Special_of_27.09.2018.pdf",
+      "source": "minijust-rw",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "death_penalty": {
       "status": "abolitionist_all_crimes",
@@ -12519,19 +12590,19 @@
     },
     "completeness": {
       "stamped": 4,
-      "draft": 0,
-      "empty": 3,
+      "draft": 3,
+      "empty": 0,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
-        "domestic_genocide": "empty",
+        "penal_code": "draft",
+        "domestic_genocide": "draft",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
-        "max_penalty": "empty",
+        "max_penalty": "draft",
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "SAU",
@@ -12626,10 +12697,30 @@
     "un_status": "member",
     "un_member_since": "1956-11-12",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice laws page (moj.gov.sd/sudanlaws) lists no law without scripts; the laws host was not read. Awaits a reading at an official source."
+      "exists": "yes",
+      "title": "القانون الجنائي لسنة 1991",
+      "enacted_year": 1991,
+      "consolidated_on": null,
+      "official_url": "https://moj.gov.sd/sudanlaws/epub/EPUB/xhtml/s53c19.html",
+      "alternative_url": null,
+      "language": "ar",
+      "url": "https://moj.gov.sd/sudanlaws/epub/EPUB/xhtml/s53c19.html",
+      "source": "moj-sd",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Ministry of Justice laws page (moj.gov.sd/sudanlaws) lists no law without scripts; the laws host was not read. Awaits a reading at an official source."
+      "status": "criminalized",
+      "instrument": "القانون الجنائي لسنة 1991",
+      "provision": "المادة 187",
+      "year": 2009,
+      "follows_convention_definition": "unknown",
+      "url": "https://moj.gov.sd/sudanlaws/epub/EPUB/xhtml/s53c19.html",
+      "source": "moj-sd",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "genocide_convention": {
       "participation": "party",
@@ -12658,6 +12749,16 @@
       "read_on": "2026-11-10",
       "confidence": "A",
       "checked_by": "robot"
+    },
+    "max_penalty": {
+      "type": "death",
+      "years": null,
+      "applies_to_genocide": "yes",
+      "url": "https://moj.gov.sd/sudanlaws/epub/EPUB/xhtml/s53c19.html",
+      "source": "moj-sd",
+      "read_on": "2026-11-11",
+      "confidence": "A",
+      "checked_by": null
     },
     "death_penalty": {
       "status": "retentionist",
@@ -12695,19 +12796,19 @@
     },
     "completeness": {
       "stamped": 4,
-      "draft": 0,
-      "empty": 3,
+      "draft": 3,
+      "empty": 0,
       "fields": {
         "un_status": "stamped",
-        "penal_code": "empty",
-        "domestic_genocide": "empty",
+        "penal_code": "draft",
+        "domestic_genocide": "draft",
         "genocide_convention": "stamped",
         "rome_statute": "stamped",
-        "max_penalty": "empty",
+        "max_penalty": "draft",
         "death_penalty": "stamped"
       }
     },
-    "updated_at": "2026-11-10"
+    "updated_at": "2026-11-11"
   },
   {
     "id": "SEN",
@@ -13301,10 +13402,10 @@
     "un_status": "member",
     "un_member_since": "2000-11-01",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the official Legal Information System (pravno-informacioni-sistem.rs) is a JavaScript application that serves no text to the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the official Legal Information System (pravno-informacioni-sistem.rs) is a JavaScript application that serves no text to the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the official Legal Information System (pravno-informacioni-sistem.rs) serves a JavaScript application, also at the ELI address its robots.txt allows (/eli/rep/sgrs/skupstina/zakon/2005/85/6/reg); the text comes from APIs listed in a base64-encoded configuration file, which were not called (a choice left to the owner). Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -14045,10 +14146,10 @@
     "un_status": "member",
     "un_member_since": "1945-10-24",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the People's Assembly site (parliament.gov.sy) does not resolve in DNS. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the People's Assembly site (parliament.gov.sy) does not resolve in DNS; the Ministry of Justice (moj.gov.sy) answers, but publishes no text of the Penal Code (site search and media library). Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the People's Assembly site (parliament.gov.sy) does not resolve in DNS. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the People's Assembly site (parliament.gov.sy) does not resolve in DNS; the Ministry of Justice (moj.gov.sy) answers, but publishes no text of the Penal Code (site search and media library). Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -15089,10 +15190,10 @@
     "un_status": "member",
     "un_member_since": "1961-12-14",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the Parliament site (parliament.go.tz) answered, but the Penal Code was not located. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no. Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the Parliament site (parliament.go.tz) answered, but the Penal Code was not located. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: the Parliament (parliament.go.tz) publishes the acts as passed, not the revised Penal Code; the National Legal Information System (nalis.sheria.go.tz) has no laws; laws.go.tz and agctz.go.tz do not resolve in DNS; TanzLII, run by the Judiciary, answered the law page with a Cloudflare challenge, and its robots.txt says ai-input=no. Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",
@@ -15253,10 +15354,10 @@
     "un_status": "member",
     "un_member_since": "1945-10-24",
     "penal_code": {
-      "reason": "Not read on 2026-11-10: the official portal zakon.rada.gov.ua did not answer the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: zakon.rada.gov.ua, data.rada.gov.ua and rada.gov.ua did not answer the engine's client (connection timeout). Awaits a reading at an official source."
     },
     "domestic_genocide": {
-      "reason": "Not read on 2026-11-10: the official portal zakon.rada.gov.ua did not answer the engine's client. Awaits a reading at an official source."
+      "reason": "Not read on 2026-11-10 nor on 2026-11-11: zakon.rada.gov.ua, data.rada.gov.ua and rada.gov.ua did not answer the engine's client (connection timeout). Awaits a reading at an official source."
     },
     "genocide_convention": {
       "participation": "party",

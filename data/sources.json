@@ -2012,5 +2012,89 @@
     "no_text_by_policy": false,
     "state": "discarded",
     "reason": "Paid subscription behind a CloudFront challenge."
+  },
+  {
+    "id": "moj-sd",
+    "name": "وزارة العدل — قوانين السودان (Ministry of Justice of Sudan)",
+    "url": "https://moj.gov.sd/sudanlaws/",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official texts of Sudanese law; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "ar"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Laws of Sudan as an e-book (Kotobee reader) whose chapters are static pages under /sudanlaws/epub/EPUB/xhtml/, read by hand through the engine's client (robots.txt 404); the book was last modified on 2017-08-01."
+  },
+  {
+    "id": "minijust-rw",
+    "name": "Ministry of Justice of Rwanda — Official Gazette",
+    "url": "https://www.minijust.gov.rw/official-gazette",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official Gazette of the Republic of Rwanda; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "rw",
+      "en",
+      "fr"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Official Gazette issues as PDF, in Kinyarwanda, English and French, read by hand through the engine's client (robots.txt read)."
+  },
+  {
+    "id": "sudbih",
+    "name": "Sud Bosne i Hercegovine (Court of Bosnia and Herzegovina) — propisi",
+    "url": "https://www.sudbih.gov.ba/Content/Read/krivicno-pravo",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official Gazette texts republished by the Court; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "bs",
+      "hr",
+      "sr"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "The Court's list of criminal laws, with the Official Gazette issues as PDF (the original law and the amendments up to 61/04), read by hand through the engine's client (robots.txt read: comments only, no rule)."
+  },
+  {
+    "id": "moj-gm",
+    "name": "Attorney General's Chambers and Ministry of Justice (The Gambia)",
+    "url": "https://moj.gov.gm/",
+    "function": 1,
+    "confidence": "A",
+    "license": "Official texts of Gambian law; terms not read",
+    "terms_url": null,
+    "robots_checked_on": "2026-11-11",
+    "api": "no",
+    "rate_limit_per_minute": null,
+    "languages": [
+      "en"
+    ],
+    "sentinel": null,
+    "state_media": false,
+    "no_text_by_policy": false,
+    "state": "active",
+    "reason": "Acts as PDF, read by hand through the engine's client (robots.txt read). The certificate (*.gov.gm) does not cover www.moj.gov.gm and the server omits the intermediate: read at moj.gov.gm with the RapidSSL intermediate from the certificate's own AIA address, verified against the Mozilla roots."
   }
 ]
