@@ -188,7 +188,10 @@ melhoria registrada no roteiro).
   mensal é a revisão.
 - **O SHERLOC é perguntado e nunca reaberto pelo robô**: foi suspenso pelo conteúdo (as
   buscas por genocídio não devolviam lei), não por não responder, e uma página não decide
-  isso. Contar as leis por crime pede o *endpoint* da busca, que não foi procurado.
+  isso. Contar as leis por crime pede o *endpoint* da busca: achado na fase 2, sessão 9
+  (11/11/2026), é o `data.json` que a própria página chama (`02-fontes.md`, 1.11); ele
+  devolve o total (`found`) para um filtro, e os campos de genocídio deram 0. Uma
+  sonda de conteúdo no `PROBES` está proposta e espera o dono.
 - **Fonte descartada por pessoa fica como está**, e fonte ativa nunca é suspensa pelo robô:
   o relatório diz quando ela parou de responder.
 - **Robô de IA vetado pelo nome**: o robô do Astraea não é modelo e lê o que o

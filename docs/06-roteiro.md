@@ -145,6 +145,13 @@ um valor sem rótulo em `pt-BR`.
    foi lida no Boletim da APN e não traz o crime; os Boletins seguintes não trazem emenda
    nova. Sérvia, Iraque e Tanzânia tiveram portal oficial novo, sem leitura; os outros
    vazios, nenhum (`02-fontes.md`, 1.10). Continuam treze países com leitura e onze vazios.
+   **Sexta volta em 11/11/2026** (fase 2, sessão 9): de novo sem resposta do dono, sem
+   carimbo, sem leitura holandesa e sem sim à LEGI. A Sérvia ganhou os três blocos pela
+   consolidação do Código Penal na Procuradoria para Crimes de Guerra (confiança B), e
+   Israel, o `penal_code` pelo registro de leis do Knesset (OData); Iraque, Etiópia e
+   Tanzânia, motivo renovado. O *endpoint* da busca do SHERLOC foi achado e conta zero
+   leis de genocídio. Agora são quinze países com leitura e nove vazios
+   (`02-fontes.md`, 1.11).
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira
@@ -155,6 +162,8 @@ já previa, e não com o Arquivista: `scripts/recheck_sources.py`, mensal, dentr
 GitHub até lá), para Legislationline, SHERLOC,
 Library of Congress e WorldLII. O que falta do "Pronto quando" é do dono: o carimbo da
 ficha do Brasil.
+Em 11/11/2026 (fase 2, sessão 9) a `main` com o Cartógrafo já está no GitHub; a
+primeira execução é a do *cron* de 01/12/2026.
 
 ### Fase 3 — Função 3 (4 sessões, ~3 semanas)
 

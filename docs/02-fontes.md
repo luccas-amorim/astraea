@@ -369,6 +369,51 @@ como a sessão as viu hoje:
   Astraea: impede a sessão. Se o WorldLII for reaberto, o `reason` diz que nenhuma sessão
   que seja modelo o lê.
 
+### 1.11 O que a sexta volta de 11/11/2026 encontrou (fase 2, sessão 9)
+
+Da máquina do dono, pelo cliente do motor, com o `robots.txt` obedecido (e lido à procura
+de agentes de IA vetados pelo nome) e a verificação de certificado ligada, com as raízes
+da Mozilla; sha256 no `CHANGELOG.md`. Não havia resposta do dono às escolhas a revisar,
+nem bloco carimbado, nem leitura do *Wetboek van Strafrecht*, nem sim à LEGI: a França não
+foi tentada. Os portais que não responderam três vezes (`zakon.rada.gov.ua`,
+`mlis.gov.mm`, `moj.gov.kh`) e os endereços sem DNS não foram tentados de novo. A busca
+na web serviu só de índice (regra 4).
+
+| País | Portal novo | O que aconteceu | Resultado |
+|---|---|---|---|
+| Sérvia | `tuzilastvorz.org.rs` (Procuradoria para Crimes de Guerra) | o `robots.txt` não veda agentes de IA; a página "Закони" publica o Código Penal em PDF (enviado em 10/2024), com os números do Diário até o 35/2019, **sem marca de texto oficial** (sem diacríticos, com as marcas "Tekst pre izmene" de base comercial); art. 370, genocídio, "zatvorom najmanje pet godina ili doživotnim zatvorom" | os três blocos em rascunho (`tuzilastvorz`, confiança B) |
+| Sérvia | `parlament.gov.rs`, pasta `zakoni` | a Assembleia publica também a lei aprovada; a de 2026 (DOC 011-2043/26) cita o Código até o 94/2024 e muda só os arts. 55a e 348 a 348g | conferência; não é fonte de valor |
+| Israel | `knesset.gov.il/Odata` (serviço de dados abertos do Knesset; `robots.txt` 404) | o registro de leis dá a Lei Penal 5737-1977 (publicada em 04/08/1977, em vigor desde 02/04/1978, última publicação 30/06/2026) e a lei de genocídio 5710-1950 (publicada em 07/04/1950, sem publicação posterior), as duas "em vigor"; dá título e datas, não o texto, e nenhum documento para a de 1950 | `penal_code` em rascunho (`knesset-odata`); `domestic_genocide` vazio com motivo novo |
+| Tanzânia | `sheria.go.tz` (Ministério da Constituição e Assuntos Jurídicos) | responde; publica discursos, orçamentos, formulários e regulamentos, não o Código Penal | vazio |
+| Iraque | `moj.gov.iq` | terceira vez sem resposta | vazio; não se tenta mais |
+| Etiópia | `fsc.gov.et` | terceira vez HTTP 503 | vazio; não se tenta mais |
+| Sérvia, Palestina | `rjt.gov.rs`, `lab.pna.ps` | recusam a conexão / não respondem | — |
+
+Camboja, Mianmar, Palestina, Síria e Ucrânia não tiveram fonte oficial nova: a busca deu
+cópias da Open Development Cambodia, da WIPO, do NATLEX, da ESCWA, do DCAF e de editoras,
+que não entram.
+
+- **Consolidação não oficial em site oficial é B.** O PDF da Procuradoria sérvia é o
+  único texto do Código Penal vigente achado fora do Sistema de Informação Jurídica (que
+  só serve JavaScript); vem de órgão do Estado, mas não se diz oficial e não traz a
+  alteração 94/2024. Entra com confiança B, como o AtlasPen, e é **escolha a revisar pelo
+  dono** (`CHANGELOG.md`).
+- **Registro de leis sem texto dá o `penal_code`, não o genocídio.** O OData do Knesset é
+  fonte oficial de título, data e vigência; o `domestic_genocide` pede o artigo, a
+  definição e a pena, que o título não dá.
+- **SHERLOC: o *endpoint* da busca.** A página da busca (`/cld/v3/sherloc/legdb/search.html`,
+  AngularJS) chama `GET /cld/v3/sherloc/legdb/data.json?lng=en&criteria=<JSON>`, com
+  `filters` (`fieldName`, `value`), `match` e `sortings`; a resposta traz `found` (o total),
+  `results` (100 por página) e `facetFields` (as contagens por campo). Sem filtro, `found`
+  = 14.392, em 16 tipos de crime, e "genocide" não está entre eles: o genocídio é
+  subtaxonomia dos crimes sexuais e de gênero ligados a conflito
+  (`legislation.crimeTypes.sgbc-crsvCrimeType.genocideUnderlyingActs.act_s` e
+  `…genocideContextualElements.element_s`). Com o filtro "Intent to destroy… as such", com
+  o ato "Killing members of the group" e com o tipo "Sexual and gender-based crimes…",
+  `found` = 0 nos três, e o servidor reconheceu os campos. O `robots.txt` é 404; nenhum
+  desafio. Uma sonda de conteúdo para o Cartógrafo está proposta (`CHANGELOG.md`) e espera
+  o dono antes de mudar o `PROBES`.
+
 ## Função 2: notícias
 
 ### 2.1 Resumo
