@@ -411,8 +411,35 @@ que não entram.
   `…genocideContextualElements.element_s`). Com o filtro "Intent to destroy… as such", com
   o ato "Killing members of the group" e com o tipo "Sexual and gender-based crimes…",
   `found` = 0 nos três, e o servidor reconheceu os campos. O `robots.txt` é 404; nenhum
-  desafio. Uma sonda de conteúdo para o Cartógrafo está proposta (`CHANGELOG.md`) e espera
-  o dono antes de mudar o `PROBES`.
+  desafio. A sonda de conteúdo para o Cartógrafo, proposta aqui, foi aprovada pelo dono
+  em 14/11/2026 e feita na sessão 10 (1.12; `04-arquitetura.md`, "O Cartógrafo, como
+  ficou").
+
+### 1.12 O que a sétima volta de 14/11/2026 encontrou (fase 2, sessão 10)
+
+Da máquina do dono, pelo cliente do motor, com o `robots.txt` obedecido (e lido à procura
+de agentes de IA vetados pelo nome) e a verificação de certificado ligada, com as raízes
+da Mozilla; sha256 no `CHANGELOG.md`. A única resposta do dono foi o sim à sonda do
+SHERLOC; nenhum bloco carimbado, nenhuma leitura do *Wetboek van Strafrecht*, nenhum sim
+à LEGI (a França não foi tentada). Os portais que não responderam três vezes
+(`zakon.rada.gov.ua`, `mlis.gov.mm`, `moj.gov.kh`, `moj.gov.iq`, `fsc.gov.et`) e os
+endereços sem DNS não foram tentados de novo.
+
+| País | Portal novo | O que aconteceu | Resultado |
+|---|---|---|---|
+| Sérvia | `parlament.gov.rs`, "Донети закони" (leis aprovadas) | a lista dá, para cada lei, a data de aprovação e o número do Diário: a alteração do Código Penal de **27/11/2024 saiu no Diário 94/24**, e a de 10/07/2026, no **63/26** (até aqui só em fonte secundária). A de 2024 muda o art. 297 (penas) e acrescenta os arts. 344b a 344g; cita o Código até o 35/19. **Nenhuma das duas toca os arts. 370 ou 44a** | os três blocos sem mudança (a consolidação da Procuradoria vai até o 35/19, e o que veio depois não mexe no genocídio nem na perpétua); conferência, não fonte de valor |
+| Tanzânia | `ocpd.go.tz` (Escritório do Redator Parlamentar-Chefe) | responde, `robots.txt` sem veto; a lista de Atos tem quatro leis, nenhuma o Código Penal; o portal "Sheria za Mtandaoni" a que ele aponta (`154.118.230.207`) respondeu 503 ao `robots.txt` | vazio, motivo renovado |
+| Ucrânia | `ukurier.gov.ua` (jornal oficial do Governo) | responde, `robots.txt` sem veto; publica atos do Gabinete e dos ministérios, não as leis da Rada | vazio, motivo renovado |
+| Camboja | `ocm.gov.kh` (Escritório do Conselho de Ministros) | "Rejected Request" (WAF), também no `robots.txt` | vazio, motivo renovado; não se contorna |
+
+Etiópia, Iraque, Mianmar, Palestina e Síria não tiveram fonte oficial nova; Israel (o
+genocídio) e o `penal_code` holandês esperam o dono.
+
+- **SHERLOC, a sonda feita.** A URL reconstruída a partir do *script* da página
+  (`waxs-ng.js`: `filters` com `fieldName` e `value`, `match`, `sortings`) dá `found` = 0
+  com o filtro do elemento de intenção, e o servidor ecoa o rótulo do campo ("Genocide
+  (contextual elements)"). Um campo inventado **também dá 0**, mas volta sem o rótulo: é
+  por isso que o relatório do Cartógrafo diz quando o filtro não foi reconhecido.
 
 ## Função 2: notícias
 
