@@ -141,6 +141,9 @@ sexuais e de gênero ligados a conflito, com dois campos. Hoje os três filtros 
 
 Não mudei o `PROBES`: o pedido manda parar e perguntar.
 
+**Resposta do dono, 14/11/2026:** sim à sonda, como proposta, para implementar na
+sessão 10 (fase 2). As outras escolhas desta entrada continuam abertas.
+
 **Código:** nenhum *script* novo no repositório. O leitor da sessão (o `Client` do motor
 com um transporte que aponta as raízes da Mozilla do Git for Windows) e o *script* que
 gravou os blocos ficaram na pasta temporária da sessão.
@@ -163,7 +166,7 @@ gravou os blocos ficaram na pasta temporária da sessão.
   sua), eu esvazio os três blocos.
 - **Israel só pelo registro do Knesset**: o `penal_code` por metadados oficiais; o
   genocídio, não pelo título.
-- **A sonda de conteúdo do SHERLOC** (acima).
+- **A sonda de conteúdo do SHERLOC** (acima): **aprovada em 14/11/2026**, para a sessão 10.
 - As escolhas das sessões 4 a 8 continuam abertas: o SHERLOC fora da reabertura
   automática, a *fixture* sintética do Cartógrafo, o Boletim chinês por `Range`, o
   `enacted_year: 1979` da China, o Diário holandês sem veto, a Bélgica pelo texto da
