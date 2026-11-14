@@ -3,6 +3,190 @@
 Uma sessão = uma entrada. Datas no fuso de Brasília. Até a v1.0.0 a versão é `0.0.x`
 (ver `CONTRIBUTING.md`, "Versão e notas").
 
+## 2026-11-14 — Fase 2, sessão 10: a sonda do SHERLOC e a alteração 94/2024 sérvia
+
+Branch `fase2/carga-humana-7`, a partir da `main`. **A única resposta sua às "Escolhas a
+revisar" foi o sim à sonda do SHERLOC** (registrado em 14/11, `394d2ce`), que é o item 1
+desta sessão. Não havia outro sim ou não, nem bloco carimbado (nenhum `checked_by: human`
+em `countries.json`, `situations.json` ou `verification.json`), nem leitura sua do
+*Wetboek van Strafrecht*, nem sim à LEGI. Por isso **não houve o commit próprio das
+respostas**: o `penal_code` holandês continua vazio, a França não foi tentada, e as
+escolhas das sessões 4 a 9 continuam abertas (adiante).
+
+**O `countries.yml` com o Cartógrafo ainda não rodou.** A última execução do *workflow*
+Countries é a manual de 10/11 (a do PR #1), antes do Cartógrafo; o *cron* é `0 5 1 * *`, e
+a primeira execução com ele será a de **01/12/2026**. Não há PR de dezembro para ler; o
+*workflow* não foi tocado. O que conferir no PR de dezembro (o reabrir, o `reason`, o
+*check* vermelho sem *jobs* do PR #1) fica para a sessão seguinte.
+
+**Código: a sonda do SHERLOC** (`scripts/recheck_sources.py`, commit `b6fdb3d`), como
+proposta na sessão 9:
+
+- o `PROBES` pergunta a busca que a página faz, `data.json?lng=en&criteria=<JSON>`, com um
+  filtro, o elemento de intenção ("Intent to destroy, in whole or in part, a national,
+  ethnical, racial or religious group, as such"); a URL foi reconstruída a partir do
+  *script* da página (`waxs-ng.js`), com `filters`, `match` e `sortings`;
+- "responde" é JSON 2xx com a chave `found`; o relatório dá o número ("0 laws tagged with
+  the genocide intent element") e vai, como as outras linhas, ao PR mensal;
+- `reopens=False` continua; com número acima de 0, o relatório diz quantas e que a pessoa
+  decide;
+- o `Probe` ganhou `count` (a chave a contar) e `counted` (o que ela conta);
+- **um acréscimo meu à proposta**: o servidor ecoa os filtros com o rótulo do campo
+  (`fieldNameI18n`) quando o conhece, e **um campo inventado também dá `found` = 0**, só
+  que sem o rótulo. O relatório diz então que o número não vale nada. Sem isso, se a UNODC
+  renomear o campo, o Cartógrafo diria "0" todo mês sem que ninguém notasse;
+- testes (6 novos, 396 no total): a resposta gravada hoje (`found` = 0, filtro
+  reconhecido), o caso sintético com 3 (relatado, nada reaberto), o filtro não
+  reconhecido, e três respostas sem número (sem `found`, `found` não numérico, HTML). A
+  *fixture* passou a levar a resposta real do SHERLOC (o `robots.txt` dele é 404 e não veda
+  agentes de IA); as outras continuam sintéticas, e os testes não fixam o valor do dia;
+- em simulação, de verdade: `kept: sherloc (suspended): …: answers: HTTP 200, 0 laws
+  tagged with the genocide intent element; not reopened by the robot: it was suspended
+  for its content, and the count is 0`;
+- `04-arquitetura.md` ("O Cartógrafo, como ficou"), `02-fontes.md` (1.11 e 1.12) e
+  `tests/fixtures/README.md` registram a sonda.
+
+**O que mudou no dado.** Só motivos (`reason`) de blocos vazios. Nenhum valor lido mudou,
+nenhum bloco novo, nenhuma `note`, nenhuma fonte nova em `sources.json` (105): nenhum
+portal novo serviu de fonte de valor.
+
+| País | `penal_code` | `domestic_genocide` | `max_penalty` | O que mudou |
+|---|---|---|---|---|
+| Ucrânia | vazio, motivo renovado | idem | ausente | `ukurier.gov.ua` |
+| Tanzânia | vazio, motivo renovado | idem | ausente | `ocpd.go.tz` |
+| Camboja | vazio, motivo renovado | idem | ausente | `ocm.gov.kh` (WAF) |
+| Sérvia | sem mudança | sem mudança | sem mudança | a alteração 94/2024 foi lida (adiante) |
+| os outros 20 | sem mudança | sem mudança | sem mudança | — |
+
+Seguem **quinze países com leitura** e **nove vazios** (Camboja, Etiópia, França, Iraque,
+Mianmar, Palestina, Síria, Tanzânia, Ucrânia; `02-fontes.md`, 1.12). Etiópia, França,
+Iraque, Mianmar, Palestina e Síria não tiveram fonte oficial nova nesta sessão: os motivos
+de 11/11 continuam valendo.
+
+**Leituras desta sessão.** Pelo cliente HTTP do motor, com o `User-Agent` do Astraea, o
+`robots.txt` obedecido (e lido à procura de agentes de IA vetados pelo nome; nenhum dos
+lidos hoje os veta) e a verificação de certificado ligada, com as raízes da Mozilla
+(tamanho em bytes, sha256):
+
+- SHERLOC (`robots.txt` 404): a página da busca 246.002,
+  `f76735b01884c078757809148ad98068bb8e0a1b154fee0a09f41cc22de8de32`; os *scripts*
+  `waxs-ng.js` 32.111 e `legislation-db-controller.js` 25.591, com os mesmos sha256 da
+  sessão 9; o `data.json` com o filtro do elemento de intenção, como o `PROBES` o pede,
+  8.342, `84623f32011b221ec6106150fa0945ff3d7ea8dac88982453fb669005253817b` (`found` = 0;
+  é a resposta da *fixture*); o mesmo sem `match` e `sortings` 8.331,
+  `79548f2c723e3d301853ed76b01e9560f969532ec83e0ba5b9f5226d9ec57904` (0); com um campo
+  inventado 8.164, `d17bdf440c71f27eef2cefc4f029d38459b105463470ca89a05989a3d950946d` (0,
+  sem rótulo). A sessão 9 tinha gravado 9.144 bytes para o mesmo filtro, com um `criteria`
+  que não ficou registrado; o `found` era o mesmo, 0.
+- Sérvia, Assembleia (`parlament.gov.rs`): o `robots.txt` 649,
+  `5815f6e53c8dba8572276fd9cbc35e022d4b98931b83e90f806b9f5018d38625` (o mesmo da sessão
+  9); a página inicial 288.494,
+  `4b46fa59e759ab9adcd1e9d87d5b35cffed68194d2de410ffae7ce5c52d15a32`; a lista "Донети
+  закони" 1.193.343, `a44f5ba4a37c36c79872a0a969fa71d123c5ad83900c250cff4d59e85b3bf6bd`; a
+  lei de 2024 (`/upload/archive/files/cir/pdf/zakoni/14_saziv/2718-24.pdf`) 177.177,
+  `fbf203cae1d9cd7a42610001493973fe23d88a4786fe9afd06a1426c9d5bba79`.
+- Tanzânia, `ocpd.go.tz`: o `robots.txt` 24,
+  `e5c4b84484ee4216e9373be99380320c25dd94805f99f0a805846f087636553f`; a página inicial
+  75.974, `6ea04f59aedc8d17863078136c5c00d2c2820303d15534ab3ae3f11d1e8acd94`; os Atos
+  (`/publications/act`) 47.774,
+  `c563982aeb2e4d66ea443227298b6424144a24f88398fa60d8dabb8b846002c5`. O portal de leis a
+  que ele aponta (`http://154.118.230.207/public`) respondeu 503 ao `robots.txt` (uma
+  tentativa).
+- Ucrânia, `ukurier.gov.ua`: o `robots.txt` 68,
+  `0c54cdc6dfa11da51cf673895cc4cf8998f37feb5b8d9dfa8663766caa5f3ea7`; a página inicial
+  (`/uk/`) 64.986, `97ac6e33c1e51ff35ae70124886b0d0f97627258f1330486ce4eecbf7ac33ad3`.
+- Camboja, `ocm.gov.kh`: o `robots.txt` respondeu 200 com a página "Rejected Request" de
+  WAF, 1.119, `3d73bf664d880865b15e3265d1f6add9a6e4c4127f607139b077337dff87ae86`; nada além
+  dele foi pedido.
+
+**O que conferir, país a país.**
+
+- **Sérvia** (abra a lista em https://www.parlament.gov.rs/акти/донети-закони/донети-закони.45.html
+  e a lei em
+  https://www.parlament.gov.rs/upload/archive/files/cir/pdf/zakoni/14_saziv/2718-24.pdf):
+  - a lei "о изменама и допунама Кривичног законика", aprovada em **27/11/2024**, Diário
+    **94/24**, em vigor no oitavo dia da publicação. Três artigos: o 1º muda as penas do
+    art. 297, o 2º acrescenta os arts. 344b a 344g (ataques a quem trabalha em escola e em
+    serviço social), o 3º é a vigência. O art. 1º cita o Código até o 35/19: **entre o
+    35/19 e o 94/24 não houve alteração**;
+  - a lista dá a lei de 2026 como aprovada em **10/07/2026**, Diário **63/26** (até aqui só
+    em fonte secundária); ela muda os arts. 55a e 348 a 348g (sessão 9);
+  - **nenhuma das duas toca o art. 370 (genocídio) nem o 44a (perpétua)**. A consolidação
+    da Procuradoria (até o 35/19), mais essas duas, é o texto vigente. Os três blocos não
+    mudam; o `consolidated_on` continua `null` e a confiança, **B**, porque o texto
+    continua não oficial (sem diacríticos). Se, com a cadeia conferida, você quiser outra
+    confiança, é escolha sua (adiante).
+- **Ucrânia, Tanzânia, Camboja**: nada a conferir no valor; os motivos dizem o que foi
+  tentado.
+
+**Bateria:**
+
+- 396 testes passam (eram 390); `ruff check` e `ruff format --check` limpos.
+- `astraea validate-lexicon data/lexicon/*.json` valida os cinco léxicos.
+- `python scripts/transform.py --draft --check` passa (o derivado foi regenerado com
+  `--draft --execute`, pelos motivos novos).
+- `python scripts/build_site.py` simula 406 arquivos.
+- **`--strict` reprova, de propósito, só pelos rascunhos: 46 campos em 20 registros**, como
+  na sessão 9 (50 achados: 46 da trava 3 e 4 da trava 6). São os 9 status das situações e
+  37 blocos de lei penal que esperam o seu carimbo.
+- `config/` ainda não existe.
+
+**Escolhas a revisar** (não decidem nada pendente, mas são suas):
+
+- **O aviso de filtro não reconhecido** na sonda do SHERLOC, que não estava na proposta
+  aprovada (acima, o porquê). Se não quiser, é tirar a função `counted` do caminho.
+- **A *fixture* do SHERLOC agora é gravada**, e não sintética: o SHERLOC não veda agentes de
+  IA, e a resposta é só a contagem e as facetas, sem texto de lei.
+- **A Sérvia com confiança B**, agora com a cadeia de alterações conferida na Assembleia.
+- As escolhas das sessões 4 a 9 continuam abertas: a Sérvia pela consolidação da
+  Procuradoria, Israel só pelo registro do Knesset (e se o genocídio entra pelo título da
+  lei de 1950), o SHERLOC fora da reabertura automática, a *fixture* sintética do
+  Cartógrafo (nas outras três bases), o Boletim chinês por `Range`, o `enacted_year: 1979`
+  da China, o Diário holandês sem veto, a Bélgica pelo texto da Câmara e o `year: 2024`, o
+  veto a agentes de IA, as cadeias pelo AIA (Gâmbia e Sérvia), as APIs da Sérvia, os
+  `follows_convention_definition: unknown` (Sudão, Bósnia), o título inglês de Ruanda, o
+  `consolidated_on: null` (Alemanha, Rússia), a busca na web como índice e o *download* da
+  LEGI.
+
+**Para você (Windows), no PowerShell, dentro da pasta do projeto e com o `.venv`
+ativado:**
+
+1. **Ver a sonda nova** (pergunta só ao SHERLOC e não grava nada):
+
+   ```powershell
+   python scripts\recheck_sources.py --only sherloc
+   ```
+
+   A linha é longa, porque leva a URL da busca; deve terminar com `the count is 0` e, na
+   linha seguinte, `1 sources asked, 0 reopened`.
+2. **Ver o que espera o seu carimbo** (não grava nada):
+
+   ```powershell
+   python scripts\stamp.py
+   ```
+
+   Deve começar com `37 blocks ready to be stamped`, como na sessão 9.
+3. **Conferir e carimbar**, por país, primeiro em simulação e depois com `--execute` no
+   fim:
+
+   ```powershell
+   python scripts\stamp.py --field SRB --by "Luccas de Amorim" --read-on 2026-11-15
+   ```
+
+   Troque `SRB` por outro país, e a data pela do dia em que você conferiu. Se um valor
+   estiver errado, **não carimbe**: diga na próxima sessão.
+4. **Responder às escolhas**, numa linha cada. A França só avança com o seu sim à LEGI
+   (1,2 GB), e os Países Baixos com a sua leitura do *Wetboek van Strafrecht* no
+   `wetten.overheid.nl` (endereço, título, ano e a data "geldend van … t/m …").
+5. **Enviar ao GitHub.** O *merge* na `main` local já foi feito; o *push* é seu:
+
+   ```powershell
+   git push origin main
+   ```
+
+   Sem o *push* até 01/12, o PR de dezembro roda com o Cartógrafo antigo (a página do
+   SHERLOC, sem a contagem).
+
 ## 2026-11-11 — Fase 2, sessão 9: a Sérvia pela Procuradoria, Israel pelo Knesset e o *endpoint* do SHERLOC
 
 Branch `fase2/carga-humana-6`, a partir da `main`. **Não havia resposta às "Escolhas a

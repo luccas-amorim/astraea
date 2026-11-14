@@ -58,13 +58,17 @@ Their sha256 is in `CHANGELOG.md` (phase 2, session 2).
 
 ## The Cartógrafo fixture
 
-`cartographer/responses.json` is **synthetic**: one short response per URL that
-`scripts/recheck_sources.py` asks (each robots.txt and each page), imitating what the probe
-of 2026-11-06 and the session of 2026-11-11 saw, so that no source is reopenable:
-Legislationline redirects to the ODIHR site and answers 404; SHERLOC answers 200 (it is
-suspended for its content, not for answering); loc.gov answers its own robots.txt with a
+`cartographer/responses.json` is **synthetic**, but for one response: one short response
+per URL that `scripts/recheck_sources.py` asks (each robots.txt and each page), imitating
+what the probe of 2026-11-06 and the session of 2026-11-11 saw, so that no source is
+reopenable: Legislationline redirects to the ODIHR site and answers 404; SHERLOC answers
+its search (data.json, filtered by the intent element of genocide) with the response
+**recorded on 2026-11-14** by the engine's client (8,342 bytes, sha256
+`84623f32011b221ec6106150fa0945ff3d7ea8dac88982453fb669005253817b`, `found` = 0; its
+robots.txt is 404 and names no AI agent), and is suspended for its content, not for
+answering; loc.gov answers its own robots.txt with a
 403 challenge; WorldLII names AI agents in its robots.txt and answers 403 "Sorry, you have
-been blocked". It was not recorded: the session that wrote it is a language model, and
+been blocked". The rest was not recorded: the session that wrote it is a language model, and
 WorldLII disallows AI agents by name; the pages of the others are not needed beyond their
 status and a mark. Each test changes its own copy (a page that answers again, a redirect,
 a challenge served with 200). A URL that is not in the file fails as a connection that did

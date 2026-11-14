@@ -152,6 +152,12 @@ um valor sem rótulo em `pt-BR`.
    Tanzânia, motivo renovado. O *endpoint* da busca do SHERLOC foi achado e conta zero
    leis de genocídio. Agora são quinze países com leitura e nove vazios
    (`02-fontes.md`, 1.11).
+   **Sétima volta em 14/11/2026** (fase 2, sessão 10): a única resposta do dono foi o sim
+   à sonda do SHERLOC, que o Cartógrafo passa a fazer (a busca `data.json` com o filtro do
+   elemento de intenção; o número vai ao PR mensal; o robô não reabre). Na Sérvia, a lista
+   de leis aprovadas da Assembleia mostra que as alterações 94/2024 e 63/2026 não tocam os
+   arts. 370 nem 44a. Ucrânia, Tanzânia e Camboja, portal oficial novo sem leitura. Seguem
+   quinze países com leitura e nove vazios (`02-fontes.md`, 1.12).
 
 **Pronto quando:** 197 registros com tratados carimbados; o PR mensal roda e mostra
 diff vazio ou legível; a ficha do Brasil está completa e conferida; a primeira
@@ -163,7 +169,8 @@ GitHub até lá), para Legislationline, SHERLOC,
 Library of Congress e WorldLII. O que falta do "Pronto quando" é do dono: o carimbo da
 ficha do Brasil.
 Em 11/11/2026 (fase 2, sessão 9) a `main` com o Cartógrafo já está no GitHub; a
-primeira execução é a do *cron* de 01/12/2026.
+primeira execução é a do *cron* de 01/12/2026. Em 14/11/2026 (sessão 10) ainda não tinha
+rodado: a última execução do Countries é a manual de 10/11, antes do Cartógrafo.
 
 ### Fase 3 — Função 3 (4 sessões, ~3 semanas)
 

@@ -177,10 +177,10 @@ melhoria registrada no roteiro).
   de países regenera; dois *workflows* abririam PRs em conflito, pelo mesmo motivo que pôs
   o Cornell no mensal. É mensal como as duas cargas, e roda depois delas, pelo
   `scripts/countries_monthly.py`.
-- **Uma página por fonte, sem ler conteúdo** (`scripts/recheck_sources.py`, a tabela
-  `PROBES`): a coleção de códigos penais do Legislationline, a página da base do SHERLOC,
-  a API JSON da coleção Global Legal Monitor da Library of Congress e a página inicial do
-  WorldLII. "Responde" quer dizer HTTP 2xx, no mesmo *host* (redirecionar para outro site
+- **Um pedido por fonte, sem ler conteúdo** (`scripts/recheck_sources.py`, a tabela
+  `PROBES`): a coleção de códigos penais do Legislationline, a busca da base do SHERLOC
+  (adiante), a API JSON da coleção Global Legal Monitor da Library of Congress e a página
+  inicial do WorldLII. "Responde" quer dizer HTTP 2xx, no mesmo *host* (redirecionar para outro site
   não conta: é o que o Legislationline faz desde 06/11), com a marca que prova que é aquela
   página e sem página de desafio; desafio não se contorna.
 - **Reabrir** é `state: active`, `robots_checked_on` do dia e um `reason` que diz que foi o
@@ -188,10 +188,22 @@ melhoria registrada no roteiro).
   mensal é a revisão.
 - **O SHERLOC é perguntado e nunca reaberto pelo robô**: foi suspenso pelo conteúdo (as
   buscas por genocídio não devolviam lei), não por não responder, e uma página não decide
-  isso. Contar as leis por crime pede o *endpoint* da busca: achado na fase 2, sessão 9
-  (11/11/2026), é o `data.json` que a própria página chama (`02-fontes.md`, 1.11); ele
-  devolve o total (`found`) para um filtro, e os campos de genocídio deram 0. Uma
-  sonda de conteúdo no `PROBES` está proposta e espera o dono.
+  isso. **A sonda de conteúdo** (proposta na fase 2, sessão 9, aprovada pelo dono em
+  14/11/2026, feita na sessão 10): o pedido é a busca que a própria página faz,
+  `GET /cld/v3/sherloc/legdb/data.json?lng=en&criteria=<JSON>`, com um filtro só, o
+  elemento de intenção ("Intent to destroy, in whole or in part, a national, ethnical,
+  racial or religious group, as such", no campo
+  `en#legislation.crimeTypes.sgbc-crsvCrimeType.genocideContextualElements.element_s`),
+  que toda lei de genocídio marcada na base teria. "Responde" é JSON 2xx com a chave
+  `found`; o relatório dá o número ("0 laws tagged with the genocide intent element") e
+  vai ao PR mensal. `reopens=False` continua: com `found` acima de 0, o relatório diz
+  quantas e a pessoa decide se reabre, porque uma contagem não diz de que países nem se a
+  marcação está certa. O servidor ecoa os filtros que aplicou (`criteria.filters`), cada
+  um com o rótulo do campo (`fieldNameI18n`) quando o conhece; campo que ele não conhece
+  volta sem rótulo e **também dá 0**, e o relatório diz então que o número não vale nada
+  (o campo pode ter mudado de nome). O `Probe` ganhou `count` (a chave a contar) e
+  `counted` (o que ela conta). Os testes leem a resposta gravada em 14/11/2026 (`found` =
+  0) e casos sintéticos a partir dela (3, filtro não reconhecido, sem número).
 - **Fonte descartada por pessoa fica como está**, e fonte ativa nunca é suspensa pelo robô:
   o relatório diz quando ela parou de responder.
 - **Robô de IA vetado pelo nome**: o robô do Astraea não é modelo e lê o que o

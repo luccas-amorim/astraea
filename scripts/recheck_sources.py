@@ -4,8 +4,10 @@ The probe of 2026-11-06 found no open database of penal codes alive (docs/02-fon
 1.2), so penal_code and domestic_genocide come from the human load. The Cartógrafo only
 asks, once a month, whether Legislationline, SHERLOC, the Law Library of Congress and
 WorldLII answer again, and reopens the source in data/sources.json (`state: active`) when
-one does (docs/04-arquitetura.md, "Os robôs"). It reads no content: one page per source,
-through the engine's client, with the Astraea User-Agent and robots.txt obeyed. It runs
+one does (docs/04-arquitetura.md, "Os robôs"). It reads no content: one request per
+source, through the engine's client, with the Astraea User-Agent and robots.txt obeyed;
+for SHERLOC the request is the search the page itself makes (data.json), filtered by the
+intent element of genocide, and the report gives the number of laws it finds. It runs
 inside the monthly reading of the countries (scripts/countries_monthly.py), whose pull
 request is the review.
 
@@ -26,8 +28,11 @@ circumvented: AGENTS.md, rule 7). What it changes:
   `active`, with `robots_checked_on` the day of the reading and a `reason` that says so;
   the sha256 of the response is printed (it goes to CHANGELOG.md);
 - SHERLOC is asked but never reopened: it was suspended for its content (tested searches
-  for genocide returned no law), which one page cannot settle; the report says whether it
-  answered, and a person decides;
+  for genocide returned no law). "Answers" is JSON 2xx with the key `found`, the number of
+  laws tagged with the intent element; the report gives it, and says when the server did
+  not recognize the filter (a filter it does not know also gives 0). With a number above
+  0, a person decides whether to reopen it: a count says neither which countries nor
+  whether the tagging is right;
 - a source a person discarded is left alone, and an active one is never suspended by the
   robot: the report says when it stopped answering.
 
@@ -72,6 +77,28 @@ class Probe:
     mark: str  # text the page must carry ("" for none); for json, a top-level key
     json: bool = False
     reopens: bool = True
+    count: str = ""  # json only: the top-level key whose number the report gives
+    counted: str = ""  # English: what that number counts ("laws tagged with ...")
+
+
+def sherloc_search(field: str, value: str) -> str:
+    """The URL of the search the SHERLOC page makes (search.html, waxs-ng.js), with one
+    filter: GET data.json?lng=en&criteria=<JSON>; the answer has `found`, the total."""
+    criteria = {"filters": [{"fieldName": field, "value": value}], "match": "", "sortings": ""}
+    encoded = urllib.parse.quote(json.dumps(criteria, separators=(",", ":")), safe="")
+    return f"https://sherloc.unodc.org/cld/v3/sherloc/legdb/data.json?lng=en&criteria={encoded}"
+
+
+# The element every law tagged as genocide in SHERLOC would carry: genocide is not a crime
+# type there, but a subtaxonomy of conflict-related sexual and gender-based crimes
+# (docs/02-fontes.md, 1.11).
+SHERLOC_INTENT_FIELD = (
+    "en#legislation.crimeTypes.sgbc-crsvCrimeType.genocideContextualElements.element_s"
+)
+SHERLOC_INTENT = (
+    "Intent to destroy, in whole or in part, a national, ethnical, racial or religious "
+    "group, as such"
+)
 
 
 PROBES = (
@@ -83,10 +110,13 @@ PROBES = (
     ),
     Probe(
         "sherloc",
-        "https://sherloc.unodc.org/cld/en/v3/sherloc/legdb/",
-        "the Database of Legislation",
-        "Genocide",
+        sherloc_search(SHERLOC_INTENT_FIELD, SHERLOC_INTENT),
+        "the search of the Database of Legislation, filtered by the intent element of genocide",
+        "found",
+        json=True,
         reopens=False,
+        count="found",
+        counted="laws tagged with the genocide intent element",
     ),
     Probe(
         "loc-glm",
@@ -134,6 +164,7 @@ class Answer:
     sha256: str = ""
     size: int = 0
     ai_agents: tuple[str, ...] = ()
+    count: int | None = None  # the number of a counting probe, when it came
 
 
 # ------------------------------------------------------------------ asking
@@ -202,9 +233,34 @@ def judge(probe: Probe, response: Response) -> Answer:
             return Answer(False, f"HTTP {response.status}, but not JSON", **seen)
         if not isinstance(parsed, dict) or probe.mark not in parsed:
             return Answer(False, f"HTTP {response.status}, JSON without {probe.mark!r}", **seen)
+        if probe.count:
+            return counted(probe, response.status, parsed, seen)
     elif probe.mark and probe.mark not in text:
         return Answer(False, f"HTTP {response.status}, without the mark {probe.mark!r}", **seen)
     return Answer(True, f"HTTP {response.status}, {len(body)} bytes", **seen)
+
+
+def counted(probe: Probe, status: int, parsed: dict, seen: dict) -> Answer:
+    """The answer of a counting probe: the number, and whether the filter was understood.
+
+    SHERLOC echoes the filters it applied in `criteria.filters`, each with the label of
+    the field (`fieldNameI18n`) when it knows the field; a field it does not know comes back
+    without the label and also gives 0, so a 0 without the label says nothing.
+    """
+    number = parsed[probe.count]
+    if not isinstance(number, int) or isinstance(number, bool):
+        return Answer(False, f"HTTP {status}, {probe.count!r} is not a number", **seen)
+    detail = f"HTTP {status}, {number} {probe.counted}"
+    criteria = parsed.get("criteria")
+    filters = criteria.get("filters") if isinstance(criteria, dict) else None
+    if not isinstance(filters, list) or not all(
+        isinstance(f, dict) and f.get("fieldNameI18n") for f in filters
+    ):
+        detail += (
+            "; the server did not recognize the filter (no fieldNameI18n echoed in "
+            "criteria.filters): the number says nothing"
+        )
+    return Answer(True, detail, count=number, **seen)
 
 
 # ------------------------------------------------------------------ deciding
@@ -261,10 +317,17 @@ def plan(
                     f"  robots.txt disallows AI agents by name: {', '.join(answer.ai_agents)}"
                 )
         elif answer.answers:
-            report.append(
-                f"kept: {line}; not reopened by the robot: it was suspended for its content, "
-                "which one page does not settle"
-            )
+            why = "not reopened by the robot: it was suspended for its content"
+            if answer.count is None:
+                why += ", which one page does not settle"
+            elif answer.count > 0:
+                why += (
+                    f"; {answer.count} {probe.counted}: a person decides whether to reopen it "
+                    "(a count says neither which countries nor whether the tagging is right)"
+                )
+            else:
+                why += ", and the count is 0"
+            report.append(f"kept: {line}; {why}")
         else:
             report.append(f"kept: {line}")
     return new, report

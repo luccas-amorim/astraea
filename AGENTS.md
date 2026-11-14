@@ -13,7 +13,7 @@ Este arquivo é lido pelo Codex e demais agentes pelo nome; o Claude Code o lê 
 
 ## Estado do projeto
 
-Em 11/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
+Em 14/11/2026 o repositório tem o plano, o motor (`astraea/engine/`, `astraea/sources/`,
 `astraea/cli.py`), as licenças, os dados da fase 1, o Tabelião e a pena de morte:
 `data/countries.json` (197 registros com `id`, `name`, `un_status`, `un_member_since`,
 `situations`, os blocos `genocide_convention` e `rome_statute`, carimbados pelo robô ou
@@ -44,11 +44,12 @@ padrão). `scripts/stamp.py` lista os blocos prontos para carimbo e grava `check
 human` só no que o dono indicar. O Cartógrafo (`scripts/recheck_sources.py`, dentro do
 `countries.yml`) pergunta todo mês se Legislationline, SHERLOC, Library of Congress e
 WorldLII voltaram a responder e reabre a fonte em `sources.json` quando sim (o SHERLOC só é
-reconferido). 390 testes. A fase 1 e os itens 1 a 3 da fase 2 estão
+reconferido: a sonda conta as leis que a busca dele marca com o elemento de intenção do
+genocídio, e quem reabre é a pessoa). 396 testes. A fase 1 e os itens 1 a 3 da fase 2 estão
 feitos (o anexo da Anistia espera a carga à mão do dono; o `countries.yml` rodou no GitHub
 em 10/11/2026); o item 4, a carga humana dos 24 países, começou na sessão 4 da fase 2 e
-seguiu nas sessões 5 a 9 (quinze países com leitura, nove vazios com `reason` de 11/11/2026;
-`02-fontes.md`, 1.7 a 1.11); o que falta depende de outra rede, da leitura do dono ou de
+seguiu nas sessões 5 a 10 (quinze países com leitura, nove vazios com `reason` de 11/11 ou
+14/11/2026; `02-fontes.md`, 1.7 a 1.12); o que falta depende de outra rede, da leitura do dono ou de
 fonte oficial nova. Antes de escrever código, leia o `00-inventario.md` e o
 `04-arquitetura.md` ("Onde o motor vive"): o motor é **próprio**,
 nascido de uma cópia do Alétheia (`luccas-amorim/aletheia`) com o aviso MIT e o `sha` de

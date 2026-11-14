@@ -1,7 +1,8 @@
 """The Cartógrafo: scripts/recheck_sources.py, offline, on recorded responses.
 
-The responses are the synthetic fixture of tests/fixtures/cartographer/ (the four sources
-as 2026-11-11 saw them: none reopenable); each test changes the copy it needs. The
+The responses are the fixture of tests/fixtures/cartographer/ (the four sources as
+2026-11-11 and 2026-11-14 saw them: none reopenable; synthetic, except the SHERLOC search,
+recorded on 2026-11-14 with found = 0); each test changes the copy it needs. The
 sources.json the tests read is the repository's with the four entries put back to
 `suspended`, so that a source the monthly pull request reopened later does not break
 them ("teste não fixa o valor do dia", AGENTS.md).
@@ -86,12 +87,79 @@ def test_a_month_like_today_changes_nothing(repo, capsys):
     assert "sha256" not in out  # only a reopened source needs the hash in the CHANGELOG
 
 
-def test_sherloc_answers_but_is_never_reopened_by_the_robot(repo, capsys):
+SHERLOC = rs.PROBES[1].url
+
+
+def sherloc_found(repo: Path, found, recognized: bool = True) -> None:
+    """Rewrites the recorded SHERLOC search with another `found` (a synthetic case)."""
+    path = repo / "responses.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    body = json.loads(data["responses"][SHERLOC]["body"])
+    body["found"] = found
+    if not recognized:
+        for f in body["criteria"]["filters"]:
+            del f["fieldNameI18n"]
+    data["responses"][SHERLOC]["body"] = json.dumps(body)
+    path.write_text(json.dumps(data), encoding="utf-8")
+
+
+def test_the_sherloc_probe_is_the_search_filtered_by_the_intent_element():
+    query = rs.urllib.parse.urlsplit(SHERLOC)
+    assert query.netloc == "sherloc.unodc.org" and query.path.endswith("/legdb/data.json")
+    params = dict(rs.urllib.parse.parse_qsl(query.query))
+    assert params["lng"] == "en"
+    criteria = json.loads(params["criteria"])
+    assert criteria["filters"] == [
+        {"fieldName": rs.SHERLOC_INTENT_FIELD, "value": rs.SHERLOC_INTENT}
+    ]
+    assert "genocideContextualElements" in rs.SHERLOC_INTENT_FIELD
+    assert rs.SHERLOC_INTENT.endswith("religious group, as such")
+
+
+def test_sherloc_answers_with_its_count_but_is_never_reopened_by_the_robot(repo, capsys):
+    """The response recorded on 2026-11-14: found = 0, the filter recognized."""
     assert run(repo, "--execute", "--only", "sherloc") == 0
     assert sources(repo)["sherloc"]["state"] == "suspended"
     out = capsys.readouterr().out
-    assert "sherloc (suspended): " in out and ": answers: HTTP 200" in out
-    assert "suspended for its content" in out
+    assert "sherloc (suspended): " in out and ": answers: HTTP 200, " in out
+    assert "0 laws tagged with the genocide intent element" in out
+    assert "suspended for its content, and the count is 0" in out
+    assert "did not recognize" not in out
+
+
+def test_a_sherloc_count_above_zero_is_reported_and_left_to_a_person(repo, capsys):
+    sherloc_found(repo, 3)
+    before = (repo / "data" / "sources.json").read_bytes()
+    assert run(repo, "--execute") == 0
+    assert (repo / "data" / "sources.json").read_bytes() == before
+    out = capsys.readouterr().out
+    assert "HTTP 200, 3 laws tagged with the genocide intent element" in out
+    assert "3 laws tagged with the genocide intent element: a person decides" in out
+    assert "4 sources asked, 0 reopened" in out
+
+
+def test_a_count_whose_filter_the_server_did_not_recognize_says_nothing(repo, capsys):
+    sherloc_found(repo, 0, recognized=False)
+    assert run(repo, "--execute", "--only", "sherloc") == 0
+    out = capsys.readouterr().out
+    assert ": answers: HTTP 200, 0 laws tagged" in out
+    assert "the server did not recognize the filter" in out and "says nothing" in out
+
+
+@pytest.mark.parametrize(
+    ("body", "why"),
+    [
+        ('{"criteria": {}, "results": []}', "JSON without 'found'"),
+        ('{"found": "many"}', "'found' is not a number"),
+        ("<html>Database of Legislation</html>", "but not JSON"),
+    ],
+)
+def test_a_sherloc_search_without_its_number_does_not_answer(repo, capsys, body, why):
+    answer(repo, SHERLOC, 200, body)
+    assert run(repo, "--execute", "--only", "sherloc") == 0
+    assert sources(repo)["sherloc"]["state"] == "suspended"
+    out = capsys.readouterr().out
+    assert "sherloc (suspended): " in out and "does not answer: " in out and why in out
 
 
 # ------------------------------------------------------------------ a source came back
